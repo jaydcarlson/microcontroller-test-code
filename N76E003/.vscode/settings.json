@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "n76e003.h": "c",
+        "function_define.h": "c",
+        "basetsd.h": "c",
+        "common.h": "c",
+        "stdint.h": "c",
+        "stdio.h": "c",
+        "xutility": "c",
+        "wtypes.h": "c",
+        "objidl.h": "c",
+        "winuser.h": "c",
+        "winspool.h": "c",
+        "sfr_macro.h": "c",
+        "xmemory0": "c"
+    }
+}

@@ -1,0 +1,65 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks" : [
+        {
+            "taskName" : "dmx-build",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -j0 -b projects\\dmx\\dmx.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "group":"build"
+        },
+        {
+            "taskName" : "dmx-flash",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -j0 -f projects\\dmx\\dmx.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "showOutput": "always",
+            "group":"test"
+        },
+        {
+            "taskName" : "dmx-debug",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -d projects\\dmx\\dmx.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "showOutput": "always",
+            "group":"test"
+        },
+                {
+            "taskName" : "biquad-build",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -j0 -b projects\\biquad\\biquad.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "showOutput": "always",
+            "group":"build"
+        },
+        {
+            "taskName" : "biquad-test",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -j0 -f projects\\biquad\\biquad.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "showOutput": "always",
+            "group":"test"
+        },
+        {
+            "taskName" : "toggle-build",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -j0 -b projects\\toggle\\toggle.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "showOutput": "always",
+            "group":"build"
+        },
+        {
+            "taskName" : "toggle-test",
+            "type":"shell",
+            "command": "C:/Keil_v5/UV4/UV4.exe -j0 -f projects\\toggle\\toggle.uvproj -o errors.txt",
+            "isShellCommand": true,
+            "showOutput": "always",
+            "group":"test"
+        }
+    ]
+    
+}

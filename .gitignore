@@ -26,3 +26,11 @@
 *.exe
 *.out
 *.app
+
+LST/
+Output/
+Objects/
+*.lst
+*.m51
+errors.txt
+*.uvgui.*
