@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\FMC.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\FMC_LD.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>BuildAll</name>
+      <member>
+        <project>FMC_LD</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>FMC</project>
+        <configuration>Release</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\HDIV.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>Build FMC Sample Code</name>
+      <member>
+        <project>HDIV</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>HDIV</project>
+        <configuration>Debug</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

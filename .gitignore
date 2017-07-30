@@ -34,3 +34,4 @@ Objects/
 *.m51
 errors.txt
 *.uvgui.*
+Debug/

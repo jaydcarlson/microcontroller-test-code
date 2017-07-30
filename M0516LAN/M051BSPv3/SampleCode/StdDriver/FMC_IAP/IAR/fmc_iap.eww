@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\fmc_ap_main.ewp</path>
+  </project>
+  <project>
+    <path>$WS_DIR$\fmc_ld_iap.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>BuildAll</name>
+      <member>
+        <project>fmc_ld_iap</project>
+        <configuration>Release</configuration>
+      </member>
+      <member>
+        <project>fmc_ap_main</project>
+        <configuration>Release</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+

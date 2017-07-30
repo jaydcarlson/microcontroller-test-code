@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<workspace>
+  <project>
+    <path>$WS_DIR$\FMC_MultiBoot_SwReset.ewp</path>
+  </project>
+  <batchBuild>
+    <batchDefinition>
+      <name>Build FMC Sample Code</name>
+      <member>
+        <project>FMC_MultiBoot_SwReset</project>
+        <configuration>FMC_Boot0</configuration>
+      </member>
+      <member>
+        <project>FMC_MultiBoot_SwReset</project>
+        <configuration>FMC_Boot1</configuration>
+      </member>
+      <member>
+        <project>FMC_MultiBoot_SwReset</project>
+        <configuration>FMC_Boot2</configuration>
+      </member>
+      <member>
+        <project>FMC_MultiBoot_SwReset</project>
+        <configuration>FMC_Boot3</configuration>
+      </member>
+      <member>
+        <project>FMC_MultiBoot_SwReset</project>
+        <configuration>FMC_MultiBoot_SwReset</configuration>
+      </member>
+    </batchDefinition>
+  </batchBuild>
+</workspace>
+
+
