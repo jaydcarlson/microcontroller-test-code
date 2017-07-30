@@ -38,7 +38,7 @@ void UART0_IRQHandler(void)
 	{
 		P01 = 1;
 		/* Get all the input characters */
-		while(UART_IS_RX_READY(UART0))
+		while(!UART_GET_RX_EMPTY(UART0))
 		{
 			/* Get the character from UART Buffer */
 			u8InChar = UART_READ(UART0);
@@ -52,24 +52,24 @@ void UART0_IRQHandler(void)
 				data[bufferIndex++] = u8InChar;
 			}
 		}
-//		if(bufferIndex > 0)
-//			UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
-//		else
-//			UART0->FCR |= UART_FCR_RFITL_1BYTE;
-//
-//		UART0->FCR |= UART_FCR_RFR_Msk;
+		if(bufferIndex > 425)
+			UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
+		else
+			UART0->FCR |= UART_FCR_RFITL_14BYTES;
+
+		UART0->FCR |= UART_FCR_RFR_Msk;
 		P01 = 0;
 	}
 
-	if(bufferIndex > 512)
+	if(bufferIndex > 500)
 	{
 		P02 = 1;
 		PWMA->CMR0 = data[address + 0];
 		PWMA->CMR1 = data[address + 1];
 		PWMA->CMR2 = data[address + 2];
 		bufferIndex = -1;
-//		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
-//		UART0->FCR |= UART_FCR_RFR_Msk;
+		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
+		UART0->FCR |= UART_FCR_RFR_Msk;
 		P02 = 0;
 	}
 }
