@@ -4,6 +4,8 @@ extern void Init();
 
 #define RXBUFSIZE 513
 
+// #define USE_FIFO
+
 uint8_t data[RXBUFSIZE]  = {0};
 
 volatile int bufferIndex = 0;
@@ -52,24 +54,28 @@ void UART0_IRQHandler(void)
 				data[bufferIndex++] = u8InChar;
 			}
 		}
-		if(bufferIndex > 425)
+#ifdef USE_FIFO
+		if(bufferIndex > 256)
 			UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
 		else
 			UART0->FCR |= UART_FCR_RFITL_14BYTES;
 
 		UART0->FCR |= UART_FCR_RFR_Msk;
+#endif
 		P01 = 0;
 	}
 
-	if(bufferIndex > 500)
+	if(bufferIndex > 512)
 	{
 		P02 = 1;
 		PWMA->CMR0 = data[address + 0];
 		PWMA->CMR1 = data[address + 1];
 		PWMA->CMR2 = data[address + 2];
 		bufferIndex = -1;
+#ifdef USE_FIFO
 		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
 		UART0->FCR |= UART_FCR_RFR_Msk;
+#endif
 		P02 = 0;
 	}
 }
@@ -80,5 +86,6 @@ int main(void)
 
     while(1)
     {
+		asm("wfi");
     }
 }
