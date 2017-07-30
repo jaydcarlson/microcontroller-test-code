@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "m051series.h": "c"
+        "m051series.h": "c",
+        "clk.h": "c"
     }
 }

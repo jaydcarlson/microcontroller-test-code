@@ -28,7 +28,7 @@ void UART0_IRQHandler(void)
 		// framing error
 		P00 = 1;
 
-		UART0->FCR &= ~UART_FCR_RFITL_Msk;
+		UART0->FCR |= UART_FCR_RFR_Msk; // clear the frame error interrupt
 
 		bufferIndex = 0;
 		P00 = 0;
@@ -52,24 +52,24 @@ void UART0_IRQHandler(void)
 				data[bufferIndex++] = u8InChar;
 			}
 		}
-		if(bufferIndex > 100)
-			UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
-		else
-			UART0->FCR |= UART_FCR_RFITL_8BYTES;
-
-		UART0->FCR |= UART_FCR_RFR_Msk;
+//		if(bufferIndex > 0)
+//			UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
+//		else
+//			UART0->FCR |= UART_FCR_RFITL_1BYTE;
+//
+//		UART0->FCR |= UART_FCR_RFR_Msk;
 		P01 = 0;
 	}
 
-	if(bufferIndex > 500)
+	if(bufferIndex > 512)
 	{
 		P02 = 1;
 		PWMA->CMR0 = 255 - data[address + 0];
 		PWMA->CMR1 = 255 - data[address + 1];
 		PWMA->CMR2 = 255 - data[address + 2];
 		bufferIndex = -1;
-		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
-		UART0->FCR |= UART_FCR_RFR_Msk;
+//		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
+//		UART0->FCR |= UART_FCR_RFR_Msk;
 		P02 = 0;
 	}
 }
