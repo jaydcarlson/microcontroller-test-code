@@ -64,9 +64,9 @@ void UART0_IRQHandler(void)
 	if(bufferIndex > 512)
 	{
 		P02 = 1;
-		PWMA->CMR0 = 255 - data[address + 0];
-		PWMA->CMR1 = 255 - data[address + 1];
-		PWMA->CMR2 = 255 - data[address + 2];
+		PWMA->CMR0 = data[address + 0];
+		PWMA->CMR1 = data[address + 1];
+		PWMA->CMR2 = data[address + 2];
 		bufferIndex = -1;
 //		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
 //		UART0->FCR |= UART_FCR_RFR_Msk;

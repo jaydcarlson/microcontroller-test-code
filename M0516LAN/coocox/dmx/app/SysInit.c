@@ -25,11 +25,11 @@ void PWMA_Init()
 
     PWM_EnableOutput(PWMA, BIT0 | BIT1 | BIT2);
 
-	PWM_ConfigOutputChannel(PWMA, PWM_CH0, 1000, 60);
-	PWM_ConfigOutputChannel(PWMA, PWM_CH1, 1000, 60);
-	PWM_ConfigOutputChannel(PWMA, PWM_CH2, 1000, 60);
+	PWMA->PPR |= 0xffff;
 
-//	PWMA->PCR |= PWM_PCR_CH0MOD_Msk | PWM_PCR_CH1MOD_Msk | PWM_PCR_CH2MOD_Msk;
+	// Disable one-shot mode and invert the channels, as LEDs are open-drain
+	PWMA->PCR |= PWM_PCR_CH0MOD_Msk | PWM_PCR_CH1MOD_Msk | PWM_PCR_CH2MOD_Msk |
+				 PWM_PCR_CH0INV_Msk | PWM_PCR_CH1INV_Msk | PWM_PCR_CH2INV_Msk;
 //
 	PWMA->CMR0 = 10;
 	PWMA->CMR1 = 10;
