@@ -6,7 +6,7 @@ extern void Init();
 
 // #define USE_FIFO
 
-uint8_t data[RXBUFSIZE]  = {0};
+uint8_t data[RXBUFSIZE];
 
 volatile int bufferIndex = 0;
 volatile uint32_t g_u32comRhead  = 0;
@@ -19,26 +19,26 @@ void UART0_IRQHandler(void)
 	uint8_t u8InChar = 0xFF;
 	uint32_t IntStatus = UART0->ISR;
 
+	// buffer overflow
 	if(IntStatus & UART_ISR_BUF_ERR_INT_Msk)
 	{
 		UART0->FSR |= UART_FSR_RX_OVER_IF_Msk; // clear the RX overflow
 		UART0->FCR |= UART_FCR_RFR_Msk;
 	}
 
+	// framing error
 	if(IntStatus & UART_ISR_RLS_INT_Msk)
 	{
-		// framing error
-		P00 = 1;
-
+//		P00 = 1;
 		UART0->FCR |= UART_FCR_RFR_Msk; // clear the frame error interrupt
-
 		bufferIndex = 0;
-		P00 = 0;
+//		P00 = 0;
 	}
 
+	// data received
 	if(IntStatus & UART_ISR_RDA_INT_Msk)
 	{
-		P01 = 1;
+//		P01 = 1;
 		/* Get all the input characters */
 		while(!UART_GET_RX_EMPTY(UART0))
 		{
@@ -62,12 +62,12 @@ void UART0_IRQHandler(void)
 
 		UART0->FCR |= UART_FCR_RFR_Msk;
 #endif
-		P01 = 0;
+//		P01 = 0;
 	}
 
 	if(bufferIndex > 512)
 	{
-		P02 = 1;
+//		P02 = 1;
 		PWMA->CMR0 = data[address + 0];
 		PWMA->CMR1 = data[address + 1];
 		PWMA->CMR2 = data[address + 2];
@@ -76,7 +76,7 @@ void UART0_IRQHandler(void)
 		UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
 		UART0->FCR |= UART_FCR_RFR_Msk;
 #endif
-		P02 = 0;
+//		P02 = 0;
 	}
 }
 

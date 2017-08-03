@@ -35,3 +35,8 @@ Objects/
 errors.txt
 *.uvgui.*
 Debug/
+EFM8/biquad/Keil 8051 v9\.53 - Debug/
+
+EFM8/dmx/Keil 8051 v9\.53 - Debug/
+
+EFM8/toggle/Keil 8051 v9\.53 - Debug/

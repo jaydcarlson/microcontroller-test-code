@@ -1,0 +1,19 @@
+[Last Settings]
+Hardware=ST-LINK
+PROTOCOL=SWIM
+Port=USB
+DEVICE=STM8S105x6
+Verify after programming=1
+Blank check before programming (when available)=1
+Erase device memory before programming (when available)=0
+Unlock protection before a programming cycle=0
+[DATA MEMORY]
+Count=0
+ProgramEvenIfBlank=0
+[PROGRAM MEMORY]
+Count=0
+ProgramEvenIfBlank=0
+[OPTION BYTE]
+Count=1
+File0=d:\git\microcontroller-test-code\stm8\projects\biquad\biquad_Programmer\biquad_STVP_OPTION BYTE.hex
+ProgramEvenIfBlank=0
