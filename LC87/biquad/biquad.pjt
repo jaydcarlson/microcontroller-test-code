@@ -1,0 +1,149 @@
+;Codewright Project File (do not remove or modify this line)
+[ProjInit]
+ConfigSetExtMode=2
+ProjSetConfigFlags=0x04110940
+
+[State]
+SysSetCwd='D:\Git\microcontroller-test-code\LC87'
+SrchSetFlags=0x0410680a
+SrchSetAgainFlags=0x04100003,0
+SrchSetAgainFlags=0x06100003,1
+FileSortMode=0x0
+_StateView='D:\Git\microcontroller-test-code\LC87\biquad\main.c',0,0,1236,428,-1,-1,34,41,13,1,2,'',0x00100008,0,80,0,0,''
+_StateView='D:\Git\microcontroller-test-code\LC87\dmx\main.c',26,26,2341,681,-1,-1,56,99,43,1,1,'',0x00100018,0,80,0,0,''
+_StateBuffer='D:\Git\microcontroller-test-code\LC87\biquad\main.c',0x0400048c,34,41,25,'9 17','',0x0,'',1,72,0,0
+_StateBuffer='D:\Git\microcontroller-test-code\LC87\dmx\main.c',0x0c00048c,56,99,25,'9 17','',0x0,'',1,72,1,0
+_StateHistory=FILELIST,'D:\OneDrive\Documents\TASKING\test\biquad\main.c','D:\Git\microcontroller-test-code\LC87\biquad\main.c','D:\Git\microcontroller-test-code\LC87\dmx\main.c'
+_StateHistory=EDITFILE,'D:\OneDrive\Documents\TASKING\test\toggle\toggle','D:\Git\microcontroller-test-code\LC87\dmx\dmx.pjt'
+_StateHistory=DOCUMENTVISIT,'34          41          D:\Git\microcontroller-test-code\LC87\biquad\main.c'
+_StateDocumentVisit=1
+
+[Editor]
+FilterProjDeleteList 
+FilterProjAdd='Source Files','*.c;*.cc;*.cpp;*.cxx;*.ic;*.c96;*.fle;*.cmp;*.asm;*.src;*.s;*.a96;*.i;*.pcp;*.68k',-1
+FilterProjAdd='Header Files','*.h;*.h68;*.inc;*.sfr',-1
+FilterProjAdd='Project Files','*.pjt;*.dpt',-1
+FilterProjAdd='Resources','*.rc;*.bmp;*.ico;*.cur;*.dlg',-1
+FilterProjAdd='Other Files','*.*',-1
+VCSProject=''
+VCSProjectPath=''
+VCSProjectLocalPath=''
+ScrapSetCount=1
+ClipboardSetCount=1
+ClipboardEnableSepStr=1
+ClipboardSetSepStr='\r\n',0
+ClipboardEnableTermStr=1
+ClipboardSetTermStr='\r\n',0
+
+[Tools]
+ToolDeleteList 
+ToolAddCmd='$_custom_tool_$_1','API Database Editor',1342177312,'cwtedit.exe'
+
+[Compiler]
+TagSetCmd='"${HOME}${WTAGS}" -oc -d -t"${TAGFILE}.tag" -p"${TAGFILE}.ptg"',0x8000060
+BrowseSetFile='D:\Git\microcontroller-test-code\LC87\biquad\biquad.ptg'
+TagSetFile='D:\Git\microcontroller-test-code\LC87\biquad\biquad.tag'
+CompilerAddCmdEx='TASKING src','!EdeExecCompile()',1073741920,'!EdeExecCompile()',1073741920,'',1073741984,'',0,'',1073741984,'',0,'',1073741856,'',0,'_TaskingErrorInfo','','','d:\git\microcontroller-test-code\lc87\biquad\biquad.err',''
+CompilerAddResponse='TASKING src',
+CompilerAddCmdEx='TASKING asm','!EdeExecCompile()',1073741920,'!EdeExecCompile()',1073741920,'',1073741984,'',0,'',1073741984,'',0,'',1073741856,'',0,'_TaskingErrorInfo','','','d:\git\microcontroller-test-code\lc87\biquad\biquad.err',''
+CompilerAddResponse='TASKING asm',
+CompilerAddCmdEx='$_cw_proj_hash_$','',1073741920,'',1073741920,'!EdeExecBuild()',1073741984,'',0,'!EdeExecRebuild()',1073741984,'',0,'!EdeExecDebug()',1073741856,'',0,'_TaskingErrorInfo','','','d:\git\microcontroller-test-code\lc87\biquad\biquad.err','%x'
+CompilerAddResponse='$_cw_proj_hash_$',
+CompilerAddCmdEx='TASKING c','!EdeExecCompile()',1073741920,'!EdeExecCompile()',1073741920,'',1073741984,'',0,'',1073741984,'',0,'',1073741856,'',0,'_TaskingErrorInfo','','','d:\git\microcontroller-test-code\lc87\biquad\biquad.err',''
+CompilerAddResponse='TASKING c',
+CompilerNewExt=.htm
+CompilerAssign='TASKING src','.src'
+CompilerNewExt=.v
+CompilerNewExt=.awk
+CompilerNewExt=.bas
+CompilerAssign='TASKING c','.c'
+CompilerNewExt=.adb
+CompilerNewExt=.cfml
+CompilerNewExt=.jsp
+CompilerNewExt=.pl
+CompilerNewExt=.vhd
+CompilerNewExt=.pas
+CompilerNewExt=.tk
+CompilerNewExt=.asp
+CompilerNewExt=.rul
+CompilerNewExt=.cob
+CompilerNewExt=.js
+CompilerNewExt=.php
+CompilerNewExt=.rc
+CompilerNewExt=.tcl
+CompilerNewExt=.ini
+CompilerNewExt=.cc
+CompilerNewExt=.cs
+CompilerNewExt=.bat
+CompilerNewExt=.html
+CompilerAssign='TASKING asm','.asm'
+CompilerNewExt=.txt
+CompilerNewExt=.nrx
+CompilerNewExt=.java
+CompilerNewExt=.sqlj
+CompilerNewExt=.xml
+
+[VersionControl:PVCS]
+VCSSetCmd=VCS_CHECKIN_ID,'put -n -T@"%Q" -M@"%Q" "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKINLOCK_ID,'put -n -T@"%Q" -M@"%Q" -l "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKOUT_ID,'get -y "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKOUTLOCK_ID,'get -y -l "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKLOCK_ID,'vcs -y -l "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKUNLOCK_ID,'vcs -y -u "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKLABEL_ID,'vcs -y -v"${VCSLABEL}" "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKLOG_ID,'vlog "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKPROP_ID,'vlog -b "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKDIFF_ID,'vdiff -r "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKMENU_ID,'pvcsvmwn',0x8000000
+VCSSetCmd=VCS_ADD_ID,'vcs -i -t@"%Q" "%b%e"',0x8000040
+VCSSetCmd=VCS_REMOVE_ID,'del /f "%b%{??v|___}e"',0x8000040
+
+[Files]
+.\main.c
+
+
+[Ede]
+Toolchain=c:\program files (x86)\tasking\dlc87 v3.2r2\etc\dlc87.dol
+ToolchainName=TASKING C Compiler for LC87K v3.0/v3.1/v3.2 [2013/10/10]
+ProjectDir=d:\git\microcontroller-test-code\lc87\biquad
+EdeVersion=99.9r9 (Build 152)
+CodeWrightVersion=6.5b
+DefBuildSettings=True
+SaveFiles=True
+AbsolutePathNames=False
+StopAfterError=True
+KeepTmpFiles=False
+ExtMakefile=False
+ExtMakefileName=
+UserMakefile=False
+UserMakefileName=
+UseMakeOptions=False
+MakeOptions=
+CheckTarget=True
+ExtDebugger=False
+ExtDebuggerName=
+UseDOSShell=False
+SaveOptionMethod=0
+SaveOptionFileName=d:\git\microcontroller-test-code\lc87\biquad\biquad.opt
+LoadOptionFileName=
+LoadOptionStartup=False
+GroupProc=0
+GroupC=0
+GroupAsm=0
+GroupLK=0
+GroupX87S=0
+GroupList=GroupProc,GroupC,GroupAsm,GroupLK,GroupX87S
+
+[Directories]
+BinDir1=$(PRODDIR)\bin
+IncDir1=$(PRODDIR)\include
+LibDir1=$(PRODDIR)\lib
+
+[DefaultOptions]
+CpuPredef=SfrLc87F1M16
+CompOptim=CompOLAdv
+CompOLl=1
+CompOLu=1
+
+[Options]
+FileList=

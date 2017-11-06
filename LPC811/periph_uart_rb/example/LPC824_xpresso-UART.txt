@@ -1,0 +1,35 @@
+There are two different ways that the UART is used on the LPC824_xpresso boards:
+1) The debug port is configured to use the USB host link.
+2) Several UART specific examples use the Arduino connection instead of the USB
+host link. When they do, the USB host link is disabled.  These examples are:
+periph_uart_rb, periph_uart_rom_int, and periph_uart_rom_polling.
+
+Note: Unlike the LPC812_MAX no hardware changes are required to use either of the UARTs.
+
+Method #1: HSB host link
+UART:	LPC_UART0
+PINS:	TARGET_TX-P0_7 (TX) / TARGET_RX-P0_18 (RX)
+Output: Host USB connector (J3)
+Procedure:
+1.	Connect the board to the host.
+	This is done by connecting J3 (USB micro connector) to the host.
+	A serial port will be enumerated something like "mbed Serial Port (COM3)".
+
+2.	Connect to the serial port via terminal emulator (TeraTerm, PuTTY, etc.)
+
+Method #2: Arduino connection
+UART:	LPC_UART0
+PINS:	PIO0_4 (TX) / PIO0_0 (RX)
+Output: Arduino connector
+
+Procedure:
+1.	Board connection:
+	Connect TX, RX and GND from J2 [Arduino Digital Header] to an FTDI Cable.
+	LPC812            FTDI cable
+	 GND: J1-4         black
+	 RX:  J2-8 (D0)    orange
+	 TX:  J2-7 (D1)    yellow
+
+2.	Connect to the serial port via terminal emulator (TeraTerm, PuTTY, etc.)
+
+

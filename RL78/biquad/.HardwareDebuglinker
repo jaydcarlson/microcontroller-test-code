@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<com.renesas.linkersection.model:SectionContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.renesas.linkersection.model="http:///LinkerSection.ecore">
+  <sections name=".const">
+    <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="206"/>
+  </sections>
+  <sections name=".text"/>
+  <sections name=".RLIB"/>
+  <sections name=".SLIB"/>
+  <sections name=".textf"/>
+  <sections name=".constf"/>
+  <sections name=".data"/>
+  <sections name=".sdata"/>
+  <sections name=".dataR">
+    <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="1047552"/>
+  </sections>
+  <sections name=".bss"/>
+  <sections name=".sdataR">
+    <sectionAddress xsi:type="com.renesas.linkersection.model:FixedAddress" fixedAddress="1048096"/>
+  </sections>
+  <sections name=".sbss"/>
+</com.renesas.linkersection.model:SectionContainer>

@@ -1,0 +1,290 @@
+package Model.APPS.DMX512_RD.v4_0_16;
+
+/*
+ Copyright (c) 2015, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+
+
+/*************** Revision History **********************************************
+ Version     Date          Description //Retain this format
+ 4.0.0      16-Feb-2015   Initial version for DAVEv4
+ 4.0.2      30-Apr-2015   a) API comments are modified for all APIs<br>
+                          b) Added support for all XMC4 devices
+ 4.0.4      30-Apr-2015   a) Code generation is being blocked if there is no callback function name in UI<br>
+                          b) Version check added for XMCLib dependency.<br>
+ 4.0.6      09-Jul-2015   Help documentation updated.<br> 
+ 4.0.7      25-Aug-2015   Supported XMC14 device.<br> 
+ 4.0.10     08-Oct-2015   Supported XMC47 and XMC48 device.<br>     
+ 4.0.12     01-Dec-2015   APP help documentation updated.<br>   
+ 4.0.14     17-Dec-2015   Supported XMC43 device.<br>
+ 4.0.16     08-Jul-2016   Fixed incorrect case for an included header. <BR>              
+ *******************************************************************************/
+// Import statements
+import ifx.davex.app.manifest.*
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+class  DMX512_RD extends DMX512_RD_GUI {
+
+	/* Note  : Following APP properties are mandatory and important */
+	/* Begin : APP property section */
+
+	/**
+	 * APP version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.16'
+
+	/**
+	 * APP categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ['Communication/Lighting']
+
+	/** 
+	 * Minimum DAVE version required for this app.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+
+	/** 
+	 * Keywords used by search feature in Apps selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords      = ['Lighting', 'DMX512', 'ALL']
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this app.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the app.
+	 * 
+	 * 
+	 */
+	def softwareIDs       = [
+		"XMC4.8.*.*.*":"1.0.0",
+		"XMC4.7.*.*.*":"1.0.0",
+		"XMC4.5.*.*.*":"1.0.0",
+		"XMC4.4.*.*.*":"1.0.0",
+		"XMC4.3.*.*.*":"1.0.0",
+		"XMC4.2.*.*.*":"1.0.0",
+		"XMC4.1.*.*.*":"1.0.0",
+		"XMC1.4.*.*.*":"1.0.0",
+		"XMC1.3.*.*.*":"1.0.0",
+		"XMC1.2.*.*.*":"1.0.0",
+		"XMC1.1.*.*.*":"1.0.0"
+	]
+
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once. 
+	 */
+	def singleton     = false
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple apps to require the same instance of this app.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "DMX512_RD APP provides user configuration for \nDMX512 Application Stack. Note: DIGITAL_IO APP is required \nto select DMX512 input as well as Accurate Break \nDetection input."
+
+	/* End   : APP property section */
+
+	/* Begin : User APP property section */
+
+	/* Object to point required APP */
+	MRequiredApp appres_clock
+	MRequiredApp appres_ccu4global
+	MRequiredApp appres_cpu
+
+	/* Object to point usic solver constraints */
+	SolverVariable solvrvar_usicmodule = SolverVariable()
+
+	/* Object to point virtual resource groups/ functional blocks */
+	MVirtualResourceGroup hwres_usic_slice
+	MVirtualSignal vs_usic_dx0ins
+	MVirtualSignal vs_usic_standbuf_event
+	MVirtualResourceGroup hwres_usic_nvic
+	MVirtualSignal vs_usic_nvic
+
+	/* Object to point virtual signals */
+	MVirtualSignalRA vs_appres_ccu4global_global
+	MVirtualResourceGroup hwres_ccu4_cc4_slice
+	MVirtualSignal vs_ccu4_cc4_slice_global
+	MVirtualSignal vs_ccu4_cc4_slice_falling_edge
+	MVirtualSignal vs_ccu4_cc4_slice_periodcapt_event
+	MVirtualResourceGroup hwres_ccu4_nvic
+	MVirtualSignal vs_ccu4_cc4_slice_nvic
+
+	/* End   : User APP property section */
+
+	/* APP Constructor */
+	public DMX512_RD(DaveEnv daveEnv) {
+		/* Target based variables for resource consumption, UI dependency etc. */
+		String family = daveEnv.project.selectedDevice.deviceId.family 	//ex:XMC4 or XMC1
+		String series = (daveEnv.project.selectedDevice.deviceId.family + daveEnv.project.selectedDevice.deviceId.series) //ex:XMC45, 44..
+		String device = daveEnv.project.selectedDevice.deviceId.device 	// 00, 02, 04, 06
+		String device_name = daveEnv.project.selectedDevice.deviceId.deviceName 	//XMC4500-F144x1024-AB...
+		String device_step = daveEnv.project.selectedDevice.deviceId.step 		// AA, AB, AC....
+		String device_package = daveEnv.project.selectedDevice.deviceId.icPackage //F144, E144..
+		String sofware_id  = daveEnv.project.selectedDevice.deviceId.softwareId   //XMC4.5.00.F144.AB
+		//		String family = "XMC4"
+		//		String series = "XMC45"
+		//		String device = "02"
+		//		String device_name = "XMC4500-F144x1024-AB"
+		//		String device_step = "AA"
+		//		String device_package = "F144"
+		//		String sofware_id  = "XMC4.5.00.F144.AB"
+		String fn_regexp = ~/^[^\d\W]\w*\Z/
+
+		if(family == "XMC4")
+		{
+			appres_clock = MRequiredApp("CLOCK_XMC4","Clock APP", RSHARABLE, "4.0.2")
+			appres_cpu = MRequiredApp("CPU_CTRL_XMC4", "CPU APP", RSHARABLE, "4.0.2")
+		}
+		else
+		{
+			appres_clock = MRequiredApp("CLOCK_XMC1","Clock APP", RSHARABLE, "4.0.2")
+			appres_cpu = MRequiredApp("CPU_CTRL_XMC1", "CPU APP", RSHARABLE, "4.0.2")
+		}
+
+		hwres_usic_slice = MVirtualResourceGroup("Slot reception", ["peripheral", "usic", solvrvar_usicmodule, "channel", "*"])
+
+		addUriElementRangeConstraint(solvrvar_usicmodule,
+				MF({
+					if ((family == "XMC4") && (device_step == "AA"))
+						return [0,1]
+					else
+						return [0,1,2]
+				}, List))
+
+		vs_usic_dx0ins =  MVirtualSignal(hwres_usic_slice, "dmx512_input", "dx0ins")
+		vs_usic_standbuf_event =  MVirtualSignal(hwres_usic_slice, "event_standard_buffer", "standard_receive_buffer_int", true, false)
+		hwres_usic_nvic = MVirtualResourceGroup("USIC NVIC Node", ["peripheral", "cpu", "0", "nvic", "interrupt", "*"])
+		vs_usic_nvic = MVirtualSignal(hwres_usic_nvic,  "sr_usic_rx", "signal_in")
+		addConnectionConstraint(vs_usic_standbuf_event, vs_usic_nvic)
+
+		hwres_ccu4_cc4_slice = MVirtualResourceGroup("Accurate break detection", ["peripheral", "ccu4", "*", "cc4", "*"], MF({gcheck_acc_brk_det.value}, Boolean))
+		vs_ccu4_cc4_slice_global = MVirtualSignal(hwres_ccu4_cc4_slice,  "global_signal", "global_signal", MF({gcheck_acc_brk_det.value}, Boolean))
+		vs_ccu4_cc4_slice_falling_edge = MVirtualSignal(hwres_ccu4_cc4_slice,  "accurate_break_detection", "gp0_unsync", MF({gcheck_acc_brk_det.value}, Boolean))
+		vs_ccu4_cc4_slice_periodcapt_event = MVirtualSignal(hwres_ccu4_cc4_slice,  "event_period_capture", "e0as", MF({gcheck_acc_brk_det.value}, Boolean), false)
+		appres_ccu4global = MRequiredApp("GLOBAL_CCU4", "CCU4 Global APP", RSHARABLE, "4.1.12", MF({gcheck_acc_brk_det.value}, Boolean))
+		vs_appres_ccu4global_global = MVirtualSignalRA(appres_ccu4global, "vs_global_ccu4_globalsignal")
+		addConnectionConstraint(vs_appres_ccu4global_global, vs_ccu4_cc4_slice_global, MF({gcheck_acc_brk_det.value}, Boolean))
+
+		hwres_ccu4_nvic = MVirtualResourceGroup("CCU4 NVIC Node", ["peripheral", "cpu", "0", "nvic", "interrupt", "*"], MF({gcheck_acc_brk_det.value}, Boolean))
+		vs_ccu4_cc4_slice_nvic = MVirtualSignal(hwres_ccu4_nvic,  "sr_ccu4_node", "signal_in", MF({gcheck_acc_brk_det.value}, Boolean))
+		addConnectionConstraint(vs_ccu4_cc4_slice_periodcapt_event, vs_ccu4_cc4_slice_nvic, MF({gcheck_acc_brk_det.value}, Boolean))
+
+		ginterruptprio_acc_brk_det.visible = MF({gcheck_acc_brk_det.value}, Boolean)
+
+		if(family == "XMC4")
+		{
+			/* Slot detection */
+			ginterruptprio_slot_rx.minPriority = 0   /* minimum Interrupt priority level value for Interrupt priority group  */
+			ginterruptprio_slot_rx.subPriorityVisible = true  /* Enabled Interrupt sub-priority group for XMC1xxx */
+			ginterruptprio_slot_rx.minSubPriority = 0 /* minimum Interrupt priority level value for Interrupt sub priority group  */
+			ginterruptprio_slot_rx.priorityValue = 63 /* Default Interrupt priority level value for Interrupt priority group  */
+
+			ginterruptprio_slot_rx.maxPriority = MF({
+				Integer temp = appres_cpu.getVal(["gint_maxInterruptPreemptPriority", "value"]) as Integer
+				return temp
+			}, Integer)/* maximum Interrupt priority level value for Interrupt subpriority group  */
+
+			/* Accurate break detection */
+			ginterruptprio_acc_brk_det.minPriority = 0   /* minimum Interrupt priority level value for Interrupt priority group  */
+			ginterruptprio_acc_brk_det.subPriorityVisible = true  /* Enabled Interrupt sub-priority group for XMC1xxx */
+			ginterruptprio_acc_brk_det.minSubPriority = 0 /* minimum Interrupt priority level value for Interrupt sub priority group  */
+			ginterruptprio_acc_brk_det.priorityValue = 63 /* Default Interrupt priority level value for Interrupt priority group  */
+
+			ginterruptprio_acc_brk_det.maxPriority = MF({
+				Integer temp = appres_cpu.getVal(["gint_maxInterruptPreemptPriority", "value"]) as Integer
+				return temp
+			}, Integer)/* maximum Interrupt priority level value for Interrupt subpriority group  */
+
+		}
+		else
+		{
+			/* Slot detection */
+			ginterruptprio_slot_rx.minPriority = 0   /* minimum Interrupt priority level value for Interrupt priority group  */
+			ginterruptprio_slot_rx.subPriorityVisible = false  /* Enabled Interrupt sub-priority group for XMC1xxx */
+			ginterruptprio_slot_rx.minSubPriority = 0 /* minimum Interrupt priority level value for Interrupt sub priority group  */
+			ginterruptprio_slot_rx.priorityValue = 3 /* Default Interrupt priority level value for Interrupt priority group  */
+
+			ginterruptprio_slot_rx.maxPriority = MF({
+				Integer temp = appres_cpu.getVal(["gint_maxInterruptPreemptPriority", "value"]) as Integer
+				return temp
+			}, Integer)/* maximum Interrupt priority level value for Interrupt subpriority group  */
+
+			/* Accurate break detection */
+			ginterruptprio_acc_brk_det.minPriority = 0   /* minimum Interrupt priority level value for Interrupt priority group  */
+			ginterruptprio_acc_brk_det.subPriorityVisible = false  /* Enabled Interrupt sub-priority group for XMC1xxx */
+			ginterruptprio_acc_brk_det.minSubPriority = 0 /* minimum Interrupt priority level value for Interrupt sub priority group  */
+			ginterruptprio_acc_brk_det.priorityValue = 3 /* Default Interrupt priority level value for Interrupt priority group  */
+
+			ginterruptprio_acc_brk_det.maxPriority = MF({
+				Integer temp = appres_cpu.getVal(["gint_maxInterruptPreemptPriority", "value"]) as Integer
+				return temp
+			}, Integer)/* maximum Interrupt priority level value for Interrupt subpriority group  */
+		}
+
+		gmessage_valid_callback_name.visible = MF({
+			Matcher matcher = (gstring_user_callback.value =~ fn_regexp)
+			Boolean ExpressionMatch = !matcher.matches()
+			return ExpressionMatch
+		}, Boolean)
+		
+		gmessage_valid_callback_name.isError = MF({
+			Matcher matcher = (gstring_user_callback.value =~ fn_regexp)
+			Boolean ExpressionMatch = !matcher.matches()
+			return ExpressionMatch
+		}, Boolean)
+	}
+
+	/* File Generation */
+	def generateFiles(){
+		copy("dmx512_rd.c", "dmx512_rd.c")
+		copy("dmx512_rd.h", "dmx512_rd.h")
+		generate("dmx512_rd_confh.tmpl", "dmx512_rd_conf.h")
+		generate("dmx512_rd_confc.tmpl", "dmx512_rd_conf.c")
+		generate("dmx512_rd_externh.tmpl", "dmx512_rd_extern.h")
+	}
+}

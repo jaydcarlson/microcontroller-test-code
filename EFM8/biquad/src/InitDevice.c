@@ -26,6 +26,7 @@ extern void enter_DefaultMode_from_RESET(void) {
 	WDT_0_enter_DefaultMode_from_RESET();
 	PORTS_0_enter_DefaultMode_from_RESET();
 	PBCFG_0_enter_DefaultMode_from_RESET();
+	CIP51_0_enter_DefaultMode_from_RESET();
 	CLOCK_0_enter_DefaultMode_from_RESET();
 	// Restore the SFRPAGE
 	SFRPAGE = SFRPAGE_save;
@@ -71,24 +72,29 @@ extern void PBCFG_0_enter_DefaultMode_from_RESET(void) {
 extern void CIP51_0_enter_DefaultMode_from_RESET(void) {
 	// $[PFE0CN - Prefetch Engine Control]
 	/***********************************************************************
-	 - SYSCLK < 50 MHz
+	 - SYSCLK < 75 MHz
 	 ***********************************************************************/
 	SFRPAGE = 0x10;
-	PFE0CN = PFE0CN_FLRT__SYSCLK_BELOW_50_MHZ;
+	PFE0CN = PFE0CN_FLRT__SYSCLK_BELOW_75_MHZ;
 	// [PFE0CN - Prefetch Engine Control]$
 
 }
 
 extern void CLOCK_0_enter_DefaultMode_from_RESET(void) {
 	// $[HFOSC1 Setup]
+	// Ensure SYSCLK is > 24 MHz before switching to HFOSC1
+	SFRPAGE = 0x00;
+	CLKSEL = CLKSEL_CLKSL__HFOSC0 | CLKSEL_CLKDIV__SYSCLK_DIV_1;
+	while ((CLKSEL & CLKSEL_DIVRDY__BMASK) == CLKSEL_DIVRDY__NOT_READY)
+		;
 	// [HFOSC1 Setup]$
 
 	// $[CLKSEL - Clock Select]
 	/***********************************************************************
-	 - Clock derived from the Internal High Frequency Oscillator 0
+	 - Clock derived from the Internal High Frequency Oscillator 1
 	 - SYSCLK is equal to selected clock source divided by 1
 	 ***********************************************************************/
-	CLKSEL = CLKSEL_CLKSL__HFOSC0 | CLKSEL_CLKDIV__SYSCLK_DIV_1;
+	CLKSEL = CLKSEL_CLKSL__HFOSC1 | CLKSEL_CLKDIV__SYSCLK_DIV_1;
 	while ((CLKSEL & CLKSEL_DIVRDY__BMASK) == CLKSEL_DIVRDY__NOT_READY)
 		;
 	// [CLKSEL - Clock Select]$

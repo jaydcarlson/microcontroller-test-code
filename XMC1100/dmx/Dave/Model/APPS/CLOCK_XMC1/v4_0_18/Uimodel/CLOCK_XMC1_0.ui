@@ -1,0 +1,248 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" widgetName="composite1">
+    <p1:Tab.layout>
+        <GridLayout/>
+    </p1:Tab.layout>
+    <p1:TabFolder>
+        <p1:TabFolder.layoutData>
+            <GridData widthHint="816" heightHint="635"/>
+        </p1:TabFolder.layoutData>
+        <p1:GTab text="Clock Control Settings" visible="true" enabled="true" widgetName="gtab_clock_control_settings">
+        	<p1:GTab.control>
+        		<p1:Tab widgetName="composite_1">
+        			<p1:GFloat bounds="569, 349, 42, 21" description="This reflects WDT clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="32.768" minValue="32.768" value="32.768" widgetName="gfloat_dia_wdtclkfreq" x:Style="BORDER"/>
+        			<p1:GFloat bounds="569, 280, 42, 21" description="This reflects RTC clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="32.768" minValue="32.768" value="32.768" widgetName="gfloat_dia_rtcclkfreq" x:Style="BORDER"/>
+        			<p1:GFloat bounds="567, 191, 42, 21" description="This reflects MCLK clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="32" minValue="0" value="32" widgetName="gfloat_dia_mclkactfrq" x:Style="BORDER"/>
+        			<p1:GFloat bounds="567, 70, 42, 21" description="This reflects PCLK clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="64" minValue="0" value="64" widgetName="gfloat_dia_pclkactfrq" x:Style="BORDER"/>
+        			<p1:GFloat bounds="252, 389, 42, 21" description="This reflects DCO2 clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" maxValue="32.768" minValue="32.768" value="32.768" widgetName="gfloat_dia_dco2" x:Style="BORDER"/>
+        			<p1:GFloat bounds="243, 308, 46, 21" description="This reflects OSC_LP clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="32.768" minValue="32.768" value="32.768" widgetName="gfloat_dia_osc_lp" x:Style="BORDER"/>
+        			<p1:GFloat bounds="213, 158, 40, 21" description="This reflects OSC_HP clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="64" minValue="0" value="64" widgetName="gfloat_dia_osc_hp" x:Style="BORDER"/>
+        			<p1:GFloat bounds="196, 52, 42, 21" description="This reflects DCO1 clock frequency." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="64" minValue="0" value="64" widgetName="gfloat_dia_dco1" x:Style="BORDER"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_DCO1_DCO2_direct_input.png" widgetName="gimage_XMC1403_DCO1_DCO2_direct_input"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_DCO1_DCO2_direct_input.png" widgetName="gimage_XMC14_DCO1_DCO2_direct_input"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_DCO1_DCO2.png" widgetName="gimage_XMC14_DCO1_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_DCO1_External_APP.png" widgetName="gimage_XMC14_DCO1_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_DCO1_OSC_LP.png" widgetName="gimage_XMC14_DCO1_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_DC02.png" widgetName="gimage_XMC14_EXT_CLOCK_DC02"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_External_APP.png" widgetName="gimage_XMC14_EXT_CLOCK_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_OSC_LP.png" widgetName="gimage_XMC14_EXT_CLOCK_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP.png" widgetName="gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP.png" widgetName="gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC14_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC14_EXT_OSC_HP_MODE_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC14_EXT_OSC_HP_MODE_OSC_LP.png" widgetName="gimage_XMC14_EXT_OSC_HP_MODE_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_DCO1_DCO2.png" widgetName="gimage_XMC1403_DCO1_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_DCO1_External_APP.png" widgetName="gimage_XMC1403_DCO1_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_DCO1_OSC_LP.png" widgetName="gimage_XMC1403_DCO1_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_DC02.png" widgetName="gimage_XMC1403_EXT_CLOCK_DC02"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_External_APP.png" widgetName="gimage_XMC1403_EXT_CLOCK_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_OSC_LP.png" widgetName="gimage_XMC1403_EXT_CLOCK_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP.png" widgetName="gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP.png" widgetName="gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC1403_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_MODE_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1403_EXT_OSC_HP_MODE_OSC_LP.png" widgetName="gimage_XMC1403_EXT_OSC_HP_MODE_OSC_LP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC11_1201_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC11_1201_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC11_1201_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC11_1201_EXT_OSC_HP_MODE_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1202_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC1202_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1202_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC1202_EXT_OSC_HP_MODE_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1203_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC1203_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1203_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC1203_EXT_OSC_HP_MODE_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1301_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC1301_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1301_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC1301_EXT_OSC_HP_MODE_External_APP"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1302_EXT_OSC_HP_MODE_DCO2.png" widgetName="gimage_XMC1302_EXT_OSC_HP_MODE_DCO2"/>
+        			<p1:GImage bounds="6, 10, 796, 420" manifestObj="true" path="doc/XMC1302_EXT_OSC_HP_MODE_External_APP.png" widgetName="gimage_XMC1302_EXT_OSC_HP_MODE_External_APP"/>
+        		</p1:Tab>
+        	</p1:GTab.control>
+        </p1:GTab>
+        <p1:GTab text="External Clock Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_external_clock_settings">
+        	<p1:GTab.control>
+        		<p1:Tab widgetName="composite_24">
+        			<p1:Tab.layout>
+        				<GridLayout numColumns="2"/>
+        			</p1:Tab.layout>
+        			<p1:GCheck manifestObj="true" text="Enable High Precision Oscillator (OSC_HP)" widgetName="gcheck_enable_osc_hp" description="This selection enables High Precision Oscillator (OSC_HP). It is used as a clock source for Clock Control Unit (CCU) and also used for DCO1 clock frequency calibration during runtime to achieve a better accuracy." toolTipText="This selection enables High Precision Oscillator (OSC_HP).&#13;&#10;It is used as a clock source for Clock Control Unit (CCU) and &#13;&#10;also used for DCO1 clock frequency calibration during runtime&#13;&#10;to achieve a better accuracy.">
+        				<p1:GCheck.layoutData>
+        					<GridData horizontalSpan="2"/>
+        				</p1:GCheck.layoutData>
+        			</p1:GCheck>
+        			<p1:GLabel manifestObj="true" text="   OSC_HP clock source:" widgetName="glabel_osc_hp_source"/>
+        			<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="External Crystal&#13;&#10;External Direct Input" value="External Crystal" widgetName="gcombo_osc_hp_source" description="This allows to select clock source for OSC_HP. The clock source can be derived from: &lt;br&gt;&#13;&#10;1. External Crystal Oscillator.&lt;br&gt;&#13;&#10;2. External Direct Input.&lt;br&gt;"/>
+        			<p1:GLabel manifestObj="true" text="   OSC_HP clock frequency [MHz]:" toolTipText="" widgetName="glabel_extclkfreq"/>
+        			<p1:GFloat description="This is used to configure External Crystal Oscillator (OSC_HP) or External Direct Input (OSC_HP) clock frequency value." format="*,3" manifestObj="true" maxValue="20.0" minValue="4.0" toolTipText="Configure External Crystal Oscillator or External Direct Input&#13;&#10;clock frequency value." value="20.0" widgetName="gfloat_extclkfreq" x:Style="BORDER">
+        				<p1:GFloat.layoutData>
+        					<GridData widthHint="125"/>
+        				</p1:GFloat.layoutData>
+        			</p1:GFloat>
+        			<Label/>
+        			<Label/>
+        			<p1:GCheck manifestObj="true" text="Enable Low Precision Oscillator (OSC_LP)" widgetName="gcheck_enable_osc_lp" description="This selection enables Low Precision Oscillator (OSC_LP). It is used as a clock source for RTC and also used for DCO1 clock frequency calibration during runtime to achieve a better accuracy." toolTipText="This selection enables Low Precision Oscillator (OSC_LP). &#13;&#10;It is used as a clock source for RTC and also used for DCO1&#13;&#10;clock frequency calibration during runtime to achieve a &#13;&#10;better accuracy.">
+        				<p1:GCheck.layoutData>
+        					<GridData horizontalSpan="2"/>
+        				</p1:GCheck.layoutData>
+        			</p1:GCheck>
+        			<p1:GMessage isError="false" manifestObj="true" text="New Message" widgetName="gmessage_calibration">
+        				<p1:GMessage.layoutData>
+        					<GridData grabExcessHorizontalSpace="true" horizontalSpan="2" heightHint="66" widthHint="493"/>
+        				</p1:GMessage.layoutData>
+        			</p1:GMessage>
+        			<Label/>
+        		</p1:Tab>
+        	</p1:GTab.control>
+        </p1:GTab>
+        <p1:GTab text="General Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_clktree_xmc1">
+        	<p1:GTab.control>
+        		<p1:Tab widgetName="gtab_clktree_xmc1">
+        			<p1:Tab.layout>
+        				<GridLayout numColumns="4"/>
+        			</p1:Tab.layout>
+                    <p1:GLabel text="Clock control unit source:" visible="true" widgetName="glabel_ccuclksrc"/>
+                    <p1:GCombo description="This allows to select clock source for clock control unit to generate MCLK and PCLK." mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="DCO1&#13;&#10;OSC_HP" toolTipText="Select clock source for clock control unit to generate MCLK and PCLK." value="DCO1" widgetName="gcombo_ccuclksrc">
+                    	<p1:GCombo.layoutData>
+                    		<GridData horizontalAlignment="FILL"/>
+                    	</p1:GCombo.layoutData>
+                    </p1:GCombo>
+                    <Label/>
+                    <Label/>
+                    <p1:GLabel text="Main clock (MCLK) [MHz]:" toolTipText="Enter Desired Main Clock Frequency - MCLK,&#13;&#10;Valid clock range is 125 kHz to 32000 kHz." visible="true" widgetName="glabel_mclkdesfrq"/>
+                    <p1:GFloat description="This allows to configure desire MCLK (Main Core Clock) clock frequency value.&#13;&#10;MCLK is a source of many module clocks (except CCU4/8, POSIF, MATH, BCCU), and it is derived from the dco_dclk oscillator. Dividers are derived using the following formula:&lt;br&gt;&#13;&#10;&lt;b&gt;MCLK = (dco_dclk / (2 * (IDIV + FDIV/256) ) ),&lt;/b&gt; where IDIV always &gt; 0." format="" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="32.0" minValue="0.125" toolTipText="Configure desire MCLK (Main Core Clock) clock frequency value." value="32.0" widgetName="gfloat_mclkdesfrq" x:Style="BORDER">
+                    	<p1:GFloat.layoutData>
+                    		<GridData horizontalAlignment="FILL"/>
+                    	</p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Actual setting [MHz]:" toolTipText="Actual MCLK" visible="true" widgetName="glabel_mclkactfrq"/>
+                    <p1:GFloat description="This reflects actual configured MCLK (Main Core Clock) clock frequency value." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="32.00" minValue="0.125" toolTipText="This reflects actual configured MCLK (Main Core Clock) clock frequency value." value="32" widgetName="gfloat_mclkactfrq" x:Style="BORDER">
+                    	<p1:GFloat.layoutData>
+                    		<GridData widthHint="135"/>
+                    	</p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="Fast peripheral clock (PCLK) [MHz]:" visible="true" widgetName="glabel_pclkdesfrq"/>
+                    <p1:GCombo description="This allows to configure desire PCLK (Fast peripheral clock) clock frequency value.&#13;&#10;PCLK (Fast peripheral clock) is a source of CCU4/8, POSIF, MATH, BCCU modules clocks, and it is derived from the dco_dclk oscillator. Dividers are derived using the following formula:&lt;br&gt;&#13;&#10;&lt;b&gt;PCLK = (dco_dclk / ((IDIV + FDIV/256) ) ), &lt;/b&gt;where IDIV always &gt; 0.&lt;br&gt;&#13;&#10;&lt;b&gt;Note: &lt;/b&gt;PCLK is running in either the same frequency of MCLK or twice the frequency of MCLK." mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="MCLK&#13;&#10;2 x MCLK" toolTipText="Configure desire PCLK (Fast peripheral clock) clock frequency value." value="2 x MCLK" widgetName="gcombo_pclkdesfrq">
+                    	<p1:GCombo.layoutData>
+                    		<GridData horizontalAlignment="FILL"/>
+                    	</p1:GCombo.layoutData>
+                    </p1:GCombo>
+                    <p1:GLabel text="Actual setting [MHz]:" toolTipText="Actual PCLK" visible="true" widgetName="glabel_pclkactfrq"/>
+                    <p1:GFloat description="This reflects actual configured PCLK (Fast peripheral clock) clock frequency value." enabled="false" format="*,3" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" maxValue="64.00" minValue="0.125" toolTipText="This reflects actual configured PCLK (Fast peripheral clock) clock frequency value." value="32" widgetName="gfloat_pclkactfrq" x:Style="BORDER">
+                    	<p1:GFloat.layoutData>
+                    		<GridData widthHint="135"/>
+                    	</p1:GFloat.layoutData>
+                    </p1:GFloat>
+                    <p1:GLabel text="RTC clock source:" visible="true" manifestObj="true" widgetName="glabel_rtcclksrc"/>
+                    <p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_rtcclksrc" options="DCO2&#13;&#10;External Clock&#13;&#10;OSC_LP" value="DCO2" description="This allows to select clock source for RTC clock to keep tracks of the current time.&#13;&#10;The real-time clock derived from: \n&#13;&#10;1. DCO2: Used to generate the standby clock running at 32.768kHz\n&#13;&#10;2. External Clock: Used to generate a clock from ERU0 iout or ACMP output\n&#13;&#10;3. External Crystal Oscillator (OSC_LP): Used to generate the standby clock running at 32.768kHz for XMC14 device\n&#13;&#10;" toolTipText="Select clock source for RTC clock to keep tracks of the current time.">
+                    	<p1:GCombo.layoutData>
+                    		<GridData horizontalAlignment="FILL"/>
+                    	</p1:GCombo.layoutData>
+                    </p1:GCombo>
+                    <Label/>
+                    <Label/>
+                    <p1:GCheck text="Enable automatic DCO1 calibration based on external reference" manifestObj="true" widgetName="gcheck_dco1calibsel" toolTipText="Selection enables DCO1 clock frequency calibration automatically during runtime to&#13;&#10;achieve a better accuracy." description="This selection enables DCO1 clock frequency calibration automatically during runtime to&#13;&#10;achieve a better accuracy.">
+                    	<p1:GCheck.layoutData>
+                    		<GridData horizontalSpan="2"/>
+                    	</p1:GCheck.layoutData>
+                    </p1:GCheck>
+                    <Label/>
+                    <Label/>
+                    <p1:GLabel manifestObj="true" text="DCO1 calibration source:" widgetName="glabel_dco1calibsel"/>
+                    <p1:GCombo description="This allows to select clock source for DCO1 calibration. The external reference clock can be derived from: &lt;br&gt;&#13;&#10;1. High Precision External Crystal Oscillator (OSC_HP).&lt;br&gt;&#13;&#10;2. Low Precision External Crystal Oscillator (OSC_LP).&lt;br&gt;" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="OSC_HP&#13;&#10;OSC_LP" toolTipText="" value="OSC_HP" widgetName="gcombo_dco1calibsel">
+                    	<p1:GCombo.layoutData>
+                    		<GridData horizontalAlignment="FILL"/>
+                    	</p1:GCombo.layoutData>
+                    </p1:GCombo>
+                    <Label/>
+                    <Label/>
+                </p1:Tab>
+        	</p1:GTab.control>
+        </p1:GTab>
+        <p1:GTab text="Event Settings" visible="true" enabled="true" widgetName="gtab_event_settings">
+            <p1:GTab.control>
+                <p1:Tab widgetName="composite_5">
+                    <p1:Tab.layout>
+                        <GridLayout numColumns="3"/>
+                    </p1:Tab.layout>
+                    <p1:GCheck text="Enable loss of DCO1 clock event" manifestObj="true" widgetName="gcheck_dco1_clock_loss_event" toolTipText="Selection allows to generate event when loss of DCO1 clock happens i.e. the oscillator&#13;&#10;watchdog (OWD) detects a DCO1 frequency that is less than 75MHz or more than&#13;&#10;105MHz during normal operation." description="This selection allows to generate event when loss of DCO1 clock happens i.e. the oscillator&#13;&#10;watchdog (OWD) detects a DCO1 frequency that is less than 75MHz or more than&#13;&#10;105MHz during normal operation."/>
+                    <p1:GLabel text="Event handler:" visible="true" widgetName="glabel_dco1_clock_loss_event" toolTipText=""/>
+                    <p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_dco1_clock_loss_event" value="UserCallback1" toolTipText="User defined interrupt service routine for DCO1 clock loss event." description="User defined interrupt service routine for DCO1 clock loss event.">
+                        <p1:GString.layoutData>
+                            <GridData grabExcessHorizontalSpace="true" widthHint="157"/>
+                        </p1:GString.layoutData>
+                    </p1:GString>
+                    <p1:GCheck text="Enable standby clock failure event" manifestObj="true" widgetName="gcheck_standby_clock_failure_event" toolTipText="Selection allows to generate event when the standby clock failure happens&#13;&#10;i.e. the OWD detects a failure in standby clock where the clock stops&#13;&#10;running (~0kHz)." description="This selection allows to generate event when the standby clock failure happens&#13;&#10;i.e. the OWD detects a failure in standby clock where the clock stops&#13;&#10;running (~0kHz)."/>
+                    <p1:GLabel text="Event handler:" visible="true" widgetName="glabel_standby_clock_failure_event"/>
+                    <p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_standby_clock_failure_event" value="UserCallback2" toolTipText="User defined interrupt service routine for standby clock failure event." description="User defined interrupt service routine for standby clock failure event.">
+                        <p1:GString.layoutData>
+                            <GridData widthHint="157"/>
+                        </p1:GString.layoutData>
+                    </p1:GString>
+                    <p1:GCheck text="Enable loss of external crystal oscillator clock event" manifestObj="true" widgetName="gcheck_ext_osc_clock_loss_event" toolTipText="Selection allows to generate event loss of external (OSC_HP) clock happens&#13;&#10;i.e. the XTAL oscillator watchdog (XOWD) detects a a failure in the external&#13;&#10;XTAL clock where the clock stops running (~0kHz)." description="This selection allows to generate event loss of external (OSC_HP) clock happens&#13;&#10;i.e. the XTAL oscillator watchdog (XOWD) detects a a failure in the external&#13;&#10;XTAL clock where the clock stops running (~0kHz)."/>
+                    <p1:GLabel text="Event handler:" visible="true" widgetName="glabel_ext_osc_clock_loss_event" manifestObj="true"/>
+                    <p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_ext_osc_clock_loss_event" value="UserCallback3" description="User defined interrupt service routine for loss of external crystal oscillator event." toolTipText="User defined interrupt service routine for loss of external crystal oscillator event.">
+                        <p1:GString.layoutData>
+                            <GridData widthHint="157"/>
+                        </p1:GString.layoutData>
+                    </p1:GString>
+                    <p1:GCheck text="Enable DCO1 out of synchronization event" manifestObj="true" widgetName="gcheck_dco1_out_sync_evnt" toolTipText="Selection allows to generate event when DCO1 synchronisation is not within the defined range." description="This selection allows to generate event when DCO1 synchronisation is not within the defined range."/>
+                    <p1:GLabel text="Event handler:" visible="true" widgetName="glabel_dco1_out_sync_evnt" manifestObj="true"/>
+                    <p1:GString x:Style="BORDER" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gstring_dco1_out_sync_evnt" value="UserCallback4" description="User defined interrupt service routine for DCO1 out of synchronization event." toolTipText="User defined interrupt service routine for DCO1 out of synchronization event.">
+                        <p1:GString.layoutData>
+                            <GridData widthHint="157"/>
+                        </p1:GString.layoutData>
+                    </p1:GString>
+                    <p1:GMessage text="Not valid user callback name." visible="true" manifestObj="true" isError="false" widgetName="gmessage_valid_isr_name">
+                        <p1:GMessage.layoutData>
+                            <GridData horizontalSpan="3" widthHint="530"/>
+                        </p1:GMessage.layoutData>
+                    </p1:GMessage>
+                </p1:Tab>
+            </p1:GTab.control>
+        </p1:GTab>
+        <p1:GTab text="New Tab" visible="true" enabled="true" manifestObj="true" widgetName="gtab_dummy">
+        	<p1:GTab.control>
+        		<p1:Tab widgetName="composite_4">
+        			<p1:Tab.layout>
+        				<GridLayout numColumns="2"/>
+        			</p1:Tab.layout>
+        			<p1:GLabel text="WDT clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_wdtclkfreq"/>
+        			<p1:GLabel text="DCO2 clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_dco2"/>
+        			<p1:GLabel text="RTC clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_rtcclkfreq"/>
+        			<p1:GLabel text="OSC_LP clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_osc_lp"/>
+        			<p1:GLabel text="MCLK clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_mclkactfrq"/>
+        			<p1:GLabel text="OSC_HP clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_osc_hp"/>
+        			<p1:GLabel text="PCLK clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_pclkactfrq"/>
+        			<p1:GLabel text="DCO1 clock frequency" visible="true" manifestObj="true" widgetName="glabel_dia_dco1"/>
+        		</p1:Tab>
+        	</p1:GTab.control>
+        </p1:GTab>
+    </p1:TabFolder>
+</p1:Tab>

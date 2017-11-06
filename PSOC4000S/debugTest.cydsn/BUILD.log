@@ -1,0 +1,11 @@
+--------------- Build Started: 10/01/2017 01:48:11 Project: debugTest, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+The code generation step is up to date.
+arm-none-eabi-gcc.exe -mcpu=cortex-m0plus -mthumb -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0p\ARM_GCC_541\Debug/main.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0 -c main.c -o .\CortexM0p\ARM_GCC_541\Debug\main.o
+arm-none-eabi-ar.exe -rs .\CortexM0p\ARM_GCC_541\Debug\debugTest.a .\CortexM0p\ARM_GCC_541\Debug\CyFlash.o .\CortexM0p\ARM_GCC_541\Debug\CyLib.o .\CortexM0p\ARM_GCC_541\Debug\cyPm.o .\CortexM0p\ARM_GCC_541\Debug\cyutils.o .\CortexM0p\ARM_GCC_541\Debug\CyLFClk.o .\CortexM0p\ARM_GCC_541\Debug\CyBootAsmGnu.o
+arm-none-eabi-ar.exe: creating .\CortexM0p\ARM_GCC_541\Debug\debugTest.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\CortexM0p\ARM_GCC_541\Debug\debugTest.elf .\CortexM0p\ARM_GCC_541\Debug\main.o .\CortexM0p\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM0p\ARM_GCC_541\Debug\cymetadata.o .\CortexM0p\ARM_GCC_541\Debug\Cm0plusStart.o .\CortexM0p\ARM_GCC_541\Debug\debugTest.a -mcpu=cortex-m0plus -mthumb -L Generated_Source\PSoC4 -Wl,-Map,.\CortexM0p\ARM_GCC_541\Debug/debugTest.map -T Generated_Source\PSoC4\cm0plusgcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -O0 -ffat-lto-objects -Wl,--end-group
+cyelftool.exe -C D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\CortexM0p\ARM_GCC_541\Debug\debugTest.elf --flash_row_size 128 --flash_size 32768 --flash_offset 0x00000000
+cyelftool.exe -S D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\CortexM0p\ARM_GCC_541\Debug\debugTest.elf
+Flash used: 1880 of 32768 bytes (5.7 %).
+SRAM used: 1444 of 4096 bytes (35.3 %). Stack: 1024 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 10/01/2017 01:48:12 ---------------

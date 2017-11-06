@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<ProjectGenerationInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <README>### The file contains information about project generation by the tool. Do not remove to allow proper updates. ###</README>
+   <platform>
+      <processor>MKL03Z32xxx4</processor>
+      <part_number>MKL03Z32VFK4</part_number>
+      <core>core0_MKL03Z32xxx4</core>
+      <core_role>primary</core_role>
+      <board></board>
+      <example></example>
+   </platform>
+   <settings>
+      <toolchain>mcuxpresso</toolchain>
+      <prj_type>.c</prj_type>
+      <prj_name>generated</prj_name>
+      <rtos>middleware.baremetal</rtos>
+   </settings>
+   <sdk version="2.2.0" cfg_hash="cfa8a8d5e73cdd822be68a9c41c0c498"/>
+   <build_options>
+      <define>SDK_CORE_ID_CORE0</define>
+      <incl_path>board</incl_path>
+   </build_options>
+</ProjectGenerationInfo>

@@ -1,0 +1,129 @@
+;Codewright Project File (do not remove or modify this line)
+[ProjInit]
+ConfigSetExtMode=2
+ProjSetConfigFlags=0x04110940
+
+[State]
+SysSetCwd='D:\Git\microcontroller-test-code\LC87\debugSpeedTest'
+SrchSetFlags=0x0410680a
+SrchSetAgainFlags=0x04100003,0
+SrchSetAgainFlags=0x06100003,1
+FileSortMode=0x0
+_StateView='D:\Git\microcontroller-test-code\LC87\toggle\main.c',130,130,653,321,-1,-1,1,1,1,1,2,'',0x00100008,0,80,0,0,''
+_StateView='D:\Git\microcontroller-test-code\LC87\debugSpeedTest\main.c',0,0,653,321,-1,-1,6,1,1,1,1,'',0x00100018,0,80,0,0,''
+_StateBuffer='D:\Git\microcontroller-test-code\LC87\toggle\main.c',0x0400048c,1,1,25,'9 17','',0x0,'',1,72,0,0
+_StateBuffer='D:\Git\microcontroller-test-code\LC87\debugSpeedTest\main.c',0x0400048c,6,1,25,'9 17','',0x0,'',1,72,1,0
+_StateHistory=FILELIST,'D:\OneDrive\Documents\TASKING\test\toggle\main.c','D:\OneDrive\Documents\TASKING\test\biquad\main.c','D:\Git\microcontroller-test-code\LC87\toggle\main.c','D:\Git\microcontroller-test-code\LC87\debugSpeedTest\main.c'
+_StateHistory=DOCUMENTVISIT,'1           1           D:\Git\microcontroller-test-code\LC87\toggle\main.c','1           50          D:\Git\microcontroller-test-code\LC87\debugSpeedTest\main.c','1           1           D:\Git\microcontroller-test-code\LC87\toggle\main.c'
+_StateDocumentVisit=3
+
+[Editor]
+VCSProject=''
+VCSProjectPath=''
+VCSProjectLocalPath=''
+ScrapSetCount=1
+ClipboardSetCount=1
+ClipboardEnableSepStr=1
+ClipboardSetSepStr='\r\n',0
+ClipboardEnableTermStr=1
+ClipboardSetTermStr='\r\n',0
+
+[Tools]
+ToolDeleteList 
+ToolAddCmd='$_custom_tool_$_1','API Database Editor',1342177312,'cwtedit.exe'
+
+[Compiler]
+TagSetFile=''
+BrowseSetFile=''
+CompilerNewExt=.v
+CompilerNewExt=.src
+CompilerNewExt=.htm
+CompilerNewExt=.bas
+CompilerNewExt=.awk
+CompilerNewExt=.jsp
+CompilerNewExt=.cfml
+CompilerNewExt=.adb
+CompilerNewExt=.vhd
+CompilerNewExt=.pl
+CompilerNewExt=.pas
+CompilerNewExt=.tk
+CompilerNewExt=.rul
+CompilerNewExt=.asp
+CompilerNewExt=.js
+CompilerNewExt=.cob
+CompilerNewExt=.tcl
+CompilerNewExt=.rc
+CompilerNewExt=.php
+CompilerNewExt=.cc
+CompilerNewExt=.ini
+CompilerNewExt=.html
+CompilerNewExt=.bat
+CompilerNewExt=.cs
+CompilerNewExt=.txt
+CompilerNewExt=.nrx
+CompilerNewExt=.xml
+CompilerNewExt=.sqlj
+CompilerNewExt=.java
+TagSetCmd='"${HOME}${WTAGS}" -oc -d -t"${TAGFILE}.tag" -p"${TAGFILE}.ptg"',0x8000060
+
+[VersionControl:PVCS]
+VCSSetCmd=VCS_CHECKIN_ID,'put -n -T@"%Q" -M@"%Q" "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKINLOCK_ID,'put -n -T@"%Q" -M@"%Q" -l "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKOUT_ID,'get -y "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKOUTLOCK_ID,'get -y -l "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKLOCK_ID,'vcs -y -l "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKUNLOCK_ID,'vcs -y -u "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKLABEL_ID,'vcs -y -v"${VCSLABEL}" "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKLOG_ID,'vlog "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKPROP_ID,'vlog -b "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKDIFF_ID,'vdiff -r "%b%e"',0x8000040
+VCSSetCmd=VCS_CHECKMENU_ID,'pvcsvmwn',0x8000000
+VCSSetCmd=VCS_ADD_ID,'vcs -i -t@"%Q" "%b%e"',0x8000040
+VCSSetCmd=VCS_REMOVE_ID,'del /f "%b%{??v|___}e"',0x8000040
+
+[Files]
+.\main.c
+
+
+[Ede]
+Toolchain=c:\program files (x86)\tasking\dlc87 v3.2r2\etc\dlc87.dol
+ToolchainName=TASKING C Compiler for LC87K v3.0/v3.1/v3.2 [2013/10/10]
+ProjectDir=d:\git\microcontroller-test-code\lc87\toggle
+EdeVersion=99.9r9 (Build 152)
+CodeWrightVersion=6.5b
+DefBuildSettings=True
+SaveFiles=True
+AbsolutePathNames=False
+StopAfterError=True
+KeepTmpFiles=False
+ExtMakefile=False
+ExtMakefileName=
+UserMakefile=False
+UserMakefileName=
+UseMakeOptions=False
+MakeOptions=
+CheckTarget=True
+ExtDebugger=False
+ExtDebuggerName=
+UseDOSShell=False
+SaveOptionMethod=0
+SaveOptionFileName=
+LoadOptionFileName=d:\onedrive\documents\tasking\examples\c\c.opt
+LoadOptionStartup=False
+GroupProc=0
+GroupC=0
+GroupAsm=0
+GroupLK=0
+GroupX87S=0
+GroupList=GroupProc,GroupC,GroupAsm,GroupLK,GroupX87S
+
+[Directories]
+BinDir1=$(PRODDIR)\bin
+IncDir1=$(PRODDIR)\include
+LibDir1=$(PRODDIR)\lib
+
+[DefaultOptions]
+CompOptim=CompOLAdv
+
+[Options]
+FileList=

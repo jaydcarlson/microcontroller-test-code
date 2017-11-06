@@ -1,0 +1,28 @@
+;Codewright Project Space File (do not remove or modify this line)
+[State]
+StateWindowFrame=412,906,1620,1053,0x43097fc8
+_StateHistory=PROJECTS,'.\biquad\biquad.pjt'
+_RestoreProject='.\biquad\biquad.pjt'
+ProjSpaceFlags=0x00000000, 1
+
+
+[Project]
+ConfigSetUserWorkspace=''
+ConfigSetUserWorkspaceParser=''
+ConfigSetUserWorkspaceTimeStamp=0
+ConfigSetUserWorkspaceAutoSync=0
+
+
+
+
+
+
+
+[Project.".\biquad\biquad.pjt"]
+
+[Project.".\debugSpeedTest\debugSpeedTest.pjt"]
+
+[Project.".\dmx\dmx.pjt"]
+
+[Project.".\toggle\toggle.pjt"]
+

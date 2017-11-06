@@ -1,0 +1,12 @@
+* TASKING build target information file
+*
+* Project:	biquad.pjt
+* Toolchain:	TASKING C Compiler for LC87K v3.0/v3.1/v3.2 [2013/10/10]
+* EDE Version:	99.9r9 (Build 152)
+*
+
+biquad.abs|1502385500|3930083435
+biquad.hex|1502385443|1872640345
+biquad.x87|1502385443|4278403754
+main.obj|1502385443|3595488787
+main.src|1504066988|2862122009

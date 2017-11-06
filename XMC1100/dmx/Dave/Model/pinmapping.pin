@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="com.ifx.davex.graphiti.pin.mapping" xmlns:al="http://eclipse.org/graphiti/mm/algorithms" xmlns:pi="http://eclipse.org/graphiti/mm/pictograms">
+  <pi:Diagram visible="true" gridUnit="10" diagramTypeId="com.ifx.davex.pin.allocator.diagramType" name="PinAllocator" version="0.11.0">
+    <graphicsAlgorithm xsi:type="al:Rectangle" background="/0/@colors.1" foreground="/0/@colors.0" lineWidth="1" transparency="0.0" width="1000" height="1000"/>
+    <colors red="227" green="238" blue="249"/>
+    <colors red="255" green="255" blue="255"/>
+  </pi:Diagram>
+  <PackageDetail height="179" width="165">
+    <Pads pinNo="1" xCoordinate="234" yCoordinate="260" type="rect" width="1" height="1"/>
+    <Pads pinNo="2" xCoordinate="234" yCoordinate="280" type="rect" width="1" height="1"/>
+    <Pads pinNo="3" xCoordinate="234" yCoordinate="300" type="rect" width="1" height="1"/>
+    <Pads pinNo="4" xCoordinate="234" yCoordinate="320" type="rect" width="1" height="1"/>
+    <Pads pinNo="5" xCoordinate="234" yCoordinate="340" type="rect" width="1" height="1"/>
+    <Pads pinNo="6" xCoordinate="234" yCoordinate="360" type="rect" width="1" height="1"/>
+    <Pads pinNo="7" xCoordinate="234" yCoordinate="380" type="rect" width="1" height="1"/>
+    <Pads pinNo="8" xCoordinate="234" yCoordinate="400" type="rect" width="1" height="1"/>
+    <Pads pinNo="9" xCoordinate="433" yCoordinate="400" type="rect" width="1" angle="180" height="1"/>
+    <Pads pinNo="10" xCoordinate="433" yCoordinate="380" type="rect" width="1" angle="180" height="1"/>
+    <Pads pinNo="11" xCoordinate="433" yCoordinate="360" type="rect" width="1" angle="180" height="1"/>
+    <Pads pinNo="12" xCoordinate="433" yCoordinate="340" type="rect" width="1" angle="180" height="1"/>
+    <Pads pinNo="13" xCoordinate="433" yCoordinate="320" type="rect" width="1" angle="180" height="1"/>
+    <Pads pinNo="14" xCoordinate="433" yCoordinate="300" type="rect" width="1" height="1"/>
+    <Pads pinNo="15" xCoordinate="433" yCoordinate="280" type="rect" width="1" height="1"/>
+    <Pads pinNo="16" xCoordinate="433" yCoordinate="260" type="rect" width="1" height="1"/>
+    <deviceName name="XMC1100" xCoordinate="331" yCoordinate="327"/>
+    <packageName name="TSSOP16" xCoordinate="330" yCoordinate="358"/>
+    <lines startX="250.0" startY="240.0" endX="414.4" endY="240.0"/>
+    <lines startX="414.4" startY="420.0" endX="414.4" endY="241.6"/>
+    <lines startX="250.0" startY="420.0" endX="414.4" endY="420.0"/>
+    <lines startX="250.79999999999998" startY="240.0" endX="250.79999999999998" endY="420.0"/>
+  </PackageDetail>
+</xmi:XMI>

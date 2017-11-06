@@ -1,0 +1,1217 @@
+package Model.APPS.PWM_CCU4.v4_1_22.Templates;
+
+import Model.APPS.PWM_CCU4.v4_1_22.PWM_CCU4
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015 - 2016, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ *   disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-14:
+ *     - Initial version for DAVEv4
+ *
+ * 2015-08-13:
+ *     - Added support for initializing  "immediate_write" member in  "PWM_CCU4_CONFIG_t"
+ *     - Added support for initializing  "automatic_shadow_transfer" member in  "PWM_CCU4_CONFIG_t"
+ *     - Added support for initializing  "shadow_transfer_mode" member in "PWM_CCU4_CONFIG_t"
+ * @endcond
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "pwm_ccu4.h"
+
+/**********************************************************************************************************************
+ * DATA STRUCTURES
+ **********************************************************************************************************************/
+""");
+
+Integer PWM_CCU4_DUTY_BIT_RES       = 31
+Integer PWM_CCU4_DUTY_FULL_SCALE    = 10000 /*100% * 100*/
+Integer PWM_CCU4_DUTY_SCALE         = 100 /*100*/
+
+List      MappedUri                 = null;
+String    appInst                   = null;
+String    KernelNo                  = null;
+String    SliceNo                   = null;
+String    CCU4_Global_Handle        = null;
+String    HRPWM_Global_Handle       = null;
+String    KernRegs_Handle           = null;
+String    Slice_Handle              = null;
+String    Dynamic_Handle            = null;
+String    shadow_txfr_msk           = 0;
+String    dither_shadow_txfr_msk    = 0;
+String    prescaler_shadow_txfr_msk = 0;
+
+String  counting_mode               = null;
+String  asymmetric                  = null;
+String  start_control               = null;
+String  single_shot                 = null;
+
+String    ch1_out1_state            = null;
+String    ch2_out2_state            = null;
+String    ch2_out3_state            = null;
+        
+String    ch1_out0_pass_level       = null;
+String    ch1_out1_pass_level       = null;
+String    ch2_out2_pass_level       = null;
+String    ch2_out3_pass_level       = null;
+
+String    ch1_out0_enable           = null;
+String    ch1_out0_port             = null;
+String    ch1_out0_pin              = null;
+String    ch1_out0_iocr_pcr         = null;
+String    ch1_out0_iocr_oe          = null;
+String    ch1_out0_hwsel_hw         = null;
+String    ch1_out0_pdisc_pdis       = null;
+String    ch1_out0_mode             = null;
+String    ch1_out0_ptr              = null;
+String    ch1_out0_config           = null;
+String    ch1_out0_output_strength  = null;
+
+String    ch1_out1_enable           = null;
+String    ch1_out1_port             = null;
+String    ch1_out1_pin              = null;
+String    ch1_out1_iocr_pcr         = null;
+String    ch1_out1_iocr_oe          = null;
+String    ch1_out1_hwsel_hw         = null;
+String    ch1_out1_pdisc_pdis       = null;
+String    ch1_out1_mode             = null;
+String    ch1_out1_ptr              = null;
+String    ch1_out1_config           = null;
+
+String    ch2_out2_enable           = null;
+String    ch2_out2_port             = null;
+String    ch2_out2_pin              = null;
+String    ch2_out2_iocr_pcr         = null;
+String    ch2_out2_iocr_oe          = null;
+String    ch2_out2_hwsel_hw         = null;
+String    ch2_out2_pdisc_pdis       = null;
+String    ch2_out2_mode             = null;
+String    ch2_out2_ptr              = null;
+String    ch2_out2_config           = null;
+
+String    ch2_out3_enable           = null;
+String    ch2_out3_port             = null;
+String    ch2_out3_pin              = null;
+String    ch2_out3_iocr_pcr         = null;
+String    ch2_out3_iocr_oe          = null;
+String    ch2_out3_hwsel_hw         = null;
+String    ch2_out3_pdisc_pdis       = null;
+String    ch2_out3_mode             = null;
+String    ch2_out3_ptr              = null;
+String    ch2_out3_config           = null;
+        
+String    hr_out0_enable            = null;
+String    hr_out0_port              = null;
+String    hr_out0_pin               = null;
+String    hr_out0_iocr_pcr          = null;
+String    hr_out0_iocr_oe           = null;
+String    hr_out0_hwsel_hw          = null;
+String    hr_out0_pdisc_pdis        = null;
+String    hr_out0_mode              = null;
+String    hr_out0_ptr               = null;
+String    hr_out0_config            = null;
+        
+String    hr_out1_enable            = null;
+String    hr_out1_port              = null;
+String    hr_out1_pin               = null;
+String    hr_out1_iocr_pcr          = null;
+String    hr_out1_iocr_oe           = null;
+String    hr_out1_hwsel_hw          = null;
+String    hr_out1_pdisc_pdis        = null;
+String    hr_out1_mode              = null;
+String    hr_out1_ptr               = null;
+String    hr_out1_config            = null;
+        
+String    int_per_match             = null;
+String    int_cmp_match_up          = null;
+String    int_cmp_match_down        = null;
+String    int_one_match_down        = null;
+String    int_e0                    = null;
+String    int_e1                    = null;
+String    int_e2                    = null;
+        
+String    sr_per_match              = null;
+String    sr_cmp1_match_up          = null;
+String    sr_cmp1_match_down        = null;
+String    sr_cmp2_match_up          = null;
+String    sr_cmp2_match_down        = null;
+String    sr_one_match_down         = null;
+String    sr_e0                     = null;
+String    sr_e1                     = null;
+String    sr_e2                     = null;
+
+String    e0_mapped_input           = null;
+String    e1_mapped_input           = null;
+String    e2_mapped_input           = null;
+
+String    e0_filter                 = null;
+String    e1_filter                 = null;
+String    e2_filter                 = null;
+
+String    e0_edge                   = null;
+String    e1_edge                   = null;
+String    e2_edge                   = null;
+
+String    e0_level                  = null;
+String    e1_level                  = null;
+String    e2_level                  = null;
+
+String ext_start_event              = null;
+String ext_start_mode               = null;
+String ext_stop_event               = null;
+String ext_stop_mode                = null;
+String ext_count_dir_event          = null;
+String ext_gate_event               = null;
+String ext_count_event              = null;
+String ext_load_event               = null;
+String ext_mod_event                = null;
+String ext_mod_mode                 = null;
+String ext_mod_sync                 = null;
+String ext_override_edge_event      = null;
+String ext_override_level_event     = null;
+String ext_trap_event               = null;
+String ext_trap_sync                = null;
+String ext_trap_exit                = null;
+String ext_trap_enable              = null;
+
+Integer period                      = null;
+Integer compare_value               = null;
+Integer compare2_value              = null;
+Integer prescaler                   = null;
+Integer sym_cmp_ch1                 = null;
+Integer sym_cmp_ch2                 = null;
+Integer sym_hr_cmp1                 = null;
+Integer sym_hr_cmp2                 = null;
+Integer asym_cmp_ch1                = null;
+Integer asym_cmp_ch2                = null;
+Integer asym_hr_cmp1                = null;
+Integer asym_hr_cmp2                = null;
+
+Integer sym_duty                    = 0;
+
+
+String dt_ch1_enable                = null;
+String dt_ch2_enable                = null;
+Double dt_clock_nsec                = 0;
+Integer dt_ch1_rise                 = null;
+Integer dt_ch1_fall                 = null;
+Integer dt_ch2_rise                 = null;
+Integer dt_ch2_fall                 = null;
+String  dt_div                      = null;
+
+String dither_period                = null;
+String dither_duty                  = null;
+
+Integer dt_hrpwm_rise               = null;
+Integer dt_hrpwm_fall               = null;
+Integer hr_cr1                      = null;
+Integer hr_cr2                      = null;
+Integer hr_cr_max                   = 54;
+
+Boolean dither_enable               = null;
+Integer dither_mode                 = null;
+Integer dither_cmp                  = null;
+
+Integer mcm_ch1_enable              = null;
+Integer mcm_ch2_enable              = null;
+String  mcm_shadow_txfr_mode        = null;
+String  mcm_action                  = null;
+
+String  shadow_transfer_mode        = null;
+String  immediate_write             = "";
+String  automatic_shadow_transfer   = "";
+String  cascaded_shadow_txfr_enable = null;
+
+Boolean prescaler_enable            = null;
+String  prescaler_mode              = null;
+Integer prescaler_flt_val           = null;
+
+Boolean sync_start                  = null;
+Boolean high_res_module             = null;
+
+String hrpwm_module_enabled         = null;
+String hrc_channel_config           = null;
+String hrc_src_config0              = null;
+String hrc_src_config1              = null;
+String hrpwm_hr_enable_mask         = null;
+String hrpwm_lr_enable_mask         = null;
+String hr_shadow_transfer_msk       = null;
+String hr_dt_transfer_msk           = null;
+String hrc_ptr                      = null;
+String hrc_channel_no               = null;
+String hrc_dt_enable                = null;
+String hrc_out0_trap_enable         = null;
+String hrc_out0_pass_level          = null;
+String hrc_out0_conn                = null;
+String hrc_out0_enable              = null;
+
+String hrc_out1_trap_enable         = null;
+String hrc_out1_pass_level          = null;
+String hrc_out1_conn                = null;
+String hrc_out1_enable              = null;
+
+String hrc_high_res_mode0           = null;
+String hrc_set_config0              = null;
+String hrc_clear_config0            = null;
+String hrc_comparator_set0          = null;
+String hrc_comparator_clear0        = null;
+String hrc_timer_sel0               = null;
+String hrc_set_edge_config0         = null;
+String hrc_clear_edge_config0       = null;
+String hrc_src_trap_enable0         = null;
+
+String hrc_high_res_mode1           = null;
+String hrc_set_config1              = null;
+String hrc_clear_config1            = null;
+String hrc_comparator_set1          = null;
+String hrc_comparator_clear1        = null;
+String hrc_timer_sel1               = null;
+String hrc_set_edge_config1         = null;
+String hrc_clear_edge_config1       = null;
+String hrc_src_trap_enable1         = null;
+
+List timer_repeat_array =[
+    'XMC_CCU4_SLICE_TIMER_REPEAT_MODE_REPEAT',
+    'XMC_CCU4_SLICE_TIMER_REPEAT_MODE_SINGLE'
+    ];
+List event_edge_array = [
+    'XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE',
+    'XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE',
+    'XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_FALLING_EDGE',
+    'XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_DUAL_EDGE'
+];
+
+List event_level_array = [
+    'XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH',
+    'XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW',
+];
+
+List event_count_level_array = [
+	'XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_COUNT_UP_ON_LOW',
+	'XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_COUNT_UP_ON_HIGH',
+];
+
+List action_extstart_array = [
+    'XMC_CCU4_SLICE_START_MODE_TIMER_START',
+    'XMC_CCU4_SLICE_START_MODE_TIMER_START_CLEAR'
+];
+
+List action_extstop_array = [
+    'XMC_CCU4_SLICE_END_MODE_TIMER_STOP',
+    'XMC_CCU4_SLICE_END_MODE_TIMER_CLEAR',
+    'XMC_CCU4_SLICE_END_MODE_TIMER_STOP_CLEAR'
+];
+
+List trap_exit_array = [
+    'XMC_CCU4_SLICE_TRAP_EXIT_MODE_AUTOMATIC',
+    'XMC_CCU4_SLICE_TRAP_EXIT_MODE_SW'
+];
+List trap_level_array = [
+    'XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW',
+    'XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH'
+];
+
+List Input_array = [
+    
+    'XMC_CCU4_SLICE_INPUT_A',
+    'XMC_CCU4_SLICE_INPUT_B',
+    'XMC_CCU4_SLICE_INPUT_C',
+    'XMC_CCU4_SLICE_INPUT_D',
+    'XMC_CCU4_SLICE_INPUT_E',
+    'XMC_CCU4_SLICE_INPUT_F',
+    'XMC_CCU4_SLICE_INPUT_G',
+    'XMC_CCU4_SLICE_INPUT_H',
+    'XMC_CCU4_SLICE_INPUT_I',
+    'XMC_CCU4_SLICE_INPUT_J',
+    'XMC_CCU4_SLICE_INPUT_K',
+    'XMC_CCU4_SLICE_INPUT_L',
+    'XMC_CCU4_SLICE_INPUT_M',
+    'XMC_CCU4_SLICE_INPUT_N',
+    'XMC_CCU4_SLICE_INPUT_O',
+    'XMC_CCU4_SLICE_INPUT_P'
+];
+
+List Input_array_xmc1400 = [
+    
+    'XMC_CCU4_SLICE_INPUT_AA',
+    'XMC_CCU4_SLICE_INPUT_AB',
+    'XMC_CCU4_SLICE_INPUT_AC',
+    'XMC_CCU4_SLICE_INPUT_AD',
+    'XMC_CCU4_SLICE_INPUT_AE',
+    'XMC_CCU4_SLICE_INPUT_AF',
+    'XMC_CCU4_SLICE_INPUT_AG',
+    'XMC_CCU4_SLICE_INPUT_AH',
+    'XMC_CCU4_SLICE_INPUT_AI',
+    'XMC_CCU4_SLICE_INPUT_AJ',
+    'XMC_CCU4_SLICE_INPUT_AK',
+    'XMC_CCU4_SLICE_INPUT_AL',
+    'XMC_CCU4_SLICE_INPUT_AM',
+    'XMC_CCU4_SLICE_INPUT_AN',
+    'XMC_CCU4_SLICE_INPUT_AO',
+    'XMC_CCU4_SLICE_INPUT_AP',
+    'XMC_CCU4_SLICE_INPUT_AQ',
+    'XMC_CCU4_SLICE_INPUT_AR',
+    'XMC_CCU4_SLICE_INPUT_AS',
+    'XMC_CCU4_SLICE_INPUT_AT',
+    'XMC_CCU4_SLICE_INPUT_AU',
+    'XMC_CCU4_SLICE_INPUT_AV',
+    'XMC_CCU4_SLICE_INPUT_AW',
+    'XMC_CCU4_SLICE_INPUT_AX',
+    'XMC_CCU4_SLICE_INPUT_AY',
+    'XMC_CCU4_SLICE_INPUT_AZ',
+    'XMC_CCU4_SLICE_INPUT_BA',
+    'XMC_CCU4_SLICE_INPUT_BB',
+    'XMC_CCU4_SLICE_INPUT_BC',
+    'XMC_CCU4_SLICE_INPUT_BD',
+    'XMC_CCU4_SLICE_INPUT_BE',
+    'XMC_CCU4_SLICE_INPUT_BF',
+    'XMC_CCU4_SLICE_INPUT_BG',
+    'XMC_CCU4_SLICE_INPUT_BH',
+    'XMC_CCU4_SLICE_INPUT_BI',
+    'XMC_CCU4_SLICE_INPUT_BJ',
+    'XMC_CCU4_SLICE_INPUT_BK',
+    'XMC_CCU4_SLICE_INPUT_BL',
+    'XMC_CCU4_SLICE_INPUT_BM',
+    'XMC_CCU4_SLICE_INPUT_BN',
+    'XMC_CCU4_SLICE_INPUT_BO',
+    'XMC_CCU4_SLICE_INPUT_BP',
+    'XMC_CCU4_SLICE_INPUT_BQ',
+    'XMC_CCU4_SLICE_INPUT_BR',
+    'XMC_CCU4_SLICE_INPUT_BS',
+    'XMC_CCU4_SLICE_INPUT_BT',
+    'XMC_CCU4_SLICE_INPUT_BU',
+    'XMC_CCU4_SLICE_INPUT_BV',
+];
+
+
+List counting_mode_array =       [
+  'XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA',
+  'XMC_CCU4_SLICE_TIMER_COUNT_MODE_CA',
+];
+
+List passivelvl_array =   [
+    'XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW',
+    'XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_HIGH',
+];
+
+List SrId_array =           [
+    'XMC_CCU4_SLICE_SR_ID_0',
+    'XMC_CCU4_SLICE_SR_ID_1',
+    'XMC_CCU4_SLICE_SR_ID_2',
+    'XMC_CCU4_SLICE_SR_ID_3',
+];
+
+event_filter_array = [
+  'XMC_CCU4_SLICE_EVENT_FILTER_DISABLED',
+  'XMC_CCU4_SLICE_EVENT_FILTER_3_CYCLES',
+  'XMC_CCU4_SLICE_EVENT_FILTER_5_CYCLES',
+  'XMC_CCU4_SLICE_EVENT_FILTER_7_CYCLES',
+];
+
+external_start_mode_array = [
+    'XMC_CCU4_SLICE_START_MODE_TIMER_START',
+    'XMC_CCU4_SLICE_START_MODE_TIMER_START_CLEAR',
+];
+external_stop_mode_array = [
+    'XMC_CCU4_SLICE_END_MODE_TIMER_STOP',
+    'XMC_CCU4_SLICE_END_MODE_TIMER_CLEAR',
+    'XMC_CCU4_SLICE_END_MODE_TIMER_STOP_CLEAR',
+];
+external_mod_mode_array = [
+    'XMC_CCU4_SLICE_MODULATION_MODE_CLEAR_ST_OUT',
+    'XMC_CCU4_SLICE_MODULATION_MODE_CLEAR_OUT',
+];
+
+
+mcms_action_array = [
+  'XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR',
+  'XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR_PCMP',
+  'XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR_PCMP_DIT',
+ ];
+
+shadow_transfer_mode_array = [
+    'XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_ONLY_IN_PERIOD_MATCH',
+    'XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_ONLY_IN_ONE_MATCH',
+    'XMC_CCU4_SLICE_SHADOW_TRANSFER_MODE_IN_PERIOD_MATCH_AND_ONE_MATCH',
+];
+prescaler_mode_array = [
+      'XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL',
+      'XMC_CCU4_SLICE_PRESCALER_MODE_FLOAT'
+ ];
+
+List gpio_mode_Array = [
+    
+    'XMC_GPIO_MODE_INPUT_TRISTATE',
+    'XMC_GPIO_MODE_INPUT_PULL_DOWN',
+    'XMC_GPIO_MODE_INPUT_PULL_UP',
+    'XMC_GPIO_MODE_INPUT_SAMPLING',
+    'XMC_GPIO_MODE_INPUT_INVERTED_TRISTATE',
+    'XMC_GPIO_MODE_INPUT_INVERTED_PULL_DOWN',
+    'XMC_GPIO_MODE_INPUT_INVERTED_PULL_UP',
+    'XMC_GPIO_MODE_INPUT_INVERTED_SAMPLING',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN',
+    'XMC_GPIO_MODE_OUTPUT_ALT1',
+    'XMC_GPIO_MODE_OUTPUT_ALT2',
+    'XMC_GPIO_MODE_OUTPUT_ALT3',
+    'XMC_GPIO_MODE_OUTPUT_ALT4',
+    'XMC_GPIO_MODE_OUTPUT_ALT5',
+    'XMC_GPIO_MODE_OUTPUT_ALT6',
+    'XMC_GPIO_MODE_OUTPUT_ALT7',
+    'XMC_GPIO_MODE_OUTPUT_ALT8',
+    'XMC_GPIO_MODE_OUTPUT_ALT9',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT3',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT4',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT5',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT6',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT7',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT8',
+    'XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT9',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT1',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT2',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT3',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT4',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT5',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT6',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT7',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT8',
+    'XMC_GPIO_MODE_OUTPUT_OPEN_DRAIN_ALT9',
+    
+    ];
+
+List dtc_div_array = [
+    'XMC_CCU4_SLICE_DTC_DIV_1',
+    'XMC_CCU4_SLICE_DTC_DIV_2',
+    'XMC_CCU4_SLICE_DTC_DIV_4',
+    'XMC_CCU4_SLICE_DTC_DIV_8',
+    'XMC_CCU4_SLICE_DTC_DIV_MAX'
+];
+
+List shadow_tx_array =[
+    
+    'XMC_CCU4_SHADOW_TRANSFER_SLICE_0',
+    'XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_0',
+    'XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0',
+    'XMC_CCU4_SHADOW_TRANSFER_SLICE_1',
+    'XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_1',
+    'XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_1',
+    'XMC_CCU4_SHADOW_TRANSFER_SLICE_2',
+    'XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_2',
+    'XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_2',
+    'XMC_CCU4_SHADOW_TRANSFER_SLICE_3',
+    'XMC_CCU4_SHADOW_TRANSFER_DITHER_SLICE_3',
+    'XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_3'                                                                        
+  
+];
+
+List mcss_shadow_tx_array = [
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE0',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE0',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE1',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE1',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE2',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE2',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_SLICE3',
+    'XMC_CCU4_MULTI_CHANNEL_SHADOW_TRANSFER_SW_MCSS_SLICE3',
+    ];
+
+List hrc_channel_array = [
+    'HRPWM0_HRC0',
+    'HRPWM0_HRC1',
+    'HRPWM0_HRC2',
+    'HRPWM0_HRC3'
+];
+
+List hr_enable_array =[
+    'XMC_HRPWM_HR_PATH_HRC0',
+    'XMC_HRPWM_HR_PATH_HRC1',
+    'XMC_HRPWM_HR_PATH_HRC2',
+    'XMC_HRPWM_HR_PATH_HRC3',
+    ];
+List lr_enable_array =[
+    'XMC_HRPWM_LR_PATH_HRC0',
+    'XMC_HRPWM_LR_PATH_HRC1',
+    'XMC_HRPWM_LR_PATH_HRC2',
+    'XMC_HRPWM_LR_PATH_HRC3',
+    ];
+List hrpwm_func_status_array = [
+    'XMC_HRPWM_FUNC_STATUS_DISABLE',
+    'XMC_HRPWM_FUNC_STATUS_ENABLE'];
+
+List hrc_pass_level_array = [  
+    'XMC_HRPWM_HRC_OUT_PASSIVE_LOW',
+    'XMC_HRPWM_HRC_OUT_PASSIVE_HIGH'
+];
+
+List hrc_edge_array = [
+    'XMC_HRPWM_HRC_HR_EDGE_SEL_RISING',
+    'XMC_HRPWM_HRC_HR_EDGE_SEL_FALLING',
+    'XMC_HRPWM_HRC_HR_EDGE_SEL_BOTH',
+    'XMC_HRPWM_HRC_HR_EDGE_SEL_NONE' 
+ ];
+
+List hrc_input_array = [
+    'XMC_HRPWM_HRC_SRC_INPUT_CCU',
+    'XMC_HRPWM_HRC_SRC_INPUT_CSG'
+];
+List hrc_cmp_sel_array = [
+    'XMC_HRPWM_HRC_CMP_SEL_CSG0',
+    'XMC_HRPWM_HRC_CMP_SEL_CSG1',
+    'XMC_HRPWM_HRC_CMP_SEL_CSG2'
+];
+
+List hrc_ch_timer_sel_array = [  
+    'XMC_HRPWM_HRC_TIMER_SEL_CCU_CC0',
+    'XMC_HRPWM_HRC_TIMER_SEL_CCU_CC1',
+    'XMC_HRPWM_HRC_TIMER_SEL_CCU_CC2',
+    'XMC_HRPWM_HRC_TIMER_SEL_CCU_CC3'
+];
+
+List hrc_src_edge_array = [  
+    'XMC_HRPWM_HRC_SRC_EDGE_SEL_DISABLED',
+    'XMC_HRPWM_HRC_SRC_EDGE_SEL_RISING',
+    'XMC_HRPWM_HRC_SRC_EDGE_SEL_FALLING',
+    'XMC_HRPWM_HRC_SRC_EDGE_SEL_BOTH' 
+ ];
+
+List hrc_shadow_tx_array = [
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC0_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC0_DT_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC1_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC1_DT_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC2_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC2_DT_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC3_VALUE',
+  'XMC_HRPWM_HRC_SHADOW_TX_HRC3_DT_VALUE'
+ ];
+List boolArray = ['false', 'true'];
+
+List gpio_output_strength = [
+    'XMC_GPIO_OUTPUT_STRENGTH_WEAK',
+    'XMC_GPIO_OUTPUT_STRENGTH_MEDIUM',
+    'XMC_GPIO_OUTPUT_STRENGTH_STRONG_SOFT_EDGE',
+    'XMC_GPIO_OUTPUT_STRENGTH_STRONG_SLOW_EDGE',
+    'XMC_GPIO_OUTPUT_STRENGTH_STRONG_SHARP_EDGE',
+    'XMC_GPIO_OUTPUT_STRENGTH_STRONG_MEDIUM_EDGE',
+    ];
+
+/*************************/
+for (PWM_CCU4 appIns : appInstancesList  ) {
+    
+      appInst = appIns.getInstanceLabel()
+      MappedUri = appIns.hwres_ccu4_cc4_slice.getSolverUri()
+    
+      
+      if (MappedUri != null) {
+          
+          KernelNo            = MappedUri[4]
+          SliceNo             = MappedUri[6]
+          CCU4_Global_Handle  = "(GLOBAL_CCU4_t*) &"  + appIns.pwm_ccu4_app_global_ccu4_cc4.getInstanceLabel();
+          KernRegs_Handle     = "(XMC_CCU4_MODULE_t*) CCU4"  + KernelNo  + "_BASE";
+          Slice_Handle        = "(XMC_CCU4_SLICE_t*) CCU4"     + KernelNo  + "_CC4" + appIns.hwres_ccu4_cc4_slice.getSolverUri().getAt(6);
+          Dynamic_Handle      = "&" + appInst +"_DynamicHandle";
+          shadow_txfr_msk           = shadow_tx_array[((appIns.hwres_ccu4_cc4_slice.getSolverUri().getAt(6).toInteger() * 3) + 0)];
+          dither_shadow_txfr_msk    = shadow_tx_array[((appIns.hwres_ccu4_cc4_slice.getSolverUri().getAt(6).toInteger() * 3) + 1)];
+          prescaler_shadow_txfr_msk = shadow_tx_array[((appIns.hwres_ccu4_cc4_slice.getSolverUri().getAt(6).toInteger() * 3) + 2)];
+                   
+          period              = appIns.ginteger_period.value
+          compare_value       = appIns.ginteger_sym_cmp_ch1.value
+          prescaler           = appIns.ginteger_prescaler.value 
+          
+          sym_duty       = (Integer)appIns.gfloat_act_duty.value * PWM_CCU4_DUTY_SCALE;
+          
+          start_control       = appIns.gcheck_init_start.value
+          single_shot         = timer_repeat_array[boolArray.indexOf(appIns.gcheck_single_shot.value.toString())];
+          
+          sync_start          = appIns.gcheck_sync_start.value
+          counting_mode       = counting_mode_array[(Integer)appIns.gcombo_counting_mode.options.indexOf(appIns.gcombo_counting_mode.value)];
+          sym_cmp_ch1         = appIns.ginteger_sym_cmp_ch1.value
+
+          ch1_out0_pass_level = passivelvl_array[appIns.gcombo_ch1_out0_pass_level.options.indexOf(appIns.gcombo_ch1_out0_pass_level.value)]
+
+          int_per_match       = appIns.gcheck_int_per_match.value
+          int_cmp_match_up   = appIns.gcheck_int_cmp1_match_up.value
+          int_cmp_match_down = appIns.gcheck_int_cmp1_match_down.value
+          int_one_match_down  = appIns.gcheck_int_one_match_down.value
+          int_e0              = appIns.gcheck_int_e0.value
+          int_e1              = appIns.gcheck_int_e1.value
+          int_e2              = appIns.gcheck_int_e2.value
+
+          sr_per_match        = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_posr")]
+          sr_cmp1_match_up    = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_cmsr")]
+          sr_cmp1_match_down  = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_cmsr")]
+          sr_cmp2_match_up    = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_cmsr")]
+          sr_cmp2_match_down  = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_cmsr")]
+          sr_one_match_down   = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_posr")]
+          sr_e0               = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_e0sr")]
+          sr_e1               = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_e1sr")]
+          sr_e2               = SrId_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("srs","srs_e2sr")]
+
+          if((appIns.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (appIns.daveEnv.project.selectedDevice.deviceId.series == "4"))
+          {
+              e0_mapped_input = Input_array_xmc1400[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev0is")]
+              e1_mapped_input = Input_array_xmc1400[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev1is")]
+              e2_mapped_input = Input_array_xmc1400[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev2is")]
+          }
+          else
+          {
+              e0_mapped_input = Input_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev0is")]
+              e1_mapped_input = Input_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev1is")]
+              e2_mapped_input = Input_array[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev2is")]
+          }
+          
+          e0_filter           = event_filter_array[appIns.gcombo_e0_filter.options.indexOf(appIns.gcombo_e0_filter.value)]
+          e1_filter           = event_filter_array[appIns.gcombo_e1_filter.options.indexOf(appIns.gcombo_e1_filter.value)]
+          e2_filter           = event_filter_array[appIns.gcombo_e2_filter.options.indexOf(appIns.gcombo_e2_filter.value)]
+          
+          
+          
+          if(appIns.gcombo_e0_fn.value == "No Event")                  {e0_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE"}
+          if(appIns.gcombo_e0_fn.value == "External Start")            {e0_edge = event_edge_array[appIns.gcombo_ext_start_edge.options.indexOf(appIns.gcombo_ext_start_edge.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Stop")             {e0_edge = event_edge_array[appIns.gcombo_ext_stop_edge.options.indexOf(appIns.gcombo_ext_stop_edge.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Count Direction")  {e0_edge = event_edge_array[appIns.gcombo_e0_trigger.options.indexOf(appIns.gcombo_e0_trigger.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Gating")           {e0_edge = event_edge_array[appIns.gcombo_e0_trigger.options.indexOf(appIns.gcombo_e0_trigger.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Count")            {e0_edge = event_edge_array[appIns.gcombo_ext_count_edge.options.indexOf(appIns.gcombo_ext_count_edge.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Load")             {e0_edge = event_edge_array[appIns.gcombo_ext_load_edge.options.indexOf(appIns.gcombo_ext_load_edge.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Modulation")       {e0_edge = event_edge_array[appIns.gcombo_e0_trigger.options.indexOf(appIns.gcombo_e0_trigger.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Start" && 
+              appIns.gcheck_sync_start.value)                          {e0_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE"}
+          
+          if(appIns.gcombo_e1_fn.value == "No Event")                  {e1_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE"}
+          if(appIns.gcombo_e1_fn.value == "External Start")            {e1_edge = event_edge_array[appIns.gcombo_ext_start_edge.options.indexOf(appIns.gcombo_ext_start_edge.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Stop")             {e1_edge = event_edge_array[appIns.gcombo_ext_stop_edge.options.indexOf(appIns.gcombo_ext_stop_edge.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Count Direction")  {e1_edge = event_edge_array[appIns.gcombo_e1_trigger.options.indexOf(appIns.gcombo_e1_trigger.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Gating")           {e1_edge = event_edge_array[appIns.gcombo_e1_trigger.options.indexOf(appIns.gcombo_e1_trigger.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Count")            {e1_edge = event_edge_array[appIns.gcombo_ext_count_edge.options.indexOf(appIns.gcombo_ext_count_edge.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Load")             {e1_edge = event_edge_array[appIns.gcombo_ext_load_edge.options.indexOf(appIns.gcombo_ext_load_edge.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Modulation")       {e1_edge = event_edge_array[appIns.gcombo_e1_trigger.options.indexOf(appIns.gcombo_e1_trigger.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Override (Edge)")  {e1_edge = event_edge_array[appIns.gcombo_ext_e1_override_edge.options.indexOf(appIns.gcombo_ext_e1_override_edge.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Start" &&
+              appIns.gcheck_sync_start.value)                          {e1_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE"}
+
+          
+          if(appIns.gcombo_e2_fn.value == "No Event")                  {e2_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE"}
+          if(appIns.gcombo_e2_fn.value == "External Start")            {e2_edge = event_edge_array[appIns.gcombo_ext_start_edge.options.indexOf(appIns.gcombo_ext_start_edge.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Stop")             {e2_edge = event_edge_array[appIns.gcombo_ext_stop_edge.options.indexOf(appIns.gcombo_ext_stop_edge.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Count Direction")  {e2_edge = event_edge_array[appIns.gcombo_e2_trigger.options.indexOf(appIns.gcombo_e2_trigger.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Gating")           {e2_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE"}
+          if(appIns.gcombo_e2_fn.value == "External Count")            {e2_edge = event_edge_array[appIns.gcombo_ext_count_edge.options.indexOf(appIns.gcombo_ext_count_edge.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Load")             {e2_edge = event_edge_array[appIns.gcombo_ext_load_edge.options.indexOf(appIns.gcombo_ext_load_edge.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Modulation")       {e2_edge = event_edge_array[appIns.gcombo_e2_trigger.options.indexOf(appIns.gcombo_e2_trigger.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Override (Level)") {e2_edge = event_edge_array[appIns.gcombo_e2_trigger.options.indexOf(appIns.gcombo_e2_trigger.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Trap")             {e2_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_NONE"}
+          if(appIns.gcombo_e2_fn.value == "External Start" &&
+              appIns.gcheck_sync_start.value)                          {e2_edge = "XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE"}
+
+          if(appIns.gcombo_e0_fn.value == "No Event")                  {e0_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e0_fn.value == "External Start")            {e0_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e0_fn.value == "External Stop")             {e0_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e0_fn.value == "External Count Direction")  {e0_level = event_count_level_array[appIns.gcombo_ext_count_dir_level.options.indexOf(appIns.gcombo_ext_count_dir_level.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Gating")           {e0_level = event_level_array[appIns.gcombo_ext_gate_level.options.indexOf(appIns.gcombo_ext_gate_level.value)]}
+          if(appIns.gcombo_e0_fn.value == "External Count")            {e0_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e0_fn.value == "External Load")             {e0_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e0_fn.value == "External Modulation")       {e0_level = event_level_array[appIns.gcombo_ext_mod_level.options.indexOf(appIns.gcombo_ext_mod_level.value)]}
+
+          
+          if(appIns.gcombo_e1_fn.value == "No Event")                  {e1_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e1_fn.value == "External Start")            {e1_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e1_fn.value == "External Stop")             {e1_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e1_fn.value == "External Count Direction")  {e1_level = event_count_level_array[appIns.gcombo_ext_count_dir_level.options.indexOf(appIns.gcombo_ext_count_dir_level.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Gating")           {e1_level = event_level_array[appIns.gcombo_ext_gate_level.options.indexOf(appIns.gcombo_ext_gate_level.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Count")            {e1_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e1_fn.value == "External Load")             {e1_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e1_fn.value == "External Modulation")       {e1_level = event_level_array[appIns.gcombo_ext_mod_level.options.indexOf(appIns.gcombo_ext_mod_level.value)]}
+          if(appIns.gcombo_e1_fn.value == "External Override (Edge)")  {e1_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          
+          
+          if(appIns.gcombo_e2_fn.value == "No Event")                  {e2_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e2_fn.value == "External Start")            {e2_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e2_fn.value == "External Stop")             {e2_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e2_fn.value == "External Count Direction")  {e2_level = event_count_level_array[appIns.gcombo_ext_count_dir_level.options.indexOf(appIns.gcombo_ext_count_dir_level.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Gating")           {e2_level = event_level_array[appIns.gcombo_ext_gate_level.options.indexOf(appIns.gcombo_ext_gate_level.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Count")            {e2_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e2_fn.value == "External Load")             {e2_level = "XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW"}
+          if(appIns.gcombo_e2_fn.value == "External Modulation")       {e2_level = event_level_array[appIns.gcombo_ext_mod_level.options.indexOf(appIns.gcombo_ext_mod_level.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Override (Level)") {e2_level = event_level_array[appIns.gcombo_ext_e2_override_level.options.indexOf(appIns.gcombo_ext_e2_override_level.value)]}
+          if(appIns.gcombo_e2_fn.value == "External Trap")             {e2_level = event_level_array[appIns.gcombo_ext_trap_level.options.indexOf(appIns.gcombo_ext_trap_level.value)]}
+          
+          if     (appIns.gcombo_e0_fn.value == "External Start")       {ext_start_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Start")       {ext_start_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Start")       {ext_start_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                         {ext_start_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+          
+          ext_start_mode = external_start_mode_array[appIns.gcombo_ext_start_action.options.indexOf(appIns.gcombo_ext_start_action.value)]
+          
+          
+          if     (appIns.gcombo_e0_fn.value == "External Stop")        {ext_stop_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Stop")        {ext_stop_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Stop")        {ext_stop_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                         {ext_stop_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+
+          ext_stop_mode = external_stop_mode_array[appIns.gcombo_ext_stop_action.options.indexOf(appIns.gcombo_ext_stop_action.value)]
+          
+          if     (appIns.gcombo_e0_fn.value == "External Count Direction") {ext_count_dir_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Count Direction") {ext_count_dir_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Count Direction") {ext_count_dir_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                             {ext_count_dir_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+
+          if     (appIns.gcombo_e0_fn.value == "External Gating")       {ext_gate_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Gating")       {ext_gate_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Gating")       {ext_gate_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                          {ext_gate_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+
+          if     (appIns.gcombo_e0_fn.value == "External Count")        {ext_count_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Count")        {ext_count_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Count")        {ext_count_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                          {ext_count_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+
+          if     (appIns.gcombo_e0_fn.value == "External Load")         {ext_load_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Load")         {ext_load_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Load")         {ext_load_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                          {ext_load_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+
+          if     (appIns.gcombo_e0_fn.value == "External Modulation")   {ext_mod_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Modulation")   {ext_mod_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Modulation")   {ext_mod_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                          {ext_mod_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+ 
+          ext_mod_mode    = external_mod_mode_array[appIns.gcombo_ext_mod_mode.options.indexOf(appIns.gcombo_ext_mod_mode.value)]
+          ext_mod_sync    = boolArray[appIns.gcombo_ext_mod_sync.options.indexOf(appIns.gcombo_ext_mod_sync.value)]
+          
+          if     (appIns.gcombo_e0_fn.value == "External Override (Edge)")   {ext_override_edge_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Override (Edge)")   {ext_override_edge_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Override (Edge)")   {ext_override_edge_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                               {ext_override_edge_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+ 
+          if     (appIns.gcombo_e0_fn.value == "External Override (Level)")  {ext_override_level_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Override (Level)")  {ext_override_level_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Override (Level)")  {ext_override_level_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                               {ext_override_level_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+ 
+          if     (appIns.gcombo_e0_fn.value == "External Trap")              {ext_trap_event = "XMC_CCU4_SLICE_EVENT_0"}
+          else if(appIns.gcombo_e1_fn.value == "External Trap")              {ext_trap_event = "XMC_CCU4_SLICE_EVENT_1"}
+          else if(appIns.gcombo_e2_fn.value == "External Trap")              {ext_trap_event = "XMC_CCU4_SLICE_EVENT_2"}
+          else                                                               {ext_trap_event = "XMC_CCU4_SLICE_EVENT_NONE"}
+          
+          ext_trap_sync   = boolArray[appIns.gcombo_ext_trap_sync.options.indexOf(appIns.gcombo_ext_trap_sync.value)]
+          ext_trap_exit   = trap_exit_array[appIns.gcombo_ext_trap_exit.options.indexOf(appIns.gcombo_ext_trap_exit.value)]
+          ext_trap_enable = appIns.gcheck_ext_trap.value
+
+          dither_enable   = appIns.gcheck_dither_enable.value
+          dither_mode     = (Integer)(appIns.gcombo_dither_mode.options.indexOf(appIns.gcombo_dither_mode.value))
+          dither_cmp      = (Integer)(appIns.ginteger_dither_cmp_val.value)
+          
+          if(appIns.gcheck_dither_enable.value){
+              switch(dither_mode){
+                  case 0:
+                  dither_period = "1";
+                  dither_duty   = "0";
+                  break
+                  case 1:
+                  dither_period = "0";
+                  dither_duty   = "1";
+                  break
+                  case 2:
+                  dither_period = "1";
+                  dither_duty   = "1";
+                  break
+                  default:
+                  dither_period = "0";
+                  dither_duty   = "0";
+                  break
+                  
+              }
+          }
+          else{
+              
+              dither_period = "0";
+              dither_duty   = "0";
+          }
+          
+/**************************************.......shadow_transfer_mode.......************************/
+          
+          shadow_transfer_mode        = shadow_transfer_mode_array[appIns.gcombo_shadow_txfr_mode.options.indexOf(appIns.gcombo_shadow_txfr_mode.value)];
+          cascaded_shadow_txfr_enable = "false"//boolArray[(int)appIns.hwres_ccu4_cc4_slice.getRegValue("cmc","tce")];
+          
+/**************************************.......immediate_write.......***************************************/
+
+          if(appIns.gcheck_shadow_txfr_immediate_period.value){
+              
+              if(immediate_write == "")
+              {
+                  immediate_write = "(uint32_t)XMC_CCU4_SLICE_WRITE_INTO_PERIOD_CONFIGURATION";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  immediate_write = immediate_write + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_WRITE_INTO_PERIOD_CONFIGURATION";
+              }
+          }
+
+          if(appIns.gcheck_shadow_txfr_immediate_compare.value)
+          {
+              if(immediate_write == "")
+              {
+                  immediate_write = "(uint32_t)XMC_CCU4_SLICE_WRITE_INTO_COMPARE_CONFIGURATION";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  immediate_write = immediate_write + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_WRITE_INTO_COMPARE_CONFIGURATION";
+              }
+          }
+
+          if(appIns.gcheck_shadow_txfr_immediate_passive_level.value){
+              if(immediate_write == "")
+              {
+                  immediate_write = "(uint32_t)XMC_CCU4_SLICE_WRITE_INTO_PASSIVE_LEVEL_CONFIGURATION";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  immediate_write = immediate_write + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_WRITE_INTO_PASSIVE_LEVEL_CONFIGURATION";
+              }
+          }
+
+
+          if(appIns.gcheck_shadow_txfr_immediate_dither.value){
+              if(immediate_write == "")
+              {
+                  immediate_write = "(uint32_t)XMC_CCU4_SLICE_WRITE_INTO_DITHER_VALUE_CONFIGURATION";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  immediate_write = immediate_write + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_WRITE_INTO_DITHER_VALUE_CONFIGURATION";
+              }
+          }
+
+          
+          if(immediate_write.equals(""))
+          {
+            immediate_write = "0U";
+          }
+          else
+          {
+              immediate_write = "(" + immediate_write + ")";
+          }
+          
+          
+/**************************************.......automatic_shadow_transfer.......************************/
+          
+          if(appIns.gcheck_shadow_txfr_auto_period.value){
+              
+              if(automatic_shadow_transfer == "")
+              {
+                  automatic_shadow_transfer = "(uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_PERIOD_SHADOW";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  automatic_shadow_transfer = automatic_shadow_transfer + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_PERIOD_SHADOW";
+              }
+          }
+
+          if(appIns.gcheck_shadow_txfr_auto_compare.value)
+          {
+              if(automatic_shadow_transfer == "")
+              {
+                  automatic_shadow_transfer = "(uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_COMPARE_SHADOW";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  automatic_shadow_transfer = automatic_shadow_transfer + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_COMPARE_SHADOW";
+              }
+          }
+
+          if(appIns.gcheck_shadow_txfr_auto_passive_level.value){
+              if(automatic_shadow_transfer == "")
+              {
+                  automatic_shadow_transfer = "(uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_PASSIVE_LEVEL";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  automatic_shadow_transfer = automatic_shadow_transfer + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_PASSIVE_LEVEL";
+              }
+          }
+
+
+          if(appIns.gcheck_shadow_txfr_auto_dither.value){
+              if(automatic_shadow_transfer == "")
+              {
+                  automatic_shadow_transfer = "(uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_DITHER_SHADOW";
+              }
+              else
+              {
+                  /*Do not remove the empty spaces*/
+                  automatic_shadow_transfer = automatic_shadow_transfer + " |\n                                                        (uint32_t)XMC_CCU4_SLICE_AUTOMAIC_SHADOW_TRANSFER_WRITE_INTO_DITHER_SHADOW";
+              }
+          }
+
+          
+          if(automatic_shadow_transfer.equals(""))
+          {
+            automatic_shadow_transfer = "0U";
+          }
+          else
+          {
+              automatic_shadow_transfer = "(" + automatic_shadow_transfer + ")";
+          }
+          
+/**************************************.................................***************************************/
+          
+          mcm_ch1_enable       = boolArray.indexOf(appIns.gcheck_mcm_ch1_enable.value.toString());
+          mcm_shadow_txfr_mode = mcss_shadow_tx_array[SliceNo.toInteger() * 2 + appIns.gcombo_mcm_shadow_txfr.options.indexOf(appIns.gcombo_mcm_shadow_txfr.value)]
+   
+          prescaler_mode   = 'XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL';  /*Prescalar Mode group is removed!!*/
+
+              
+/**************************************.......IO.......***************************************************/    
+                
+          ch1_out0_enable          = appIns.gcheck_ch1_out0_enable.value
+          if(appIns.gcheck_ch1_out0_enable.value) {
+              ch1_out0_port        = appIns.hwres_port_channel_out.getSolverUri().getAt(4);
+              ch1_out0_pin         = appIns.hwres_port_channel_out.getSolverUri().getAt(6);
+              ch1_out0_iocr_pcr    = appIns.hwres_port_channel_out.getRegValue("","iocr_pcr");
+              ch1_out0_iocr_oe     = appIns.hwres_port_channel_out.getRegValue("","iocr_oe");
+              ch1_out0_hwsel_hw    = appIns.hwres_port_channel_out.getRegValue("","hwsel_hw");
+              ch1_out0_pdisc_pdis  = appIns.hwres_port_channel_out.getRegValue("","pdisc_pdis");
+              ch1_out0_mode        = gpio_mode_Array[18 + (9 * appIns.gcombo_ch1_out0_char.options.indexOf(appIns.gcombo_ch1_out0_char.value)) + (Integer)ch1_out0_iocr_pcr.toInteger()];
+              ch1_out0_ptr         = "PORT" + ch1_out0_port + "_BASE";
+              ch1_out0_config      = "&" + appInst + "_ch1_out0_config";
+              ch1_out0_output_strength  = gpio_output_strength[appIns.gcombo_ch_out_strng.options.indexOf(appIns.gcombo_ch_out_strng.value)];
+          }
+          else{
+              ch1_out0_pin         = "0";
+              ch1_out0_ptr         = "NULL";
+              ch1_out0_config      = "NULL";
+              ch1_out0_output_strength = "NULL"
+          }
+        
+
+/**************************************************************************************/
+
+              
+  out.print("""
+/********************************************************************************************************************/
+
+    const XMC_CCU4_SLICE_COMPARE_CONFIG_t  ${appInst}_timer_handle =
+    {
+      .timer_mode            = (uint32_t)${counting_mode},
+      .monoshot              = (uint32_t)${single_shot},
+      .shadow_xfer_clear     = 0U,
+      .dither_timer_period   = ${dither_period}U,
+      .dither_duty_cycle     = ${dither_duty}U,
+
+      .prescaler_mode        = (uint32_t)${prescaler_mode},
+
+      .mcm_enable            = ${mcm_ch1_enable}U,
+      .prescaler_initval     = ${prescaler}U,
+      .dither_limit          = ${dither_cmp}U,
+      .timer_concatenation   = 0U,
+      .passive_level         = (uint32_t)${ch1_out0_pass_level}, 
+    };
+
+
+    const XMC_CCU4_SLICE_EVENT_CONFIG_t ${appInst}_event0_config = 
+    {
+      .mapped_input        = ${e0_mapped_input},
+      .edge                = ${e0_edge},
+      .level               = ${e0_level},
+      .duration            = ${e0_filter},
+    };
+
+    const XMC_CCU4_SLICE_EVENT_CONFIG_t ${appInst}_event1_config = 
+    {
+      .mapped_input        = ${e1_mapped_input},
+      .edge                = ${e1_edge},
+      .level               = ${e1_level},
+      .duration            = ${e1_filter},
+    };
+
+    const XMC_CCU4_SLICE_EVENT_CONFIG_t ${appInst}_event2_config = 
+    {
+      .mapped_input        = ${e2_mapped_input},
+      .edge                = ${e2_edge},
+      .level               = ${e2_level},
+      .duration            = ${e2_filter},
+    };
+
+
+""");
+
+
+if (appIns.gcheck_ch1_out0_enable.value){
+
+out.print("""
+#if UC_FAMILY == XMC1
+    const XMC_GPIO_CONFIG_t  ${appInst}_ch1_out0_config    =
+    {
+      .mode                = ${ch1_out0_mode},
+      .input_hysteresis    = XMC_GPIO_INPUT_HYSTERESIS_STANDARD,
+      .output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW
+    };
+#endif
+
+#if UC_FAMILY == XMC4
+    const XMC_GPIO_CONFIG_t  ${appInst}_ch1_out0_config    =
+    {
+      .mode                = ${ch1_out0_mode},
+      .output_level        = XMC_GPIO_OUTPUT_LEVEL_LOW,
+      .output_strength     = ${ch1_out0_output_strength}
+    };
+#endif
+
+""");
+        }
+
+out.print("""
+    const PWM_CCU4_CONFIG_t  ${appInst}_config_handle =
+    {
+      .start_control                       = ${start_control},      
+      .period_value                        = ${period}U,
+      .compare_value                       = ${compare_value}U,
+
+      .int_per_match                       = ${int_per_match},
+      .int_cmp_match_up                    = ${int_cmp_match_up},
+      .int_cmp_match_down                  = ${int_cmp_match_down},
+
+      .int_one_match_down                  = ${int_one_match_down},
+      .int_e0                              = ${int_e0},
+      .int_e1                              = ${int_e1},
+      .int_e2                              = ${int_e2},
+
+      .sr_per_match                        = ${sr_per_match},
+      .sr_cmp_match_up                     = ${sr_cmp1_match_up},
+      .sr_cmp_match_down                   = ${sr_cmp1_match_down},
+
+      .sr_one_match_down                   = ${sr_one_match_down},
+      .sr_e0                               = ${sr_e0},
+      .sr_e1                               = ${sr_e1},
+      .sr_e2                               = ${sr_e2},
+
+      .event0_config_ptr                   = &${appInst}_event0_config,
+      .event1_config_ptr                   = &${appInst}_event1_config,
+      .event2_config_ptr                   = &${appInst}_event2_config,
+
+      .ext_start_event                     = ${ext_start_event},
+      .ext_start_mode                      = ${ext_start_mode},
+
+      .ext_stop_event                      = ${ext_stop_event},
+      .ext_stop_mode                       = ${ext_stop_mode},
+
+      .ext_count_dir_event                 = ${ext_count_dir_event},
+
+      .ext_gate_event                      = ${ext_gate_event},
+
+      .ext_count_event                     = ${ext_count_event},
+
+      .ext_load_event                      = ${ext_load_event},
+
+      .ext_mod_event                       = ${ext_mod_event},
+      .ext_mod_mode                        = ${ext_mod_mode},
+      .ext_mod_sync                        = ${ext_mod_sync},
+
+      .ext_override_edge_event             = ${ext_override_edge_event},
+
+      .ext_override_level_event            = ${ext_override_level_event},
+
+      .ext_trap_enable                     = ${ext_trap_enable},
+      .ext_trap_event                      = ${ext_trap_event},
+      .ext_trap_sync                       = ${ext_trap_sync},
+      .ext_trap_exit                       = ${ext_trap_exit},
+
+      .mcm_shadow_txfr_mode                = ${mcm_shadow_txfr_mode},
+      
+#if (UC_SERIES == XMC14)
+      .shadow_transfer_mode                = ${shadow_transfer_mode},
+
+      .immediate_write                     = ${immediate_write},
+
+      .automatic_shadow_transfer           = ${automatic_shadow_transfer},
+
+      .cascaded_shadow_txfr_enable         = ${cascaded_shadow_txfr_enable},
+#endif
+
+      .ccu4_cc4_slice_timer_ptr            = &${appInst}_timer_handle,
+
+      .gpio_ch_out_enable                  = ${ch1_out0_enable},
+      .gpio_ch_out_ptr                     = (XMC_GPIO_PORT_t *) ${ch1_out0_ptr},
+      .gpio_ch_out_pin                     = ${ch1_out0_pin}U,
+      .gpio_ch_out_config_ptr              = ${ch1_out0_config},    
+
+      .global_ccu4_handle                   = ${CCU4_Global_Handle},
+    };
+
+    PWM_CCU4_t ${appInst} =
+    {
+      .config_ptr                          = &${appInst}_config_handle,
+      .ccu4_module_ptr                     = ${KernRegs_Handle},
+      .ccu4_slice_ptr                      = ${Slice_Handle},
+      .slice_number                        = ${SliceNo}U,
+      .kernel_number                       = ${KernelNo}U,
+      .shadow_txfr_msk                     = (uint32_t)${shadow_txfr_msk},
+      .dither_shadow_txfr_msk              = (uint32_t)${dither_shadow_txfr_msk},
+      .prescaler_shadow_txfr_msk           = (uint32_t)${prescaler_shadow_txfr_msk},
+
+      .state                               = PWM_CCU4_STATE_UNINITIALIZED,
+      .sym_duty                            = ${sym_duty}U,
+
+    };
+
+/********************************************************************************************************/
+
+""");
+
+
+} else {
+out.print("""
+  /*CCU4/CCU4 resource is not mapped for PWM app instant: ${appInst} */
+""");
+  }
+}
+
+
+/**
+ * @}
+ */
+ 
+/*CODE_BLOCK_END*/

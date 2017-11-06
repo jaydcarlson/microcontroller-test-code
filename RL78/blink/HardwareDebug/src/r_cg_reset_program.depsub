@@ -1,0 +1,1 @@
+ -Wa,-gdwarf2 -x assembler-with-cpp   -nostdinc -I"C:\\PROGRA~2\\GCCFOR~1.201\\rl78-elf\\rl78-elf/rl78-elf/optlibinc" -Wstack-usage=64 -mg14 -g2 -g 

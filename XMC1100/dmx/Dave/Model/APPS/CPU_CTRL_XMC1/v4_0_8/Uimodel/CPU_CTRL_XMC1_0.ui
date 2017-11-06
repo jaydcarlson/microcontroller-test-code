@@ -1,0 +1,29 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="5, 5, 600, 500">
+		<p1:GTab text="General Settings" widgetName="tab_config" visible="true" enabled="true">
+			<p1:GTab.control>
+				<p1:Tab>
+					<p1:Tab.layout>
+						<GridLayout numColumns="2"/>
+					</p1:Tab.layout>
+					<p1:GLabel text="Number of priority bits for priority grouping:" visible="true" widgetName="glabel_preemptPriorityBits" description="Interrupt priority bits assigned to preempt priority group"/>
+					<p1:GInteger x:Style="NONE" minValue="0" maxValue="2" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" widgetName="gint_preemptPriorityBits" value="2" enabled="false" manifestObj="true" description="Controls bitfield AIRCR.PRIGROUP to define the number of bits assigned to preempt priority and subpriority "/>
+					<p1:GLabel text="Debug interface:" visible="true" manifestObj="true" widgetName="glabel_debuginterface"/>
+					<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" widgetName="gcombo_debuginterface" options="SWD0&#13;&#10;SWD1&#13;&#10;SPD0&#13;&#10;SPD1&#13;&#10;None" value="SWD0" toolTipText="Reserve the pins so no other APP can use them." description="List of pins used for SWD: SWDCLK and SWDIO. &lt;br&gt;&#13;&#10;SWD0 (P0.14, P0.15), SWD1 (P1.3, P1.2) &lt;br&gt;&#13;&#10;List of pins used for SPD: SPDIO &lt;br&gt;&#13;&#10;SPD0(P0.14) and SPD1(P1.3)&#13;&#10;"/>
+					<p1:GCheck text="Enable boot pin modes" manifestObj="true" widgetName="gcheck_bootpin" toolTipText="Reserve the pins so no other APP can use them" description="Only available in XMC1400 &lt;br&gt;&#13;&#10;Reserved pins: P4.6 and P4.7.&#13;&#10;"/>
+					<Label/>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Exception Settings" visible="true" enabled="true" manifestObj="true" widgetName="gtab_exception">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite_1">
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GCheck text="Enable hard fault debugging support" manifestObj="true" widgetName="gcheck_hardfault" description="If enabled, APP will provide the Hard Fault handler implementation."/>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

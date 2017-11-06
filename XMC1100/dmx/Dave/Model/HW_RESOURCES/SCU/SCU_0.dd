@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/1.0.1/peripheral/scu/0" description="System Control Unit " baseAddress="0x40010000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="DCO 2" URI="http://resources/1.0.1/peripheral/scu/0/dco/2">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK_XMC1/v4_0_18/CLOCK_XMC1_0.app#//@hwResources.0"/>
+    <resourcesList name="clkout" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/dco2_clkout"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="CONFIG" URI="http://resources/1.0.1/peripheral/scu/0/ccu/config">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CLOCK_XMC1/v4_0_18/CLOCK_XMC1_0.app#//@hwResources.1"/>
+    <resourcesList name="clkcr" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/clkcr"/>
+    <resourcesList name="clkcr_rtcclksel" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/clkcr/rtcclksel"/>
+    <resourcesList name="pwrsvcr" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/pwrsvcr"/>
+    <resourcesList name="osccsr" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/osccsr"/>
+    <resourcesList name="frtc" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/frtc"/>
+  </provided>
+  <provided xsi:type="ResourceModel:RegisterParameter" name="CLKCR" URI="http://resources/1.0.1/peripheral/scu/0/clkcr" value="3FF00400" toolTipHelpDescription="Clock Control Register" defaultValue="3FF00400" addressOffset="0x00" resetValue="3FF00400" resetMask="0xFFFFFFFF">
+    <bitFields name="FDIV" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/fdiv" value="0" toolTipHelpDescription="Fractional Divider Selection" defaultValue="0" startPos="0" stopPos="7" accessPermission="rw" maxValue="255" minValue="0"/>
+    <bitFields name="IDIV" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/idiv" value="4" toolTipHelpDescription="Divider Selection" defaultValue="4" startPos="8" stopPos="15" accessPermission="rw" maxValue="255" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="00" description="Divider is bypassed."/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="01" description="1; MCLK = 32 MHz"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="02" description="2; MCLK = 16 MHz"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="03" description="3; MCLK = 10.67 MHz"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="04" description="4; MCLK = 8 MHz"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="FE" description="254; MCLK = 126 kHz"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="FF" description="255; MCLK = 125.5 kHz"/>
+    </bitFields>
+    <bitFields name="PCLKSEL" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/pclksel" value="0" toolTipHelpDescription="PCLK Clock Select" defaultValue="0" startPos="16" stopPos="16" accessPermission="rw" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="PCLK = MCLK"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="PCLK = 2 x MCLK"/>
+    </bitFields>
+    <bitFields name="RTCCLKSEL" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/rtcclksel" value="0" toolTipHelpDescription="RTC Clock Select" defaultValue="0" startPos="17" stopPos="19" accessPermission="rw" maxValue="7" minValue="0"/>
+    <bitFields name="CNTADJ" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/cntadj" value="3ff" toolTipHelpDescription="Counter Adjustment" defaultValue="3ff" startPos="20" stopPos="29" accessPermission="rw" maxValue="1023" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="000" description="1 clock cycles of the DCO1, 64MHz clock"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="001" description="2 clock cycles of the DCO1, 64MHz clock"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="002" description="3 clock cycles of the DCO1, 64MHz clock"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="003" description="4 clock cycles of the DCO1, 64MHz clock"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="004" description="5 clock cycles of the DCO1, 64MHz clock"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="3FE" description="1023 clock cycles of the DCO1, 64MHz clock"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="3FF" description="1024 clock cycles of the DCO1, 64MHz clock"/>
+    </bitFields>
+    <bitFields name="VDDC2LOW" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/vddc2low" value="0" toolTipHelpDescription="VDDC too low" defaultValue="0" startPos="30" stopPos="30" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="VDDC is not too low and the fractional divider input clock is running at the targeted frequency"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="VDDC is too low and the fractional divider input clock is not running at the targeted frequency"/>
+    </bitFields>
+    <bitFields name="VDDC2HIGH" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/vddc2high" value="0" toolTipHelpDescription="VDDC too high" defaultValue="0" startPos="31" stopPos="31" maxValue="1" minValue="0">
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b0" description="VDDC is not too high"/>
+      <enumValues xsi:type="ResourceModel:RegEnumValue" value="0b1" description="VDDC is too high"/>
+    </bitFields>
+  </provided>
+  <provided xsi:type="ResourceModel:BitField" name="RTCCLKSEL" URI="http://resources/1.0.1/peripheral/scu/0/clkcr/rtcclksel" value="0" toolTipHelpDescription="RTC Clock Select" defaultValue="0" startPos="17" stopPos="19" accessPermission="rw" maxValue="7" minValue="0"/>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="0" URI="http://resources/1.0.1/peripheral/scu/0/gcu/ccu4_global_enable/0">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/GLOBAL_CCU4/v4_1_12/GLOBAL_CCU4_0.app#//@hwResources.1"/>
+    <resourcesList name="ccucon_gsc" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/ccucon/gsc40"/>
+    <resourcesList name="gsc_enable" requiredResourceUri="http://resources/1.0.1/peripheral/scu/0/ccucon_gsc40_enable"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x100" usage="registers"/>
+</ResourceModel:Peripheral>

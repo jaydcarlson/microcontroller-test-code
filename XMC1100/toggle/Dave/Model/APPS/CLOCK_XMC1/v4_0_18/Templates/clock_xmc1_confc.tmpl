@@ -1,0 +1,203 @@
+package Model.APPS.CLOCK_XMC1.v4_0_18.Templates;
+
+import Model.APPS.CLOCK_XMC1.v4_0_18.CLOCK_XMC1
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ * 2015-02-16:
+ *     - Initial version for DAVEv4. <BR>
+ * 2015-05-08:
+ *     - Internal structure object name has changed. <br>
+ * 2015-10-15:
+ *     - Updated for changes made in GUI combo options. <br>
+ * 2016-07-08:
+ *     - Fixed incorrect case for an included header.<br>
+ *
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "clock_xmc1.h"
+""");
+/* To hold APP instance number */
+String appInst = null;
+/* To hold clock value */
+String PCLK_Source = null;
+
+int prescaler_calibration_xmc14 = 0;
+int syn_preload_calibration_xmc14 = 0;
+float foschp_mhz_calibration_xmc14 = 0;
+
+Map RtcClkSrc = [0:"XMC_SCU_CLOCK_RTCCLKSRC_DCO2", 1:"XMC_SCU_CLOCK_RTCCLKSRC_ERU_IOUT0", 2:"XMC_SCU_CLOCK_RTCCLKSRC_ACMP0_OUT", 3:"XMC_SCU_CLOCK_RTCCLKSRC_ACMP1_OUT", 4:"XMC_SCU_CLOCK_RTCCLKSRC_ACMP2_OUT", 5:"XMC_SCU_CLOCK_RTCCLKSRC_OSCLP"]
+Map dclk_src = ["DCO1":"XMC_SCU_CLOCK_DCLKSRC_DCO1", "OSC_HP":"XMC_SCU_CLOCK_DCLKSRC_EXT_XTAL"]
+Map oschp_mode_map = ["External Crystal":"XMC_SCU_CLOCK_OSCHP_MODE_OSC", "External Direct Input":"XMC_SCU_CLOCK_OSCHP_MODE_DIRECT"]
+String oschp_mode
+String osclp_mode
+Map calib_src = ["OSC_HP":"XMC_SCU_CLOCK_SYNC_CLKSRC_OSCHP", "OSC_LP":"XMC_SCU_CLOCK_SYNC_CLKSRC_OSCLP"]
+/* for loop  for multiple instance */
+for (CLOCK_XMC1 Instance : appInstancesList ) {
+appInst   = Instance.getInstanceLabel()
+String series = (Instance.daveEnv.project.selectedDevice.deviceId.family + Instance.daveEnv.project.selectedDevice.deviceId.series)
+
+if((Instance.gcombo_ccuclksrc.value != "DCO1") && (Instance.gcheck_enable_osc_hp.value == true))
+{
+  oschp_mode = oschp_mode_map.get(Instance.gcombo_osc_hp_source.value)
+}
+else if((Instance.gcombo_ccuclksrc.value == "DCO1") && (Instance.gcombo_osc_hp_source.value == "External Crystal") && (Instance.gcheck_enable_osc_hp.value == true))
+{
+  oschp_mode = "XMC_SCU_CLOCK_OSCHP_MODE_OSC"
+}
+else if((Instance.gcombo_ccuclksrc.value == "DCO1") && (Instance.gcombo_osc_hp_source.value == "External Direct Input") && (Instance.gcheck_enable_osc_hp.value == true))
+{
+  oschp_mode = "XMC_SCU_CLOCK_OSCHP_MODE_DIRECT"
+}
+else
+{
+  oschp_mode = "XMC_SCU_CLOCK_OSCHP_MODE_DISABLED"
+}
+
+if ((Instance.gcheck_enable_osc_lp.value == true))
+{
+  osclp_mode = "XMC_SCU_CLOCK_OSCLP_MODE_OSC"
+}
+else
+{
+  osclp_mode = "XMC_SCU_CLOCK_OSCLP_MODE_DISABLED"
+}
+
+if (Instance.gcombo_pclkdesfrq.value == "MCLK")
+{
+PCLK_Source = "XMC_SCU_CLOCK_PCLKSRC_MCLK";
+}
+else if (Instance.gcombo_pclkdesfrq.value == "2 x MCLK")
+{
+PCLK_Source = "XMC_SCU_CLOCK_PCLKSRC_DOUBLE_MCLK";
+}
+else
+{
+PCLK_Source = "XMC_SCU_CLOCK_PCLKSRC_MCLK";
+}
+
+out.print("""
+/**********************************************************************************************************************
+* DATA STRUCTURES
+**********************************************************************************************************************/
+CLOCK_XMC1_t ${appInst} =
+{""");
+if((Instance.gcheck_dco1_clock_loss_event.value == true) ||(Instance.gcheck_standby_clock_failure_event.value == true) || (Instance.gcheck_ext_osc_clock_loss_event.value == true) ||
+	(Instance.gcheck_dco1_out_sync_evnt.value == true))
+{
+out.print("""
+  .global_scu_handleptr = (GLOBAL_SCU_XMC1_t *)&${Instance.appres_global_scu.getInstanceLabel()},""");
+}
+if((Instance.gcheck_dco1_clock_loss_event.value == true))
+{
+out.print("""
+  .callback_function_loci = ${Instance.gstring_dco1_clock_loss_event.value},""");
+}
+if((Instance.gcheck_standby_clock_failure_event.value == true))
+{
+out.print("""
+  .callback_function_stdbyclkfail = ${Instance.gstring_standby_clock_failure_event.value},""");
+}
+if((Instance.gcheck_ext_osc_clock_loss_event.value == true))
+{
+out.print("""
+  .callback_function_loss_ext_clock = ${Instance.gstring_ext_osc_clock_loss_event.value},""");
+}
+if((Instance.gcheck_dco1_out_sync_evnt.value == true))
+{
+out.print("""
+  .callback_function_dco1_out_sync = ${Instance.gstring_dco1_out_sync_evnt.value},""");
+}
+	out.print("""
+  .init_status = false
+};
+""");
+
+out.print("""
+/**********************************************************************************************************************
+* API IMPLEMENTATION
+**********************************************************************************************************************/
+void SystemCoreClockSetup(void)
+{""");
+out.print("""
+/* LOCAL DATA STRUCTURES */
+const XMC_SCU_CLOCK_CONFIG_t ${appInst}_CONFIG =
+{
+  .pclk_src = ${PCLK_Source}, 
+  .rtc_src = ${RtcClkSrc.get((int)Instance.hwres_clkcntrlunit.getRegValue("", "clkcr_rtcclksel"))},    
+  .fdiv = ${Math.round(Instance.fdiv_value.value)}U,  /**< 8/10 Bit Fractional divider */
+  .idiv = ${Math.round(Instance.idiv_value.value)}U,  /**< 8 Bit integer divider */
+""");
+	if(series == "XMC14")
+	{
+	out.print("""
+  .dclk_src = ${dclk_src.get(Instance.gcombo_ccuclksrc.value)},
+  .oschp_mode = ${oschp_mode},
+  .osclp_mode = ${osclp_mode}
+""");	
+	}
+	out.print("""
+};
+""");
+out.print("""
+  /* Configure FDIV, IDIV, PCLKSEL dividers*/
+  XMC_SCU_CLOCK_Init(&${appInst}_CONFIG);""");
+
+
+if((series == "XMC14") && (Instance.gcheck_dco1calibsel.value == true))
+{
+if(Instance.gcombo_dco1calibsel.value == "OSC_LP")
+{
+prescaler_calibration_xmc14 = 2;
+syn_preload_calibration_xmc14 = 2930;
+}else
+{
+	foschp_mhz_calibration_xmc14 = Instance.gfloat_extclkfreq.value;
+	prescaler_calibration_xmc14 = (foschp_mhz_calibration_xmc14 * 3000) / 48;
+	syn_preload_calibration_xmc14 = ((48 * prescaler_calibration_xmc14) / foschp_mhz_calibration_xmc14);
+}
+out.print("""
+  /* DCO1 Calibration using external oscillator */
+  XMC_SCU_CLOCK_EnableDCO1ExtRefCalibration(${calib_src.get(Instance.gcombo_dco1calibsel.value)}, ${prescaler_calibration_xmc14}, ${syn_preload_calibration_xmc14});
+""");	
+}
+out.print("""
+}
+""");
+}

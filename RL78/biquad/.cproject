@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.renesas.cdt.ccrl.exe.debug.win32.configuration.Id.1334066741">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.renesas.cdt.ccrl.exe.debug.win32.configuration.Id.1334066741" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.renesas.cdt.core.KPITGCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.KPITGASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.CCRXErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.KPITMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.KPITGLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="mot" artifactName="Biquad" buildArtefactType="com.renesas.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.renesas.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf *.sni *.dbg *.lst *.lis *.lpp *.map *.x *.h *.lbk *.abs" description="Debug using GDB simulator" id="com.renesas.cdt.ccrl.exe.debug.win32.configuration.Id.1334066741" name="Debug" parent="com.renesas.cdt.ccrl.exe.debug.win32.configuration.Id">
+					<folderInfo id="com.renesas.cdt.ccrl.exe.debug.win32.configuration.Id.1334066741." name="/" resourcePath="">
+						<toolChain id="com.renesas.cdt.ccrl.exe.debug.win32.toolChain.Id.290159048" name="Renesas CCRL Toolchain" superClass="com.renesas.cdt.ccrl.exe.debug.win32.toolChain.Id">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE" id="com.renesas.cdt.ccrl.exe.debug.win32.targetPlatform.Id.1681222024" isAbstract="false" name="Target Platform" osList="win32" superClass="com.renesas.cdt.ccrl.exe.debug.win32.targetPlatform.Id"/>
+							<builder buildPath="${workspace_loc:/Biquad}/Debug" id="com.renesas.cdt.ccrl.exe.debug.win32.builder.Id.250894962" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Debug Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.renesas.cdt.ccrl.exe.debug.win32.builder.Id"/>
+							<tool id="com.renesas.cdt.ccrl.exe.debug.win32.tool.dsp.Id.186938352" name="DSP Assembler" superClass="com.renesas.cdt.ccrl.exe.debug.win32.tool.dsp.Id"/>
+							<tool id="com.renesas.cdt.ccrl.exe.debug.win32.tool.common.Id.683551290" name="Common" superClass="com.renesas.cdt.ccrl.exe.debug.win32.tool.common.Id">
+								<option id="com.renesas.cdt.ccrl.common.option.device.993077097" name="CPU Device" superClass="com.renesas.cdt.ccrl.common.option.device" value="R5F103A8" valueType="string"/>
+								<option id="com.renesas.cdt.ccrl.common.option.family.1215325462" name="CPU Family" superClass="com.renesas.cdt.ccrl.common.option.family" value="RL78 - G12" valueType="string"/>
+								<option defaultValue="com.renesas.cdt.ccrl.common.option.cpu.s2" id="com.renesas.cdt.ccrl.common.option.cpu.1955361815" name="Specify CPU core:" superClass="com.renesas.cdt.ccrl.common.option.cpu" value="com.renesas.cdt.ccrl.common.option.cpu.s2" valueType="enumerated"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.debug.win32.tool.compiler.Id.1229632074" name="Compiler" superClass="com.renesas.cdt.ccrl.exe.debug.win32.tool.compiler.Id">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.compiler.option.I.135424102" name="Include file directories" superClass="com.renesas.cdt.ccrl.compiler.option.I" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}\inc&quot;"/>
+								</option>
+								<option id="com.renesas.cdt.ccrl.compiler.option.g.1204484919" name="Add debug information" superClass="com.renesas.cdt.ccrl.compiler.option.g" value="true" valueType="boolean"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.compiler.option.allMacros.284925609" name="All Macros" superClass="com.renesas.cdt.ccrl.compiler.option.allMacros" valueType="stringList">
+									<listOptionValue builtIn="false" value="__RENESAS__=1"/>
+									<listOptionValue builtIn="false" value="__RL78__=1"/>
+									<listOptionValue builtIn="false" value="__CCRL__=1"/>
+									<listOptionValue builtIn="false" value="__CCRL=1"/>
+									<listOptionValue builtIn="false" value="__BASE_FILE__=__FILE__"/>
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+									<listOptionValue builtIn="false" value="__STDC__"/>
+									<listOptionValue builtIn="false" value="__STDC_VERSION__"/>
+									<listOptionValue builtIn="false" value="__RL78_S2__=1"/>
+									<listOptionValue builtIn="false" value="__RL78_MEDIUM__=1"/>
+									<listOptionValue builtIn="false" value="__UCHAR=1"/>
+									<listOptionValue builtIn="false" value="__UBIT=1"/>
+									<listOptionValue builtIn="false" value="__DBL4=1"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.compiler.option.predefineMacros.816325231" name="Pre-defined Macros" superClass="com.renesas.cdt.ccrl.compiler.option.predefineMacros" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__STDC_VERSION__"/>
+									<listOptionValue builtIn="false" value="__STDC__"/>
+									<listOptionValue builtIn="false" value="__CCRL=1"/>
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+									<listOptionValue builtIn="false" value="__BASE_FILE__=__FILE__"/>
+									<listOptionValue builtIn="false" value="__RL78_MEDIUM__=1"/>
+									<listOptionValue builtIn="false" value="__UCHAR=1"/>
+									<listOptionValue builtIn="false" value="__CCRL__=1"/>
+									<listOptionValue builtIn="false" value="__RL78__=1"/>
+									<listOptionValue builtIn="false" value="__DBL4=1"/>
+									<listOptionValue builtIn="false" value="__RL78_S2__=1"/>
+									<listOptionValue builtIn="false" value="__UBIT=1"/>
+									<listOptionValue builtIn="false" value="__RENESAS__=1"/>
+								</option>
+								<inputType id="%Base.Compiler.ccrl.C.inputType.Id.1304650335" name="C Input" superClass="%Base.Compiler.ccrl.C.inputType.Id"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.debug.win32.tool.assembler.Id.860462087" name="Assembler" superClass="com.renesas.cdt.ccrl.exe.debug.win32.tool.assembler.Id">
+								<option id="com.renesas.cdt.ccrl.assembler.option.g.1121295374" name="Add debug information" superClass="com.renesas.cdt.ccrl.assembler.option.g" value="true" valueType="boolean"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.assembler.option.allMacros.403881734" name="All Macros" superClass="com.renesas.cdt.ccrl.assembler.option.allMacros" valueType="stringList">
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.assembler.option.predefineMacros.1838731561" name="Pre-defined Macros" superClass="com.renesas.cdt.ccrl.assembler.option.predefineMacros" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+								</option>
+								<inputType id="%Base.Assembler.ccrl.inputType.Id.350926402" name="Assembler Input" superClass="%Base.Assembler.ccrl.inputType.Id"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.debug.win32.tool.linker.Id.1164113381" name="Linker" superClass="com.renesas.cdt.ccrl.exe.debug.win32.tool.linker.Id">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.linker.option.vectn.565338384" name="Address setting for specified area of vector table" superClass="com.renesas.cdt.ccrl.linker.option.vectn" valueType="stringList">
+									<listOptionValue builtIn="false" value="2=ffff"/>
+								</option>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.debug.win32.tool.convertor.Id.2003775888" name="Converter" superClass="com.renesas.cdt.ccrl.exe.debug.win32.tool.convertor.Id"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="Biquad.c|hdwinit.asm" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.configuration.Id.2074923761">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.configuration.Id.2074923761" moduleId="org.eclipse.cdt.core.settings" name="HardwareDebug">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="com.renesas.cdt.core.KPITGCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.KPITGASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.CCRXErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.KPITMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.renesas.cdt.core.KPITGLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="abs" artifactName="Biquad" buildArtefactType="com.renesas.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=com.renesas.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf *.sni *.dbg *.lst *.lis *.lpp *.map *.x *.h *.lbk *.abs" description="Debug on hardware" id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.configuration.Id.2074923761" name="HardwareDebug" parent="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.configuration.Id">
+					<folderInfo id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.configuration.Id.2074923761." name="/" resourcePath="">
+						<toolChain id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.toolChain.Id.223712908" name="Renesas CCRL Toolchain" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.toolChain.Id" targetTool="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.linker.Id">
+							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.PE" id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.targetPlatform.Id.1670113947" isAbstract="false" name="Target Platform" osList="win32" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.targetPlatform.Id"/>
+							<builder buildPath="${workspace_loc:/Biquad}/HardwareDebug" id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.builder.Id.437809633" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Debug Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.builder.Id"/>
+							<tool id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.dsp.Id.633439587" name="DSP Assembler" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.dsp.Id"/>
+							<tool id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.common.Id.1076735333" name="Common" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.common.Id">
+								<option id="com.renesas.cdt.ccrl.common.option.device.85688328" name="CPU Device" superClass="com.renesas.cdt.ccrl.common.option.device" value="R5F103A8" valueType="string"/>
+								<option id="com.renesas.cdt.ccrl.common.option.family.516537505" name="CPU Family" superClass="com.renesas.cdt.ccrl.common.option.family" value="RL78 - G12" valueType="string"/>
+								<option defaultValue="com.renesas.cdt.ccrl.common.option.cpu.s2" id="com.renesas.cdt.ccrl.common.option.cpu.559857653" name="Specify CPU core:" superClass="com.renesas.cdt.ccrl.common.option.cpu" value="com.renesas.cdt.ccrl.common.option.cpu.s2" valueType="enumerated"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.compiler.Id.1873813571" name="Compiler" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.compiler.Id">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" command="-I " id="com.renesas.cdt.ccrl.compiler.option.I.845961626" name="Include file directories" superClass="com.renesas.cdt.ccrl.compiler.option.I" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${TCINSTALL}\inc&quot;"/>
+								</option>
+								<option id="com.renesas.cdt.ccrl.compiler.option.g.1715555784" name="Add debug information" superClass="com.renesas.cdt.ccrl.compiler.option.g" value="true" valueType="boolean"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.compiler.option.allMacros.532605048" name="All Macros" superClass="com.renesas.cdt.ccrl.compiler.option.allMacros" valueType="stringList">
+									<listOptionValue builtIn="false" value="__RENESAS__=1"/>
+									<listOptionValue builtIn="false" value="__RL78__=1"/>
+									<listOptionValue builtIn="false" value="__CCRL__=1"/>
+									<listOptionValue builtIn="false" value="__CCRL=1"/>
+									<listOptionValue builtIn="false" value="__BASE_FILE__=__FILE__"/>
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+									<listOptionValue builtIn="false" value="__STDC__"/>
+									<listOptionValue builtIn="false" value="__STDC_VERSION__"/>
+									<listOptionValue builtIn="false" value="__RL78_S2__=1"/>
+									<listOptionValue builtIn="false" value="__RL78_MEDIUM__=1"/>
+									<listOptionValue builtIn="false" value="__UCHAR=1"/>
+									<listOptionValue builtIn="false" value="__UBIT=1"/>
+									<listOptionValue builtIn="false" value="__DBL4=1"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.compiler.option.predefineMacros.1713324997" name="Pre-defined Macros" superClass="com.renesas.cdt.ccrl.compiler.option.predefineMacros" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__STDC_VERSION__"/>
+									<listOptionValue builtIn="false" value="__STDC__"/>
+									<listOptionValue builtIn="false" value="__CCRL=1"/>
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+									<listOptionValue builtIn="false" value="__BASE_FILE__=__FILE__"/>
+									<listOptionValue builtIn="false" value="__RL78_MEDIUM__=1"/>
+									<listOptionValue builtIn="false" value="__UCHAR=1"/>
+									<listOptionValue builtIn="false" value="__CCRL__=1"/>
+									<listOptionValue builtIn="false" value="__RL78__=1"/>
+									<listOptionValue builtIn="false" value="__DBL4=1"/>
+									<listOptionValue builtIn="false" value="__RL78_S2__=1"/>
+									<listOptionValue builtIn="false" value="__UBIT=1"/>
+									<listOptionValue builtIn="false" value="__RENESAS__=1"/>
+								</option>
+								<option id="com.renesas.cdt.ccrl.compiler.option.optimization.761089243" name="Level of optimization:" superClass="com.renesas.cdt.ccrl.compiler.option.optimization" value="com.renesas.cdt.ccrl.compiler.option.optimization.default" valueType="enumerated"/>
+								<option id="com.renesas.cdt.ccrl.compiler.option.ounroll.292109534" name="Maximum number of loop expansions" superClass="com.renesas.cdt.ccrl.compiler.option.ounroll" value="0" valueType="string"/>
+								<option id="com.renesas.cdt.ccrl.compiler.option.Opipeline.814119167" name="Perform pipeline optimization" superClass="com.renesas.cdt.ccrl.compiler.option.Opipeline" value="com.renesas.cdt.ccrl.compiler.option.Opipeline.yes" valueType="enumerated"/>
+								<inputType id="%Base.Compiler.ccrl.C.inputType.Id.1361041144" name="C Input" superClass="%Base.Compiler.ccrl.C.inputType.Id"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.assembler.Id.870569894" name="Assembler" outputFlag="" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.assembler.Id">
+								<option id="com.renesas.cdt.ccrl.assembler.option.g.1209128171" name="Add debug information" superClass="com.renesas.cdt.ccrl.assembler.option.g" value="true" valueType="boolean"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.assembler.option.allMacros.1852834442" name="All Macros" superClass="com.renesas.cdt.ccrl.assembler.option.allMacros" valueType="stringList">
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+								</option>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.assembler.option.predefineMacros.1847564619" name="Pre-defined Macros" superClass="com.renesas.cdt.ccrl.assembler.option.predefineMacros" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="__RENESAS_VERSION__=0x01040000"/>
+								</option>
+								<inputType id="%Base.Assembler.ccrl.inputType.Id.5896680" name="Assembler Input" superClass="%Base.Assembler.ccrl.inputType.Id"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.linker.Id.240940508" name="Linker" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.linker.Id">
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.renesas.cdt.ccrl.linker.option.vectn.720850659" name="Address setting for specified area of vector table" superClass="com.renesas.cdt.ccrl.linker.option.vectn" valueType="stringList">
+									<listOptionValue builtIn="false" value="2=ffff"/>
+								</option>
+								<option id="com.renesas.cdt.ccrl.linker.option.securityId.1519453834" name="Security ID" superClass="com.renesas.cdt.ccrl.linker.option.securityId" value="00000000000000000000" valueType="string"/>
+								<option id="com.renesas.cdt.ccrl.linker.option.ocdbgUse.1357059014" name="Set enable/disable on-chip debug by link option" superClass="com.renesas.cdt.ccrl.linker.option.ocdbgUse" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.ccrl.linker.option.ocdbgValue.1751745874" name="Option byte values for OCD" superClass="com.renesas.cdt.ccrl.linker.option.ocdbgValue" value="84" valueType="string"/>
+								<option id="com.renesas.cdt.ccrl.linker.option.userOptByteUse.483450677" name="Set user option byte" superClass="com.renesas.cdt.ccrl.linker.option.userOptByteUse" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.ccrl.linker.option.userOptByteValue.1130086127" name="User option byte value" superClass="com.renesas.cdt.ccrl.linker.option.userOptByteValue" value="FFFFE0" valueType="string"/>
+								<option id="com.renesas.cdt.ccrl.linker.option.debugMonitorUse.1284807977" name="Use range of debug monitor area" superClass="com.renesas.cdt.ccrl.linker.option.debugMonitorUse" value="true" valueType="boolean"/>
+								<option id="com.renesas.cdt.ccrl.linker.option.debugMonitorValue.969239398" name="Range of debug monitor area" superClass="com.renesas.cdt.ccrl.linker.option.debugMonitorValue" value="1E00-1FFF" valueType="string"/>
+							</tool>
+							<tool id="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.convertor.Id.645503682" name="Converter" superClass="com.renesas.cdt.ccrl.exe.hardwaredebug.win32.tool.convertor.Id"/>
+						</toolChain>
+					</folderInfo>
+					<sourceEntries>
+						<entry excluding="Biquad.c|hdwinit.asm" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
+					</sourceEntries>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="Biquad.com.renesas.cdt.ccrl.exe.projectType.win32.Id.1642164853" name="Executable (Renesas)" projectType="com.renesas.cdt.ccrl.exe.projectType.win32.Id"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
+	<storageModule moduleId="refreshScope"/>
+</cproject>

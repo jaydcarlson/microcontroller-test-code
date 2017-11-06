@@ -1,0 +1,81 @@
+#ifndef _PIN_MUX_H_
+#define _PIN_MUX_H_
+
+
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+
+/*! @brief Direction type  */
+typedef enum _pin_mux_direction
+{
+  kPIN_MUX_DirectionInput = 0U,         /* Input direction */
+  kPIN_MUX_DirectionOutput = 1U,        /* Output direction */
+  kPIN_MUX_DirectionInputOrOutput = 2U  /* Input or output direction */
+} pin_mux_direction_t;
+
+/*!
+ * @addtogroup pin_mux
+ * @{
+ */
+
+/*******************************************************************************
+ * API
+ ******************************************************************************/
+
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+/*!
+ * @brief Calls initialization functions.
+ *
+ */
+void BOARD_InitBootPins(void);
+
+/* PORTA6 (number 8), red */
+#define BOARD_INITPINS_red_PERIPHERAL                                       TPM0   /*!< Device name: TPM0 */
+#define BOARD_INITPINS_red_SIGNAL                                             CH   /*!< TPM0 signal: CH */
+#define BOARD_INITPINS_red_CHANNEL                                             0   /*!< TPM0 channel: 0 */
+#define BOARD_INITPINS_red_PIN_NAME                                     TPM0_CH0   /*!< Pin name */
+#define BOARD_INITPINS_red_LABEL                                           "red"   /*!< Label */
+#define BOARD_INITPINS_red_NAME                                            "red"   /*!< Identifier name */
+#define BOARD_INITPINS_red_DIRECTION                    kPIN_MUX_DirectionOutput   /*!< Direction */
+
+/* PORTA5 (number 7), green */
+#define BOARD_INITPINS_green_PERIPHERAL                                     TPM0   /*!< Device name: TPM0 */
+#define BOARD_INITPINS_green_SIGNAL                                           CH   /*!< TPM0 signal: CH */
+#define BOARD_INITPINS_green_CHANNEL                                           1   /*!< TPM0 channel: 1 */
+#define BOARD_INITPINS_green_PIN_NAME                                   TPM0_CH1   /*!< Pin name */
+#define BOARD_INITPINS_green_LABEL                                       "green"   /*!< Label */
+#define BOARD_INITPINS_green_NAME                                        "green"   /*!< Identifier name */
+#define BOARD_INITPINS_green_DIRECTION                  kPIN_MUX_DirectionOutput   /*!< Direction */
+
+/* PORTA12 (number 20), blue */
+#define BOARD_INITPINS_blue_PERIPHERAL                                      TPM1   /*!< Device name: TPM1 */
+#define BOARD_INITPINS_blue_SIGNAL                                            CH   /*!< TPM1 signal: CH */
+#define BOARD_INITPINS_blue_CHANNEL                                            0   /*!< TPM1 channel: 0 */
+#define BOARD_INITPINS_blue_PIN_NAME                                    TPM1_CH0   /*!< Pin name */
+#define BOARD_INITPINS_blue_LABEL                                         "blue"   /*!< Label */
+#define BOARD_INITPINS_blue_NAME                                          "blue"   /*!< Identifier name */
+#define BOARD_INITPINS_blue_DIRECTION                   kPIN_MUX_DirectionOutput   /*!< Direction */
+
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitPins(void);
+
+#if defined(__cplusplus)
+}
+#endif
+
+/*!
+ * @}
+ */
+#endif /* _PIN_MUX_H_ */
+
+/*******************************************************************************
+ * EOF
+ ******************************************************************************/

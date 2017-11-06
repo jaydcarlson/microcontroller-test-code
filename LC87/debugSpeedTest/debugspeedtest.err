@@ -1,0 +1,30 @@
+TASKING program builder:
+Compiling "main.c"
+Assembling "main.src"
+Linking to debugspeedtest.abs
+Converting to debugspeedtest.x87
+
+LC87K series IEEE695 converter Version 2.36
+Copyright (c) ON Semiconductor 2000-2014. All rights reserved.
+
+Conversion processing is started using the following files.
+    absfile : d:\git\microcontroller-test-code\lc87\debugspeedtest\debugspeedtest.abs
+    optfile : d:\git\microcontroller-test-code\lc87\debugspeedtest\debugspeedtest.OPT
+    deffile : c:\program files (x86)\tasking\dlc87 v3.2r2\etc\lc87opt.def
+    incfile : c:\program files (x86)\tasking\dlc87 v3.2r2\include\LC87F1M.INC
+    cgrfile : 
+
+Conversion is successful.
+
+Converting to debugspeedtest.hex
+X87 to Intel-HEX converter Version 2.36
+Copyright (c) ON Semiconductor 2001-2014. All rights reserved.
+
+Conversion processing is started using the following files.
+    x87file : D:\Git\microcontroller-test-code\LC87\debugSpeedTest\debugspeedtest.x87
+    deffile : c:\program files (x86)\tasking\dlc87 v3.2r2\etc\lc87opt.def
+
+Conversion is successful.
+     Output : D:\Git\microcontroller-test-code\LC87\debugSpeedTest\debugspeedtest.HEX
+     CheckSum : F986
+

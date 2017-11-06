@@ -1,0 +1,1 @@
+"./src/r_cg_cgc.o" "./src/r_cg_cgc_user.o" "./src/r_cg_hardware_setup.o" "./src/r_cg_main.o" "./src/r_cg_port.o" "./src/r_cg_port_user.o" "./src/r_cg_reset_program.o" "./src/r_cg_vector_table.o" 

@@ -6,8 +6,8 @@ Section Cross References
 
     biquad.o(i.main) refers to clk.o(i.CLK_SetCoreClock) for CLK_SetCoreClock
     biquad.o(i.main) refers to gpio.o(i.GPIO_SetMode) for GPIO_SetMode
-    biquad.o(i.main) refers to biquad.o(.data) for .data
     biquad.o(i.main) refers to biquad.o(.bss) for .bss
+    biquad.o(i.main) refers to biquad.o(.data) for .data
     clk.o(i.CLK_EnablePLL) refers to aeabi_sdivfast.o(.text) for __aeabi_uidivmod
     clk.o(i.CLK_GetCPUFreq) refers to system_m051series.o(i.SystemCoreClockUpdate) for SystemCoreClockUpdate
     clk.o(i.CLK_GetCPUFreq) refers to system_m051series.o(.data) for SystemCoreClock
@@ -231,6 +231,11 @@ Removing Unused input sections from the image.
 
     Removing biquad.o(.rev16_text), (4 bytes).
     Removing biquad.o(.revsh_text), (4 bytes).
+    Removing biquad.o(.constdata), (2 bytes).
+    Removing biquad.o(.constdata), (2 bytes).
+    Removing biquad.o(.constdata), (2 bytes).
+    Removing biquad.o(.constdata), (2 bytes).
+    Removing biquad.o(.constdata), (2 bytes).
     Removing gpio.o(.rev16_text), (4 bytes).
     Removing gpio.o(.revsh_text), (4 bytes).
     Removing gpio.o(i.GPIO_DisableInt), (28 bytes).
@@ -415,7 +420,7 @@ Removing Unused input sections from the image.
     Removing system_m051series.o(.rev16_text), (4 bytes).
     Removing system_m051series.o(.revsh_text), (4 bytes).
 
-185 unused section(s) (total 7280 bytes) removed from the image.
+190 unused section(s) (total 7290 bytes) removed from the image.
 
 ==============================================================================
 
@@ -620,14 +625,14 @@ Image Symbol Table
     i.ferror                                 0x00000bbc   Section        0  retarget_1.o(i.ferror)
     i.fputc                                  0x00000bc4   Section        0  retarget_1.o(i.fputc)
     i.main                                   0x00000be4   Section        0  biquad.o(i.main)
-    .constdata                               0x00000c70   Section       32  system_m051series.o(.constdata)
-    .constdata                               0x00000c90   Section       40  _printf_hex_int.o(.constdata)
-    uc_hextab                                0x00000c90   Data          20  _printf_hex_int.o(.constdata)
-    lc_hextab                                0x00000ca4   Data          20  _printf_hex_int.o(.constdata)
-    .data                                    0x20000000   Section      136  biquad.o(.data)
-    .data                                    0x20000088   Section        4  retarget_1.o(.data)
-    .data                                    0x2000008c   Section       12  system_m051series.o(.data)
-    .bss                                     0x20000098   Section      128  biquad.o(.bss)
+    .constdata                               0x00000c7c   Section       32  system_m051series.o(.constdata)
+    .constdata                               0x00000c9c   Section       40  _printf_hex_int.o(.constdata)
+    uc_hextab                                0x00000c9c   Data          20  _printf_hex_int.o(.constdata)
+    lc_hextab                                0x00000cb0   Data          20  _printf_hex_int.o(.constdata)
+    .data                                    0x20000000   Section        8  biquad.o(.data)
+    .data                                    0x20000008   Section        4  retarget_1.o(.data)
+    .data                                    0x2000000c   Section       12  system_m051series.o(.data)
+    .bss                                     0x20000018   Section      256  biquad.o(.bss)
     .bss                                     0x20000118   Section       96  libspace.o(.bss)
     HEAP                                     0x20000178   Section        0  startup_m051series.o(HEAP)
     STACK                                    0x20000178   Section      512  startup_m051series.o(STACK)
@@ -790,19 +795,19 @@ Image Symbol Table
     _is_digit                                0x00000baf   Thumb Code    14  __printf_wp.o(i._is_digit)
     ferror                                   0x00000bbd   Thumb Code     6  retarget_1.o(i.ferror)
     fputc                                    0x00000bc5   Thumb Code    26  retarget_1.o(i.fputc)
-    main                                     0x00000be5   Thumb Code   104  biquad.o(i.main)
-    gau32ClkSrcTbl                           0x00000c70   Data          32  system_m051series.o(.constdata)
-    Region$$Table$$Base                      0x00000cb8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00000cd8   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x00000be5   Thumb Code   116  biquad.o(i.main)
+    gau32ClkSrcTbl                           0x00000c7c   Data          32  system_m051series.o(.constdata)
+    Region$$Table$$Base                      0x00000cc4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00000ce4   Number         0  anon$$obj.o(Region$$Table)
     z1                                       0x20000000   Data           2  biquad.o(.data)
     z2                                       0x20000002   Data           2  biquad.o(.data)
     outTemp                                  0x20000004   Data           2  biquad.o(.data)
     inTemp                                   0x20000006   Data           2  biquad.o(.data)
-    in                                       0x20000008   Data         128  biquad.o(.data)
-    __stdout                                 0x20000088   Data           4  retarget_1.o(.data)
-    SystemCoreClock                          0x2000008c   Data           4  system_m051series.o(.data)
-    CyclesPerUs                              0x20000090   Data           4  system_m051series.o(.data)
-    PllClock                                 0x20000094   Data           4  system_m051series.o(.data)
+    __stdout                                 0x20000008   Data           4  retarget_1.o(.data)
+    SystemCoreClock                          0x2000000c   Data           4  system_m051series.o(.data)
+    CyclesPerUs                              0x20000010   Data           4  system_m051series.o(.data)
+    PllClock                                 0x20000014   Data           4  system_m051series.o(.data)
+    in                                       0x20000018   Data         128  biquad.o(.bss)
     out                                      0x20000098   Data         128  biquad.o(.bss)
     __libspace_start                         0x20000118   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x20000178   Data           0  libspace.o(.bss)
@@ -815,114 +820,114 @@ Memory Map of the image
 
   Image Entry point : 0x00000191
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00000d70, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00000cfc, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000cd8, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00000ce4, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x000000c0   Data   RO         1261    RESET               startup_m051series.o
-    0x000000c0   0x000000c0   0x00000008   Code   RO         1360  * !!!main             c_p.l(__main.o)
-    0x000000c8   0x000000c8   0x0000003c   Code   RO         1536    !!!scatter          c_p.l(__scatter.o)
-    0x00000104   0x00000104   0x0000001a   Code   RO         1538    !!handler_copy      c_p.l(__scatter_copy.o)
+    0x00000000   0x00000000   0x000000c0   Data   RO         1266    RESET               startup_m051series.o
+    0x000000c0   0x000000c0   0x00000008   Code   RO         1365  * !!!main             c_p.l(__main.o)
+    0x000000c8   0x000000c8   0x0000003c   Code   RO         1541    !!!scatter          c_p.l(__scatter.o)
+    0x00000104   0x00000104   0x0000001a   Code   RO         1543    !!handler_copy      c_p.l(__scatter_copy.o)
     0x0000011e   0x0000011e   0x00000002   PAD
-    0x00000120   0x00000120   0x0000001c   Code   RO         1540    !!handler_zi        c_p.l(__scatter_zi.o)
-    0x0000013c   0x0000013c   0x00000002   Code   RO         1349    .ARM.Collect$$_printf_percent$$00000000  c_p.l(_printf_percent.o)
-    0x0000013e   0x0000013e   0x0000000a   Code   RO         1348    .ARM.Collect$$_printf_percent$$0000000C  c_p.l(_printf_x.o)
-    0x00000148   0x00000148   0x00000004   Code   RO         1371    .ARM.Collect$$_printf_percent$$00000017  c_p.l(_printf_percent_end.o)
-    0x0000014c   0x0000014c   0x00000002   Code   RO         1407    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1421    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1423    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1426    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1428    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1430    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1433    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1435    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1437    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1439    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1441    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1443    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1445    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1447    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1449    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1451    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1453    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1457    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1459    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1461    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000000   Code   RO         1463    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
-    0x0000014e   0x0000014e   0x00000002   Code   RO         1464    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
-    0x00000150   0x00000150   0x00000002   Code   RO         1493    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
-    0x00000152   0x00000152   0x00000000   Code   RO         1519    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO         1521    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO         1524    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO         1527    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO         1529    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000000   Code   RO         1532    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
-    0x00000152   0x00000152   0x00000002   Code   RO         1533    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
-    0x00000154   0x00000154   0x00000000   Code   RO         1362    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
-    0x00000154   0x00000154   0x00000000   Code   RO         1373    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
-    0x00000154   0x00000154   0x00000006   Code   RO         1385    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
-    0x0000015a   0x0000015a   0x00000000   Code   RO         1375    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
-    0x0000015a   0x0000015a   0x00000004   Code   RO         1376    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
-    0x0000015e   0x0000015e   0x00000000   Code   RO         1378    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
-    0x0000015e   0x0000015e   0x00000008   Code   RO         1379    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
-    0x00000166   0x00000166   0x00000002   Code   RO         1412    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
-    0x00000168   0x00000168   0x00000000   Code   RO         1468    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
-    0x00000168   0x00000168   0x00000004   Code   RO         1469    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
-    0x0000016c   0x0000016c   0x00000006   Code   RO         1470    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
+    0x00000120   0x00000120   0x0000001c   Code   RO         1545    !!handler_zi        c_p.l(__scatter_zi.o)
+    0x0000013c   0x0000013c   0x00000002   Code   RO         1354    .ARM.Collect$$_printf_percent$$00000000  c_p.l(_printf_percent.o)
+    0x0000013e   0x0000013e   0x0000000a   Code   RO         1353    .ARM.Collect$$_printf_percent$$0000000C  c_p.l(_printf_x.o)
+    0x00000148   0x00000148   0x00000004   Code   RO         1376    .ARM.Collect$$_printf_percent$$00000017  c_p.l(_printf_percent_end.o)
+    0x0000014c   0x0000014c   0x00000002   Code   RO         1412    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1426    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1428    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1431    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1433    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1435    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1438    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1440    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1442    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1444    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1446    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1448    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1450    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1452    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1454    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1456    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1458    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1462    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1464    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1466    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000000   Code   RO         1468    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
+    0x0000014e   0x0000014e   0x00000002   Code   RO         1469    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
+    0x00000150   0x00000150   0x00000002   Code   RO         1498    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
+    0x00000152   0x00000152   0x00000000   Code   RO         1524    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO         1526    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO         1529    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO         1532    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO         1534    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000000   Code   RO         1537    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
+    0x00000152   0x00000152   0x00000002   Code   RO         1538    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
+    0x00000154   0x00000154   0x00000000   Code   RO         1367    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
+    0x00000154   0x00000154   0x00000000   Code   RO         1378    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
+    0x00000154   0x00000154   0x00000006   Code   RO         1390    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
+    0x0000015a   0x0000015a   0x00000000   Code   RO         1380    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
+    0x0000015a   0x0000015a   0x00000004   Code   RO         1381    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
+    0x0000015e   0x0000015e   0x00000000   Code   RO         1383    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
+    0x0000015e   0x0000015e   0x00000008   Code   RO         1384    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
+    0x00000166   0x00000166   0x00000002   Code   RO         1417    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
+    0x00000168   0x00000168   0x00000000   Code   RO         1473    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
+    0x00000168   0x00000168   0x00000004   Code   RO         1474    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
+    0x0000016c   0x0000016c   0x00000006   Code   RO         1475    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
     0x00000172   0x00000172   0x00000002   PAD
-    0x00000174   0x00000174   0x0000001c   Code   RO         1177    .emb_text           retarget_1.o
-    0x00000190   0x00000190   0x00000064   Code   RO         1262  * .text               startup_m051series.o
-    0x000001f4   0x000001f4   0x0000001c   Code   RO         1303    .text               c_p.l(noretval__2printf.o)
-    0x00000210   0x00000210   0x00000058   Code   RO         1310    .text               c_p.l(_printf_hex_int.o)
-    0x00000268   0x00000268   0x0000010e   Code   RO         1336    .text               c_p.l(__printf_wp.o)
-    0x00000376   0x00000376   0x000001e8   Code   RO         1354    .text               c_p.l(aeabi_sdivfast.o)
-    0x0000055e   0x0000055e   0x00000006   Code   RO         1358    .text               c_p.l(heapauxi.o)
-    0x00000564   0x00000564   0x000000b0   Code   RO         1367    .text               c_p.l(_printf_intcommon.o)
-    0x00000614   0x00000614   0x00000028   Code   RO         1369    .text               c_p.l(_printf_char_file.o)
-    0x0000063c   0x0000063c   0x00000030   Code   RO         1389    .text               c_p.l(_printf_char_common.o)
-    0x0000066c   0x0000066c   0x0000003e   Code   RO         1391    .text               c_p.l(sys_stackheap_outer.o)
-    0x000006aa   0x000006aa   0x00000010   Code   RO         1396    .text               c_p.l(exit.o)
+    0x00000174   0x00000174   0x0000001c   Code   RO         1182    .emb_text           retarget_1.o
+    0x00000190   0x00000190   0x00000064   Code   RO         1267  * .text               startup_m051series.o
+    0x000001f4   0x000001f4   0x0000001c   Code   RO         1308    .text               c_p.l(noretval__2printf.o)
+    0x00000210   0x00000210   0x00000058   Code   RO         1315    .text               c_p.l(_printf_hex_int.o)
+    0x00000268   0x00000268   0x0000010e   Code   RO         1341    .text               c_p.l(__printf_wp.o)
+    0x00000376   0x00000376   0x000001e8   Code   RO         1359    .text               c_p.l(aeabi_sdivfast.o)
+    0x0000055e   0x0000055e   0x00000006   Code   RO         1363    .text               c_p.l(heapauxi.o)
+    0x00000564   0x00000564   0x000000b0   Code   RO         1372    .text               c_p.l(_printf_intcommon.o)
+    0x00000614   0x00000614   0x00000028   Code   RO         1374    .text               c_p.l(_printf_char_file.o)
+    0x0000063c   0x0000063c   0x00000030   Code   RO         1394    .text               c_p.l(_printf_char_common.o)
+    0x0000066c   0x0000066c   0x0000003e   Code   RO         1396    .text               c_p.l(sys_stackheap_outer.o)
+    0x000006aa   0x000006aa   0x00000010   Code   RO         1401    .text               c_p.l(exit.o)
     0x000006ba   0x000006ba   0x00000002   PAD
-    0x000006bc   0x000006bc   0x00000008   Code   RO         1408    .text               c_p.l(libspace.o)
-    0x000006c4   0x000006c4   0x0000000c   Code   RO         1465    .text               c_p.l(sys_exit.o)
-    0x000006d0   0x000006d0   0x00000002   Code   RO         1482    .text               c_p.l(use_no_semi.o)
-    0x000006d2   0x000006d2   0x00000000   Code   RO         1484    .text               c_p.l(indicate_semi.o)
+    0x000006bc   0x000006bc   0x00000008   Code   RO         1413    .text               c_p.l(libspace.o)
+    0x000006c4   0x000006c4   0x0000000c   Code   RO         1470    .text               c_p.l(sys_exit.o)
+    0x000006d0   0x000006d0   0x00000002   Code   RO         1487    .text               c_p.l(use_no_semi.o)
+    0x000006d2   0x000006d2   0x00000000   Code   RO         1489    .text               c_p.l(indicate_semi.o)
     0x000006d2   0x000006d2   0x00000002   PAD
-    0x000006d4   0x000006d4   0x0000020c   Code   RO          212    i.CLK_EnablePLL     clk.o
-    0x000008e0   0x000008e0   0x000000ec   Code   RO          221    i.CLK_SetCoreClock  clk.o
-    0x000009cc   0x000009cc   0x0000008c   Code   RO           96    i.GPIO_SetMode      gpio.o
-    0x00000a58   0x00000a58   0x000000c4   Code   RO         1179    i.Hard_Fault_Handler  retarget_1.o
-    0x00000b1c   0x00000b1c   0x00000090   Code   RO         1268    i.SystemCoreClockUpdate  system_m051series.o
-    0x00000bac   0x00000bac   0x00000002   Code   RO         1269    i.SystemInit        system_m051series.o
-    0x00000bae   0x00000bae   0x0000000e   Code   RO         1338    i._is_digit         c_p.l(__printf_wp.o)
-    0x00000bbc   0x00000bbc   0x00000006   Code   RO         1184    i.ferror            retarget_1.o
+    0x000006d4   0x000006d4   0x0000020c   Code   RO          217    i.CLK_EnablePLL     clk.o
+    0x000008e0   0x000008e0   0x000000ec   Code   RO          226    i.CLK_SetCoreClock  clk.o
+    0x000009cc   0x000009cc   0x0000008c   Code   RO          101    i.GPIO_SetMode      gpio.o
+    0x00000a58   0x00000a58   0x000000c4   Code   RO         1184    i.Hard_Fault_Handler  retarget_1.o
+    0x00000b1c   0x00000b1c   0x00000090   Code   RO         1273    i.SystemCoreClockUpdate  system_m051series.o
+    0x00000bac   0x00000bac   0x00000002   Code   RO         1274    i.SystemInit        system_m051series.o
+    0x00000bae   0x00000bae   0x0000000e   Code   RO         1343    i._is_digit         c_p.l(__printf_wp.o)
+    0x00000bbc   0x00000bbc   0x00000006   Code   RO         1189    i.ferror            retarget_1.o
     0x00000bc2   0x00000bc2   0x00000002   PAD
-    0x00000bc4   0x00000bc4   0x00000020   Code   RO         1186    i.fputc             retarget_1.o
-    0x00000be4   0x00000be4   0x0000008c   Code   RO            3    i.main              biquad.o
-    0x00000c70   0x00000c70   0x00000020   Data   RO         1270    .constdata          system_m051series.o
-    0x00000c90   0x00000c90   0x00000028   Data   RO         1311    .constdata          c_p.l(_printf_hex_int.o)
-    0x00000cb8   0x00000cb8   0x00000020   Data   RO         1534    Region$$Table       anon$$obj.o
+    0x00000bc4   0x00000bc4   0x00000020   Code   RO         1191    i.fputc             retarget_1.o
+    0x00000be4   0x00000be4   0x00000098   Code   RO            3    i.main              biquad.o
+    0x00000c7c   0x00000c7c   0x00000020   Data   RO         1275    .constdata          system_m051series.o
+    0x00000c9c   0x00000c9c   0x00000028   Data   RO         1316    .constdata          c_p.l(_printf_hex_int.o)
+    0x00000cc4   0x00000cc4   0x00000020   Data   RO         1539    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00000cd8, Size: 0x00000098, Max: 0xffffffff, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x20000000   0x00000cd8   0x00000088   Data   RW            5    .data               biquad.o
-    0x20000088   0x00000d60   0x00000004   Data   RW         1188    .data               retarget_1.o
-    0x2000008c   0x00000d64   0x0000000c   Data   RW         1271    .data               system_m051series.o
-
-
-    Execution Region ER_ZI (Exec base: 0x20000098, Load base: 0x00000d70, Size: 0x000002e0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00000ce4, Size: 0x00000018, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000098        -       0x00000080   Zero   RW            4    .bss                biquad.o
-    0x20000118        -       0x00000060   Zero   RW         1409    .bss                c_p.l(libspace.o)
-    0x20000178        -       0x00000000   Zero   RW         1260    HEAP                startup_m051series.o
-    0x20000178        -       0x00000200   Zero   RW         1259    STACK               startup_m051series.o
+    0x20000000   0x00000ce4   0x00000008   Data   RW           10    .data               biquad.o
+    0x20000008   0x00000cec   0x00000004   Data   RW         1193    .data               retarget_1.o
+    0x2000000c   0x00000cf0   0x0000000c   Data   RW         1276    .data               system_m051series.o
+
+
+    Execution Region ER_ZI (Exec base: 0x20000018, Load base: 0x00000cfc, Size: 0x00000360, Max: 0xffffffff, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000018        -       0x00000100   Zero   RW            4    .bss                biquad.o
+    0x20000118        -       0x00000060   Zero   RW         1414    .bss                c_p.l(libspace.o)
+    0x20000178        -       0x00000000   Zero   RW         1265    HEAP                startup_m051series.o
+    0x20000178        -       0x00000200   Zero   RW         1264    STACK               startup_m051series.o
 
 
 ==============================================================================
@@ -932,7 +937,7 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       140         36          0        136        128      65789   biquad.o
+       152         36          0          8        256      65864   biquad.o
        760         90          0          0          0      10516   clk.o
        140          0          0          0          0       1107   gpio.o
        262        132          0          4          0       4075   retarget_1.o
@@ -940,7 +945,7 @@ Image component sizes
        146         28         32         12          0       2159   system_m051series.o
 
     ----------------------------------------------------------------------
-      1550        332        256        152        640      84298   Object Totals
+      1562        332        256         24        768      84373   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          2          0          0          0          0          0   (incl. Padding)
 
@@ -999,15 +1004,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      2992        370        296        152        736      84706   Grand Totals
-      2992        370        296        152        736      84706   ELF Image Totals
-      2992        370        296        152          0          0   ROM Totals
+      3004        370        296         24        864      84781   Grand Totals
+      3004        370        296         24        864      84781   ELF Image Totals
+      3004        370        296         24          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 3288 (   3.21kB)
+    Total RO  Size (Code + RO Data)                 3300 (   3.22kB)
     Total RW  Size (RW Data + ZI Data)               888 (   0.87kB)
-    Total ROM Size (Code + RO Data + RW Data)       3440 (   3.36kB)
+    Total ROM Size (Code + RO Data + RW Data)       3324 (   3.25kB)
 
 ==============================================================================
 

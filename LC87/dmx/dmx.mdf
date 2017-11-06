@@ -1,0 +1,25 @@
+# space <name> <id> <mau size>
+space	LC87K:LC87K:scode	13	8
+space	LC87K:LC87K:reg	10	8
+space	LC87K:LC87K:bdata	9	8
+space	LC87K:LC87K:ndata	8	8
+space	LC87K:LC87K:bitdata	12	1
+space	LC87K:LC87K:mbdata	7	8
+space	LC87K:LC87K:idata	6	8
+space	LC87K:LC87K:sfr	11	8
+# chip <name> <id> <mau size> <size> <type>
+chip	i_rom0	0	8	16128	rom
+chip	opt_area	1	8	256	rom
+chip	i_ram	2	8	1024	ram
+chip	sfr	3	8	256	ram
+# map <space id> <start in space> <size in space> <chip id> <start on chip>
+map	13	0	16128	0	0
+map	13	16128	256	1	0
+map	6	0	1024	2	0
+map	6	65024	256	3	0
+map	11	65024	256	3	0
+map	10	0	128	2	0
+map	9	0	256	2	0
+map	8	0	512	2	0
+map	12	0	8192	2	0
+map	7	0	1024	2	0

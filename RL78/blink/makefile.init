@@ -1,0 +1,5 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+PATH := $(PATH):C:\PROGRA~2\GCCFOR~1.201\rl78-elf\rl78-elf\bin;C:\PROGRA~2\GCCFOR~1.201\rl78-elf\rl78-elf\libexec\gcc\rl78-elf\4.9.2.201701-GNURL78

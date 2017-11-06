@@ -1,0 +1,27 @@
+..\..\fwlib\src\stm8s_tim1.c
+..\..\fwlib\src\stm8s_gpio.c
+..\..\fwlib\src\stm8s_clk.c
+..\..\fwlib\src\stm8s_uart2.c
+main.c
+stm8_interrupt_vector.c
+stm8s_conf.h
+..\..\fwlib\inc\stm8s_adc1.h
+..\..\fwlib\inc\stm8s_awu.h
+..\..\fwlib\inc\stm8s_beep.h
+..\..\fwlib\inc\stm8s_clk.h
+..\..\fwlib\inc\stm8s_exti.h
+..\..\fwlib\inc\stm8s_flash.h
+..\..\fwlib\inc\stm8s_gpio.h
+..\..\fwlib\inc\stm8s_i2c.h
+..\..\fwlib\inc\stm8s_itc.h
+..\..\fwlib\inc\stm8s_iwdg.h
+..\..\fwlib\inc\stm8s_rst.h
+..\..\fwlib\inc\stm8s_spi.h
+..\..\fwlib\inc\stm8s_tim1.h
+..\..\fwlib\inc\stm8s_tim2.h
+..\..\fwlib\inc\stm8s_tim3.h
+..\..\fwlib\inc\stm8s_tim4.h
+..\..\fwlib\inc\stm8s_uart2.h
+..\..\fwlib\inc\stm8s_wwdg.h
+c:\program files (x86)\cosmic\fse_compilers\cxstm8\hstm8\modsl0.h
+c:\program files (x86)\cosmic\fse_compilers\cxstm8\hstm8\stm8s.h

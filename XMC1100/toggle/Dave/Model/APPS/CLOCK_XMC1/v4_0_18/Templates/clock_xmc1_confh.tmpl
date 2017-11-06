@@ -1,0 +1,124 @@
+package Model.APPS.CLOCK_XMC1.v4_0_18.Templates;
+
+import Model.APPS.CLOCK_XMC1.v4_0_18.CLOCK_XMC1
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ *   disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ * 2015-02-16:
+ *     - Initial version for DAVEv4 <BR>
+ * 2015-09-22:
+ *     - Macros are added for interrupts. <BR>
+ * 2015-10-19:
+ *     - CLOCK_XMC1_OSCHP_FREQUENCY and CLOCK_XMC1_OSCHP_ENABLED macros are provided 
+ *       for non-weak OSCHP_GetFrequency function. <BR>
+ * 2016-07-08:
+ *     - Fixed incorrect case for an included header.<br>
+ *
+ * @endcond
+ *
+ */
+
+#ifndef CLOCK_XMC1_CONF_H
+#define CLOCK_XMC1_CONF_H
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+ 
+ /**********************************************************************************************************************
+ * MACROS
+ **********************************************************************************************************************/
+""");
+String appInst = null;
+out.print("""
+#define CLOCK_XMC1_MAJOR_VERSION (${(CLOCK_XMC1.version).findAll( /\d+/ )*.toInteger()[0]}U)
+#define CLOCK_XMC1_MINOR_VERSION (${(CLOCK_XMC1.version).findAll( /\d+/ )*.toInteger()[1]}U)
+#define CLOCK_XMC1_PATCH_VERSION (${(CLOCK_XMC1.version).findAll( /\d+/ )*.toInteger()[2]}U)
+""")
+/* for loop  for multiple instance */
+for (CLOCK_XMC1 Instance : appInstancesList ) {
+appInst   = Instance.getInstanceLabel()
+if((Instance.gcheck_dco1_clock_loss_event.value == true) ||(Instance.gcheck_standby_clock_failure_event.value == true) || (Instance.gcheck_ext_osc_clock_loss_event.value == true) ||
+	(Instance.gcheck_dco1_out_sync_evnt.value == true))
+{
+out.print("""
+
+#define CLOCK_XMC1_INTERRUPT_ENABLED""");
+}
+if((Instance.gcheck_dco1_clock_loss_event.value == true))
+{
+out.print("""
+#define CLOCK_XMC1_LOCI_EVENT_ENABLED""");
+}
+if((Instance.gcheck_standby_clock_failure_event.value == true))
+{
+out.print("""
+#define CLOCK_XMC1_STDBYCLKFAIL_EVENT_ENABLED""");
+}
+if((Instance.gcheck_ext_osc_clock_loss_event.value == true))
+{
+out.print("""
+#define CLOCK_XMC1_LOSS_EXT_CLOCK_EVENT_ENABLED""");
+}
+if((Instance.gcheck_dco1_out_sync_evnt.value == true))
+{
+out.print("""
+#define CLOCK_XMC1_DCO1_OUT_SYNC_EVENT_ENABLED""");
+}
+if((Instance.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (Instance.daveEnv.project.selectedDevice.deviceId.series == "4"))
+{
+if(Instance.gcheck_enable_osc_hp.value == true)
+{
+	float OscFreq = ((Instance.gfloat_extclkfreq.value) * 1000000)
+out.print("""
+/* High precision external oscillator is enabled */
+#define CLOCK_XMC1_OSCHP_ENABLED  (1U)
+""");
+	out.print("""
+/* High precision external oscillator frequency */
+#define CLOCK_XMC1_OSCHP_FREQUENCY (${(Integer)OscFreq}U)
+""");
+}
+if(Instance.gcheck_dco1calibsel.value == true)
+{
+out.print("""
+/* DCO1 Calibration with external reference is enabled */
+#define CLOCK_XMC1_DCO1_CALIBRATION_ENABLED  (1U)
+""");
+}
+}
+out.print("""
+#endif /* CLOCK_XMC1_CONF_H */
+""");
+}

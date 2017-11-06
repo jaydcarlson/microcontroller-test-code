@@ -1,0 +1,31 @@
+# dmx
+# 2017-10-01 04:13:16Z
+
+# IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 2
+# IO_3@[IOP=(3)][IoId=(3)] is reserved: SWDDebugEnabled
+dont_use_io iocell 3 3
+set_location "ClockGenBlock" m0s8clockgenblockcell -1 -1 0
+set_location "ClockBlock" m0s8clockblockcell -1 -1 0
+set_io "\UART:rx(0)\" iocell 1 0
+set_io "RedPin(0)" iocell 2 6
+set_io "BluePin(0)" iocell 3 4
+set_io "GreenPin(0)" iocell 2 4
+set_io "\ADC_1:AdcInput(0)\" iocell 3 6
+set_io "\ADC_1:AdcInput(1)\" iocell 3 7
+set_io "\ADC_1:AdcInput(2)\" iocell 2 3
+set_io "\ADC_1:AdcInput(3)\" iocell 3 1
+set_io "\ADC_1:AdcInput(4)\" iocell 0 1
+set_io "\ADC_1:AdcInput(5)\" iocell 2 7
+set_io "\ADC_1:AdcInput(6)\" iocell 4 3
+set_io "\ADC_1:AdcInput(7)\" iocell 1 2
+set_io "\ADC_1:AdcInput(8)\" iocell 0 4
+set_io "\ADC_1:AdcInput(9)\" iocell 3 5
+set_location "\UART:SCB\" m0s8scbcell -1 -1 0
+set_location "\RED:cy_m0s8_tcpwm_1\" m0s8tcpwmcell -1 -1 1
+set_location "\BLUE:cy_m0s8_tcpwm_1\" m0s8tcpwmcell -1 -1 2
+set_location "\GREEN:cy_m0s8_tcpwm_1\" m0s8tcpwmcell -1 -1 0
+set_location "UART_ISR" interrupt -1 -1 7
+set_location "\ADC_1:ISR\" interrupt -1 -1 10
+set_location "\ADC_1:CSD\" p4csdcell -1 -1 0
+set_location "\ADC_1:IDACComp\" p4csidacV2cell -1 -1 1

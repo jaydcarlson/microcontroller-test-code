@@ -1,0 +1,10 @@
+D:\Git\microcontroller-test-code\PSOC4000S\toggle.cydsn\toggle.cyprj|ea2e8776-6c4d-4cdc-82f5-315d0a21f88f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|eeb01417-ad13-4630-9eee-03bf76502279
+D:\OneDrive\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|e70786a4-c3b3-463b-88b5-684720a24431
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|d908175f-932b-45c2-9a6d-691fc4d17e59
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|c99a6cbc-dcff-4d71-9f7b-bd15592e32a4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|8b3b21be-3fe1-4390-9ca7-109551fe0b48
+D:\Git\microcontroller-test-code\PSOC4000S\biquad.cydsn\biquad.cyprj|3bb0deb0-dc4d-4fa9-8cb3-7b72127cb091
+D:\Git\microcontroller-test-code\PSOC4000S\dmx.cydsn\dmx.cyprj|0713636c-ac59-4402-9d78-726a1a51d753
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\dev\psoc4\PSoC4AnalogDevice\psoc4arch.cydsn\psoc4arch.cyprj|13ab28e4-cd2e-430a-9b93-39eadada2a5a
+C:\Program Files (x86)\Cypress\PSoC Creator\4.1\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|ba4ad9dc-fe70-492c-a21a-d078ca274eda

@@ -1,0 +1,339 @@
+package Model.APPS.DMX512_RD.v4_0_16.Templates;
+
+import Model.APPS.DMX512_RD.v4_0_16.DMX512_RD
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2016, Infineon Technologies AG
+ * All rights reserved.                        
+ *                                             
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the           
+ * following conditions are met:   
+ *                                                                              
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following   
+ *   disclaimer.                        
+ * 
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the    
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.     
+ *                         
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote 
+ *   products derived from this software without specific prior written permission. 
+ *                                             
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,  
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE   
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,  
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR        
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,      
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE   
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.    
+ *                                                                              
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes       
+ * with Infineon Technologies AG (dave@infineon.com).        
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ * 2015-02-16:
+ *     - Initial version for DAVEv4. <BR>
+ * 2015-05-08:
+ *     - No functional change; Updated to adhere latest guidelines <br>
+ *
+ * 2015-08-25:
+ *     - Supported XMC14 device and added Interrupt Source Selection code for XMC14.<br>
+ * 2016-07-08:
+ *     - Fixed incorrect case for an included header.<br>
+ *
+ * @endcond 
+ *
+ */
+
+/***********************************************************************************************************************
+ * HEADER FILES                                                                                                      
+ **********************************************************************************************************************/
+#include "dmx512_rd.h"
+""");
+
+String uart_kernel_no = null
+String uart_chan_no = null
+String uart_nvic_no = null
+String uart_rxpin_port_no = null
+int uart_rxpin_iocr = 0
+String uart_rxpin_pad_no = null
+String capt_kernel_no = null
+String capt_slice_no = null
+String capt_nvic_no = null
+String rbctr_srbien = null
+String pdisc_pdis = null
+List uart_rxpin_uri = null
+List uart_uri = null
+List uart_nvic_uri = null
+List capt_uri = null
+int capt_prescalar = 0
+int div_val = 0
+float ccu4_freq = 0.0
+
+Map capt_input_sel = [0:"XMC_CCU4_SLICE_INPUT_A", 
+	                  1:"XMC_CCU4_SLICE_INPUT_B", 
+					  2:"XMC_CCU4_SLICE_INPUT_C",
+					  3:"XMC_CCU4_SLICE_INPUT_D",
+					  4:"XMC_CCU4_SLICE_INPUT_E",
+					  5:"XMC_CCU4_SLICE_INPUT_F",
+					  6:"XMC_CCU4_SLICE_INPUT_G",
+					  7:"XMC_CCU4_SLICE_INPUT_H",
+					  8:"XMC_CCU4_SLICE_INPUT_I",
+					  9:"XMC_CCU4_SLICE_INPUT_J",
+					  10:"XMC_CCU4_SLICE_INPUT_K",
+					  11:"XMC_CCU4_SLICE_INPUT_L",
+					  12:"XMC_CCU4_SLICE_INPUT_M",
+					  13:"XMC_CCU4_SLICE_INPUT_N",
+					  14:"XMC_CCU4_SLICE_INPUT_O",
+					  15:"XMC_CCU4_SLICE_INPUT_P"
+					  ]
+
+List capt_input_sel_xmc1400 = [
+	
+	'XMC_CCU4_SLICE_INPUT_AA',
+	'XMC_CCU4_SLICE_INPUT_AB',
+	'XMC_CCU4_SLICE_INPUT_AC',
+	'XMC_CCU4_SLICE_INPUT_AD',
+	'XMC_CCU4_SLICE_INPUT_AE',
+	'XMC_CCU4_SLICE_INPUT_AF',
+	'XMC_CCU4_SLICE_INPUT_AG',
+	'XMC_CCU4_SLICE_INPUT_AH',
+	'XMC_CCU4_SLICE_INPUT_AI',
+	'XMC_CCU4_SLICE_INPUT_AJ',
+	'XMC_CCU4_SLICE_INPUT_AK',
+	'XMC_CCU4_SLICE_INPUT_AL',
+	'XMC_CCU4_SLICE_INPUT_AM',
+	'XMC_CCU4_SLICE_INPUT_AN',
+	'XMC_CCU4_SLICE_INPUT_AO',
+	'XMC_CCU4_SLICE_INPUT_AP',
+	'XMC_CCU4_SLICE_INPUT_AQ',
+	'XMC_CCU4_SLICE_INPUT_AR',
+	'XMC_CCU4_SLICE_INPUT_AS',
+	'XMC_CCU4_SLICE_INPUT_AT',
+	'XMC_CCU4_SLICE_INPUT_AU',
+	'XMC_CCU4_SLICE_INPUT_AV',
+	'XMC_CCU4_SLICE_INPUT_AW',
+	'XMC_CCU4_SLICE_INPUT_AX',
+	'XMC_CCU4_SLICE_INPUT_AY',
+	'XMC_CCU4_SLICE_INPUT_AZ',
+	'XMC_CCU4_SLICE_INPUT_BA',
+	'XMC_CCU4_SLICE_INPUT_BB',
+	'XMC_CCU4_SLICE_INPUT_BC',
+	'XMC_CCU4_SLICE_INPUT_BD',
+	'XMC_CCU4_SLICE_INPUT_BE',
+	'XMC_CCU4_SLICE_INPUT_BF',
+	'XMC_CCU4_SLICE_INPUT_BG',
+	'XMC_CCU4_SLICE_INPUT_BH',
+	'XMC_CCU4_SLICE_INPUT_BI',
+	'XMC_CCU4_SLICE_INPUT_BJ',
+	'XMC_CCU4_SLICE_INPUT_BK',
+	'XMC_CCU4_SLICE_INPUT_BL',
+	'XMC_CCU4_SLICE_INPUT_BM',
+	'XMC_CCU4_SLICE_INPUT_BN',
+	'XMC_CCU4_SLICE_INPUT_BO',
+	'XMC_CCU4_SLICE_INPUT_BP',
+	'XMC_CCU4_SLICE_INPUT_BQ',
+	'XMC_CCU4_SLICE_INPUT_BR',
+	'XMC_CCU4_SLICE_INPUT_BS',
+	'XMC_CCU4_SLICE_INPUT_BT',
+	'XMC_CCU4_SLICE_INPUT_BU',
+	'XMC_CCU4_SLICE_INPUT_BV',
+];
+String    e0_mapped_input           = null;
+String    e1_mapped_input           = null;
+String    e2_mapped_input           = null;
+Map Capt_event_sr_no = [0:"XMC_CCU4_SLICE_SR_ID_0",
+                        1:"XMC_CCU4_SLICE_SR_ID_1",
+						2:"XMC_CCU4_SLICE_SR_ID_2",
+						3:"XMC_CCU4_SLICE_SR_ID_3"
+                       ]
+// To identify the number of instances created in the project
+for (DMX512_RD Instance : appInstancesList) {
+ appInst = Instance.getInstanceLabel()
+ uart_uri = Instance.hwres_usic_slice.getSolverUri()
+ uart_nvic_uri = Instance.hwres_usic_nvic.getSolverUri()
+ /*Dummy read for Interrupt */
+ Instance.hwres_usic_nvic.getRegValue("","iser_setena")
+ /*Dummy read for Interrupt */
+ if(Instance.gcheck_acc_brk_det.value == true)
+ {
+	Instance.hwres_ccu4_nvic.getRegValue("","iser_setena")
+ }
+  uart_kernel_no = uart_uri[4]
+  uart_chan_no = uart_uri[6]
+  uart_nvic_no = uart_nvic_uri[7]
+  if(Instance.gcheck_acc_brk_det.value == true)
+  {
+    capt_uri = Instance.hwres_ccu4_cc4_slice.getSolverUri()
+    capt_nvic_uri = Instance.hwres_ccu4_nvic.getSolverUri()
+    capt_kernel_no = capt_uri[4]
+    capt_slice_no = capt_uri[6]
+	capt_nvic_no = capt_nvic_uri[7]
+  }
+  rbctr_srbien = Instance.hwres_usic_slice.getRegValue("", "rbctr_srbien") //Not required @ init
+  if(Instance.gcheck_acc_brk_det.value == true)
+  {
+    /* To find CCU4 prescaler value */ 
+    ccu4_freq = (float)Instance.appres_ccu4global.getVal(["gfloat_clkFreq", "value"])
+    if(ccu4_freq > 1.0){
+      div_val = (int)((ccu4_freq) * 1) //64MHz * 1us
+    }
+    else
+    {
+      div_val = 0
+    }
+    while(div_val > 1) 
+    {
+      div_val /= 2
+      capt_prescalar++
+    }
+  }
+
+out.print("""
+/**********************************************************************************************************************
+* DATA STRUCTURES
+**********************************************************************************************************************/
+/**
+ * ${appInst} Configuration
+ */
+uint8_t ${appInst}_rx_array[${Instance.ginteger_no_of_slots.value}];
+
+DMX512_RD_t ${appInst} =
+{
+  /*******************************
+  * Slot reception configuration *
+  ********************************/
+  .uart_module = (XMC_USIC_t *)XMC_USIC${uart_kernel_no},
+  .uart_ch = (XMC_USIC_CH_t *)XMC_USIC${uart_kernel_no}_CH${uart_chan_no},
+  .uart_config.baudrate = 250000U,
+  .uart_config.data_bits = 8U,
+  .uart_config.frame_length = 8U,
+  .uart_config.stop_bits = 2U,
+  .uart_config.parity_mode = XMC_USIC_CH_PARITY_MODE_NONE,
+  .uart_dx0_mux = ${Instance.hwres_usic_slice.getRegValue("","dx0cr_dsel")}U,
+ #if UC_FAMILY == XMC1
+  .uart_dx3_mux = ${Instance.hwres_usic_slice.getRegValue("","dx3cr_dsel")}U, 
+  .uart_dx5_mux = ${Instance.hwres_usic_slice.getRegValue("","dx5cr_dsel")}U,
+ #endif
+  .uart_events_sr_no = ${(int)Instance.hwres_usic_slice.getRegValue("", "rbctr_srbinp")}U,
+  .uart_irq_no = ((IRQn_Type) ${uart_nvic_no}),
+  .uart_irq_priority =  ${Instance.ginterruptprio_slot_rx.priorityValue}U,
+""");
+if((Instance.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (Instance.daveEnv.project.selectedDevice.deviceId.series == "4"))
+{
+	out.print("""	
+  .uart_irq_source = XMC_SCU_IRQCTRL_USIC${uart_kernel_no}_SR${((int)Instance.hwres_usic_slice.getRegValue("rbctr","rbctr_srbinp"))}_IRQ${uart_nvic_no},
+""");
+}
+if(Instance.ginterruptprio_slot_rx.subPriorityVisible == true)
+{
+out.print("""
+  .uart_irq_subpriority = ${Instance.ginterruptprio_slot_rx.subPriorityValue}U,
+""");
+}
+out.print("""
+  .acc_break_det = ${Instance.gcheck_acc_brk_det.value},
+""");
+
+if((Instance.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (Instance.daveEnv.project.selectedDevice.deviceId.series == "4"))
+{
+	Instance.hwres_ccu4_nvic.getRegValue("intcr","intcr_insel")
+	Instance.hwres_usic_nvic.getRegValue("intcr","intcr_insel")
+	if(Instance.gcheck_acc_brk_det.value == true)
+	{
+		e0_mapped_input = capt_input_sel_xmc1400[(int)Instance.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev0is")]
+		e1_mapped_input = capt_input_sel_xmc1400[(int)Instance.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev1is")]
+		e2_mapped_input = capt_input_sel_xmc1400[(int)Instance.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev2is")]
+	}
+}
+else
+{
+	if(Instance.gcheck_acc_brk_det.value == true)
+	{
+		e0_mapped_input = capt_input_sel[(int)Instance.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev0is")]
+		e1_mapped_input = capt_input_sel[(int)Instance.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev1is")]
+		e2_mapped_input = capt_input_sel[(int)Instance.hwres_ccu4_cc4_slice.getRegValue("ins","ins_ev2is")]
+	}
+}
+	if(Instance.gcheck_acc_brk_det.value == true)
+	{
+  out.print("""
+  /*****************************************
+	* Accurate break detection configuration *
+	******************************************/
+  .ccu4globalapp = (GLOBAL_CCU4_t *)&${Instance.appres_ccu4global.getInstanceLabel()},
+  .capt_module = (XMC_CCU4_MODULE_t *)CCU4${capt_kernel_no},
+  .capt_slice = (XMC_CCU4_SLICE_t *)CCU4${capt_kernel_no}_CC4${capt_slice_no},
+  .capt_slice_no = ${capt_slice_no}U,
+  .capt_config.fifo_enable = true,
+  .capt_config.timer_clear_mode = XMC_CCU4_SLICE_TIMER_CLEAR_MODE_ALWAYS,
+  .capt_config.same_event = false,
+  .capt_config.ignore_full_flag = true,
+  .capt_config.prescaler_mode = XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL,
+  .capt_config.prescaler_initval = ${capt_prescalar}U,
+  .capt_config.float_limit = ${capt_prescalar}U,
+  .capt_config.timer_concatenation = false,
+  /* Event0 configuration */
+  .capt_event0_config.mapped_input = ${e0_mapped_input},
+  .capt_event0_config.edge = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_FALLING_EDGE,
+  .capt_event0_config.level = XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_LOW,
+  .capt_event0_config.duration = XMC_CCU4_SLICE_EVENT_FILTER_7_CYCLES,
+  /* Event1 configuration */
+  .capt_event1_config.mapped_input = ${e0_mapped_input},
+  .capt_event1_config.edge = XMC_CCU4_SLICE_EVENT_EDGE_SENSITIVITY_RISING_EDGE,
+  .capt_event1_config.level = XMC_CCU4_SLICE_EVENT_LEVEL_SENSITIVITY_ACTIVE_HIGH,
+  .capt_event1_config.duration = XMC_CCU4_SLICE_EVENT_FILTER_7_CYCLES,
+  .capt_event_sr_no = ${Capt_event_sr_no.get((int)Instance.hwres_ccu4_cc4_slice.getRegValue("", "srs_e0sr"))},
+  .capt_irq_no = ((IRQn_Type) ${capt_nvic_no}),
+  .capt_irq_priority =  ${Instance.ginterruptprio_acc_brk_det.priorityValue}U,
+""");
+if((Instance.daveEnv.project.selectedDevice.deviceId.family == "XMC1") && (Instance.daveEnv.project.selectedDevice.deviceId.series == "4"))
+{
+	out.print("""	
+  .capt_irq_source = XMC_SCU_IRQCTRL_CCU4${capt_kernel_no}_SR${((int)Instance.hwres_ccu4_cc4_slice.getRegValue("","srs_e0sr"))}_IRQ${capt_nvic_no},
+""");
+}
+	  if(Instance.ginterruptprio_acc_brk_det.subPriorityVisible == true)
+	  {
+  out.print("""
+  .capt_irq_subpriority = ${Instance.ginterruptprio_acc_brk_det.subPriorityValue}U,
+""");
+	  }
+	}
+out.print("""
+  /*****************************************
+  * Slot data array                        *
+  ******************************************/
+  .rx_array_ptr = (uint8_t *)&${appInst}_rx_array,
+  .callback_function = ${Instance.gstring_user_callback.value},
+  .start_slot_num = ${Instance.ginteger_relevant_slot.value}U,
+  .current_slot_num = 0U,
+  .no_of_slots = ${Instance.ginteger_no_of_slots.value}U
+};""");
+
+out.println("""
+ /**********************************************************************************************************************
+ * API IMPLEMENTATION
+ **********************************************************************************************************************/
+/* UART ISR for ${appInst} instance */
+void IRQ_Hdlr_${uart_nvic_no}(void)
+{
+  DMX512_RD_UART_IRQHandler(&${appInst});
+}""");
+
+if(Instance.gcheck_acc_brk_det.value == true)
+{
+out.print("""
+/* Capture ISR for ${appInst} instance */
+void IRQ_Hdlr_${capt_nvic_no}(void)
+{
+  DMX512_RD_Capt_IRQHandler(&${appInst});
+}
+""");
+}
+}

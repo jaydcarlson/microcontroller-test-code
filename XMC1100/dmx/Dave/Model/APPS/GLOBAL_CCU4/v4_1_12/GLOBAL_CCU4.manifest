@@ -1,0 +1,214 @@
+package Model.APPS.GLOBAL_CCU4.v4_1_12;
+
+/*
+ Copyright (c) 2016, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+/*************** Revision History **********************************************
+Version     Date          Description
+
+4.0.0       16-Feb-2015   Initial version for DAVEv4
+4.0.1       08-May-2015   1. Coding guidelines update for the PR release<br>
+                          2. New parameter "syncstart_trigger_msk" is added in APP handle to start the specific kernel/s<br>
+4.1.0       25-May-2015   1. API names changed<br>
+                           a. GLOBAL_CCU4_SyncStart_TriggerLow() --> GLOBAL_CCU4_SyncStartTriggerLow()<br>
+                           b. GLOBAL_CCU4_SyncStart_TriggerHigh() --> GLOBAL_CCU4_SyncStartTriggerHigh()<br>
+4.1.2       20-Jun-2015   Guidelines update for PR release.
+4.1.4       08-Jul-2015   Updated the help doc.
+4.1.6       08-Oct-2015   1. XMC14, XMC48, XMC47 device support added<br>
+                          2. Min, Max values are updated in UI file<br>
+4.1.8       18-Dec-2015   1. Added support for XMC4300 devices.<br>
+4.1.10      06-Jan-2016   1. Added a check for XMC4 devices, to verify that CCU clock is enabled or not in CLOCK_XMC4 APP.<br>
+4.1.12      10-Feb-2016   1. Added a check to verify that the CCU clock is enabled or not in the CLOCK_XMC4 APP. <br>
+*******************************************************************************/
+import ifx.davex.app.manifest.*
+
+class  GLOBAL_CCU4 extends GLOBAL_CCU4_GUI {
+
+    /**
+     * APP version
+     * Format: a string with three digit separated by a dot.
+     */
+    def version            = '4.1.12'
+    
+    /**
+     * APP categories declaration. 
+     * It is list of strings. Subcategories are separated by slash.
+     * No limits on number of categories and subcategories depth.
+     */
+    def categoriesDescription = ["System/~Global Reg Control"]
+
+    /** 
+     * Minimum DAVE version required for this APP.
+     * 
+     * It is string with three digit separated by a dot.
+     */
+    def minDaveVersion           = '4.0.0'
+    
+    /** 
+     * Keywords used by search feature in APPs selection view
+     * 
+     * It is a list of string.
+     */
+    def keywords      = ['all']
+    
+    /** 
+     * softwareIDs is used to declare which devices are compatible with this APP.
+     * It is a map with key a string containing a pattern that shall match the SW id of
+     * the device and as value the minimal version of the APP.
+     */    
+    def softwareIDs       = [
+		"XMC4.5.*.*.*":"1.0.0",
+		"XMC4.4.*.*.*":"1.0.0",
+		"XMC4.3.*.*.*":"1.0.0",
+		"XMC4.2.*.*.*":"1.0.0",
+		"XMC4.1.*.*.*":"1.0.0",
+		"XMC4.7.*.*.*":"1.0.0",
+		"XMC4.8.*.*.*":"1.0.0",
+		"XMC1.1.*.*.*":"1.0.0",
+		"XMC1.2.*.*.*":"1.0.0",
+		"XMC1.3.*.*.*":"1.0.0",
+		"XMC1.4.*.*.*":"1.0.0"
+    ]
+    
+    /**
+     * Singleton property:
+     * When it is true the APP can be instantiated only once.
+     */
+    def singleton     = false
+    /**
+     * initProvider property
+     * It shall be true to add a call to <APPName>_Init()
+     */
+    def initProvider  = true
+    /**
+     * Deprecated APP
+     * Set it to true to indicate that the APP shall be not used for new projects.
+     */
+    def deprecated    = false
+    /**
+     * Sharable property.
+     * It shall be true to allows multiple APPs to require the same instance of this APP.
+     */
+    def sharable      = true
+
+    /**
+     *  APP function description.
+     */ 
+    def description = "Initializes CCU4 Global Register Set."
+    /*----------------------------------- End  : APP property section-------------------------------------------------------------*/
+    
+    /*-----------------------------------Begin : APP User variable section---------------------------------------------------------*/
+    MRequiredApp appres_clock  /* Consume either CLOCK_XMC4 or CLOCK_XMC1 based on the device selected and get the clock frequency */
+    MVirtualResourceGroup hwres_peripheral_ccu4_global    /* Hardware resource of global CCU4 registers */
+    MVirtualResourceGroup hwres_peripheral_scu_gcu_ccu4_global_enable     /* Hardware resource to do the synchronous start of the CCU4 module */
+                        
+    /* Virutal Signals */
+    MVirtualSignal vs_global_ccu4_globalsignal  /* Output, Global signal which can be connected to the top level APPs consuming cc4 slice */
+    MVirtualSignal vs_global_ccu4_clk  /* Input, Clock input from the CLOCK APP */
+    MVirtualSignalRA vs_clock_fccu  /* Local reference to the ccu clock signal to the CLOCK_XMC4 APP */
+    MVirtualSignal vs_global_ccu4_gsc_enable  /* Output, Global synchronous start signal which can be connected to the top level APPs consuming cc4 slice */
+    SolverVariable sv_global_ccu4_kernel  = SolverVariable()  /* solver variable to assign the same number resource to both hwres_peripheral_ccu4_global and hwres_peripheral_scu_gcu_ccu4_global_enable */
+    /* End   : User variable section */
+    /*-----------------------------------End : APP User variable section---------------------------------------------------------*/
+
+    /* App Constructor */
+    public GLOBAL_CCU4(DaveEnv daveEnv) {
+    /* -------------------------------------------------------------- */
+    /* ---------- Target Specific User Variable Initialization ------ */
+    /* -------------------------------------------------------------- */
+    Boolean family_4x = false /* Used for conditional execution of code based on the microcontroller family, eg. xmc4 */
+
+    if (daveEnv.project.selectedDevice.deviceId.family == "XMC4")
+    {
+        family_4x = true
+    }
+    
+    /* ---------------------------------------------------------- */
+    /* ------------ App consumption Block ----------------------- */
+    /* ---------------------------------------------------------- */
+     if (family_4x == true)
+     {
+       appres_clock =  MRequiredApp("CLOCK_XMC4","CLOCK APP for XMC4X", RSHARABLE, "4.0.18", true)
+	   gmessage_clock_settings.visible = MF({!appres_clock.getVal(["gcheck_enable_ccu_clock","value"])},Boolean)
+	   
+     }
+     else
+     {
+       appres_clock =  MRequiredApp("CLOCK_XMC1","CLOCK APP for XMC1X", RSHARABLE, "4.0.2", true)
+	   gmessage_clock_settings.visible = MF({false},Boolean)
+     }
+
+    /* ---------------------------------------------------------- */
+    /* ------------ Hardware resource consumption block --------- */
+    /* ---------------------------------------------------------- */
+    hwres_peripheral_ccu4_global                  =  MVirtualResourceGroup("Global", ["peripheral","ccu4",sv_global_ccu4_kernel, "global"])
+    hwres_peripheral_scu_gcu_ccu4_global_enable   =  MVirtualResourceGroup("CCU4 sync start", 
+                                                                              ["peripheral","scu","*", "gcu", "ccu4_global_enable", sv_global_ccu4_kernel])
+    
+    /* ---------------------------------------------------------- */
+    /* -------------- APP IO Signals ---------------------------- */
+    /* ---------------------------------------------------------- */
+    vs_global_ccu4_clk          = MVirtualSignal(hwres_peripheral_ccu4_global, "clock_ccu", "clk", true ,false)
+    vs_global_ccu4_globalsignal = MVirtualSignal(hwres_peripheral_ccu4_global, "ccu4_global", "global_signal", true, false) 
+    vs_global_ccu4_gsc_enable   = MVirtualSignal(hwres_peripheral_scu_gcu_ccu4_global_enable, "ccu4_global_start", "gsc_enable", true ,true)
+    
+    if (family_4x == true)
+    {
+    /* ---------------------------------------------------------- */
+    /* ------------------- Proxy Signal ------------------------- */
+    /* ---------------------------------------------------------- */
+    vs_clock_fccu = MVirtualSignalRA(appres_clock, "vs_fccu")
+    
+    /* ---------------------------------------------------------- */
+    /* ---------------- APP IO Connections ---------------------- */
+    /* ---------------------------------------------------------- */
+    addConnectionConstraint(vs_clock_fccu, vs_global_ccu4_clk, true)
+    }
+    /* -------------------------------------------------------- */
+    /* ------------ APP Configuration ------------------------- */
+    /* -------------------------------------------------------- */
+    
+    /* ------ TAB : Clock Setting related configuration ---------- */
+     if (family_4x == true)
+     {
+        gfloat_clkFreq.value = MF({appres_clock.getVal(["gfloat_ccufreq", "value"])}, Float)    
+     }
+     else
+     {
+        gfloat_clkFreq.value = MF({appres_clock.getVal(["gfloat_pclkactfrq", "value"])}, Float)    
+     }
+        
+  }
+    
+    /* File Generation */
+    def generateFiles(){
+        copy("global_ccu4.c", "global_ccu4.c")
+        copy("global_ccu4.h", "global_ccu4.h")
+        generate("global_ccu4_confc.tmpl", "global_ccu4_conf.c")
+        generate("global_ccu4_confh.tmpl", "global_ccu4_conf.h")
+        generate("global_ccu4_extern.tmpl", "global_ccu4_extern.h")
+    }
+}

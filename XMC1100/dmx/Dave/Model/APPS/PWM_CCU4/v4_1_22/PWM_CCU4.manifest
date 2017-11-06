@@ -1,0 +1,638 @@
+package Model.APPS.PWM_CCU4.v4_1_22;
+
+/*
+ Copyright (c) 2015-2016, Infineon Technologies AG
+ All rights reserved.
+                                            
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+                                                                             
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+                                                                             
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+                                                                             
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+Version        Date          Description 
+
+  4.0.0       14-Feb-2015   <ul><li>Initial version for DAVEv4.</li><br></ul>
+  4.0.1       20-Feb-2015   <ul>
+                            <li>Help Doc update.</li><br>
+                            <li>signal "event_period_one" changed to "event_period_match".</li><br>
+                            </ul>
+  4.0.2       11-May-2015   <ul>
+                            <li>Implemented Pin sorting based on driver strength.</li><br>
+                            <li>Default pin drive strength set to "Medium Driver".</li><br> 
+                            <li>"External Setting" tab "initilization" correctly spelt as initialization.</li><br>   
+                            <li>"External Setting" tab No inversion correctly spelt as No Inversion.</li><br> 
+                            <li>"External Setting" tab Trap Values modification not dependent on check box.</li><br>
+                            <li>"External Setting" tab added support to configuring edge trigger on level dependent events, for service request generation .</li><br>
+                            <li>"Signal Setting" tab Dither mode combo-box option "Both PWM And Duty Cycle" changed to "PWM And Duty Cycle".</li><br>
+                            <li>Added support for MCI and MCSS signals.</li><br>
+                            <li>Updated APP description.</li><br>
+                            <li>In APP Handle variable module_freq changed to frequency_tclk.</li><br>
+                            <li>In APP Handle variable module_ptr changed to ccu4_module_ptr.</li><br>
+                            <li>In APP Handle variable slice_ptr changed to ccu4_slice_ptr.</li><br>
+                            <li>Enum PWM_CCU4_STATE_t elements name changed.</li><br>
+                            <li>XMC_ASSERT and XMC_DEBUG statements updated.</li><br>
+                            <li>Enum PWM_CCU4_OutputPassiveLevelType_t and PWM_CCU4_TIMER_STATUS_t removed.</li><br>
+                            <li>Signals "event_0', "event_1", "event_2" when connected internally in APP, are not visible in 
+                            <li>DAVE "HW Signal Connection" Tab.</li><br>
+                            <li>Removed unused Global Macro Definitions.</li><br>
+                            <li>Bug Fix: Added a call for shadow transfer trigger for dither using API XMC_CCU4_EnableShadowTransfer() in Init API.
+                            <li>Bug Fix: MCM shadow transfer selection now updates the relevant bits via XMC_CCU4_SetMultiChannelShadowTransferMode API.</li><br>
+                            </ul>  
+  4.1.0       20-May-2015   <ul>
+                            <li>PWM_CCU4_AcknowledgeInterrupt() api is renamed as PWM_CCU4_ClearEvent().</li><br>
+                            <li>Logic check for minimum LLD version check is added in pwm_ccu4.h file.</li><br>
+                            </ul>
+  4.1.2       04-Jun-2015   <ul>
+                            <li>Fixed the issue where DAVE reports error:"It is not allowed to read cell values during the updating except in CellClosures"</li><br>
+                            <li>Added support for XMC45 series devices, which was missed out in v4.1.0 </li><br>
+                            <li>Bug Fix: The Override event edge configuration can now be set by selecting the "Trigger Edge"</li><br>
+                            <li>When Trap is selected, the Trigger edge is set to "XMC_CCU8_SLICE_EVENT_EDGE_SENSITIVITY_NONE" internally</li><br>
+                            <li>Bug Fix: Fixed the allowable max frequency limit in center aligned mode</li><br>
+                            </ul>
+  4.1.4       19-Jun-2015   <ul>
+                            <li>'_AddPin' suffix is removed for MVirtualSignal variable.</li><br>
+                            <li>LLD package version check is added.</li><br>
+                            </ul>
+  4.1.6       23-Jun-2015   <ul>
+                            <li>Help doc update</li><br>
+                            <li>Spell check update in pwm_ccu4.h file</li><br>
+                            <li>mcss signal name correctly add as "mcss_input"</li><br>
+                            <li>Updated the mcss and mci signals in HW Signal Connectivity view</li><br>
+                            </ul>
+  4.1.8      08-July-2015   <ul>
+                            <li>Help doc update</li><br>
+                            </ul>
+  4.1.9      13-Aug-2015  <ul>
+                            <li>Added support for signals gp0, gp1, gp2 and ps</li><br>
+                            <li>Added support for XMC1400 device</li><br>
+                            <li>Added support for selection of shadow transfer mode using API "XMC_CCU4_SLICE_SetShadowTransferMode"</li><br>
+                            <li>Added support for selection of immediate shadow transfer using API "XMC_CCU4_SLICE_WriteImmediateAfterShadowTransfer" in XMC14* devices</li><br>
+                            <li>Added support for automatic shadow transfer using API "XMC_CCU4_SLICE_EnableAutomaticShadowTransferRequest" in XMC14* devices</li><br>
+                            </ul>
+  4.1.11      18-Sep-2015  <ul>
+                            <li>Bug Fix: In "External Event Settings" tab corrected the code generated for "External Gating" for "Active On High Level" and "Active On Low Level" selection</li><br>
+                            <li>Bug Fix: In "External Event Settings" tab corrected the code generated for "External Modulation" for "Active On High Level" and "Active On Low Level" selection</li><br>
+                            <li>Bug Fix: In "External Event Settings" tab corrected the code generated for "External Override (Event 2)" for "Inversion" and "No Inversion" selection</li><br>
+                           </ul>
+  4.1.12      08-Oct-2015  <ul>
+                            <li>Copy Right Update in Manifest file</li><br>
+                           </ul>
+  4.1.14      26-Oct-2015  <ul>
+                            <li>Tool tip updated for Shadow transfer mode selection</li><br>
+                            <li>Added note in "Shadow Transfer Settings: tab for "Automatic Shadow Transfer"</li><br>
+                           </ul>
+  4.1.16      17-Dec-2015  <ul>
+                            <li>Added support for XMC43xx series</li><br>
+                           </ul>
+  4.1.18      21-Mar-2016  <ul>
+                            <li>UI frame width is increased. This avoids left, right arrows for tabs</li><br>
+                           </ul>                       
+  4.1.20      02-Aug-2016  <ul>
+                            <li>Bug Fix: Mandatory Signal Connections feature updated.</li><br>
+                           </ul>
+  4.1.22      28-Oct-2016  <ul>
+                            <li>Changed: PWM_CCU4_Stop() to set the ST output to the passive value after stopping the timer.</li><br>
+                            <li>Fixed: Max frequency set to fCCU4/4.</li><br>
+                           </ul>
+*******************************************************************************/
+// Import statements
+import java.util.List;
+
+import ifx.davex.app.manifest.*
+
+class  PWM_CCU4 extends PWM_CCU4_GUI {
+
+        static final int MHZ_1 = 1000000
+
+        static final int PERIOD_BIT_WIDTH = 16
+    
+        static final int PRESCALER_MAX = 15
+        
+    // Note  : PWM_CCU4 properties are mandatory and important
+    // Begin : PWM_CCU4 property section
+    def version            = '4.1.22'
+    
+    def categoriesDescription = ["General Purpose/Timed Signals", "Power Conversion"] 
+
+    // Minimum DAVE version required for the App
+    def minDaveVersion           = '4.3.2'
+    
+    // Keywords to search in Apps selection view
+    def keywords      = ['ALL', 'PWM', 'PWM_CCU4', 'CCU', 'CCU4','Power Conversion']
+
+    // Software IDs and its required minimum version
+    // Example
+    // def softwareIDs       = [
+    //  "XMC4.5.00.F144.ALL":"1.0.0",
+    //     "XMC4.5.00.F144.ALL":"1.0.0",
+    //    "XMC4.5.00.F144.ALL":"1.0.0"]
+    def softwareIDs       = [
+        //XMC48
+        "XMC4.8.*.*.ALL":"1.0.0",
+        
+        //XMC47
+        "XMC4.7.*.*.ALL":"1.0.0",
+        
+        //XMC45
+        "XMC4.5.00.F144.ALL":"1.0.0",
+        "XMC4.5.00.E144.ALL":"1.0.0",
+        "XMC4.5.00.F100.ALL":"1.0.0",
+        
+        "XMC4.5.02.F100.ALL":"1.0.0",
+
+        "XMC4.5.04.F144.ALL":"1.0.0",
+        "XMC4.5.04.F100.ALL":"1.0.0",
+
+        //"XMC44
+        "XMC4.4.00.F100.ALL":"1.0.0",
+        "XMC4.4.00.F64.ALL":"1.0.0",
+        
+        "XMC4.4.02.F100.ALL":"1.0.0",
+        "XMC4.4.02.F64.ALL":"1.0.0",
+
+        //"XMC43
+        "XMC4.3.*.*.ALL":"1.0.0",
+        
+        //"XMC42
+        "XMC4.2.00.F64.ALL":"1.0.0",
+        "XMC4.2.00.Q48.ALL":"1.0.0",
+                            
+        //"XMC41
+        "XMC4.1.00.F64.ALL":"1.0.0",
+        "XMC4.1.00.Q48.ALL":"1.0.0",
+        
+        "XMC4.1.04.F64.ALL":"1.0.0",
+        "XMC4.1.04.Q48.ALL":"1.0.0",
+        
+        "XMC4.1.08.F64.ALL":"1.0.0",
+        "XMC4.1.08.Q48.ALL":"1.0.0",
+
+        //"XMC14
+        "XMC1.4.*.*.ALL":"1.0.0",
+        //"XMC13
+        "XMC1.3.01.Q040.ALL":"1.0.0",
+        "XMC1.3.01.Q024.ALL":"1.0.0",
+
+        "XMC1.3.01.T038.ALL":"1.0.0",
+        "XMC1.3.01.T016.ALL":"1.0.0",
+
+        "XMC1.3.02.Q040.ALL":"1.0.0",
+        "XMC1.3.02.Q024.ALL":"1.0.0",
+        
+        "XMC1.3.02.T038.ALL":"1.0.0",
+        "XMC1.3.02.T016.ALL":"1.0.0",
+        
+        //"XMC12
+        "XMC1.2.00.T038.ALL":"1.0.0",
+        
+        "XMC1.2.01.Q040.ALL":"1.0.0",
+        
+        "XMC1.2.01.T038.ALL":"1.0.0",
+        "XMC1.2.01.T028.ALL":"1.0.0",
+
+        "XMC1.2.02.Q040.ALL":"1.0.0",
+        "XMC1.2.02.Q024.ALL":"1.0.0",
+        
+        "XMC1.2.02.T038.ALL":"1.0.0",
+        "XMC1.2.02.T028.ALL":"1.0.0",
+        "XMC1.2.02.T016.ALL":"1.0.0",
+
+        "XMC1.2.03.T016.ALL":"1.0.0",
+        
+        //"XMC11
+        "XMC1.1.00.Q040.ALL":"1.0.0",
+        "XMC1.1.00.Q024.ALL":"1.0.0",
+        
+        "XMC1.1.00.T038.ALL":"1.0.0",
+        "XMC1.1.00.T016.ALL":"1.0.0",
+        ]
+
+
+    def singleton     = false
+    def initProvider  = true
+    def deprecated    = false
+    def sharable      = false
+
+    // App short description 
+    def description = "PWM APP using one timer slice of CCU4, with external events support, to generate a PWM output."
+    
+    // End   : PWM_CCU4 property section
+    
+    // Begin : User variable section
+    
+    
+    MVirtualResourceGroup hwres_ccu4_cc4_slice
+    MVirtualResourceGroup hwres_port_channel_out
+    
+    MRequiredApp   pwm_ccu4_app_global_ccu4_cc4
+    
+    MVirtualSignalRA vs_ccu4_cc4_global
+    MVirtualSignalRA vs_ccu4_cc4_global_sync_start
+
+    MVirtualSignal vs_ccu4_cc4_global_signal
+    MVirtualSignal vs_ccu4_cc4_compare_match_interrupt
+    MVirtualSignal vs_ccu4_cc4_period_match_interrupt
+    MVirtualSignal vs_event0_interrupt
+    MVirtualSignal vs_event1_interrupt
+    MVirtualSignal vs_event2_interrupt
+    MVirtualSignal vs_ccu4_cc4_st
+    MVirtualSignal vs_ccu4_cc4_channel_out_signal
+    
+    MVirtualSignal vs_ccu4_cc4_gp0_unsync
+    MVirtualSignal vs_ccu4_cc4_gp1_unsync
+    MVirtualSignal vs_ccu4_cc4_gp2_unsync
+ 
+    MVirtualSignal vs_ccu4_cc4_gp0
+    MVirtualSignal vs_ccu4_cc4_gp1
+    MVirtualSignal vs_ccu4_cc4_gp2
+
+    MVirtualSignal vs_ccu4_cc4_ps
+
+    MVirtualSignal vs_ccu4_cc4_mci
+    MVirtualSignal vs_ccu4_cc4_mcss
+    
+    MVirtualSignal vs_port_channel_out
+
+    
+    GCheck   gcheck_tab_general_enable     = GCheck  (widgetName:"gcheck_tab_general_enable",     value:true, enabled:true, visible:false);
+    GCheck   gcheck_tab_ee_enable          = GCheck  (widgetName:"gcheck_tab_ee_enable",          value:true, enabled:true, visible:false);
+    GCheck   gcheck_tab_interrupts_enable  = GCheck  (widgetName:"gcheck_tab_interrupts_enable",  value:true, enabled:true, visible:false);
+    GCheck   gcheck_tab_pins_enable        = GCheck  (widgetName:"gcheck_tab_output_pins_enable", value:true, enabled:true, visible:false);
+    GCheck   gcheck_tab_shadow_txfr_enable = GCheck  (widgetName:"gcheck_tab_shadow_txfr_enable", value:true, enabled:true, visible:false);
+    
+    // End   : User variable section
+
+    // PWM_CCU4 Constructor
+    public PWM_CCU4(DaveEnv daveEnv) {
+
+        String dave_family = daveEnv.project.selectedDevice.deviceId.family;
+        String dave_series = daveEnv.project.selectedDevice.deviceId.series;
+
+        /* ---------------------------------------------------------- */
+        /* ------------ Hardware resource consumption block --------- */
+        /* ---------------------------------------------------------- */
+        
+        hwres_ccu4_cc4_slice   = MVirtualResourceGroup("CC4 Config",           ["peripheral", "ccu4", "*", "cc4", "*"], true );
+        hwres_port_channel_out = MVirtualResourceGroup("PWM_CCU4 Channel Out", ["port", "p", "*", "pad", "*"],          MF({gcheck_ch1_out0_enable.value}, Boolean));
+        
+        /* ---------------------------------------------------------- */
+        /* ------------ App consumption Block ----------------------- */
+        /* ---------------------------------------------------------- */
+                    
+        pwm_ccu4_app_global_ccu4_cc4 = MRequiredApp("GLOBAL_CCU4", "CCU4GLOBAL App",  RSHARABLE, "4.1.4", true);
+
+        /* ---------------------------------------------------------- */
+        /* -------------- APP IO Signals ---------------------------- */
+        /* ---------------------------------------------------------- */
+
+        vs_ccu4_cc4_global =                         MVirtualSignalRA(pwm_ccu4_app_global_ccu4_cc4,  "vs_global_ccu4_globalsignal" );
+        vs_ccu4_cc4_global_sync_start =              MVirtualSignalRA(pwm_ccu4_app_global_ccu4_cc4,  "vs_global_ccu4_gsc_enable" );
+
+        vs_ccu4_cc4_global_signal =                  MVirtualSignal(hwres_ccu4_cc4_slice,  "CCU4_global_signal",                   "global_signal",  true, false);
+        
+        vs_ccu4_cc4_period_match_interrupt =         MVirtualSignal(hwres_ccu4_cc4_slice,  "event_period_match", "pmus_omds",     
+														MF({(gcheck_int_per_match.value || (gcheck_int_one_match_down.value && gcheck_int_one_match_down.enabled))},  Boolean), 
+														MF({(gcheck_int_per_match.value || gcheck_int_one_match_down.value && gcheck_int_one_match_down.enabled)},  Boolean),
+														"Signal is not connected to any target signal. Use HW signal connections dialog to establish connection.");
+													
+        vs_ccu4_cc4_compare_match_interrupt =        MVirtualSignal(hwres_ccu4_cc4_slice,  "event_cmp_match",    "cmds_cmus",     
+														MF({(gcheck_int_cmp1_match_up.value == true) || (gcheck_int_cmp1_match_down.value && gcheck_int_cmp1_match_down.enabled)},  Boolean),
+														MF({(gcheck_int_cmp1_match_up.value == true) || (gcheck_int_cmp1_match_down.value && gcheck_int_cmp1_match_down.enabled)},  Boolean),
+														"Signal is not connected to any target signal. Use HW signal connections dialog to establish connection.");
+
+        vs_event0_interrupt =                        MVirtualSignal(hwres_ccu4_cc4_slice,  "event_0",            "e0as",          
+														MF({(gcheck_int_e0.value == true)},  Boolean), 
+														MF({(gcheck_int_e0.value == true)},  Boolean),
+														"Signal is not connected to any target signal. Use HW signal connections dialog to establish connection.");
+        vs_event1_interrupt =                        MVirtualSignal(hwres_ccu4_cc4_slice,  "event_1",            "e1as",          
+														MF({(gcheck_int_e1.value == true)},  Boolean), 
+														MF({(gcheck_int_e1.value == true)},  Boolean),
+														"Signal is not connected to any target signal. Use HW signal connections dialog to establish connection.");
+        vs_event2_interrupt =                        MVirtualSignal(hwres_ccu4_cc4_slice,  "event_2",            "e2as",          
+														MF({(gcheck_int_e2.value == true)},  Boolean), 
+														MF({(gcheck_int_e2.value == true)},  Boolean),
+														"Signal is not connected to any target signal. Use HW signal connections dialog to establish connection.");
+        vs_ccu4_cc4_st =                             MVirtualSignal(hwres_ccu4_cc4_slice,  "timer_st",           "st",            true, true);
+        vs_ccu4_cc4_gp0_unsync =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "ext_event0",         "gp0_unsync",    true, MF({!(gcombo_e0_fn.value == "External Start" && gcheck_sync_start.value)},Boolean));
+        vs_ccu4_cc4_gp1_unsync =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "ext_event1",         "gp1_unsync",    true, MF({!(gcombo_e1_fn.value == "External Start" && gcheck_sync_start.value)},Boolean));
+        vs_ccu4_cc4_gp2_unsync =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "ext_event2",         "gp2_unsync",    true, MF({!(gcombo_e2_fn.value == "External Start" && gcheck_sync_start.value)},Boolean));
+        vs_ccu4_cc4_gp0        =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "gp0",                "gp0",           true, true);
+        vs_ccu4_cc4_gp1        =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "gp1",                "gp1",           true, true);
+        vs_ccu4_cc4_gp2        =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "gp2",                "gp2",           true, true);
+        vs_ccu4_cc4_ps         =                     MVirtualSignal(hwres_ccu4_cc4_slice,  "ps",                 "ps",            true, true);
+        vs_ccu4_cc4_mci =                            MVirtualSignal(hwres_ccu4_cc4_slice,  "mci_input",          "mci",           true, true);
+        vs_ccu4_cc4_mcss =                           MVirtualSignal(hwres_ccu4_cc4_slice,  "mcss_input",         "mcss",          true, true);
+        
+        vs_ccu4_cc4_channel_out_signal =             MVirtualSignal(hwres_ccu4_cc4_slice,  "pwm_output",         "out",          true, true);
+        
+        /*@AddPin simplifies the connection between signal and pin. Refer DAVE reference manual.*/
+        @AddPin
+        vs_port_channel_out        =                 MVirtualSignal(hwres_port_channel_out,"PWM_CCU4 Channel Out", "pad",  MF({gcheck_ch1_out0_enable.value}, Boolean),false);
+        
+        /* ---------------------------------------------------------- */
+        /* ---------------- APP IO Connections ---------------------- */
+        /* ---------------------------------------------------------- */
+        
+        addConnectionConstraint(vs_ccu4_cc4_global,             vs_ccu4_cc4_global_signal);
+        addConnectionConstraint(vs_ccu4_cc4_global_sync_start,  vs_ccu4_cc4_gp0_unsync,      MF({gcombo_e0_fn.value == "External Start" && gcheck_sync_start.value},Boolean));
+        addConnectionConstraint(vs_ccu4_cc4_global_sync_start,  vs_ccu4_cc4_gp1_unsync,      MF({gcombo_e1_fn.value == "External Start" && gcheck_sync_start.value},Boolean));
+        addConnectionConstraint(vs_ccu4_cc4_global_sync_start,  vs_ccu4_cc4_gp2_unsync,      MF({gcombo_e2_fn.value == "External Start" && gcheck_sync_start.value},Boolean));
+        addConnectionConstraint(vs_ccu4_cc4_channel_out_signal, vs_port_channel_out,         MF({gcheck_ch1_out0_enable.value },                                    Boolean));
+        
+        addResourcePropertyConstraint(hwres_port_channel_out, "speed_class of rg_property",  MF({pin_class(gcombo_ch_out_strng.value)}, List), MF({(gcombo_ch_out_strng.value && dave_family.equals("XMC4"))},Boolean));
+        
+        /* -------------------------------------------------------- */
+        /* ------------ APP Configuration ------------------------- */
+        /* -------------------------------------------------------- */
+        
+        /*Used for disabling the tab by higher level APPs*/
+        gtab_general.enabled     = MF({gcheck_tab_general_enable.value},Boolean);
+        gtab_ee.enabled          = MF({gcheck_tab_ee_enable.value},Boolean);
+        gtab_interrupts.enabled  = MF({gcheck_tab_interrupts_enable.value},Boolean);
+        gtab_pins.enabled        = MF({gcheck_tab_pins_enable.value},Boolean);
+        gtab_shadow_txfr.enabled = MF({gcheck_tab_shadow_txfr_enable.value},Boolean);
+/************************************************************************************************************************************/
+        
+        gfloat_clock.value  = MF({Double Clock = 120;
+                                         Clock = (Double)(pwm_ccu4_app_global_ccu4_cc4.getVal(["gfloat_clkFreq", "value"])); // get clock form global APP.
+                                         return(Clock);}, Double);
+                              
+/************************************************************************************************************************************/
+                              
+        gcombo_e0_fn.options = MF({
+                                    List l = [ "No Event", "External Start", "External Stop", "External Count Direction", 
+                                               "External Gating", "External Count", "External Load", "External Modulation"];
+                                           
+                                        if (gcombo_e1_fn.value != "No Event"){l.remove(gcombo_e1_fn.value)}
+                                        if (gcombo_e2_fn.value != "No Event"){l.remove(gcombo_e2_fn.value)}    
+                                        if (gcombo_counting_mode.value == "Center Aligned"){l.remove("External Count Direction")}
+                                        return(l); },List);
+                                    
+        gcombo_e1_fn.options = MF({
+                                    List l = [ "No Event", "External Start", "External Stop", "External Count Direction", "External Gating",
+                                               "External Count", "External Load", "External Modulation", "External Override (Edge)",];
+                                           
+                                        if (gcombo_e0_fn.value != "No Event"){l.remove(gcombo_e0_fn.value)}
+                                        if (gcombo_e2_fn.value != "No Event"){l.remove(gcombo_e2_fn.value)}
+                                        if (gcombo_counting_mode.value == "Center Aligned"){l.remove("External Count Direction")}
+                                        return(l); },List);
+                                    
+        gcombo_e2_fn.options = MF({
+                                    List l = [ "No Event", "External Start", "External Stop", "External Count Direction", "External Gating", 
+                                               "External Count", "External Load", "External Modulation", "External Override (Level)", "External Trap"];
+                                           
+                                        if (gcombo_e0_fn.value != "No Event"){l.remove(gcombo_e0_fn.value)}
+                                        if (gcombo_e1_fn.value != "No Event"){l.remove(gcombo_e1_fn.value)}
+                                        if (gcombo_counting_mode.value == "Center Aligned"){l.remove("External Count Direction")}
+                                        return(l); },List);
+                                    
+        gcombo_counting_mode.enabled =   MF({!(gcombo_e0_fn.value == "External Count Direction" ||
+                                              gcombo_e1_fn.value == "External Count Direction" ||
+                                              gcombo_e2_fn.value == "External Count Direction") }, Boolean);
+                                    
+        ggroup_ext_start.enabled =       MF({gcombo_e0_fn.value == "External Start" || 
+                                             gcombo_e1_fn.value == "External Start" || 
+                                             gcombo_e2_fn.value == "External Start" }, Boolean);
+                                   
+        ggroup_ext_stop.enabled =        MF({gcombo_e0_fn.value == "External Stop" ||
+                                             gcombo_e1_fn.value == "External Stop" ||
+                                            gcombo_e2_fn.value == "External Stop" }, Boolean);
+                                   
+        ggroup_ext_trap.enabled =        MF({gcombo_e0_fn.value == "External Trap" ||
+                                             gcombo_e1_fn.value == "External Trap" ||
+                                             gcombo_e2_fn.value == "External Trap" }, Boolean);
+                                   
+        ggroup_ext_mod.enabled =         MF({gcombo_e0_fn.value == "External Modulation" ||
+                                             gcombo_e1_fn.value == "External Modulation" ||
+                                             gcombo_e2_fn.value == "External Modulation" }, Boolean);
+                                   
+        ggroup_ext_load.enabled =        MF({gcombo_e0_fn.value == "External Load" ||
+                                             gcombo_e1_fn.value == "External Load" ||
+                                             gcombo_e2_fn.value == "External Load" }, Boolean);
+                                   
+        ggroup_ext_gate.enabled =        MF({gcombo_e0_fn.value == "External Gating" ||
+                                             gcombo_e1_fn.value == "External Gating" ||
+                                             gcombo_e2_fn.value == "External Gating" }, Boolean);
+                                   
+        ggroup_ext_count.enabled =       MF({gcombo_e0_fn.value == "External Count" ||
+                                             gcombo_e1_fn.value == "External Count" ||
+                                             gcombo_e2_fn.value == "External Count" }, Boolean);
+
+        ggroup_ext_count_dir.enabled =   MF({gcombo_e0_fn.value == "External Count Direction" ||
+                                             gcombo_e1_fn.value == "External Count Direction" ||
+                                             gcombo_e2_fn.value == "External Count Direction" }, Boolean);
+
+        ggroup_ext_e1_override.enabled = MF({gcombo_e0_fn.value == "External Override (Edge)" ||
+                                             gcombo_e1_fn.value == "External Override (Edge)" ||
+                                             gcombo_e2_fn.value == "External Override (Edge)" }, Boolean);
+
+        ggroup_ext_e2_override.enabled = MF({gcombo_e0_fn.value == "External Override (Level)" ||
+                                             gcombo_e1_fn.value == "External Override (Level)" ||
+                                             gcombo_e2_fn.value == "External Override (Level)" }, Boolean);
+        
+        gcombo_ext_start_edge.value =    MF({     if((gcombo_e0_fn.value == "External Start") && gcheck_sync_start.value) {"Rising"}
+                                             else if((gcombo_e1_fn.value == "External Start") && gcheck_sync_start.value) {"Rising"}
+                                             else if((gcombo_e2_fn.value == "External Start") && gcheck_sync_start.value) {"Rising"}
+                                             else if(gcombo_e0_fn.value == "External Start") {gcombo_e0_trigger.value}
+                                             else if(gcombo_e1_fn.value == "External Start") {gcombo_e1_trigger.value}
+                                             else if(gcombo_e2_fn.value == "External Start") {gcombo_e2_trigger.value}
+                                             else {"No Trigger"}},  String);
+      gcombo_ext_start_edge.enabled =    MF({!gcheck_sync_start.value},Boolean);
+
+      gcombo_ext_stop_edge.value =       MF({     if(gcombo_e0_fn.value == "External Stop") {gcombo_e0_trigger.value}
+                                             else if(gcombo_e1_fn.value == "External Stop") {gcombo_e1_trigger.value}
+                                             else if(gcombo_e2_fn.value == "External Stop") {gcombo_e2_trigger.value}
+                                             else {"No Trigger"}},  String);
+     
+     gcombo_ext_load_edge.value =        MF({     if(gcombo_e0_fn.value == "External Load") {gcombo_e0_trigger.value}
+                                             else if(gcombo_e1_fn.value == "External Load") {gcombo_e1_trigger.value}
+                                             else if(gcombo_e2_fn.value == "External Load") {gcombo_e2_trigger.value}
+                                             else {"No Trigger"}},  String);
+     
+     gcombo_ext_count_edge.value =       MF({     if(gcombo_e0_fn.value == "External Count") {gcombo_e0_trigger.value}
+                                             else if(gcombo_e1_fn.value == "External Count") {gcombo_e1_trigger.value}
+                                             else if(gcombo_e2_fn.value == "External Count") {gcombo_e2_trigger.value}
+                                             else {"No Trigger"}},  String);
+     
+     gcombo_ext_e1_override_edge.value = MF({     if(gcombo_e0_fn.value == "External Override (Edge)") {gcombo_e0_trigger.value}
+                                             else if(gcombo_e1_fn.value == "External Override (Edge)") {gcombo_e1_trigger.value}
+                                             else if(gcombo_e2_fn.value == "External Override (Edge)") {gcombo_e2_trigger.value}
+                                             else {"No Trigger"}},  String);
+                                         
+     gcombo_e2_trigger.enabled =         MF({gcombo_e2_fn.value != "External Trap"},Boolean);
+                                         
+/************************************************************************************************************************************/
+                                         
+        gcombo_dither_mode.enabled =      MF ({gcheck_dither_enable.value},Boolean);
+        
+        ginteger_dither_cmp_val.enabled = MF ({gcheck_dither_enable.value},Boolean);
+        
+        gcombo_mcm_shadow_txfr.enabled =  MF ({gcheck_mcm_ch1_enable.value},Boolean);
+        
+/************************************************************************************************************************************/
+        
+        gcheck_int_cmp1_match_down.enabled = MF({!(gcombo_counting_mode.value == "Edge Aligned")},  Boolean);
+        gcheck_int_one_match_down.enabled  = MF({!(gcombo_counting_mode.value == "Edge Aligned")},  Boolean);
+        
+/************************************************************************************************************************************/
+        
+        glabel_ch_out_strng.visible  = MF({dave_family == "XMC4"},Boolean);
+        gcombo_ch_out_strng.visible  = MF({dave_family == "XMC4"},Boolean);
+
+/************************************************************************************************************************************/
+        
+        glabel_shadow_txfr_mode_note.visible = MF({gcheck_shadow_txfr_auto_period.value ||
+                                                   gcheck_shadow_txfr_auto_compare.value ||
+                                                   gcheck_shadow_txfr_auto_passive_level.value ||
+                                                   gcheck_shadow_txfr_auto_dither.value},Boolean);
+                                       
+/************************************************************************************************************************************/
+        
+        gfloat_res.minValue = MF({Math.ceil(1000/gfloat_clock.value)},Double); // in nsec.
+        gfloat_res.maxValue = MF({Math.ceil(2.power(PRESCALER_MAX) * (1000/gfloat_clock.value) )}, Double);
+        
+/************************************************************************************************************************************/
+        
+        ginteger_prescaler.value = MF({
+                                        Double Divider = gfloat_res.value /(1000/gfloat_clock.value);// calculate the clock divider required
+                                        Integer value = (Math.floor(Math.log(Divider) / Math.log( 2 ) )).toInteger(); // find the nearest integer in upper side
+                                        if(value > PRESCALER_MAX) 
+                                        {
+                                          value = PRESCALER_MAX;
+                                        }
+                                        value; },Integer);        
+        
+/************************************************************************************************************************************/
+        gfloat_act_res.minValue = MF({gfloat_res.minValue - 1},Double);
+        gfloat_act_res.maxValue = MF({gfloat_res.maxValue + 1},Double);
+        gfloat_act_res.value = MF({
+                                   Double Actual_Resolution = 0;
+                                   Actual_Resolution = (Double) (((Double)1000/(Double)gfloat_clock.value) *  2.power(ginteger_prescaler.value));
+                                   return(Actual_Resolution); },Double);
+                               
+/************************************************************************************************************************************/
+
+        ginteger_period.minValue = 1;
+        ginteger_period.maxValue = MF({(2.power(PERIOD_BIT_WIDTH)-1)},Integer);
+        ginteger_period.value    = MF({
+                                       int count = 0;
+                                       if (gcombo_counting_mode.value == "Edge Aligned")
+                                       {count = (Integer)((gfloat_clock.value * MHZ_1) / (2.power(ginteger_prescaler.value) * ginteger_freq.value))}
+                                       
+                                       else if (gcombo_counting_mode.value == "Center Aligned")
+                                       {count = (Integer)((gfloat_clock.value * MHZ_1) / (2.power(ginteger_prescaler.value) * 2 * ginteger_freq.value))}
+                                       
+                                       count = count - 1;
+                                       
+                                       if(count < ginteger_period.minValue){count = ginteger_period.minValue };
+                                       if(count > ginteger_period.maxValue){count = ginteger_period.maxValue };
+                                       
+                                       return(count); },Integer);
+                                   
+/************************************************************************************************************************************/
+        ginteger_freq.minValue    =  MF({
+                                          Double value;
+                                          value = ((gfloat_clock.value * MHZ_1) / (ginteger_period.maxValue * 2.power(ginteger_prescaler.value)));
+                                          if (gcombo_counting_mode.value == "Center Aligned"){ value = value / 2;}
+                                          value = Math.ceil(value);
+                                          value.toInteger();},Integer);
+                                      
+        ginteger_freq.maxValue   = MF({Double value;
+                                                value = ((gfloat_clock.value * MHZ_1) / (2 * (ginteger_period.minValue + 1) * 2.power(ginteger_prescaler.value)));
+                                                if (gcombo_counting_mode.value == "Center Aligned"){ value = value / 2;}
+                                                value = Math.floor(value);
+                                                value.toInteger();},Integer);
+
+        gfloat_act_freq.minValue =   MF({(Double)(ginteger_freq.minValue - 1)},Double);
+        gfloat_act_freq.maxValue =   MF({(Double)(ginteger_freq.maxValue + 1)},Double);
+        gfloat_act_freq.value    =   MF({Double value;
+                                         value = (((Double)(gfloat_clock.value * MHZ_1) / ((ginteger_period.value + 1)    * 2.power(ginteger_prescaler.value))) )
+                                         if(gcombo_counting_mode.value == "Center Aligned"){value = value/2;}
+                                            return(value);},Double);
+
+/************************************************************************************************************************************/
+        
+        ginteger_sym_cmp_ch1.minValue = 0;
+        ginteger_sym_cmp_ch1.maxValue = MF({ginteger_period.value + 1},Integer);
+        ginteger_sym_cmp_ch1.value    = MF({(Integer) ((ginteger_period.value + 1) * (100 - gfloat_duty_cycle.value) / 100); },Integer);
+    
+/************************************************************************************************************************************/
+                                        
+        gfloat_act_duty.value = MF({(Double)100 - ((Double)100 * (Double)ginteger_sym_cmp_ch1.value / (Double)(ginteger_period.value + 1)) },Double);
+
+/************************************************************************************************************************************/
+
+        ggroup_shadow_update_config.enabled = MF({dave_family == "XMC1" && dave_series == "4"},Boolean);
+        gtab_shadow_txfr.visible            = MF({dave_family == "XMC1" && dave_series == "4"},Boolean);
+        ggroup_shadow_update_config_lable.visible = false;
+    }
+    
+/*Local Function for pin class selection*/
+List pin_class(String drive_strength)
+    {
+        List list;
+            if (drive_strength == "Weak Driver" || drive_strength == "Medium Driver")
+            {
+                 list = ['A1', 'A1+', 'A2'];
+            }
+            else if (drive_strength == "Strong Driver Slow Edge")
+            {
+                 list = ['A1+'];
+            }
+            else if (drive_strength == "Strong Driver Soft Edge")
+            {
+                 list = ['A1+', 'A2'];
+            }
+            else if(drive_strength == "Strong Driver Medium Edge" || drive_strength == "Strong Driver Sharp Edge")
+            {
+                 list = ['A2'];
+            }
+            else
+            {
+                 list = ['A1','A1+' ,'A2'];
+            }
+            return list;
+    }
+    
+    // File Generation
+    def generateFiles(){
+        copy("pwm_ccu4.c", "pwm_ccu4.c")
+        copy("pwm_ccu4.h", "pwm_ccu4.h")
+        generate("pwm_ccu4_confc.tmpl", "pwm_ccu4_conf.c")
+        generate("pwm_ccu4_confh.tmpl", "pwm_ccu4_conf.h")
+        generate("pwm_ccu4_externh.tmpl", "pwm_ccu4_extern.h")
+    }
+    
+    //
+    // Add main code here
+    //
+    static main(args){
+        
+        PWM_CCU4 obj  = new PWM_CCU4();
+      }
+}
+
+
+
+
+
+

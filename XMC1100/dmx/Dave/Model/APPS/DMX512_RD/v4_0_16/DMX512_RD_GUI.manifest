@@ -1,0 +1,29 @@
+package Model.APPS.DMX512_RD.v4_0_16;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class DMX512_RD_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GInteger ginteger_relevant_slot;
+	 public GInteger ginteger_no_of_slots;
+	 public GString gstring_user_callback;
+	 public GCheck gcheck_acc_brk_det;
+	 public GInterruptPrio ginterruptprio_slot_rx;
+	 public GInterruptPrio ginterruptprio_acc_brk_det;
+	 public GMessage gmessage_valid_callback_name;
+
+	 public DMX512_RD_GUI(DaveEnv daveEnv){
+
+	 ginteger_relevant_slot = GInteger(widgetName:"ginteger_relevant_slot", value:1, minValue:1, maxValue:512, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_no_of_slots = GInteger(widgetName:"ginteger_no_of_slots", value:3, minValue:1, maxValue:512, enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_user_callback = GString(widgetName:"gstring_user_callback", value:"DMX512_RD_UserCallBack", enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_acc_brk_det = GCheck(widgetName:"gcheck_acc_brk_det", value:false, enabled:true, visible:true)
+	 ginterruptprio_slot_rx = GInterruptPrio(widgetName:"ginterruptprio_slot_rx", priorityValue:0, minPriority:0, maxPriority:3, subPriorityValue:0, minSubPriority:0, maxSubPriority:0, subPriorityVisible:false, enabled:true, visible:true)
+	 ginterruptprio_acc_brk_det = GInterruptPrio(widgetName:"ginterruptprio_acc_brk_det", priorityValue:0, minPriority:0, maxPriority:3, subPriorityValue:0, minSubPriority:0, maxSubPriority:0, subPriorityVisible:false, enabled:true, visible:true)
+	 gmessage_valid_callback_name = GMessage(widgetName:"gmessage_valid_callback_name", text:"Invalid function name", isError:false, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

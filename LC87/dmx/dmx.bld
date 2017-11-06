@@ -1,0 +1,12 @@
+* TASKING build target information file
+*
+* Project:	dmx.pjt
+* Toolchain:	TASKING C Compiler for LC87K v3.0/v3.1/v3.2 [2013/10/10]
+* EDE Version:	99.9r9 (Build 152)
+*
+
+dmx.abs|1504142652|1747942861
+dmx.hex|1504142652|805370907
+dmx.x87|1504142652|3833053446
+main.obj|1504142652|3595488787
+main.src|1504142652|4281751819

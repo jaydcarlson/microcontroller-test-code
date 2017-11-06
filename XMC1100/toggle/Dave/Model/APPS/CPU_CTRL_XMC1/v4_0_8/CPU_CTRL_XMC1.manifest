@@ -1,0 +1,141 @@
+package Model.APPS.CPU_CTRL_XMC1.v4_0_8;
+
+/*
+Copyright (c) 2015-2017, Infineon Technologies AG
+All rights reserved.                       
+                                           
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+following conditions are met:  
+                                                                            
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+disclaimer.                       
+ 
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+disclaimer in the documentation and/or other materials provided with the distribution.                      
+ 
+Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+products derived from this software without specific prior written permission.                                          
+                                                                            
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                                                 
+                                                                            
+To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with 
+Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+ Version      Date          Description //Retain this format
+
+  4.0.0       16-Feb-2015   Initial version for DAVE v4
+  4.0.1       20-Apr-2015   documentation updated
+  4.0.2       16-Jun-2015   version updated for public release
+  4.0.6       14-Oct-2015   Added debug option and exception settings
+  4.0.8       22-Feb-2017   Fixed compilation warnings
+*******************************************************************************/
+// Import statements
+import ifx.davex.app.manifest.*
+
+class  CPU_CTRL_XMC1 extends CPU_CTRL_XMC1_GUI {
+
+	// Note  : Following App properties are mandatory and important
+	// Begin : App property section
+	def version            = '4.0.8'
+	
+	def categoriesDescription = ["System"] 
+
+	// Minimum DAVE version required for the App
+	def minDaveVersion           = '4.0.0'
+	
+	// Keywords to search in Apps selection view
+	def keywords      = [
+		'CPU', 
+		'Exceptions', 
+		'Priority bits',
+		'all'
+	]
+	
+	def softwareIDs  = [
+		"XMC1.*.*.*.*":"1.0.0"
+	]
+
+
+	def singleton     = true
+	def initProvider  = false
+	def deprecated    = false
+	def sharable      = true
+
+	// App short description 
+	def description = "Defines the number of bits assigned to preemption priority."
+		
+	// End   : CPU property section
+	
+	// Begin : User variable section
+		
+	MVirtualResourceGroup hwres_cpu
+	MVirtualResourceGroup hwres_swd0_0
+	MVirtualResourceGroup hwres_swd0_1
+	MVirtualResourceGroup hwres_swd1_0
+	MVirtualResourceGroup hwres_swd1_1
+	MVirtualResourceGroup hwres_spd0
+	MVirtualResourceGroup hwres_spd1
+	
+	MVirtualResourceGroup hwres_bootmode0
+	MVirtualResourceGroup hwres_bootmode1
+
+	MVirtualResourceGroup hwres_exception_hardfault
+	
+	GInteger gint_maxInterruptPreemptPriority = GInteger(widgetName:"gint_maxInterruptPreemptPriority")
+	
+	// End   : User variable section
+
+	public CPU_CTRL_XMC1(DaveEnv daveEnv) {
+		
+		String family = daveEnv.project.selectedDevice.deviceId.family
+		String series = daveEnv.project.selectedDevice.deviceId.series
+		
+		int nvicbits = daveEnv.project.selectedDevice.nvicPrioBits
+	
+		/* calculate max value for preemption priority */
+		gint_maxInterruptPreemptPriority.value = MF({
+								   Integer Priority = ((1 << gint_preemptPriorityBits.value) - 1) as Integer
+								   return Priority
+								}, Integer)
+		
+		
+	//	hwres_cpu = MVirtualResourceGroup("system_control", ["peripheral", "cpu", "0", "system_control"])
+		
+		hwres_swd0_0 = MVirtualResourceGroup("swd0_pin0",["port","p","0","pad","14"], MF({(gcombo_debuginterface.value== "SWD0")}, Boolean))
+		hwres_swd0_1 = MVirtualResourceGroup("swd0_pin1",["port","p","0","pad","15"], MF({(gcombo_debuginterface.value== "SWD0")}, Boolean))
+
+		hwres_swd1_0 = MVirtualResourceGroup("swd1_pin0",["port","p","1","pad","3"], MF({(gcombo_debuginterface.value== "SWD1")}, Boolean))
+		hwres_swd1_1 = MVirtualResourceGroup("swd1_pin1",["port","p","1","pad","2"], MF({(gcombo_debuginterface.value== "SWD1")}, Boolean))
+
+		hwres_spd0 = MVirtualResourceGroup("spd0",["port","p","0","pad","14"], MF({(gcombo_debuginterface.value== "SPD0")}, Boolean))
+		hwres_spd1 = MVirtualResourceGroup("spd1",["port","p","1","pad","3"], MF({(gcombo_debuginterface.value== "SPD1")}, Boolean))
+
+		hwres_exception_hardfault =  MVirtualResourceGroup("hardfault_exception", ["peripheral", "cpu", "0", "exception", "hardfault"])
+		
+		gcheck_bootpin.visible = MF({(family+series == "XMC14")},Boolean)
+		
+		if(family+series == "XMC14")
+		{
+			hwres_bootmode0 = MVirtualResourceGroup("bootmode_pin0",["port","p","4","pad","6"], MF({(gcheck_bootpin.value== true)}, Boolean))
+			hwres_bootmode1 = MVirtualResourceGroup("bootmode_pin1",["port","p","4","pad","7"], MF({(gcheck_bootpin.value== true)}, Boolean))
+		}
+		
+	}
+	
+	// File Generation
+	def generateFiles(){
+		copy("cpu_ctrl_xmc1.c", "cpu_ctrl_xmc1.c")
+		copy("cpu_ctrl_xmc1.h", "cpu_ctrl_xmc1.h")
+		generate("cpu_ctrl_xmc1_confc.tmpl", "cpu_ctrl_xmc1_conf.c")
+		generate("cpu_ctrl_xmc1_confh.tmpl", "cpu_ctrl_xmc1_conf.h")
+		generate("cpu_ctrl_xmc1_externh.tmpl", "cpu_ctrl_xmc1_extern.h")
+	}
+	
+}

@@ -9,7 +9,7 @@
 // USER INCLUDES
 #include <SI_EFM8LB1_Register_Enums.h>
 
-xdata uint8_t buffer[512];
+xdata uint8_t buffer[513];
 uint8_t address = 1;
 int16_t bufferIndex = -1;
 
@@ -27,32 +27,36 @@ int16_t bufferIndex = -1;
 SI_INTERRUPT (UART1_ISR, UART1_IRQn)
 {
 	uint8_t temp;
-//	P0_B0 = 1;
-	if(SCON1_RI)
+//	P0_B6 = 1;
+	if(SCON1_RBX == 0)
+	{
+		// break
+//		P0_B0 = 1;
+		bufferIndex = 0;
+//		P0_B0 = 0;
+	}
+
+	while(SCON1_RI)
 	{
 		temp = SBUF1;
-		if(SCON1_RBX == 0)
-		{
-			// break
-			bufferIndex = 0;
-		} else {
-			if(bufferIndex >= 0)
-				buffer[bufferIndex++] = temp;
+
+		if(bufferIndex >= 0) {
+			buffer[bufferIndex++] = temp;
 		}
 
-		if(bufferIndex > 500)
+		if(bufferIndex > 512)
 		{
+//			P0_B7 = 1;
 			SFRPAGE = 0x00; // our ISR will be called w/ SFRPAGE = 0x20
 			PCA0CPH0 = buffer[address+0];
 			PCA0CPH1 = buffer[address+1];
 			PCA0CPH2 = buffer[address+2];
 			bufferIndex = -1;
 			SFRPAGE = 0x20;
+//			P0_B7 = 0;
 		}
 	}
 
-	SCON1_RI = 0;
-	UART1FCN1_RFRQ = 0;
-//	P0_B0 = 0;
+//	P0_B6 = 0;
 }
 

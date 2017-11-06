@@ -1,0 +1,361 @@
+; TASKING LC87K compiler (DEMO) v3.2r2 Build 213 SN 00000000 
+; options: -CLC87F1M -O2 -g -A1 -w555 -s -Ms 
+;          -Ic:\program files (x86)\tasking\dlc87 v3.2r2\include 
+$CASE ON
+$MODEL S
+
+	NAME	"MAIN"
+	SYMB	TOOL, "TASKING LC87K compiler (DEMO) (213)", 1
+	SYMB	TYPE, 256, "bit", 'g', 0, 1
+	SYMB	FILE, "main.c"
+
+; 1    |#include "c87.h"
+ 	SYMB	FILE, "c:\\program files (x86)\\tasking\\dlc87 v3.2r2\\include\\c87.h"
+	SYMB	ENDF
+; 2    |#include "Lc87f1m.sfr"
+ 	SYMB	FILE, "c:\\program files (x86)\\tasking\\dlc87 v3.2r2\\include\\Lc87f1m.sfr"
+	SYMB	ENDF
+; 3    |
+ ; 4    |typedef unsigned char uint8_t;
+ ; 5    |typedef char int8_t;
+ ; 6    |typedef unsigned int uint16_t ;
+ ; 7    |typedef int int16_t;
+ 	SYMB	TYPE, 257, "uint8_t", 'T', #3
+; 8    |
+ ; 9    |uint8_t buffer[515];
+ 	SYMB	TYPE, 258, "int16_t", 'T', #16
+; 10   |int16_t index = -1;
+ 
+	DEFSECT	".fdata", DATA, INIT
+	SECT	".fdata"
+	SYMB	IDEN, "index", _index, #258, 134, 0
+	SYMB	ALAB, _index, #258
+	GLOBAL	_index
+_index:
+
+	DW	0FFFFH
+
+; 11   |uint8_t address = 1;
+ 	SYMB	IDEN, "address", _address, #257, 134, 0
+	SYMB	ALAB, _address, #257
+
+	GLOBAL	_address
+_address:
+
+	DB	001H
+
+; 12   |
+ ; 13   |void _interrupt(0x33) _isr(void)
+ ; 14   |{
+ 
+	DEFSECT	".text", CODE
+	SECT	".text"
+	SYMB	LINE, 14
+	DEFSECT	".rmax0", DATA, REG, MAX AT 00H
+	SECT	".rmax0"
+	DS	6
+	GLOBAL	__isr
+	DEFSECT	".text51", CODE AT 033H
+	SECT	".text51"
+	JMP	__isr
+
+	SECT	".text"
+__isr:
+
+	SYMB	TYPE, 259, 'X', 136, #1, 2, 0
+	SYMB	GFUN, "_isr", __isr, #259, 0, 0, 0, 6, 0
+	SYMB	ALAB, __isr, #259
+	PUSH_P	
+	PUSH	C
+	PUSH_BA	
+	PUSHW	AR2
+	PUSHW	AR1
+	SYMB	IDEN, "data", -1, #257, 134, 5
+	SYMB	LTIM, "data", -1, 0, 69
+
+; 15   |    uint8_t data;
+ ; 16   |    _P0 = 1;
+ 	SYMB	LINE, 16
+
+	MOV	#01h,0fe40H
+
+; 17   |    data = _SCRBUF;
+ 	SYMB	LINE, 17
+
+	LD	0feceH
+	ST	AR1+0
+	SYMB	LTIM, "data", 002, 138, 196
+
+; 18   |
+ ; 19   |    if(_SCCNT1 & 0x08) { // SCRFERR set
+ 	SYMB	LINE, 19
+
+	LD	0fecbH
+	AND	#08h
+	BZ	L6
+L9:
+
+; 20   |        index = 0;
+ 	SYMB	LINE, 20
+
+	LDW	#00h
+	STW	_index
+
+; 21   |        _SCCNT1 &= ~0x08; // clear SCRFERR
+ 	SYMB	LINE, 21
+
+	LD	0fecbH
+	AND	#0f7h
+	ST	0fecbH
+
+; 22   |    }
+ 	SYMB	LINE, 22
+
+L6:
+
+; 23   |
+ ; 24   |    if(index >= 0) {
+ 	SYMB	LINE, 24
+
+	LDW	_index
+	PUSH	#00h
+	PUSH	#00h
+	FSUBW	
+	BN	B,07h,L11
+	BN	PSW,OV,L7
+	BR	L10
+L11:
+	BP	PSW,OV,L7
+L10:
+
+; 25   |        buffer[index++] = data;
+ 	SYMB	LINE, 25
+
+	LDW	#_buffer
+	PUSHW	_index
+	FADDW	
+	STW	AR2
+	LD	AR1+0
+	ST	[R2]
+	INCW	_index
+
+; 26   |    }
+ 	SYMB	LINE, 26
+
+L7:
+
+; 27   |
+ ; 28   |    if(index > 514) {
+ 	SYMB	LINE, 28
+
+	LDW	_index
+	PUSH	#02h
+	PUSH	#02h
+	FSUBW	
+	BN	B,07h,L14
+	BN	PSW,OV,L8
+	BR	L13
+L14:
+	BP	PSW,OV,L8
+	BZW	L8
+L13:
+
+; 29   |        _T1LR = buffer[address + 2]; // red
+ 	SYMB	LINE, 29
+
+	LD	_address
+	ST	AR1+0
+	MOV	#00h,AR1+1
+	SYMB	LTIM, "data", 002, 138, 68
+	LDW	#(_buffer + 02h)
+	PUSHW	AR1
+	FADDW	
+	STW	AR2
+	LD	[R2]
+	ST	0fe1cH
+
+; 30   |        _T1HR = buffer[address + 3]; // green
+ 	SYMB	LINE, 30
+
+	LDW	#(_buffer + 03h)
+	PUSHW	AR1
+	FADDW	
+	STW	AR2
+	LD	[R2]
+	ST	0fe1dH
+
+; 31   |        _PWM0H = 255 - buffer[address + 4]; // blue
+ 	SYMB	LINE, 31
+
+	PUSHW	AR1
+	LDW	#(_buffer + 04h)
+	FADDW	
+	STW	AR2
+	LD	[R2]
+	ST	AR1+0
+	LD	#0ffh
+	SUB	AR1+0
+	ST	0fe21H
+
+; 32   |        index = -1;
+ 	SYMB	LINE, 32
+
+	LDW	#-1
+	STW	_index
+
+; 33   |    }
+ 	SYMB	LINE, 33
+
+L8:
+
+; 34   |
+ ; 35   |    _SCCNT1 &= ~0x02; // clear SCREND
+ 	SYMB	LINE, 35
+
+	LD	0fecbH
+	AND	#0fdh
+	ST	0fecbH
+
+; 36   |     _P0 = 0;
+ 	SYMB	LINE, 36
+
+	MOV	#00h,0fe40H
+
+; 37   |}
+ 	SYMB	LINE, 37
+
+	POPW	AR1
+	POPW	AR2
+	POP_BA	
+	POP	C
+	POP_P	
+	RETI	
+	CALLS	'_isr', '', 0
+	SYMB	EFUN
+
+; 38   |
+ ; 39   |void main() 
+ ; 40   |{
+ 	SYMB	LINE, 40
+
+	SECT	".rmax0", RESET
+	DS	2
+	GLOBAL	_main
+	SECT	".text"
+_main:
+
+	SYMB	TYPE, 260, 'X', 8, #1, 2, -1
+	SYMB	GFUN, "main", _main, #260, 0, 0, 0, 0, 0
+	SYMB	ALAB, _main, #260
+
+; 41   |    _P0DDR = 0x1; // P0.1 output
+ 	SYMB	LINE, 41
+
+	MOV	#01h,0fe41H
+
+; 42   |    _OCR = 0x80; // divide-by-1 main clock
+ 	SYMB	LINE, 42
+
+	MOV	#080h,0fe0eH
+
+; 43   |
+ ; 44   |    // red and green LEDs are on PWML and PWMH (8-bit PWM)
+ ; 45   |    _T1CNT = 0xD0; // T1PWM = true
+ 	SYMB	LINE, 45
+
+	MOV	#0d0h,0fe18H
+
+; 46   |    _P1FCR = 0xC0; // enable Timer 1 PWML and PWMH outputs
+ 	SYMB	LINE, 46
+
+	MOV	#0c0h,0fe46H
+
+; 47   |    _P1DDR = 0xC0; // must be an (open-drain) output
+ 	SYMB	LINE, 47
+
+	MOV	#0c0h,0fe45H
+
+; 48   |
+ ; 49   |    // Blue LED is on PWM0 (10-bit PWM)
+ ; 50   |    _PWM0C = 0x04; // ENPWM0 = 1
+ 	SYMB	LINE, 50
+
+	MOV	#04h,0fe24H
+
+; 51   |    _PWM0L = 0x0F; // Set low bits to true
+ 	SYMB	LINE, 51
+
+	MOV	#0fh,0fe20H
+
+; 52   |
+ ; 53   |    // turn LEDs off initially
+ ; 54   |    _T1LR = 0x00; // red
+ 	SYMB	LINE, 54
+
+	MOV	#00h,0fe1cH
+
+; 55   |    _T1HR = 0x00; // green
+ 	SYMB	LINE, 55
+
+	MOV	#00h,0fe1dH
+
+; 56   |    _PWM0H = 0xFF; // blue
+ 	SYMB	LINE, 56
+
+	MOV	#0ffh,0fe21H
+
+; 57   |
+ ; 58   |    // _SCBRG = 11; // 250 kbps @ 12 MHz
+ ; 59   |    _SCBRG = 5; // 250 kbps @ 8 MHz
+ 	SYMB	LINE, 59
+
+	MOV	#05h,0fecfH
+
+; 60   |    _SCCNT1 = 0x21; // SCRRUN = 1, SCRENDIE = 1
+ 	SYMB	LINE, 60
+
+	MOV	#021h,0fecbH
+
+; 61   |
+ ; 62   |    // _SCCNT0 = 0xA0;
+ ; 63   |
+ ; 64   |    _IE = 0x80; // global enable interrupts
+ 	SYMB	LINE, 64
+
+	MOV	#080h,0fe08H
+
+; 65   |
+ ; 66   |   while(1)
+ 	SYMB	LINE, 66
+
+L17:
+
+; 67   |   {
+ ; 68   |        // _SCTBUF = 0x55;
+ ; 69   |        // while(_SCCNT0 & 0x02);
+ ; 70   |        _PCON = 0x01;
+ 	SYMB	LINE, 70
+
+	MOV	#01h,0fe07H
+	SYMB	LINE, 66
+	BR	L17
+
+; 71   |   }
+ ; 72   |}
+ 	SYMB	LINE, 72
+
+	RET	
+	CALLS	'main', '', 0
+	SYMB	EFUN
+	SYMB	ENDF
+
+	SYMB	TYPE, 261, 'Z', #257, 514
+	SYMB	IDEN, "buffer", _buffer, #261, 134, 0
+	SYMB	ALAB, _buffer, #261
+	DEFSECT	".fbss", DATA, CLEAR
+	SECT	".fbss"
+	GLOBAL	_buffer
+_buffer:
+	DS	515
+	EXTERN	(CODE) __START
+	END

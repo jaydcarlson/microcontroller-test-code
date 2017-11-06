@@ -1,0 +1,229 @@
+package Model.APPS.PWM_CCU4.v4_1_22;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class PWM_CCU4_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_general;
+	 public GTab gtab_ee;
+	 public GTab gtab_signals;
+	 public GTab gtab_shadow_txfr;
+	 public GTab gtab_interrupts;
+	 public GTab gtab_pins;
+	 public GInteger ginteger_freq;
+	 public GInteger ginteger_prescaler;
+	 public GInteger ginteger_period;
+	 public GInteger ginteger_sym_cmp_ch1;
+	 public GInteger ginteger_dither_cmp_val;
+	 public GCombo gcombo_counting_mode;
+	 public GCombo gcombo_e0_fn;
+	 public GCombo gcombo_e0_trigger;
+	 public GCombo gcombo_e0_filter;
+	 public GCombo gcombo_e1_fn;
+	 public GCombo gcombo_e1_trigger;
+	 public GCombo gcombo_e1_filter;
+	 public GCombo gcombo_e2_fn;
+	 public GCombo gcombo_e2_trigger;
+	 public GCombo gcombo_e2_filter;
+	 public GCombo gcombo_ext_start_edge;
+	 public GCombo gcombo_ext_start_action;
+	 public GCombo gcombo_ext_stop_edge;
+	 public GCombo gcombo_ext_stop_action;
+	 public GCombo gcombo_ext_trap_level;
+	 public GCombo gcombo_ext_trap_sync;
+	 public GCombo gcombo_ext_trap_exit;
+	 public GCombo gcombo_ext_e1_override_edge;
+	 public GCombo gcombo_ext_count_edge;
+	 public GCombo gcombo_ext_gate_level;
+	 public GCombo gcombo_ext_e2_override_level;
+	 public GCombo gcombo_ext_count_dir_level;
+	 public GCombo gcombo_ext_load_edge;
+	 public GCombo gcombo_ext_mod_level;
+	 public GCombo gcombo_ext_mod_sync;
+	 public GCombo gcombo_ext_mod_mode;
+	 public GCombo gcombo_dither_mode;
+	 public GCombo gcombo_mcm_shadow_txfr;
+	 public GCombo gcombo_ch1_out0_pass_level;
+	 public GCombo gcombo_shadow_txfr_mode;
+	 public GCombo gcombo_ch1_out0_char;
+	 public GCombo gcombo_ch_out_strng;
+	 public GFloat gfloat_clock;
+	 public GFloat gfloat_res;
+	 public GFloat gfloat_act_res;
+	 public GFloat gfloat_act_freq;
+	 public GFloat gfloat_duty_cycle;
+	 public GFloat gfloat_act_duty;
+	 public GCheck gcheck_init_start;
+	 public GCheck gcheck_single_shot;
+	 public GCheck gcheck_sync_start;
+	 public GCheck gcheck_ext_trap;
+	 public GCheck gcheck_dither_enable;
+	 public GCheck gcheck_mcm_ch1_enable;
+	 public GCheck gcheck_shadow_txfr_immediate_period;
+	 public GCheck gcheck_shadow_txfr_auto_period;
+	 public GCheck gcheck_shadow_txfr_immediate_compare;
+	 public GCheck gcheck_shadow_txfr_auto_compare;
+	 public GCheck gcheck_shadow_txfr_immediate_passive_level;
+	 public GCheck gcheck_shadow_txfr_auto_passive_level;
+	 public GCheck gcheck_shadow_txfr_immediate_dither;
+	 public GCheck gcheck_shadow_txfr_auto_dither;
+	 public GCheck gcheck_int_per_match;
+	 public GCheck gcheck_int_one_match_down;
+	 public GCheck gcheck_int_cmp1_match_up;
+	 public GCheck gcheck_int_cmp1_match_down;
+	 public GCheck gcheck_int_e0;
+	 public GCheck gcheck_int_e1;
+	 public GCheck gcheck_int_e2;
+	 public GCheck gcheck_ch1_out0_enable;
+	 public GLabel gLabel378;
+	 public GLabel glabel_353;
+	 public GLabel glabel_229;
+	 public GLabel glabel_shadow_txfr_mode;
+	 public GLabel glabel_72;
+	 public GLabel glabel_73;
+	 public GLabel glabel_shadow_txfr_period;
+	 public GLabel glabel_shadow_txfr_compare;
+	 public GLabel glabel_shadow_txfr_passive_level;
+	 public GLabel glabel_shadow_txfr_dither;
+	 public GLabel glabel_shadow_txfr_mode_note;
+	 public GLabel glabel_ch_out_strng;
+	 public GGroup ggroup_clock_settings;
+	 public GGroup ggroup_PWM_settings;
+	 public GGroup ggroup_timer_settings;
+	 public GGroup ggroup_event0;
+	 public GGroup ggroup_event1;
+	 public GGroup ggroup_event2;
+	 public GGroup ggroup_ext_start;
+	 public GGroup ggroup_ext_stop;
+	 public GGroup ggroup_ext_trap;
+	 public GGroup ggroup_ext_e1_override;
+	 public GGroup ggroup_ext_count;
+	 public GGroup ggroup_ext_gate;
+	 public GGroup ggroup_ext_e2_override;
+	 public GGroup ggroup_ext_count_dir;
+	 public GGroup ggroup_ext_load;
+	 public GGroup ggroup_ext_mod;
+	 public GGroup ggroup_dither;
+	 public GGroup ggroup_mcm;
+	 public GGroup ggroup_21;
+	 public GGroup ggroup_shadow_txfr;
+	 public GGroup ggroup_shadow_update_config;
+	 public GGroup ggroup_shadow_update_config_lable;
+	 public GGroup ggroup_interrupt;
+	 public GGroup ggroup_ch1_out0;
+
+	 public PWM_CCU4_GUI(DaveEnv daveEnv){
+
+	 gtab_general = GTab(widgetName:"gtab_general", text:"General Settings", enabled:true, visible:true)
+	 gtab_ee = GTab(widgetName:"gtab_ee", text:"External Event Settings", enabled:true, visible:true)
+	 gtab_signals = GTab(widgetName:"gtab_signals", text:"Signal Settings", enabled:true, visible:true)
+	 gtab_shadow_txfr = GTab(widgetName:"gtab_shadow_txfr", text:"Shadow Transfer Settings", enabled:true, visible:false)
+	 gtab_interrupts = GTab(widgetName:"gtab_interrupts", text:"Timer Event Settings", enabled:true, visible:true)
+	 gtab_pins = GTab(widgetName:"gtab_pins", text:"Pin Settings", enabled:true, visible:true)
+	 ginteger_freq = GInteger(widgetName:"ginteger_freq", value:100000, minValue:1, maxValue:120000000, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_prescaler = GInteger(widgetName:"ginteger_prescaler", value:1, minValue:0, maxValue:1000, enabled:false, visible:true, isMandatoryValue:false)
+	 ginteger_period = GInteger(widgetName:"ginteger_period", value:5999, minValue:0, maxValue:65535, enabled:false, visible:true, isMandatoryValue:false)
+	 ginteger_sym_cmp_ch1 = GInteger(widgetName:"ginteger_sym_cmp_ch1", value:1, minValue:0, maxValue:65535, enabled:false, visible:true, isMandatoryValue:false)
+	 ginteger_dither_cmp_val = GInteger(widgetName:"ginteger_dither_cmp_val", value:0, minValue:0, maxValue:15, enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_counting_mode = GCombo(widgetName:"gcombo_counting_mode", options:["Edge Aligned","Center Aligned"], value:"Edge Aligned", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e0_fn = GCombo(widgetName:"gcombo_e0_fn", options:["No Event","External Start","External Stop","External Count Direction","External Gating","External Count","External Load","External Modulation"], value:"No Event", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e0_trigger = GCombo(widgetName:"gcombo_e0_trigger", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e0_filter = GCombo(widgetName:"gcombo_e0_filter", options:["No Filter","3 CCU4 Clock Cycles","5 CCU4 Clock Cycles","7 CCU4 Clock Cycles"], value:"No Filter", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e1_fn = GCombo(widgetName:"gcombo_e1_fn", options:["No Event","External Start","External Stop","External Count Direction","External Gating","External Count","External Load","External Modulation","External Override (Edge)"], value:"No Event", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e1_trigger = GCombo(widgetName:"gcombo_e1_trigger", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e1_filter = GCombo(widgetName:"gcombo_e1_filter", options:["No Filter","3 CCU4 Clock Cycles","5 CCU4 Clock Cycles","7 CCU4 Clock Cycles"], value:"No Filter", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e2_fn = GCombo(widgetName:"gcombo_e2_fn", options:["No Event","External Start","External Stop","External Count Direction","External Gating","External Count","External Load","External Modulation","External Override (Level)","External Trap"], value:"No Event", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e2_trigger = GCombo(widgetName:"gcombo_e2_trigger", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_e2_filter = GCombo(widgetName:"gcombo_e2_filter", options:["No Filter","3 CCU4 Clock Cycles","5 CCU4 Clock Cycles","7 CCU4 Clock Cycles"], value:"No Filter", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_start_edge = GCombo(widgetName:"gcombo_ext_start_edge", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_start_action = GCombo(widgetName:"gcombo_ext_start_action", options:["Start Timer","Clear And Start Timer"], value:"Start Timer", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_stop_edge = GCombo(widgetName:"gcombo_ext_stop_edge", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_stop_action = GCombo(widgetName:"gcombo_ext_stop_action", options:["Stop Timer","Clear Timer","Clear And Stop Timer"], value:"Stop Timer", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_trap_level = GCombo(widgetName:"gcombo_ext_trap_level", options:["Active High","Active Low"], value:"Active High", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_trap_sync = GCombo(widgetName:"gcombo_ext_trap_sync", options:["Disable","Enable"], value:"Enable", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_trap_exit = GCombo(widgetName:"gcombo_ext_trap_exit", options:["Auto Exit","SW Exit"], value:"Auto Exit", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_e1_override_edge = GCombo(widgetName:"gcombo_ext_e1_override_edge", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_count_edge = GCombo(widgetName:"gcombo_ext_count_edge", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_gate_level = GCombo(widgetName:"gcombo_ext_gate_level", options:["Active On High Level","Active On Low Level"], value:"Active On High Level", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_e2_override_level = GCombo(widgetName:"gcombo_ext_e2_override_level", options:["No Inversion","Inversion"], value:"No Inversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_count_dir_level = GCombo(widgetName:"gcombo_ext_count_dir_level", options:["Count Up On Low Level","Count Up On High Level"], value:"Count Up On Low Level", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_load_edge = GCombo(widgetName:"gcombo_ext_load_edge", options:["No Trigger","Rising","Falling","Both"], value:"No Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_mod_level = GCombo(widgetName:"gcombo_ext_mod_level", options:["Active On High Level","Active On Low Level"], value:"Active On High Level", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_mod_sync = GCombo(widgetName:"gcombo_ext_mod_sync", options:["Not Synchronized","Synchronized"], value:"Not Synchronized", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ext_mod_mode = GCombo(widgetName:"gcombo_ext_mod_mode", options:["Clear The CC4yST","Gating The Outputs"], value:"Clear The CC4yST", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_dither_mode = GCombo(widgetName:"gcombo_dither_mode", options:["PWM Period Only","Duty Cycle Only","PWM And Duty Cycle"], value:"PWM Period Only", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_mcm_shadow_txfr = GCombo(widgetName:"gcombo_mcm_shadow_txfr", options:["SW Only","SW And CCU4x.MCSS Input"], value:"SW Only", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ch1_out0_pass_level = GCombo(widgetName:"gcombo_ch1_out0_pass_level", options:["Low","High"], value:"Low", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_shadow_txfr_mode = GCombo(widgetName:"gcombo_shadow_txfr_mode", options:["Period Match","One Match","Period And One Match"], value:"Period Match", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ch1_out0_char = GCombo(widgetName:"gcombo_ch1_out0_char", options:["Push Pull","Open Drain"], value:"Push Pull", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ch_out_strng = GCombo(widgetName:"gcombo_ch_out_strng", options:["Weak Driver","Medium Driver","Strong Driver Soft Edge","Strong Driver Slow Edge","Strong Driver Sharp Edge","Strong Driver Medium Edge"], value:"Medium Driver", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_clock = GFloat(widgetName:"gfloat_clock", value:120, minValue:0, maxValue:400, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_res = GFloat(widgetName:"gfloat_res", value:17, minValue:8.33, maxValue:100000, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_act_res = GFloat(widgetName:"gfloat_act_res", value:16.66, minValue:8, maxValue:100000, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_act_freq = GFloat(widgetName:"gfloat_act_freq", value:10000, minValue:0, maxValue:120000000, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_duty_cycle = GFloat(widgetName:"gfloat_duty_cycle", value:50.0, minValue:0, maxValue:100, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_act_duty = GFloat(widgetName:"gfloat_act_duty", value:50, minValue:0, maxValue:100, enabled:false, visible:true, isMandatoryValue:false)
+	 gcheck_init_start = GCheck(widgetName:"gcheck_init_start", value:false, enabled:true, visible:true)
+	 gcheck_single_shot = GCheck(widgetName:"gcheck_single_shot", value:false, enabled:true, visible:true)
+	 gcheck_sync_start = GCheck(widgetName:"gcheck_sync_start", value:false, enabled:true, visible:true)
+	 gcheck_ext_trap = GCheck(widgetName:"gcheck_ext_trap", value:false, enabled:true, visible:true)
+	 gcheck_dither_enable = GCheck(widgetName:"gcheck_dither_enable", value:false, enabled:true, visible:true)
+	 gcheck_mcm_ch1_enable = GCheck(widgetName:"gcheck_mcm_ch1_enable", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_immediate_period = GCheck(widgetName:"gcheck_shadow_txfr_immediate_period", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_auto_period = GCheck(widgetName:"gcheck_shadow_txfr_auto_period", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_immediate_compare = GCheck(widgetName:"gcheck_shadow_txfr_immediate_compare", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_auto_compare = GCheck(widgetName:"gcheck_shadow_txfr_auto_compare", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_immediate_passive_level = GCheck(widgetName:"gcheck_shadow_txfr_immediate_passive_level", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_auto_passive_level = GCheck(widgetName:"gcheck_shadow_txfr_auto_passive_level", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_immediate_dither = GCheck(widgetName:"gcheck_shadow_txfr_immediate_dither", value:false, enabled:true, visible:true)
+	 gcheck_shadow_txfr_auto_dither = GCheck(widgetName:"gcheck_shadow_txfr_auto_dither", value:false, enabled:true, visible:true)
+	 gcheck_int_per_match = GCheck(widgetName:"gcheck_int_per_match", value:false, enabled:true, visible:true)
+	 gcheck_int_one_match_down = GCheck(widgetName:"gcheck_int_one_match_down", value:false, enabled:true, visible:true)
+	 gcheck_int_cmp1_match_up = GCheck(widgetName:"gcheck_int_cmp1_match_up", value:false, enabled:true, visible:true)
+	 gcheck_int_cmp1_match_down = GCheck(widgetName:"gcheck_int_cmp1_match_down", value:false, enabled:true, visible:true)
+	 gcheck_int_e0 = GCheck(widgetName:"gcheck_int_e0", value:false, enabled:true, visible:true)
+	 gcheck_int_e1 = GCheck(widgetName:"gcheck_int_e1", value:false, enabled:true, visible:true)
+	 gcheck_int_e2 = GCheck(widgetName:"gcheck_int_e2", value:false, enabled:true, visible:true)
+	 gcheck_ch1_out0_enable = GCheck(widgetName:"gcheck_ch1_out0_enable", value:false, enabled:true, visible:true)
+	 gLabel378 = GLabel(widgetName:"gLabel378", text:"  ", enabled:true, visible:true)
+	 glabel_353 = GLabel(widgetName:"glabel_353", text:"", enabled:true, visible:true)
+	 glabel_229 = GLabel(widgetName:"glabel_229", text:"", enabled:true, visible:true)
+	 glabel_shadow_txfr_mode = GLabel(widgetName:"glabel_shadow_txfr_mode", text:"Shadow transfer mode:", enabled:true, visible:true)
+	 glabel_72 = GLabel(widgetName:"glabel_72", text:"Immediate Write", enabled:true, visible:true)
+	 glabel_73 = GLabel(widgetName:"glabel_73", text:"Automatic Shadow Transfer", enabled:true, visible:true)
+	 glabel_shadow_txfr_period = GLabel(widgetName:"glabel_shadow_txfr_period", text:"Period", enabled:true, visible:true)
+	 glabel_shadow_txfr_compare = GLabel(widgetName:"glabel_shadow_txfr_compare", text:"Compare", enabled:true, visible:true)
+	 glabel_shadow_txfr_passive_level = GLabel(widgetName:"glabel_shadow_txfr_passive_level", text:"Passive Level", enabled:true, visible:true)
+	 glabel_shadow_txfr_dither = GLabel(widgetName:"glabel_shadow_txfr_dither", text:"Dither", enabled:true, visible:true)
+	 glabel_shadow_txfr_mode_note = GLabel(widgetName:"glabel_shadow_txfr_mode_note", text:"Note: Ensure that the Fast Peripheral Clock (PCLK) is set to MCLK \r\nin the CLOCK_XMC APP, for automatic shadow transfer to function.", enabled:true, visible:true)
+	 glabel_ch_out_strng = GLabel(widgetName:"glabel_ch_out_strng", text:"Driver strength:", enabled:true, visible:true)
+	 ggroup_clock_settings = GGroup(widgetName:"ggroup_clock_settings", text:"Clock Settings", enabled:true, visible:true)
+	 ggroup_PWM_settings = GGroup(widgetName:"ggroup_PWM_settings", text:"PWM Settings", enabled:true, visible:true)
+	 ggroup_timer_settings = GGroup(widgetName:"ggroup_timer_settings", text:"Timer Settings", enabled:true, visible:true)
+	 ggroup_event0 = GGroup(widgetName:"ggroup_event0", text:"Event 0", enabled:true, visible:true)
+	 ggroup_event1 = GGroup(widgetName:"ggroup_event1", text:"Event 1", enabled:true, visible:true)
+	 ggroup_event2 = GGroup(widgetName:"ggroup_event2", text:"Event 2", enabled:true, visible:true)
+	 ggroup_ext_start = GGroup(widgetName:"ggroup_ext_start", text:"External start", enabled:true, visible:true)
+	 ggroup_ext_stop = GGroup(widgetName:"ggroup_ext_stop", text:"External stop", enabled:true, visible:true)
+	 ggroup_ext_trap = GGroup(widgetName:"ggroup_ext_trap", text:"Trap", enabled:true, visible:true)
+	 ggroup_ext_e1_override = GGroup(widgetName:"ggroup_ext_e1_override", text:"External Override (Event 1)", enabled:true, visible:true)
+	 ggroup_ext_count = GGroup(widgetName:"ggroup_ext_count", text:"External Counting", enabled:true, visible:true)
+	 ggroup_ext_gate = GGroup(widgetName:"ggroup_ext_gate", text:"External Gating", enabled:true, visible:true)
+	 ggroup_ext_e2_override = GGroup(widgetName:"ggroup_ext_e2_override", text:"External Override (Event 2)", enabled:true, visible:true)
+	 ggroup_ext_count_dir = GGroup(widgetName:"ggroup_ext_count_dir", text:"External Counting Direction", enabled:true, visible:true)
+	 ggroup_ext_load = GGroup(widgetName:"ggroup_ext_load", text:"External Load", enabled:true, visible:true)
+	 ggroup_ext_mod = GGroup(widgetName:"ggroup_ext_mod", text:"External Modulation", enabled:true, visible:true)
+	 ggroup_dither = GGroup(widgetName:"ggroup_dither", text:"Dither Configuration", enabled:true, visible:true)
+	 ggroup_mcm = GGroup(widgetName:"ggroup_mcm", text:"Multi Channel Mode", enabled:true, visible:true)
+	 ggroup_21 = GGroup(widgetName:"ggroup_21", text:"Channel Output", enabled:true, visible:true)
+	 ggroup_shadow_txfr = GGroup(widgetName:"ggroup_shadow_txfr", text:"Shadow Transfer", enabled:true, visible:true)
+	 ggroup_shadow_update_config = GGroup(widgetName:"ggroup_shadow_update_config", text:"Update Configuration", enabled:true, visible:true)
+	 ggroup_shadow_update_config_lable = GGroup(widgetName:"ggroup_shadow_update_config_lable", text:"Update Configuration Lable", enabled:true, visible:true)
+	 ggroup_interrupt = GGroup(widgetName:"ggroup_interrupt", text:"Enable Events", enabled:true, visible:true)
+	 ggroup_ch1_out0 = GGroup(widgetName:"ggroup_ch1_out0", text:"Output", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

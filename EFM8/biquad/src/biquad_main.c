@@ -9,11 +9,11 @@
 xdata volatile int16_t in[NUM_SAMPLES];
 xdata volatile int16_t out[NUM_SAMPLES];
 
-const int16_t a0 = 16384;
-const int16_t a1 = -32768;
-const int16_t a2 = 16384;
-const int16_t b1 = -25576;
-const int16_t b2 = 10508;
+#define a0 (int16_t)16384
+#define a1 (int16_t)-32768
+#define a2 (int16_t)16384
+#define b1 (int16_t)-25576
+#define b2 (int16_t)10508
 
 int16_t z1, z2;
 int16_t outTemp;

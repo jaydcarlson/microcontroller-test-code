@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ksdk:examples xmlns:ksdk="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nxp.com/ksdk/2.0/ksdk_manifest_v3.0.xsd manifest.xsd">
+  <externalDefinitions>
+    <definition extID="com.nxp.mcuxpresso"/>
+    <definition extID="mcuxpresso"/>
+    <definition extID="compiler_gcc"/>
+    <definition extID="CMSIS_Include"/>
+    <definition extID="MKL03Z32xxx4"/>
+    <definition extID="core0_MKL03Z32xxx4"/>
+    <definition extID="frdmkl03z"/>
+    <definition extID="middleware.baremetal.MKL03Z4"/>
+    <definition extID="platform.drivers.adc16.MKL03Z4"/>
+    <definition extID="platform.drivers.clock.MKL03Z4"/>
+    <definition extID="platform.drivers.cmp.MKL03Z4"/>
+    <definition extID="platform.drivers.common.MKL03Z4"/>
+    <definition extID="platform.drivers.cop.MKL03Z4"/>
+    <definition extID="platform.drivers.flash.MKL03Z4"/>
+    <definition extID="platform.drivers.gpio.MKL03Z4"/>
+    <definition extID="platform.drivers.i2c.MKL03Z4"/>
+    <definition extID="platform.drivers.llwu.MKL03Z4"/>
+    <definition extID="platform.drivers.lptmr.MKL03Z4"/>
+    <definition extID="platform.drivers.lpuart.MKL03Z4"/>
+    <definition extID="platform.drivers.pmc.MKL03Z4"/>
+    <definition extID="platform.drivers.port.MKL03Z4"/>
+    <definition extID="platform.drivers.rcm.MKL03Z4"/>
+    <definition extID="platform.drivers.rtc.MKL03Z4"/>
+    <definition extID="platform.drivers.sim.MKL03Z4"/>
+    <definition extID="platform.drivers.smc.MKL03Z4"/>
+    <definition extID="platform.drivers.spi.MKL03Z4"/>
+    <definition extID="platform.drivers.tpm.MKL03Z4"/>
+    <definition extID="platform.drivers.vref.MKL03Z4"/>
+    <definition extID="platform.utilities.debug_console.MKL03Z4"/>
+    <definition extID="platform.utilities.notifier.MKL03Z4"/>
+    <definition extID="platform.utilities.shell.MKL03Z4"/>
+    <definition extID="startup"/>
+  </externalDefinitions>
+  <example board="frdmkl03z" category="Project_Generator" dependency="CMSIS_Include middleware.baremetal.MKL03Z4 platform.drivers.adc16.MKL03Z4 platform.drivers.clock.MKL03Z4 platform.drivers.cmp.MKL03Z4 platform.drivers.common.MKL03Z4 platform.drivers.cop.MKL03Z4 platform.drivers.flash.MKL03Z4 platform.drivers.gpio.MKL03Z4 platform.drivers.i2c.MKL03Z4 platform.drivers.llwu.MKL03Z4 platform.drivers.lptmr.MKL03Z4 platform.drivers.lpuart.MKL03Z4 platform.drivers.pmc.MKL03Z4 platform.drivers.port.MKL03Z4 platform.drivers.rcm.MKL03Z4 platform.drivers.rtc.MKL03Z4 platform.drivers.sim.MKL03Z4 platform.drivers.smc.MKL03Z4 platform.drivers.spi.MKL03Z4 platform.drivers.tpm.MKL03Z4 platform.drivers.vref.MKL03Z4 platform.utilities.debug_console.MKL03Z4 platform.utilities.notifier.MKL03Z4 platform.utilities.shell.MKL03Z4 startup" device_core="core0_MKL03Z32xxx4" id="generated" name="generated">
+    <defines>
+      <define name="SDK_CORE_ID_CORE0" value=""/>
+    </defines> <!--toolchain="mcuxpresso"--> 
+    <projects>
+      <project nature="org.eclipse.cdt.core.cnature" type="com.crt.advproject.projecttype.exe"/>
+    </projects>
+    <source path="board/board.c" target_path="board" type="src">
+      <files mask="board.c"/>
+    </source>
+    <source path="board/board.h" target_path="board" type="c_include">
+      <files mask="board.h"/>
+    </source>
+    <source path="board/clock_config.c" target_path="board" type="src">
+      <files mask="clock_config.c"/>
+    </source>
+    <source path="board/clock_config.h" target_path="board" type="c_include">
+      <files mask="clock_config.h"/>
+    </source>
+    <source path="board/pin_mux.c" target_path="board" type="src">
+      <files mask="pin_mux.c"/>
+    </source>
+    <source path="board/pin_mux.h" target_path="board" type="c_include">
+      <files mask="pin_mux.h"/>
+    </source>
+    <source path="source/main.c" target_path="source" type="src">
+      <files mask="main.c"/>
+    </source>
+  </example>
+</ksdk:examples>

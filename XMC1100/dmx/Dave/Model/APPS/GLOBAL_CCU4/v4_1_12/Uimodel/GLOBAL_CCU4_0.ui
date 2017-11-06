@@ -1,0 +1,34 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="5, 5, 500, 600">
+		<p1:GTab text="General Settings" widgetName="gtab_general_settings" visible="true" enabled="true" manifestObj="true">
+			<p1:GTab.control>
+				<p1:Tab>
+					<p1:Tab.layout>
+						<GridLayout numColumns="2" horizontalSpacing="10" verticalSpacing="10" marginWidth="10" marginHeight="10"/>
+					</p1:Tab.layout>
+					<p1:GLabel text="Clock frequency [MHz]:" visible="true" widgetName="glabel_clkFreq" description="This is the input frequency to CCU4 module from System Control Unit (SCU)&#13;&#10;"/>
+					<p1:GFloat x:Style="BORDER" minValue="0.125" maxValue="144" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="*,6" manifestObj="true" widgetName="gfloat_clkFreq" enabled="false" toolTipText="Range(XMC1_X) in MHz: 0.125 to 32 &#13;&#10;Range(XMC4_X) in MHz: 32 to 144" description="Display the fccu frequency available for the top lavel APPs.&lt;br&gt;&#13;&#10;Range:&lt;br&gt;&#13;&#10;For XMC4500,XMC4400,XMC4200,XMC4100 devices (in MHz): 3 to 120&lt;br&gt;&#13;&#10;For XMC4800/4700 devices (in MHz): 3 to 144&lt;br&gt;&#13;&#10;For XMC1000 devices (in MHz): 0.125 to 32&lt;br&gt;">
+						<p1:GFloat.layoutData>
+							<GridData widthHint="215"/>
+						</p1:GFloat.layoutData>
+					</p1:GFloat>
+					<p1:GLabel manifestObj="true" text="Multi channel mode shadow transfer:" visible="true" widgetName="glabel_mc_shadow_tx_function" toolTipText="">
+						<p1:GLabel.layoutData>
+							<GridData horizontalAlignment="RIGHT"/>
+						</p1:GLabel.layoutData>
+					</p1:GLabel>
+					<p1:GCombo mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" manifestObj="true" options="Period and Compare&#13;&#10;Period, Compare and Prescaler&#13;&#10;Period, Compare, Prescaler and Dither" value="Period and Compare" widgetName="gcombo_mc_shadow_tx_function" description="Select the values to be updated on shadow transfer request." toolTipText="Select the type of shadow transfer request.">
+						<p1:GCombo.layoutData>
+							<GridData grabExcessHorizontalSpace="true" widthHint="225"/>
+						</p1:GCombo.layoutData>
+					</p1:GCombo>
+					<p1:GMessage text="CCU Clock is not enabled in the &quot;Clock Selection Settings&quot; tab of CLOCK_XMC4 APP. Enable the same to continue." visible="true" manifestObj="true" isError="true" widgetName="gmessage_clock_settings">
+						<p1:GMessage.layoutData>
+							<GridData grabExcessHorizontalSpace="true" horizontalSpan="2" widthHint="413"/>
+						</p1:GMessage.layoutData>
+					</p1:GMessage>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

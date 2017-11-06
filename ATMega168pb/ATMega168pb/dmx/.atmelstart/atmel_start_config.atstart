@@ -1,0 +1,187 @@
+format_version: '2'
+name: My Project
+board:
+  identifier: CustomBoard
+  device: ATmega168PB-MU
+details: null
+application: null
+middlewares: {}
+drivers:
+  CPU:
+    user_label: CPU
+    definition: 'Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::CPU::driver_config_definition::SYSCTRL::Drivers:SYSCTRL:'
+    functionality: System
+    api: 'Drivers:SYSCTRL:'
+    configuration:
+      async_input_speed: 32768
+      clkadc_oscillator: Input clock
+      clkasy_oscillator: Async input clock
+      clkcpu_oscillator: Input clock
+      clkio_oscillator: Input clock
+      clkptc_oscillator: Input clock
+      cpu_clock_source: CLKcpu
+      enable_async_input: true
+      enable_clkadc: true
+      enable_clkasy: true
+      enable_clkcpu: true
+      enable_clkio: true
+      enable_clkptc: true
+      enable_core_clock: true
+      enable_input: true
+      input_speed: 8000000
+      pm_ivsel: Interrupt vector placed at the beginning of main FLASH memory
+      pm_pud: false
+      pm_se: false
+      pm_sm: Idle
+      prescaler_divider: '1'
+    optional_signals: []
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: Core
+          input: Core
+        configuration: {}
+  PWM_0:
+    user_label: PWM_0
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::TC0::driver_config_definition::TC8.Mode.1.Phase.Correct::Drivers:PWM:Basic
+    functionality: PWM
+    api: Drivers:PWM:Basic
+    configuration:
+      callback_rate: 0
+      inc_overflow_irq: true
+      pwm_top: '0xff'
+      tc8_coma: Set OCA on up-couting, clear OCA on down-counting
+      tc8_comb: Set OCB on up-couting, clear OCB on down-counting
+      tc8_cs: IO clock divided by 8
+      tc8_ociea: false
+      tc8_ocieb: false
+      tc8_ocra: 127
+      tc8_ocrb: 127
+      tc8_toie: false
+    optional_signals:
+    - identifier: PWM_0:OCA
+      pad: PD6
+      mode: Enabled
+      configuration: null
+      definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::optional_signal_definition::TC0.OCA
+      name: TC0/OCA
+      label: OCA
+    - identifier: PWM_0:OCB
+      pad: PD5
+      mode: Enabled
+      configuration: null
+      definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::optional_signal_definition::TC0.OCB
+      name: TC0/OCB
+      label: OCB
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: TC8
+          input: CLKio
+        configuration:
+          tc8_clock_source: CLKio
+  PWM_1:
+    user_label: PWM_1
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::TC2::driver_config_definition::TC8.Mode.1.Phase.Correct::Drivers:PWM:Basic
+    functionality: PWM
+    api: Drivers:PWM:Basic
+    configuration:
+      callback_rate: 0
+      inc_overflow_irq: true
+      pwm_top: '0xff'
+      tc8_async_exclk: false
+      tc8_coma: Set OCA on up-couting, clear OCA on down-counting
+      tc8_comb: Normal port operation, OCB disconnected
+      tc8_cs: IO clock divided by 8
+      tc8_ociea: false
+      tc8_ocieb: false
+      tc8_ocra: 127
+      tc8_ocrb: 0
+      tc8_toie: false
+    optional_signals:
+    - identifier: PWM_1:OCA
+      pad: PB3
+      mode: Enabled
+      configuration: null
+      definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::optional_signal_definition::TC2.OCA
+      name: TC2/OCA
+      label: OCA
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: TC2
+          input: CLKio
+        configuration:
+          tc2_clock_source: CLKio
+  USART_0:
+    user_label: USART_0
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::USART0::driver_config_definition::Asynchronous.Mode::Drivers:USART:Init
+    functionality: USART
+    api: Drivers:USART:Init
+    configuration:
+      inc_isr_harness: true
+      usart_baud_rate: 250000
+      usart_mpcm: false
+      usart_rxcie: true
+      usart_rxen: true
+      usart_rxsie: false
+      usart_sfde: false
+      usart_txcie: false
+      usart_txen: false
+      usart_ucsz: 8-bit
+      usart_udord: MSB is transmitted first
+      usart_udrie: false
+      usart_upm: Disabled
+      usart_usbs: 1-bit
+    optional_signals: []
+    variant:
+      specification: UMSEL=0
+      required_signals:
+      - name: USART0/RXD
+        pad: PD0
+        label: RXD
+      - name: USART0/TXD
+        pad: PD1
+        label: TXD
+    clocks:
+      domain_group:
+        nodes:
+        - name: USART
+          input: CLKio
+        configuration:
+          usart_clock_source: CLKio
+pads:
+  PD5:
+    name: PD5
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::pad::PD5
+    mode: Digital output
+    user_label: PD5
+    configuration: null
+  PD6:
+    name: PD6
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::pad::PD6
+    mode: Digital output
+    user_label: PD6
+    configuration: null
+  PB3:
+    name: PB3
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::pad::PB3
+    mode: Digital output
+    user_label: PB3
+    configuration: null
+  PD0:
+    name: PD0
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::pad::PD0
+    mode: Digital input
+    user_label: PD0
+    configuration: null
+  PD1:
+    name: PD1
+    definition: Atmel:ATMega48_88_168pb_drivers:1.0.0::ATmega168PB-MU::pad::PD1
+    mode: Digital output
+    user_label: PD1
+    configuration: null
+toolchain_options: []

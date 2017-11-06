@@ -1,0 +1,12 @@
+* TASKING build target information file
+*
+* Project:	toggle.pjt
+* Toolchain:	TASKING C Compiler for LC87K v3.0/v3.1/v3.2 [2013/10/10]
+* EDE Version:	99.9r9 (Build 152)
+*
+
+main.obj|1502400995|3595488787
+main.src|1502404736|461546490
+toggle.abs|1502400995|3783960617
+toggle.hex|1502400995|2204047431
+toggle.x87|1502400995|331506612

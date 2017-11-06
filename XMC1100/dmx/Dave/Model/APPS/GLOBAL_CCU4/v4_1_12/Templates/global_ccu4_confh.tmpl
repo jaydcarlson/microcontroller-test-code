@@ -1,0 +1,96 @@
+package Model.APPS.GLOBAL_CCU4.v4_1_12.Templates;
+
+import Model.APPS.GLOBAL_CCU4.v4_1_12.GLOBAL_CCU4
+
+out.print("""
+/**
+ * @cond
+ ***********************************************************************************************************************
+ *
+ * Copyright (c) 2016, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2015-02-16:
+ *     - Initial version<br>
+ *
+ * 2015-05-08:
+ *     - File guard updated according to the guidelines<br>
+ *
+ * @endcond
+ *
+ */
+
+#ifndef GLOBAL_CCU4_CONF_H
+#define GLOBAL_CCU4_CONF_H
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+
+/**********************************************************************************************************************
+ * MACROS
+ **********************************************************************************************************************/
+#define GLOBAL_CCU4_MAJOR_VERSION (${GLOBAL_CCU4.version.split("\\.")[0]}U)
+#define GLOBAL_CCU4_MINOR_VERSION (${GLOBAL_CCU4.version.split("\\.")[1]}U)
+#define GLOBAL_CCU4_PATCH_VERSION (${GLOBAL_CCU4.version.split("\\.")[2]}U)
+""");
+String appInst = null
+List MappedUri = null
+Integer kernelno = 0
+String module_msk = null
+Integer no_of_instances = 0
+for (Object appIns : appInstancesList )
+{
+  appInst = appIns.getInstanceLabel()
+  MappedUri = appIns.hwres_peripheral_scu_gcu_ccu4_global_enable.getSolverUri()
+  kernelno = MappedUri[7].toInteger()
+  String add_space =" "
+  for(i = 0; i < 31; i++)
+  {
+	  add_space+=" "
+  }
+  no_of_instances++;
+	
+  if(no_of_instances == 1)
+  {
+	module_msk = 'XMC_SCU_CCU_TRIGGER_CCU4' + kernelno
+  }
+  else
+  {
+	module_msk += ' |\\' + '\n' + add_space + 'XMC_SCU_CCU_TRIGGER_CCU4' + kernelno
+  }
+}
+
+out.print ("""
+
+#define GLOBAL_CCU4_CCUCON_Msk ((uint32_t)${module_msk})
+
+#endif /* GLOBAL_CCU4_CONF_H_ */
+
+""")

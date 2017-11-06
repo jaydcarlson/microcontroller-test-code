@@ -6,7 +6,7 @@
       <Compile>
         <Option name="OptimizationLevel" value="3"/>
         <Option name="UseFPU" value="0"/>
-        <Option name="UserEditCompiler" value=""/>
+        <Option name="UserEditCompiler" value="-lto;"/>
         <Option name="SupportCPlusplus" value="0"/>
         <Option name="DEBUG" value="2"/>
         <Option name="WARNING" value="1"/>
@@ -22,7 +22,7 @@
         <Option name="UserEditLinkder" value=""/>
         <Option name="UseMemoryLayout" value="1"/>
         <Option name="nostartfiles" value="0"/>
-        <Option name="LTO" value="0"/>
+        <Option name="LTO" value="1"/>
         <Option name="IsNewStartupCode" value="1"/>
         <LinkedLibraries/>
         <MemoryAreas debugInFlashNotRAM="1">
@@ -74,9 +74,9 @@
   <Files>
     <File name="components/M051_BSP_CMSIS_V300_001/sys.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/sys.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/pwm.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/pwm.h" type="1"/>
-    <File name="components/M051_BSP_CMSIS_V300_001/adc.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/adc.c" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/spi.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/spi.c" type="1"/>
     <File name="components/cmsis_core/core_cmInstr.h" path="components/coocox-master/cmsis_core/source/core_cmInstr.h" type="1"/>
+    <File name="components/M051_BSP_CMSIS_V300_001/adc.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/adc.c" type="1"/>
     <File name="components/cmsis_core/core_cm7.h" path="components/coocox-master/cmsis_core/source/core_cm7.h" type="1"/>
     <File name="components/cmsis_core/core_cmFunc.h" path="components/coocox-master/cmsis_core/source/core_cmFunc.h" type="1"/>
     <File name="components/cmsis_core" path="" type="2"/>
@@ -103,9 +103,9 @@
     <File name="components/M051_BSP_CMSIS_V300_001/wdt.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/wdt.h" type="1"/>
     <File name="components/cmsis_core/core_cmSimd.h" path="components/coocox-master/cmsis_core/source/core_cmSimd.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/system_M051Series.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/system_M051Series.c" type="1"/>
-    <File name="components/M051_BSP_CMSIS_V300_001/adc.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/adc.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/wwdt.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/wwdt.c" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/acmp.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/acmp.c" type="1"/>
+    <File name="components/M051_BSP_CMSIS_V300_001/adc.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/adc.h" type="1"/>
     <File name="components/cmsis_core/core_cm3.h" path="components/coocox-master/cmsis_core/source/core_cm3.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/hdiv.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/hdiv.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/clk.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/clk.c" type="1"/>

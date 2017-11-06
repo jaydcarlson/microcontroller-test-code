@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "biquad", "biquad\biquad.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "dmx", "dmx\dmx.cproj", "{13BA1FDB-3CF3-4010-8A06-E57CC9596E9B}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "toggle", "toggle\toggle.cproj", "{B936FB5D-AEF2-45DF-8831-1CCA2D7F80C4}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "debugTest", "debugTest\debugTest.cproj", "{130FEDEF-DE45-4A0C-A45F-ED411AC94B9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|ARM = Debug|ARM
+		Release|ARM = Release|ARM
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|ARM.ActiveCfg = Debug|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Debug|ARM.Build.0 = Debug|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.ActiveCfg = Release|ARM
+		{DCE6C7E3-EE26-4D79-826B-08594B9AD897}.Release|ARM.Build.0 = Release|ARM
+		{13BA1FDB-3CF3-4010-8A06-E57CC9596E9B}.Debug|ARM.ActiveCfg = Debug|ARM
+		{13BA1FDB-3CF3-4010-8A06-E57CC9596E9B}.Debug|ARM.Build.0 = Debug|ARM
+		{13BA1FDB-3CF3-4010-8A06-E57CC9596E9B}.Release|ARM.ActiveCfg = Release|ARM
+		{13BA1FDB-3CF3-4010-8A06-E57CC9596E9B}.Release|ARM.Build.0 = Release|ARM
+		{B936FB5D-AEF2-45DF-8831-1CCA2D7F80C4}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B936FB5D-AEF2-45DF-8831-1CCA2D7F80C4}.Debug|ARM.Build.0 = Debug|ARM
+		{B936FB5D-AEF2-45DF-8831-1CCA2D7F80C4}.Release|ARM.ActiveCfg = Release|ARM
+		{B936FB5D-AEF2-45DF-8831-1CCA2D7F80C4}.Release|ARM.Build.0 = Release|ARM
+		{130FEDEF-DE45-4A0C-A45F-ED411AC94B9F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{130FEDEF-DE45-4A0C-A45F-ED411AC94B9F}.Debug|ARM.Build.0 = Debug|ARM
+		{130FEDEF-DE45-4A0C-A45F-ED411AC94B9F}.Release|ARM.ActiveCfg = Release|ARM
+		{130FEDEF-DE45-4A0C-A45F-ED411AC94B9F}.Release|ARM.Build.0 = Release|ARM
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

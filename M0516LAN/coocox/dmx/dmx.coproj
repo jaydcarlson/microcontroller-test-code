@@ -4,7 +4,7 @@
     <Device manufacturerId="8" manufacturerName="Nuvoton" chipId="172" chipName="M052LDN" boardId="" boardName="" boardUrl="" coreId="1" coreName="Cortex M0"/>
     <BuildOption>
       <Compile>
-        <Option name="OptimizationLevel" value="5"/>
+        <Option name="OptimizationLevel" value="3"/>
         <Option name="UseFPU" value="0"/>
         <Option name="UserEditCompiler" value=""/>
         <Option name="SupportCPlusplus" value="0"/>
@@ -27,7 +27,7 @@
         <Option name="Library" value="Use nano C Library"/>
         <LinkedLibraries/>
         <MemoryAreas debugInFlashNotRAM="1">
-          <Memory name="IROM1" type="ReadOnly" size="0xff00" startValue="0x00000000"/>
+          <Memory name="IROM1" type="ReadOnly" size="0x00002000" startValue="0x00000000"/>
           <Memory name="IRAM1" type="ReadWrite" size="0x00001000" startValue="0x20000000"/>
           <Memory name="IROM2" type="ReadOnly" size="" startValue=""/>
           <Memory name="IRAM2" type="ReadWrite" size="" startValue=""/>
@@ -64,6 +64,7 @@
       <Option name="org.coocox.codebugger.gdbjtag.core.verify" value="1"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.downloadFuction" value="Erase Effected"/>
       <Option name="org.coocox.codebugger.gdbjtag.core.defaultAlgorithm" value="C:\Users\JayLocal\AppData\Roaming\CooCox\CoIDE\config\flash\CooCox-Flash\CoIDE_NUCM051_8K\M051_8.elf"/>
+      <Option name="org.coocox.codebugger.gdbjtag.coredebugInRamInitCommands" value="cd D:/Git/microcontroller-test-code/M0516LAN/coocox/dmx/dmx/Debug/bin restore dmx.elf set {unsigned int*}0xE000ED08 = 0x20000000 set $sp = {unsigned int*}0x20000000 set $pc = {unsigned int*}0x20000004 "/>
     </DebugOption>
     <ExcludeFile/>
   </Target>
@@ -74,11 +75,11 @@
   <LocalComponents/>
   <Files>
     <File name="components/M051_BSP_CMSIS_V300_001/sys.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/sys.h" type="1"/>
-    <File name="components/cmsis_core/core_sc000.h" path="components/coocox-master/cmsis_core/source/core_sc000.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/pwm.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/pwm.h" type="1"/>
+    <File name="components/cmsis_core/core_sc000.h" path="components/coocox-master/cmsis_core/source/core_sc000.h" type="1"/>
     <File name="components/cmsis_core/core_cm0.h" path="components/coocox-master/cmsis_core/source/core_cm0.h" type="1"/>
-    <File name="SysInit.c" path="app/SysInit.c" type="1"/>
     <File name="components/cmsis_core/core_cmInstr.h" path="components/coocox-master/cmsis_core/source/core_cmInstr.h" type="1"/>
+    <File name="SysInit.c" path="app/SysInit.c" type="1"/>
     <File name="components/cmsis_core/core_cm7.h" path="components/coocox-master/cmsis_core/source/core_cm7.h" type="1"/>
     <File name="components/cmsis_core/core_cmFunc.h" path="components/coocox-master/cmsis_core/source/core_cmFunc.h" type="1"/>
     <File name="components/cmsis_core" path="" type="2"/>
@@ -100,9 +101,9 @@
     <File name="components" path="" type="2"/>
     <File name="components/M051_BSP_CMSIS_V300_001/uart.h" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/uart.h" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/startup_M051Series.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/startup_M051Series.c" type="1"/>
-    <File name="main.c" path="app/main.c" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001/pwm.c" path="components/coocox-master/M051_BSP_CMSIS_V300_001/source/pwm.c" type="1"/>
     <File name="components/cmsis_core/core_cm0plus.h" path="components/coocox-master/cmsis_core/source/core_cm0plus.h" type="1"/>
+    <File name="main.c" path="app/main.c" type="1"/>
     <File name="components/M051_BSP_CMSIS_V300_001" path="" type="2"/>
     <File name="components/cmsis_core/arm_math.h" path="components/coocox-master/cmsis_core/source/arm_math.h" type="1"/>
   </Files>

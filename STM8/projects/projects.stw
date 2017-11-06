@@ -4,5 +4,21 @@
 Keyword=ST7Workspace-V0.7
 
 [Project0]
+Filename=dmx\dmx.stp
+Dependencies=
+
+[Project1]
 Filename=biquad\biquad.stp
 Dependencies=
+
+[Project2]
+Filename=debugtest\debugtest.stp
+Dependencies=
+
+[Project3]
+Filename=toggle\toggle.stp
+Dependencies=
+[Options]
+ActiveProject=toggle
+ActiveConfig=Debug
+AddSortedElements=1

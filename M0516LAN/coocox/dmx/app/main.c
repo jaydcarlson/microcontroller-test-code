@@ -16,6 +16,7 @@ uint8_t address = 1;
 
 void UART0_IRQHandler(void)
 {
+	P00 = 1;
 	uint8_t u8InChar = 0xFF;
 	uint32_t IntStatus = UART0->ISR;
 
@@ -29,16 +30,16 @@ void UART0_IRQHandler(void)
 	// framing error
 	if(IntStatus & UART_ISR_RLS_INT_Msk)
 	{
-//		P00 = 1;
 		UART0->FCR |= UART_FCR_RFR_Msk; // clear the frame error interrupt
 		bufferIndex = 0;
-//		P00 = 0;
 	}
 
 	// data received
 	if(IntStatus & UART_ISR_RDA_INT_Msk)
 	{
 //		P01 = 1;
+
+#ifdef USE_FIFO
 		/* Get all the input characters */
 		while(!UART_GET_RX_EMPTY(UART0))
 		{
@@ -54,13 +55,17 @@ void UART0_IRQHandler(void)
 				data[bufferIndex++] = u8InChar;
 			}
 		}
-#ifdef USE_FIFO
 		if(bufferIndex > 256)
 			UART0->FCR &= ~UART_FCR_RFITL_Msk; // reset to no FIFO
 		else
 			UART0->FCR |= UART_FCR_RFITL_14BYTES;
 
 		UART0->FCR |= UART_FCR_RFR_Msk;
+#else
+		u8InChar = UART_READ(UART0);
+
+		if(bufferIndex != -1)
+			data[bufferIndex++] = u8InChar;
 #endif
 //		P01 = 0;
 	}
@@ -78,14 +83,16 @@ void UART0_IRQHandler(void)
 #endif
 //		P02 = 0;
 	}
+
+	P00 = 0;
 }
 
 int main(void)
 {
 	Init();
-
     while(1)
     {
 		asm("wfi");
     }
+
 }

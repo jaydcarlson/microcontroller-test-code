@@ -1,0 +1,1364 @@
+package Model.APPS.CLOCK_XMC1.v4_0_18;
+
+/*
+ Copyright (c) 2015, Infineon Technologies AG
+ All rights reserved.
+											
+ Redistribution and use in source and binary forms, with or without modification, are permitted provided that the
+ following conditions are met:
+																			 
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following
+ disclaimer.
+  
+ Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following
+ disclaimer in the documentation and/or other materials provided with the distribution.
+  
+ Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ products derived from this software without specific prior written permission.
+																			 
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+																			 
+ To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes with
+ Infineon Technologies AG: dave@infineon.com. */
+
+/*************** Revision History **********************************************
+ Version    Date          Description //Retain this format
+ 4.0.0     16-Feb-2015   Initial version for DAVEv4      
+ 4.0.2     30-Apr-2015   Tool tips and parameter descriptions are modified
+ 4.0.4     19-Jun-2015   Version check added for XMCLib dependency.             
+ 4.0.6     09-Jul-2015   Help doc updated.                         
+ 4.0.7     31-Jul-2015   Supported XMC14x family device.         
+ 4.0.10    08-Oct-2015   1). SystemCoreClockSetup updated due to change in XMC_SCU_CLOCK_CONFIG structure of xmc1_scu LLD.<br>     
+                         2). CLOCK_XMC1_Init API and CLOCK_XMC1_SetMCLKFrequency APIs are provided.<br>        
+ 4.0.12    15-Oct-2015   1). Clock control and External clock setting tabs are added in GUI.<br>     
+                         2). Selections are provided in GUI for selecting High precision and Low precision oscillator.<br>
+                         3). template files are Updated for changes made in GUI combo options.<br>       
+ 4.0.14    19-Oct-2015   Non-weak OSCHP_GetFrequency and CLOCK_XMC1_IsDCO1ExtRefCalibrationReady functions are provided.<br>
+ 4.0.16    18-May-2016   1). OSC_HP frequency range is corrected.<br>     
+                         2). Help documentation improved.<br>
+ 4.0.18    08-Jul-2016   Fixed incorrect case for an included header. <BR>                         
+ *******************************************************************************/
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+class  CLOCK_XMC1 extends CLOCK_XMC1_GUI {
+
+	/* Note  : Following App properties are mandatory and important */
+	/* Begin : App property section */
+
+	/**
+	 * App version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version            = '4.0.18'
+
+	/**
+	 * App categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = ['System']
+
+	/** 
+	 * Minimum DAVE version required for this app.
+	 * 
+	 * It is string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.0.0'
+
+	/** 
+	 * Keywords used by search feature in Apps selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords      = ["System Clock", "MCLK", "PCLK", "CLOCK", "Clock", "ALL"]
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this app.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the app.
+	 * 
+	 * 
+	 */
+
+	def softwareIDs       = [
+		"XMC1.4.*.*.*":"1.0.0",
+		"XMC1.3.*.*.*":"1.0.0",
+		"XMC1.2.*.*.*":"1.0.0",
+		"XMC1.1.*.*.*":"1.0.0"
+	]
+
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once. 
+	 */
+	def singleton     = true
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated app
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple apps to require the same instance of this app.
+	 */
+	def sharable      = true
+	/* This APP consumes direct HW pin resource */
+	def ioApp         = false
+
+	/**
+	 *  App function description.
+	 */
+	def description = "CLOCK_XMC1 APP configures System and Peripheral Clocks."
+	/* End   : App property section */
+
+	/* Begin : User app property section */
+	/* Object to point virtual resource groups/ functional blocks */
+	MVirtualResourceGroup hwres_dco
+	MVirtualResourceGroup hwres_clkcntrlunit
+	/* Object to point virtual signals */
+	MVirtualSignal vs_dco_clkout
+	MVirtualSignal vs_frtc
+	MVirtualSignal vs_dco2_clk
+	MVirtualSignal vs_osc_lp_clk
+	MVirtualSignal vs_osc_hp_xtal1
+	MVirtualSignal vs_osc_hp_xtal2
+	MVirtualSignal vs_osc_lp_xtal1
+	MVirtualSignal vs_osc_lp_xtal2
+
+	MRequiredApp appres_global_scu
+	
+	/* Variable to hold divider fraction of (IDIV + FDIV/256) */
+	GFloat divider_fraction = GFloat(widgetName:"divider_fraction")
+	/* Variable to hold fraction divider value */
+	GFloat fdiv_value =GFloat(widgetName:"fdiv_value")
+	/* Variable to hold integer divider value */
+	GFloat idiv_value =GFloat(widgetName:"idiv_value")
+	/* Variable to hold integer divider value */
+	GFloat dclk = GFloat(widgetName:"dclk")
+	/* End   : User app property section */
+
+
+	/* App Constructor */
+	public CLOCK_XMC1(DaveEnv daveEnv) {
+		// Target based variables for resource consumption, UI dependency etc.
+		String fn_regexp = ~/^[^\d\W]\w*\Z/
+		String family = daveEnv.project.selectedDevice.deviceId.family 	//ex:XMC4 or XMC1
+		String series = (daveEnv.project.selectedDevice.deviceId.family + daveEnv.project.selectedDevice.deviceId.series) //ex:XMC45, 44..
+		String device = daveEnv.project.selectedDevice.deviceId.device 	// 00, 02, 04, 06
+		String device_name = daveEnv.project.selectedDevice.deviceId.deviceName 	//XMC4500-F144x1024-AB...
+		String step = daveEnv.project.selectedDevice.deviceId.step 		// AA, AB, AC....
+		String device_package = daveEnv.project.selectedDevice.deviceId.icPackage //F144, E144..
+		String sofware_id  = daveEnv.project.selectedDevice.deviceId.softwareId   //XMC4.5.00.F144.AB
+//				String family = "XMC1"
+//				String series = "XMC13"
+//				String device = "02"
+//				String device_name = "XMC4500-F144x1024-AB"
+//				String step = "AA"
+//				String device_package = "F144"
+//				String sofware_id  = "XMC4.5.00.F144.AB"
+
+		/* Constants */
+		float dco_clock
+		MF is_xmc14_device
+		MF is_global_scu_req =  MF({
+			                    if((gcheck_dco1_clock_loss_event.value == true) || (gcheck_standby_clock_failure_event.value == true)||
+								(gcheck_ext_osc_clock_loss_event.value == true) || (gcheck_dco1_out_sync_evnt.value == true) )
+								{
+								  true
+								}
+								else
+								{
+								  false
+								}
+							  },Boolean)
+		if(series == "XMC14"){
+			dco_clock = 48
+	
+			gfloat_mclkdesfrq.value = (dco_clock)
+			
+			dclk.value = MF({
+				if(gcombo_ccuclksrc.value == "DCO1")
+				{
+					(2 * (dco_clock))
+				}
+				else
+				{
+					(2 * gfloat_extclkfreq.value)
+				}
+			}, Float)					
+			gfloat_mclkdesfrq.minValue = MF({(dclk.value/(2*256))}, Float)
+			gfloat_mclkactfrq.minValue = MF({(dclk.value/(2*256))}, Float)
+			gfloat_mclkdesfrq.maxValue = MF({(dclk.value/2)}, Float)
+			gfloat_mclkactfrq.maxValue = MF({(dclk.value/2)}, Float)
+			gfloat_pclkactfrq.minValue = MF({(dclk.value/(2*256))}, Float)
+			gfloat_pclkactfrq.maxValue = MF({(dclk.value)}, Float)
+		   
+			gfloat_dia_mclkactfrq.minValue = MF({(dclk.value/(2*256))}, Float)
+			gfloat_dia_mclkactfrq.maxValue = MF({(dclk.value/2)}, Float)			
+			gfloat_dia_pclkactfrq.minValue = MF({(dclk.value/(2*256))}, Float)
+			gfloat_dia_pclkactfrq.maxValue = MF({(dclk.value)}, Float)
+			
+			gfloat_dia_dco1.value = dco_clock
+			gfloat_dia_osc_hp.value = MF({(gfloat_extclkfreq.value)}, Float)
+						
+		}
+		else
+		{
+			dco_clock = 64
+			dclk.value = dco_clock					
+			gfloat_mclkdesfrq.minValue = ((dco_clock)/(2*256))
+			gfloat_mclkactfrq.minValue = ((dco_clock)/(2*256))
+			gfloat_pclkactfrq.minValue = ((dco_clock)/(2*256))
+			
+			gcombo_ccuclksrc.options = ["DCO1"]
+			
+			gcombo_ccuclksrc.enabled = false
+			gcombo_rtcclksrc.options = ["DCO2","External Clock"]
+			
+//			gfloat_extclkfreq.enabled = false
+//			glabel_extclkfreq.enabled = false
+//			gcheck_dco1calibsel.enabled = false
+//			gcombo_rtcclksrc.options = ["DCO2","External Clock"]
+//			gcheck_enable_osc_hp.enabled = false
+//			gcheck_enable_osc_lp.enabled = false			
+//			gcheck_ext_osc_clock_loss_event.enabled = false
+//			glabel_ext_osc_clock_loss_event.enabled = false
+//			gstring_ext_osc_clock_loss_event.enabled = false
+//			gcheck_dco1_out_sync_evnt.enabled = false
+//			glabel_dco1_out_sync_evnt.enabled = false
+//			gstring_dco1_out_sync_evnt.enabled = false
+			
+			glabel_extclkfreq.visible = false
+			gcheck_dco1calibsel.visible = false
+			gcheck_enable_osc_hp.visible = false
+			gcheck_enable_osc_lp.visible = false
+			gcheck_ext_osc_clock_loss_event.visible = false
+			glabel_ext_osc_clock_loss_event.visible = false
+			gstring_ext_osc_clock_loss_event.visible = false
+			gcheck_dco1_out_sync_evnt.visible = false
+			glabel_dco1_out_sync_evnt.visible = false
+			gstring_dco1_out_sync_evnt.visible = false
+			gtab_external_clock_settings.visible = false
+			glabel_dco1calibsel.visible = false
+			gcombo_dco1calibsel.visible = false
+			gfloat_dia_mclkactfrq.minValue = ((dco_clock)/(2*256))
+			gfloat_dia_pclkactfrq.minValue = ((dco_clock)/(2*256))
+			gfloat_dia_dco1.value = dco_clock
+			gfloat_dia_osc_hp.visible =  false
+			gfloat_dia_osc_lp.visible =  false
+		}
+		
+		is_xmc14_device = MF ({
+          if(series == "XMC14")
+		  {
+			  true
+		  }
+		  else
+		  {
+			  false
+		  }
+		},Boolean)
+		
+		gtab_dummy.visible = false
+		
+			gimage_XMC14_DCO1_DCO2.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+					((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_osc_hp_source.value == "External Crystal"))
+				}else
+			    {
+					false
+				}
+				}, Boolean)
+			gimage_XMC14_DCO1_DCO2_direct_input.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+					((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_osc_hp_source.value == "External Direct Input"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC14_DCO1_External_APP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_DCO1_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC14_EXT_CLOCK_DC02.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_External_APP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_OSC_LP.visible = MF({	
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "OSC_LP") )
+				}else
+			    {
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP.visible = MF({	
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_HP") )
+				}else
+			    {
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP.visible = MF({	
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_LP") )
+				}else
+			    {
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP.visible = MF({	
+				if(series == "XMC14" && device != "03")
+				{
+				  ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+			    {
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP.visible = MF({	
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+			    {
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "OSC_LP")  && (gcombo_dco1calibsel.value == "OSC_HP") )
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "OSC_LP")  && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+		/////////////////////////////////////////////////
+			
+			gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_LP") )
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				  ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_HP") )
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal")&& (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_LP") )
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			
+			gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				  ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Direct Input") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+		/////////////////////////////////////////////////	
+			gimage_XMC14_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC14_EXT_OSC_HP_MODE_OSC_LP.visible = MF({
+				if(series == "XMC14" && device != "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_osc_hp_source.value == "External Crystal") && (gcombo_rtcclksrc.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+		
+			gimage_XMC1403_DCO1_DCO2.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_osc_hp_source.value == "External Crystal"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_DCO1_DCO2_direct_input.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+					((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_osc_hp_source.value == "External Direct Input"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC1403_DCO1_External_APP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_DCO1_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC1403_EXT_CLOCK_DC02.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_External_APP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			//////////////////////////////////////////////////
+			
+			gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				  ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			
+			gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "DCO2") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				  ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "External Clock") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_HP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == true) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "OSC_LP") && (gcombo_dco1calibsel.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			//////////////////////////////////////////////////
+			gimage_XMC1403_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			gimage_XMC1403_EXT_OSC_HP_MODE_OSC_LP.visible = MF({
+				if(series == "XMC14" && device == "03")
+				{
+				   ((gcheck_dco1calibsel.value == false) && (gcombo_ccuclksrc.value == "OSC_HP") && (gcombo_rtcclksrc.value == "OSC_LP"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+			gimage_XMC11_1201_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if(series == "XMC11" || (series == "XMC12" && device == "01"))
+				{
+					((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC11_1201_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if(series == "XMC11" || (series == "XMC12" && device == "01"))
+				{
+				   ((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC1202_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if((series == "XMC12" && device == "02") || (series == "XMC12" && device == "00"))
+				{
+					((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC1202_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if((series == "XMC12" && device == "02") || (series == "XMC12" && device == "00"))
+				{
+				   ((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC1203_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if(series == "XMC12" && device == "03")
+				{
+					((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC1203_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if(series == "XMC12" && device == "03")
+				{
+				   ((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC1301_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if(series == "XMC13" && device == "01")
+				{
+					((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC1301_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if(series == "XMC13" && device == "01")
+				{
+				   ((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+			
+			gimage_XMC1302_EXT_OSC_HP_MODE_DCO2.visible = MF({
+				if(series == "XMC13" && device == "02")
+				{
+					((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "DCO2"))
+				}else
+				{
+					false
+				}
+				}, Boolean)
+			gimage_XMC1302_EXT_OSC_HP_MODE_External_APP.visible = MF({
+				if(series == "XMC13" && device == "02")
+				{
+				   ((gcombo_ccuclksrc.value == "DCO1") && (gcombo_rtcclksrc.value == "External Clock"))
+				}else
+				{
+					false
+				}
+				
+				}, Boolean)
+		/*----------------------------------------------------------------------------------------------------------------------
+		 GUI Actions
+		 ----------------------------------------------------------------------------------------------------------------------*/
+		divider_fraction.value = MF ({
+			float userfreq = 2* (gfloat_mclkdesfrq.value)
+			(dclk.value / userfreq)
+		}, Float)
+
+		idiv_value.value = MF ({
+			float i_div = Math.floor(divider_fraction.value)
+			if(series == "XMC14")
+			{
+				/* if IDIV >12bit value then decrement by 1 */
+				if (i_div == 1024.0)
+				{
+					(i_div - 1)
+				}
+				else
+				{
+					(i_div)
+				}
+			}else
+		    {
+				/* if IDIV >8bit value then decrement by 1 */
+				if (i_div == 256.0)
+				{
+					(i_div - 1)
+				}
+				else
+				{
+					(i_div)
+				}				
+			}		   
+		}, Float)
+
+		fdiv_value.value = MF ({
+			float i_div = Math.floor(idiv_value.value)			
+			if(series == "XMC14")
+			{
+				/* temp_FDIV =  ((IDIV + FDIV/1024) - IDIV) * 1024 */
+				float temp_f_div = (divider_fraction.value - i_div ) * 1024
+				float f_div
+	
+				if (i_div == 1023.0)
+				{
+					temp_f_div = 0.0
+				}
+	
+				if ((i_div == 1023.0) || (temp_f_div == 0.0))
+				{
+					f_div = 0
+					(f_div)
+				}
+				else
+				{
+					f_div = Math.floor(temp_f_div)
+					(f_div)
+				}
+			
+			}else
+			{
+				/* temp_FDIV =  ((IDIV + FDIV/256) - IDIV) * 256 */
+				float temp_f_div = (divider_fraction.value - i_div ) * 256
+				float f_div
+	
+				if (i_div == 255.0)
+				{
+					temp_f_div = 0.0
+				}
+	
+				if ((i_div == 255.0) || (temp_f_div == 0.0))
+				{
+					f_div = 0
+					(f_div)
+				}
+				else
+				{
+					f_div = Math.floor(temp_f_div)
+					(f_div)
+				}
+			}
+		}, Float)
+
+		gfloat_mclkactfrq.value = MF ({
+			
+			if(series == "XMC14")
+			{
+				/* MCLK = DCO_CLK / (2 * (IDIV + (FDIV/1024))) */
+				float mclk_actfreq = (dclk.value / (2 * (idiv_value.value + (fdiv_value.value / 1024))))
+	
+				(mclk_actfreq)
+			}else
+			{
+				/* MCLK = DCO_CLK / (2 * (IDIV + (FDIV/256))) */
+				float mclk_actfreq = (dclk.value / (2 * (idiv_value.value + (fdiv_value.value / 256))))
+	
+				(mclk_actfreq)
+			}
+			
+		}, Float)
+
+		gfloat_pclkactfrq.value = MF ({
+			float mclk_actfreq = gfloat_mclkactfrq.value
+			if(gcombo_pclkdesfrq.value == "MCLK")
+			{
+				(mclk_actfreq)
+			}
+			else if(gcombo_pclkdesfrq.value == "2 x MCLK")
+			{
+				(2 * mclk_actfreq)
+			}
+			else
+			{
+				(32.0)
+			}
+
+		}, Float)
+		
+		gfloat_extclkfreq.enabled = MF({
+            if((series == "XMC14") && ((gcheck_enable_osc_hp.value == true)))
+			{
+				true
+			}
+			else
+			{
+				false
+			}
+		}, Boolean)
+		
+		gfloat_extclkfreq.maxValue = MF({
+			float a
+			if(gcombo_osc_hp_source.value == "External Crystal")
+			{
+				a = 20.0
+				(a)
+			}
+			else
+			{
+				a = 48.0
+				(a)
+			}
+	    }, Float)
+		
+		/* consume GLOBAL_SCU APP based on event selection / alarm enable */
+		appres_global_scu = MRequiredApp("GLOBAL_SCU_XMC1", "GLOBAL_SCU_XMC1", RSHARABLE,"4.0.2",is_global_scu_req)
+		
+		gcheck_dco1calibsel.enabled =  MF({
+			if((series == "XMC14") && (gcheck_enable_osc_hp.value == true || gcheck_enable_osc_lp.value == true))
+			{
+			  true
+			}
+			else
+			{
+				false
+			}
+			}, Boolean)
+		
+		gcombo_dco1calibsel.enabled =  MF({
+			if((series == "XMC14") && (gcheck_enable_osc_hp.value == true || gcheck_enable_osc_lp.value == true))
+			{
+			  if(gcheck_dco1calibsel.value)
+			  {
+				true
+			  }else
+			  {
+				false
+			  }
+			}
+			else
+			{
+				false
+			}
+			}, Boolean)
+//		glabel_dco1calibsel.enabled =  MF({
+//			if((series == "XMC14") && (gcheck_enable_osc_hp.value == true || gcheck_enable_osc_lp.value == true))
+//			{
+//			    true
+//			}
+//			else
+//			{
+//				false
+//			}
+//			}, Boolean)
+		gstring_dco1_clock_loss_event.enabled = MF({(gcheck_dco1_clock_loss_event.value)}, Boolean)
+		gstring_standby_clock_failure_event.enabled = MF({(gcheck_standby_clock_failure_event.value)}, Boolean)
+		gstring_ext_osc_clock_loss_event.enabled = MF({(gcheck_ext_osc_clock_loss_event.value)}, Boolean)
+		gstring_dco1_out_sync_evnt.enabled = MF({(gcheck_dco1_out_sync_evnt.value)}, Boolean)
+		
+		
+		
+		gcombo_osc_hp_source.enabled = MF({(gcheck_enable_osc_hp.value == true)}, Boolean)
+//		
+//		gfloat_extclkfreq.enabled = MF({(gcheck_enable_osc_hp.value == true)}, Boolean)
+		
+		
+		
+//		gcombo_ccuclksrc.options = MF({			
+//			if(gcheck_enable_osc_hp.value == true){					
+//				["DCO1",
+//				"OSC_HP"]
+//			}else
+//			{
+//				["DCO1"]
+//			}
+//		}, List)
+//		gcombo_rtcclksrc.options = MF({			
+//			if(gcheck_enable_osc_lp.value == true){					
+//				["DCO2",
+//				"External Clock",
+//				"OSC_LP"]
+//			}else
+//			{
+//				["DCO2",
+//				"External Clock"]
+//			}
+//		}, List)
+		
+//		gcombo_dco1calibsel.options = MF({			
+//			if((gcheck_enable_osc_lp.value == true) && (gcheck_enable_osc_hp.value == true)){					
+//				["OSC_HP",
+//				"OSC_LP"]
+//			}else if((gcheck_enable_osc_hp.value == true) && (gcheck_enable_osc_lp.value == false))
+//			{
+//				["OSC_HP"]
+//			}else if((gcheck_enable_osc_hp.value == false) && (gcheck_enable_osc_lp.value == true))
+//		    {
+//				["OSC_LP"]
+//			}else
+//		    {
+//				["OSC_HP"]
+//			}
+//		}, List)
+		
+		gmessage_calibration.visible = MF({
+			boolean vis_control = false
+//			if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_hp.value == true)) ||
+//			   ((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_lp.value == true)))
+//			{
+//				vis_control = false
+//			}
+//			if(((gcheck_dco1calibsel.value == false) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false)) ||
+//			         ((gcheck_dco1calibsel.value == false) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false)))
+//		    {
+//				vis_control = false
+//			}
+			if(((gcombo_ccuclksrc.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false)))
+		    {
+				vis_control = true
+			}
+			else if(((gcombo_rtcclksrc.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false)))
+		    {
+				vis_control = true
+			}
+			else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_hp.value == true) && (gcheck_enable_osc_lp.value == false)))
+		    {
+				vis_control = true
+			}
+			else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_lp.value == true) && (gcheck_enable_osc_hp.value == false)))
+		    {
+				vis_control = true
+			}
+			else if(((gcheck_dco1calibsel.value == true) && (gcheck_enable_osc_hp.value == false) && (gcheck_enable_osc_lp.value == false)))
+		    {
+				vis_control = true
+			}
+			else
+			{
+				vis_control = false
+			}
+			return(vis_control)
+		  }, Boolean)
+		
+	  
+		
+		gmessage_calibration.isError = MF({
+		 boolean err_control = false
+//			if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_hp.value == true)) ||
+//			   ((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_lp.value == true)))
+//			{
+//				vis_control = false
+//			}
+//			if(((gcheck_dco1calibsel.value == false) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false)) ||
+//			         ((gcheck_dco1calibsel.value == false) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false)))
+//		    {
+//				vis_control = false
+//			}
+			if(((gcombo_ccuclksrc.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false)))
+		    {
+				err_control = true
+			}else if(((gcombo_rtcclksrc.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false)))
+		    {
+				err_control = true
+			}
+			else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_hp.value == true) && (gcheck_enable_osc_lp.value == false)))
+		    {
+				err_control = true
+			}
+			else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_lp.value == true) && (gcheck_enable_osc_hp.value == false)))
+		    {
+				err_control = true
+			}
+			else if(((gcheck_dco1calibsel.value == true) && (gcheck_enable_osc_hp.value == false) && (gcheck_enable_osc_lp.value == false)))
+		    {
+				err_control = true
+			}
+			else
+			{
+				err_control = false
+			}
+			return(err_control)
+		}, Boolean)
+	  
+		
+		gmessage_calibration.text = MF({
+		 
+		  String msg
+		  if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false) && (gcheck_enable_osc_lp.value == false)))
+		   {
+			   msg = "Automatic DCO1 calibration is enabled based on OSC_HP source as an external reference. Enable High Precision Oscillator (OSC_HP) if calibration is required or uncheck Enable automatic DCO1 calibration in General Setting page if calibration is not required."
+		   }else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false) && (gcheck_enable_osc_hp.value == false)))
+		   {
+			    msg = "Automatic DCO1 calibration is enabled based on OSC_LP source as an external reference. Enable Low Precision Oscillator (OSC_LP) if calibration is required or uncheck Enable automatic DCO1 calibration in General Setting page if calibration is not required."
+		   }else if(((gcombo_rtcclksrc.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false)))
+		   {
+			    msg = "RTC is running based on OSC_LP source as an external reference. Enable Low Precision Oscillator (OSC_LP) if RTC need to run based on OSC_LP source as an external reference or choose other source for RTC clock in General Setting page."
+		   }else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false) && (gcheck_enable_osc_lp.value == true)))
+		   {
+			   msg = "Automatic DCO1 calibration is enabled based on OSC_HP source as an external reference. Enable High Precision Oscillator (OSC_HP) if calibration is required or choose OSC_LP as a source for DCO1 calibration if calibration is required based on OSC_LP source as an external reference or uncheck Enable automatic DCO1 calibration in General Setting page if calibration is not required."
+		   }else if(((gcheck_dco1calibsel.value == true) && (gcombo_dco1calibsel.value == "OSC_LP") && (gcheck_enable_osc_lp.value == false) && (gcheck_enable_osc_hp.value == true)))
+		   {
+			   msg = "Automatic DCO1 calibration is enabled based on OSC_LP source as an external reference. Enable Low Precision Oscillator (OSC_LP) if calibration is required or choose OSC_HP as a source for DCO1 calibration if calibration is required based on OSC_HP source as an external reference or uncheck Enable automatic DCO1 calibration in General Setting page if calibration is not required."
+		   }else if(((gcombo_ccuclksrc.value == "OSC_HP") && (gcheck_enable_osc_hp.value == false)))
+		   {
+			   msg = "OSC_HP is selected as a clock source for clock control unit. Enable High Precision Oscillator (OSC_HP) if clock control unit need to run based on OSC_HP source as an external reference or choose DCO1 as a clock source for clock control unit in General Setting page."
+		   }
+		  return (msg)
+		}, String)
+	  
+
+		  
+		gmessage_valid_isr_name.visible = MF({
+		  Matcher matcher_dco1_clock_loss = (gstring_dco1_clock_loss_event.value =~ fn_regexp)
+		  Matcher matcher_standby_clock_failure = (gstring_standby_clock_failure_event.value =~ fn_regexp)
+		  Matcher matcher_ext_osc_clock_loss = (gstring_ext_osc_clock_loss_event.value =~ fn_regexp)
+		  Matcher matcher_dco1_out_sync = (gstring_dco1_out_sync_evnt.value =~ fn_regexp)
+		  Boolean temp = ((!matcher_dco1_clock_loss.matches()) || (!matcher_standby_clock_failure.matches()) || (!matcher_ext_osc_clock_loss.matches()) || (!matcher_dco1_out_sync.matches()))
+		  return temp
+		}, Boolean)
+		
+		/* throw error message when expected user callback is not equal to c syntax */
+		gmessage_valid_isr_name.isError  = MF({
+			Matcher matcher_dco1_clock_loss = (gstring_dco1_clock_loss_event.value =~ fn_regexp)
+			Matcher matcher_standby_clock_failure = (gstring_standby_clock_failure_event.value =~ fn_regexp)
+			Matcher matcher_ext_osc_clock_loss = (gstring_ext_osc_clock_loss_event.value =~ fn_regexp)
+			Matcher matcher_dco1_out_sync = (gstring_dco1_out_sync_evnt.value =~ fn_regexp)
+			Boolean temp = ((!matcher_dco1_clock_loss.matches()) || (!matcher_standby_clock_failure.matches()) || (!matcher_ext_osc_clock_loss.matches()) || (!matcher_dco1_out_sync.matches()))
+			return temp
+		  }, Boolean)
+		
+		gfloat_dia_pclkactfrq.value = MF({gfloat_pclkactfrq.value}, Float)
+		gfloat_dia_mclkactfrq.value = MF({gfloat_mclkactfrq.value}, Float)
+
+		/*--------------------------------------------------------------------------------------------------------------
+		 Consumed Resource Groups
+		 -------------------------------------------------------------------------------------------------------------*/
+		hwres_dco =  MVirtualResourceGroup("DCO CLOCK", ["peripheral", "scu", "0", "dco", "*"], (series != "XMC14"))
+		hwres_clkcntrlunit =  MVirtualResourceGroup("CLOCK CONTROL UNIT", ["peripheral", "scu", "0", "ccu", "config"])
+		/*--------------------------------------------------------------------------------------------------------------
+		 Virtual Signals Definitions48x
+		 --------------------------------------------------------------------------------------------------------------*/
+		vs_dco_clkout =  MVirtualSignal(hwres_dco, "clk_dco2_output", "clkout", (series != "XMC14"), false) /* required{}, exposeToUser{} */
+		vs_frtc =  MVirtualSignal(hwres_clkcntrlunit, "clk_rtc", "frtc", true, MF({gcombo_rtcclksrc.value == "External Clock"}, Boolean)) /* required{}, exposeToUser{} */
+		vs_dco2_clk =  MVirtualSignal(hwres_clkcntrlunit, "clk_dco2_output", "dco2_clk", is_xmc14_device, true) /* required{}, exposeToUser{} */
+		vs_osc_lp_clk =  MVirtualSignal(hwres_clkcntrlunit, "clk_osc_lp_output", "osc_lp_clk", is_xmc14_device, true) /* required{}, exposeToUser{} */
+		vs_osc_hp_xtal1 =  MVirtualSignal(hwres_clkcntrlunit, "clk_hp_xtal1_input", "osc_hp_xtal1", is_xmc14_device, true) /* required{}, exposeToUser{} */
+		vs_osc_hp_xtal2 =  MVirtualSignal(hwres_clkcntrlunit, "clk_hp_xtal2_input", "osc_hp_xtal2", is_xmc14_device, true) /* required{}, exposeToUser{} */
+		vs_osc_lp_xtal1 =  MVirtualSignal(hwres_clkcntrlunit, "clk_lp_xtal1_input", "osc_lp_xtal1", is_xmc14_device, true) /* required{}, exposeToUser{} */
+		vs_osc_lp_xtal2 =  MVirtualSignal(hwres_clkcntrlunit, "clk_lp_xtal2_input", "osc_lp_xtal2", is_xmc14_device, true) /* required{}, exposeToUser{} */
+		
+		addConnectionConstraint(vs_dco_clkout, vs_frtc, MF({(gcombo_rtcclksrc.value == "DCO2") && (series != "XMC14")}, Boolean))
+		addConnectionConstraint(vs_dco2_clk, vs_frtc, MF({(gcombo_rtcclksrc.value == "DCO2") && (series == "XMC14")}, Boolean))
+		addConnectionConstraint(vs_osc_lp_clk, vs_frtc, MF({(gcombo_rtcclksrc.value == "OSC_LP") && (series == "XMC14")}, Boolean))
+	}
+
+	/* File Generation */
+	def generateFiles(){
+		copy("clock_xmc1.c", "clock_xmc1.c")
+		copy("clock_xmc1.h", "clock_xmc1.h")
+		generate("clock_xmc1_confc.tmpl", "clock_xmc1_conf.c")
+		generate("clock_xmc1_confh.tmpl", "clock_xmc1_conf.h")
+		generate("clock_xmc1_extern.tmpl", "clock_xmc1_extern.h")
+	}
+	
+	// testing purpose
+	public static  main(args){
+		CLOCK_XMC1 clock_xmc1 = new CLOCK_XMC1()
+		println clock_xmc1.toString()
+//		clock_xmc4.gfloat_mainplldesfreq.value = 250.0
+//		clock_xmc4.gfloat_extclkoscfreq.value = 8
+//		println "Fosc = " + clock_xmc4.gfloat_extclkoscfreq.value
+//		println "N DIV = " + clock_xmc4.gint_mainpllndiv.value
+//		println "P DIV = " + clock_xmc4.gint_mainpllpdiv.value
+//		println "K2 DIV = " + clock_xmc4.gint_mainpllk2div.value
+//		println "VCO Freq = " + clock_xmc4.gfloat_vco.value
+//		println "Act PLL Freq = " + clock_xmc4.gfloat_mainpllactfreq.value
+//
+	}
+
+
+}

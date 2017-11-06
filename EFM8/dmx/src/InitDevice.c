@@ -25,7 +25,11 @@ extern void enter_DefaultMode_from_RESET(void) {
 	uint8_t SFRPAGE_save = SFRPAGE;
 	WDT_0_enter_DefaultMode_from_RESET();
 	PORTS_0_enter_DefaultMode_from_RESET();
+	PORTS_1_enter_DefaultMode_from_RESET();
+	PORTS_2_enter_DefaultMode_from_RESET();
+	PORTS_3_enter_DefaultMode_from_RESET();
 	PBCFG_0_enter_DefaultMode_from_RESET();
+	CLOCK_0_enter_DefaultMode_from_RESET();
 	TIMER01_0_enter_DefaultMode_from_RESET();
 	TIMER_SETUP_0_enter_DefaultMode_from_RESET();
 	PCA_0_enter_DefaultMode_from_RESET();
@@ -46,22 +50,35 @@ extern void PORTS_0_enter_DefaultMode_from_RESET(void) {
 
 	// $[P0MDOUT - Port 0 Output Mode]
 	/***********************************************************************
-	 - P0.0 output is push-pull
+	 - P0.0 output is open-drain
 	 - P0.1 output is push-pull
 	 - P0.2 output is push-pull
 	 - P0.3 output is push-pull
 	 - P0.4 output is push-pull
 	 - P0.5 output is open-drain
-	 - P0.6 output is open-drain
-	 - P0.7 output is open-drain
+	 - P0.6 output is push-pull
+	 - P0.7 output is push-pull
 	 ***********************************************************************/
-	P0MDOUT = P0MDOUT_B0__PUSH_PULL | P0MDOUT_B1__PUSH_PULL
+	P0MDOUT = P0MDOUT_B0__OPEN_DRAIN | P0MDOUT_B1__PUSH_PULL
 			| P0MDOUT_B2__PUSH_PULL | P0MDOUT_B3__PUSH_PULL
 			| P0MDOUT_B4__PUSH_PULL | P0MDOUT_B5__OPEN_DRAIN
-			| P0MDOUT_B6__OPEN_DRAIN | P0MDOUT_B7__OPEN_DRAIN;
+			| P0MDOUT_B6__PUSH_PULL | P0MDOUT_B7__PUSH_PULL;
 	// [P0MDOUT - Port 0 Output Mode]$
 
 	// $[P0MDIN - Port 0 Input Mode]
+	/***********************************************************************
+	 - P0.0 pin is configured for analog mode
+	 - P0.1 pin is configured for digital mode
+	 - P0.2 pin is configured for digital mode
+	 - P0.3 pin is configured for digital mode
+	 - P0.4 pin is configured for digital mode
+	 - P0.5 pin is configured for digital mode
+	 - P0.6 pin is configured for digital mode
+	 - P0.7 pin is configured for digital mode
+	 ***********************************************************************/
+	P0MDIN = P0MDIN_B0__ANALOG | P0MDIN_B1__DIGITAL | P0MDIN_B2__DIGITAL
+			| P0MDIN_B3__DIGITAL | P0MDIN_B4__DIGITAL | P0MDIN_B5__DIGITAL
+			| P0MDIN_B6__DIGITAL | P0MDIN_B7__DIGITAL;
 	// [P0MDIN - Port 0 Input Mode]$
 
 	// $[P0SKIP - Port 0 Skip]
@@ -72,13 +89,13 @@ extern void PORTS_0_enter_DefaultMode_from_RESET(void) {
 	 - P0.3 pin is not skipped by the crossbar
 	 - P0.4 pin is not skipped by the crossbar
 	 - P0.5 pin is not skipped by the crossbar
-	 - P0.6 pin is not skipped by the crossbar
-	 - P0.7 pin is not skipped by the crossbar
+	 - P0.6 pin is skipped by the crossbar
+	 - P0.7 pin is skipped by the crossbar
 	 ***********************************************************************/
 	P0SKIP = P0SKIP_B0__SKIPPED | P0SKIP_B1__NOT_SKIPPED
 			| P0SKIP_B2__NOT_SKIPPED | P0SKIP_B3__NOT_SKIPPED
 			| P0SKIP_B4__NOT_SKIPPED | P0SKIP_B5__NOT_SKIPPED
-			| P0SKIP_B6__NOT_SKIPPED | P0SKIP_B7__NOT_SKIPPED;
+			| P0SKIP_B6__SKIPPED | P0SKIP_B7__SKIPPED;
 	// [P0SKIP - Port 0 Skip]$
 
 	// $[P0MASK - Port 0 Mask]
@@ -92,18 +109,27 @@ extern void PORTS_0_enter_DefaultMode_from_RESET(void) {
 extern void PBCFG_0_enter_DefaultMode_from_RESET(void) {
 	// $[XBR2 - Port I/O Crossbar 2]
 	/***********************************************************************
-	 - Weak Pullups enabled 
+	 - Weak Pullups disabled
 	 - Crossbar enabled
 	 - UART1 TX1 RX1 routed to Port pins
 	 - UART1 RTS1 unavailable at Port pin
 	 - UART1 CTS1 unavailable at Port pin
 	 ***********************************************************************/
-	XBR2 = XBR2_WEAKPUD__PULL_UPS_ENABLED | XBR2_XBARE__ENABLED
+	SFRPAGE = 0x00;
+	XBR2 = XBR2_WEAKPUD__PULL_UPS_DISABLED | XBR2_XBARE__ENABLED
 			| XBR2_URT1E__ENABLED | XBR2_URT1RTSE__DISABLED
 			| XBR2_URT1CTSE__DISABLED;
 	// [XBR2 - Port I/O Crossbar 2]$
 
 	// $[PRTDRV - Port Drive Strength]
+	/***********************************************************************
+	 - All pins on P0 use low drive strength
+	 - All pins on P1 use low drive strength
+	 - All pins on P2 use low drive strength
+	 - All pins on P3 use low drive strength
+	 ***********************************************************************/
+	PRTDRV = PRTDRV_P0DRV__LOW_DRIVE | PRTDRV_P1DRV__LOW_DRIVE
+			| PRTDRV_P2DRV__LOW_DRIVE | PRTDRV_P3DRV__LOW_DRIVE;
 	// [PRTDRV - Port Drive Strength]$
 
 	// $[XBR0 - Port I/O Crossbar 0]
@@ -139,11 +165,10 @@ extern void CLOCK_0_enter_DefaultMode_from_RESET(void) {
 
 	// $[CLKSEL - Clock Select]
 	/***********************************************************************
-	 - Clock derived from the Internal High Frequency Oscillator 0, pre-
-	 scaled by 1.5
-	 - SYSCLK is equal to selected clock source divided by 8
+	 - Clock derived from the Internal High Frequency Oscillator 0
+	 - SYSCLK is equal to selected clock source divided by 16
 	 ***********************************************************************/
-	CLKSEL = CLKSEL_CLKSL__HFOSC0_DIV_1P5 | CLKSEL_CLKDIV__SYSCLK_DIV_8;
+	CLKSEL = CLKSEL_CLKSL__HFOSC0 | CLKSEL_CLKDIV__SYSCLK_DIV_16;
 	while ((CLKSEL & CLKSEL_DIVRDY__BMASK) == CLKSEL_DIVRDY__NOT_READY)
 		;
 	// [CLKSEL - Clock Select]$
@@ -201,17 +226,6 @@ extern void UARTE_1_enter_DefaultMode_from_RESET(void) {
 	// [SBCON1 - UART1 Baud Rate Generator Control]$
 
 	// $[SMOD1 - UART1 Mode]
-	/***********************************************************************
-	 - 8 bits
-	 - Disable hardware parity
-	 - Enable the extra bit
-	 - Odd
-	 - Short: Stop bit is active for one bit time
-	 - RI will be activated if the stop bits are 1
-	 ***********************************************************************/
-	SMOD1 = SMOD1_SDL__8_BITS | SMOD1_PE__PARITY_DISABLED | SMOD1_XBE__ENABLED
-			| SMOD1_SPT__ODD_PARITY | SMOD1_SBL__SHORT
-			| SMOD1_MCE__MULTI_DISABLED;
 	// [SMOD1 - UART1 Mode]$
 
 	// $[UART1FCN0 - UART1 FIFO Control 0]
@@ -226,9 +240,9 @@ extern void UARTE_1_enter_DefaultMode_from_RESET(void) {
 
 	// $[SBRLL1 - UART1 Baud Rate Generator Low Byte]
 	/***********************************************************************
-	 - UART1 Baud Rate Reload Low = 0xFA
+	 - UART1 Baud Rate Reload Low = 0xFD
 	 ***********************************************************************/
-	SBRLL1 = (0xFA << SBRLL1_BRL__SHIFT);
+	SBRLL1 = (0xFD << SBRLL1_BRL__SHIFT);
 	// [SBRLL1 - UART1 Baud Rate Generator Low Byte]$
 
 	// $[UART1LIN - UART1 LIN Configuration]
@@ -242,6 +256,10 @@ extern void UARTE_1_enter_DefaultMode_from_RESET(void) {
 	// [SCON1 - UART1 Serial Port Control]$
 
 	// $[UART1FCN1 - UART1 FIFO Control 1]
+	/***********************************************************************
+	 - The TI flag will not generate UART1 interrupts
+	 ***********************************************************************/
+	UART1FCN1 &= ~UART1FCN1_TIE__BMASK;
 	// [UART1FCN1 - UART1 FIFO Control 1]$
 
 }
@@ -460,9 +478,9 @@ extern void TIMER01_0_enter_DefaultMode_from_RESET(void) {
 
 	// $[TH1 - Timer 1 High Byte]
 	/***********************************************************************
-	 - Timer 1 High Byte = 0xFA
+	 - Timer 1 High Byte = 0xFD
 	 ***********************************************************************/
-	TH1 = (0xFA << TH1_TH1__SHIFT);
+	TH1 = (0xFD << TH1_TH1__SHIFT);
 	// [TH1 - Timer 1 High Byte]$
 
 	// $[TL1 - Timer 1 Low Byte]
@@ -511,6 +529,99 @@ extern void TIMER_SETUP_0_enter_DefaultMode_from_RESET(void) {
 
 	// $[TCON - Timer 0/1 Control]
 	// [TCON - Timer 0/1 Control]$
+
+}
+
+extern void PORTS_1_enter_DefaultMode_from_RESET(void) {
+	// $[P1 - Port 1 Pin Latch]
+	// [P1 - Port 1 Pin Latch]$
+
+	// $[P1MDOUT - Port 1 Output Mode]
+	/***********************************************************************
+	 - P1.0 output is push-pull
+	 - P1.1 output is push-pull
+	 - P1.2 output is push-pull
+	 - P1.3 output is push-pull
+	 - P1.4 output is push-pull
+	 - P1.5 output is push-pull
+	 - P1.6 output is push-pull
+	 - P1.7 output is push-pull
+	 ***********************************************************************/
+	P1MDOUT = P1MDOUT_B0__PUSH_PULL | P1MDOUT_B1__PUSH_PULL
+			| P1MDOUT_B2__PUSH_PULL | P1MDOUT_B3__PUSH_PULL
+			| P1MDOUT_B4__PUSH_PULL | P1MDOUT_B5__PUSH_PULL
+			| P1MDOUT_B6__PUSH_PULL | P1MDOUT_B7__PUSH_PULL;
+	// [P1MDOUT - Port 1 Output Mode]$
+
+	// $[P1MDIN - Port 1 Input Mode]
+	// [P1MDIN - Port 1 Input Mode]$
+
+	// $[P1SKIP - Port 1 Skip]
+	// [P1SKIP - Port 1 Skip]$
+
+	// $[P1MASK - Port 1 Mask]
+	// [P1MASK - Port 1 Mask]$
+
+	// $[P1MAT - Port 1 Match]
+	// [P1MAT - Port 1 Match]$
+
+}
+
+extern void PORTS_2_enter_DefaultMode_from_RESET(void) {
+	// $[P2 - Port 2 Pin Latch]
+	// [P2 - Port 2 Pin Latch]$
+
+	// $[P2MDOUT - Port 2 Output Mode]
+	/***********************************************************************
+	 - P2.0 output is push-pull
+	 - P2.1 output is push-pull
+	 - P2.2 output is push-pull
+	 - P2.3 output is push-pull
+	 - P2.4 output is push-pull
+	 - P2.5 output is push-pull
+	 - P2.6 output is push-pull
+	 ***********************************************************************/
+	P2MDOUT = P2MDOUT_B0__PUSH_PULL | P2MDOUT_B1__PUSH_PULL
+			| P2MDOUT_B2__PUSH_PULL | P2MDOUT_B3__PUSH_PULL
+			| P2MDOUT_B4__PUSH_PULL | P2MDOUT_B5__PUSH_PULL
+			| P2MDOUT_B6__PUSH_PULL;
+	// [P2MDOUT - Port 2 Output Mode]$
+
+	// $[P2MDIN - Port 2 Input Mode]
+	// [P2MDIN - Port 2 Input Mode]$
+
+	// $[P2SKIP - Port 2 Skip]
+	// [P2SKIP - Port 2 Skip]$
+
+	// $[P2MASK - Port 2 Mask]
+	// [P2MASK - Port 2 Mask]$
+
+	// $[P2MAT - Port 2 Match]
+	// [P2MAT - Port 2 Match]$
+
+}
+
+extern void PORTS_3_enter_DefaultMode_from_RESET(void) {
+	// $[P3 - Port 3 Pin Latch]
+	// [P3 - Port 3 Pin Latch]$
+
+	// $[P3MDOUT - Port 3 Output Mode]
+	/***********************************************************************
+	 - P3.0 output is push-pull
+	 - P3.1 output is push-pull
+	 - P3.2 output is push-pull
+	 - P3.3 output is push-pull
+	 - P3.4 output is push-pull
+	 - P3.7 output is push-pull
+	 ***********************************************************************/
+	SFRPAGE = 0x20;
+	P3MDOUT = P3MDOUT_B0__PUSH_PULL | P3MDOUT_B1__PUSH_PULL
+			| P3MDOUT_B2__PUSH_PULL | P3MDOUT_B3__PUSH_PULL
+			| P3MDOUT_B4__PUSH_PULL | P3MDOUT_B7__PUSH_PULL;
+	// [P3MDOUT - Port 3 Output Mode]$
+
+	// $[P3MDIN - Port 3 Input Mode]
+	// [P3MDIN - Port 3 Input Mode]$
 
 }
 

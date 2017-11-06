@@ -24,7 +24,7 @@ int main()
 	{
 //        P00 ^= 1;
 		P00 = 1;
-//		for(int i=0;i<BIQUAD_NUM_SAMPLES;i++)
+		for(int i=0;i<BIQUAD_NUM_SAMPLES;i++)
 //		{
 			inTemp = in[i];
 			outTemp = inTemp * a0 + z1;

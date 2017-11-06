@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<configuration name="DmxReceiver" version="1.2" xsi:schemaLocation="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.2 http://mcuxpresso.nxp.com/XSD/mex_configuration_1.2.xsd" uuid="36f78269-89ac-4145-988d-a4b176d01954" xmlns="http://mcuxpresso.nxp.com/XSD/mex_configuration_1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <common>
+      <processor>MKL03Z32xxx4</processor>
+      <package>MKL03Z32VFK4</package>
+      <board></board>
+      <mcu_data>ksdk2_0</mcu_data>
+      <cores>
+         <core name="Cortex-M0P" id="core0" description="M0P core"/>
+      </cores>
+      <description></description>
+   </common>
+   <tools>
+      <pins name="Pins" version="3.0">
+         <pins_profile>
+            <processor_version>2.0.0</processor_version>
+            <pin_labels>
+               <pin_label pin_num="8" pin_signal="PTA6/TPM0_CH0/SPI0_MISO" label="red" identifier="red"/>
+               <pin_label pin_num="7" pin_signal="PTA5/RTC_CLKIN/TPM0_CH1/SPI0_SS_b" label="green" identifier="green"/>
+               <pin_label pin_num="20" pin_signal="ADC0_SE0/CMP0_IN0/PTA12/IRQ_13/LPTMR0_ALT2/TPM1_CH0/TPM_CLKIN0/CLKOUT" label="blue" identifier="blue"/>
+            </pin_labels>
+         </pins_profile>
+         <functions_list>
+            <function name="BOARD_InitPins">
+               <description>Configures pin routing and optionally pin electrical features.&amp;lt;br/&amp;gt;</description>
+               <options>
+                  <callFromInitBoot>true</callFromInitBoot>
+                  <coreID>core0</coreID>
+                  <enableClock>true</enableClock>
+               </options>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Pins initialization requires the COMMON Driver in the project." problem_level="2" source="Pins.BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.port" description="Pins initialization requires the PORT Driver in the project." problem_level="2" source="Pins.BOARD_InitPins">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <pins>
+                  <pin peripheral="TPM0" signal="CH, 0" pin_num="8" pin_signal="PTA6/TPM0_CH0/SPI0_MISO">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="TPM0" signal="CH, 1" pin_num="7" pin_signal="PTA5/RTC_CLKIN/TPM0_CH1/SPI0_SS_b">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="TPM1" signal="CH, 0" pin_num="20" pin_signal="ADC0_SE0/CMP0_IN0/PTA12/IRQ_13/LPTMR0_ALT2/TPM1_CH0/TPM_CLKIN0/CLKOUT">
+                     <pin_features>
+                        <pin_feature name="direction" value="OUTPUT"/>
+                     </pin_features>
+                  </pin>
+                  <pin peripheral="LPUART0" signal="RX" pin_num="13" pin_signal="ADC0_SE8/CMP0_IN3/PTB1/IRQ_6/LPUART0_TX/LPUART0_RX/I2C0_SDA"/>
+                  <pin peripheral="LPUART0" signal="TX" pin_num="14" pin_signal="VREF_OUT/CMP0_IN5/PTB2/IRQ_7/LPUART0_RX/LPUART0_TX"/>
+                  <pin peripheral="GPIOB" signal="GPIO, 10" pin_num="9" pin_signal="PTB10/TPM0_CH1/SPI0_SS_b"/>
+               </pins>
+            </function>
+         </functions_list>
+      </pins>
+      <clocks name="Clocks" version="3.0">
+         <clocks_profile>
+            <processor_version>2.0.0</processor_version>
+         </clocks_profile>
+         <clock_configurations>
+            <clock_configuration name="BOARD_BootClockRUN">
+               <description></description>
+               <options/>
+               <dependencies>
+                  <dependency resourceType="SWComponent" resourceId="platform.drivers.common" description="Clocks initialization requires the COMMON Driver in the project." problem_level="2" source="Clocks.BOARD_BootClockRUN">
+                     <feature name="enabled" evaluation="equal" configuration="core0">
+                        <data>true</data>
+                     </feature>
+                  </dependency>
+               </dependencies>
+               <clock_sources/>
+               <clock_outputs>
+                  <clock_output id="Bus_clock.outFreq" value="2 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Core_clock.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="Flash_clock.outFreq" value="2 MHz" locked="false" accuracy=""/>
+                  <clock_output id="LPO_clock.outFreq" value="1 kHz" locked="false" accuracy=""/>
+                  <clock_output id="LPUART0CLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="MCGIRCLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+                  <clock_output id="System_clock.outFreq" value="8 MHz" locked="false" accuracy=""/>
+                  <clock_output id="TPMCLK.outFreq" value="1 MHz" locked="false" accuracy=""/>
+               </clock_outputs>
+               <clock_settings>
+                  <setting id="LPUART0ClkConfig" value="yes" locked="false"/>
+                  <setting id="MCG.LIRCDIV1.scale" value="1" locked="true"/>
+                  <setting id="MCG.LIRCDIV2.scale" value="8" locked="true"/>
+                  <setting id="SIM.COPCLKSEL.sel" value="MCG.MCGIRCLK" locked="false"/>
+                  <setting id="SIM.LPUART0SRCSEL.sel" value="MCG.MCGIRCLK" locked="false"/>
+                  <setting id="SIM.OUTDIV1.scale" value="1" locked="true"/>
+                  <setting id="SIM.OUTDIV4.scale" value="4" locked="true"/>
+                  <setting id="SIM.TPMSRCSEL.sel" value="MCG.MCGIRCLK" locked="false"/>
+                  <setting id="TPMClkConfig" value="yes" locked="false"/>
+               </clock_settings>
+               <called_from_default_init>true</called_from_default_init>
+            </clock_configuration>
+         </clock_configurations>
+      </clocks>
+      <prjgen name="Project Generator" version="1.0">
+         <toolchain id="mcuxpresso" type="C"/>
+         <project_config name="core0" rtos="middleware.baremetal">
+            <description></description>
+            <options/>
+            <dependencies/>
+            <component_set type="driver" selection="all"/>
+            <component_set type="utility" selection="all"/>
+            <component_set type="CMSIS_driver" selection="none"/>
+            <component_set type="unsupported" selection="none"/>
+         </project_config>
+      </prjgen>
+      <common name="common" version="1.0">
+         <sdk_package version="2.2.0" configuration="cfa8a8d5e73cdd822be68a9c41c0c498"/>
+         <core name="core0" role="primary" project_name="generated"/>
+      </common>
+   </tools>
+</configuration>

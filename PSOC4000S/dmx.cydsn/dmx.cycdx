@@ -1,0 +1,761 @@
+<?xml version="1.0" encoding="utf-8"?>
+<blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="UART_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GreenPin" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="BluePin" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="ADC_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="ZeroTerminal_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="CSD" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_virtualmux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="IDACComp" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="or_ModClk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_13" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="AdcInput" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_virtualmux_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_analog_noconnect_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ModClk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_9" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_10" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_12" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_11" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="GROUP_CSDV2_CONFIG" address="0x400B0000" bitWidth="32" desc="Configuration and Control" hidden="false">
+      <field name="FILTER_DELAY" from="6" to="4" access="RW" resetVal="" desc="This value determines the number of cycles that the digital filter makes the CSDCMP output ignored while the counter counts and IDAC is on. &#xA;When set to 0 the digital filter is off. When set to any other value the ignoring will last for FILTER_DELAY clk_csd cycles after the start of each measurement and from the first comparator trip to the end of each measurement." hidden="false" />
+      <field name="SHIELD_DELAY" from="9" to="8" access="RW" resetVal="" desc="Selects the delay by which csd_shield is delayed relative to csd_sense." hidden="false">
+        <value name="OFF" value="0" desc="Delay line is off, csd_shield=csd_sense" />
+        <value name="D5NS" value="1" desc="Introduces a 5ns delay (typ)" />
+        <value name="D10NS" value="10" desc="Introduces a 10ns delay (typ)" />
+        <value name="D20NS" value="11" desc="Introduces a 20ns delay (typ)" />
+      </field>
+      <field name="SENSE_EN" from="12" to="12" access="RW" resetVal="" desc="Enables the sense modulator output. &#xA;0: all switches, static or dynamic, are open and IDAC in CSD mode is off&#xA;1: switches and IDAC can be closed/on as per MMIO setting and CSD sequencer." hidden="false" />
+      <field name="CHARGE_MODE" from="14" to="14" access="RW" resetVal="" desc="Enable charging of the Cmod/Csh_tank capacitor using the GPIO digital output buffer using the csd_charge signal.  Note that using the GPIO requires proper configuraiton of the GPIO pin." hidden="false">
+        <value name="CHARGE_OFF" value="0" desc="Use this to keep csd_charge signal low. For charging Cmod/Csh_tank capacitor CSD internal switches (HCBV) can be used but that is a separate configuration." />
+        <value name="CHARGE_IO" value="1" desc="Use csd_charge to enable the GPIO Driver to charge capacitor.  The capacitor must be  sensed with HSCMP using the appropriate switches (HMPM or HMPT)." />
+      </field>
+      <field name="MUTUAL_CAP" from="18" to="18" access="RW" resetVal="" desc="Enables mutual cap sensing mode" hidden="false">
+        <value name="SELFCAP" value="0" desc="Self-cap mode (configure sense line as CSD_SENSE)" />
+        <value name="MUTUALCAP" value="1" desc="Mutual-cap mode (configure Tx line as CSD_SENSE, inverted Tx line as CSD_SHIELD and Rx Line as AMUXA). In this mode the polarity bit of the IDAC is controlled by csd_sense." />
+      </field>
+      <field name="CSX_DUAL_CNT" from="19" to="19" access="RW" resetVal="" desc="Enable the use of two counters for MUTUAL cap sensing mode (CSX), do not use when MUTUAL_CAP=0" hidden="false">
+        <value name="ONE" value="0" desc="Use one counter for both phases (source and sink)." />
+        <value name="TWO" value="1" desc="Use two counters, separate count for when csd_sense is high and when csd_sense is low." />
+      </field>
+      <field name="DSI_COUNT_SEL" from="24" to="24" access="RW" resetVal="" desc="Select what to output  on the dsi_count bus." hidden="false">
+        <value name="CSD_RESULT" value="0" desc="depending on the dsi_count_val_sel input either output  RESULT_VAL1.VALUE (0) or RESULT_VAL2.VALUE (1) on the dsi_count bus. Note that dsi_count_val_sel is not synchronized, i.e. it controls the mux combinatorially." />
+        <value name="ADC_RESULT" value="1" desc="output ADC_RES.VIN_CNT on the dsi_count bus" />
+      </field>
+      <field name="DSI_SAMPLE_EN" from="25" to="25" access="RW" resetVal="" desc="Enables the use of the dsi_sample_in input instead of the comparator output to strobe COUNTER." hidden="false" />
+      <field name="SAMPLE_SYNC" from="26" to="26" access="RW" resetVal="" desc="Enables double synchronizing of sample input from DSI (only relevant when DSI_SAMPLE_EN=1)." hidden="false" />
+      <field name="DSI_SENSE_EN" from="27" to="27" access="RW" resetVal="" desc="Enables the use of the dsi_sense_in input instead of the internally generated modulation signal to drive csd_sense and csd_shield signals." hidden="false" />
+      <field name="LP_MODE" from="30" to="30" access="RW" resetVal="" desc="Select the power mode for the CSD components (REFGEN, AMBUF, CSDCMP, HSCMP):&#xA;0: High Power mode&#xA;1: Low Power mode" hidden="false" />
+      <field name="ENABLE" from="31" to="31" access="RW" resetVal="" desc="Master enable of the CSDv2 IP.  Must be set to 1 for any CSDv2, ADC or IDAC operation to function.&#xA;When 0 all analog components will be off and all switches will be open." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SPARE" address="0x400B0004" bitWidth="32" desc="Spare MMIO" hidden="false">
+      <field name="SPARE" from="3" to="0" access="RW" resetVal="" desc="Spare MMIO" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_STATUS" address="0x400B0080" bitWidth="32" desc="Status Register" hidden="false">
+      <field name="CSD_CHARGE" from="0" to="0" access="R" resetVal="" desc="Qualified, and possible inverted value of COMP_OUT that is used to drive GPIO's charging Cmod or Csh_tank." hidden="false" />
+      <field name="CSD_SENSE" from="1" to="1" access="R" resetVal="" desc="Signal used to drive the Cs switches." hidden="false" />
+      <field name="HSCMP_OUT" from="2" to="2" access="R" resetVal="" desc="Output of reference buffer comparator used to charge up Cmod and/or Csh_tank (synchronized)" hidden="false">
+        <value name="C_LT_VREF" value="0" desc="Vin &lt; Vref" />
+        <value name="C_GT_VREF" value="1" desc="Vin &gt; Vref" />
+      </field>
+      <field name="CSDCMP_OUT" from="3" to="3" access="R" resetVal="" desc="Output of main sensing comparator (synchronized)" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_STAT_SEQ" address="0x400B0084" bitWidth="32" desc="Current Sequencer status" hidden="false">
+      <field name="SEQ_STATE" from="2" to="0" access="R" resetVal="" desc="CSD sequencer state" hidden="false" />
+      <field name="ADC_STATE" from="18" to="16" access="R" resetVal="" desc="ADC sequencer state (only relevant after SEQ_STATE has reached SAMPLE_NORM and ADC sequencer has started)" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_STAT_CNTS" address="0x400B0088" bitWidth="32" desc="Current status counts" hidden="false">
+      <field name="NUM_CONV" from="15" to="0" access="R" resetVal="" desc="Current number of conversions remaining when in Sample_* states (note that in AutoZero* states the same down counter is reused to count the cycles)" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_RESULT_VAL1" address="0x400B00D0" bitWidth="32" desc="Result CSD/CSX accumulation counter value 1" hidden="false">
+      <field name="VALUE" from="15" to="0" access="R" resetVal="" desc="Accumulated counter value for this result. In case of Mutual cap with two counters (CSX = config.mutual_cap &amp; config.csx_dual_cnt) this counter counts when csd_sense is high." hidden="false" />
+      <field name="BAD_CONVS" from="23" to="16" access="R" resetVal="" desc="Number of 'bad' conversion for which the CSD comparator did not trigger within the normal time window, either because Vref was not crossed at all, or if the Vref was already crossed before the window started. This counter is reset when the sequencer is started and will saturate at 255 when more than 255 conversions are bad." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_RESULT_VAL2" address="0x400B00D4" bitWidth="32" desc="Result CSX accumulation counter value 2" hidden="false">
+      <field name="VALUE" from="15" to="0" access="R" resetVal="" desc="Only used in case of Mutual cap with two counters (CSX = config.mutual_cap &amp; config.csx_dual_cnt), this counter counts when csd_sense is low." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_ADC_RES" address="0x400B00E0" bitWidth="32" desc="ADC measurement" hidden="false">
+      <field name="VIN_CNT" from="15" to="0" access="R" resetVal="" desc="Count to source/sink Cref1 + Cref2 from Vin to Vrefhi. This is also the current counter value for the HSCMP counter" hidden="false" />
+      <field name="HSCMP_POL" from="16" to="16" access="R" resetVal="" desc="Polarity used for IDACB for this last ADC result, 0= source, 1= sink" hidden="false" />
+      <field name="ADC_OVERFLOW" from="30" to="30" access="R" resetVal="" desc="This flag is set when the ADC counter overflows. This is an indication to the firmware that the IDACB current level is too low." hidden="false" />
+      <field name="ADC_ABORT" from="31" to="31" access="R" resetVal="" desc="This flag is set when the ADC sequencer was aborted before tripping HSCMP." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_INTR" address="0x400B00F0" bitWidth="32" desc="CSD Interrupt Request Register" hidden="false">
+      <field name="SAMPLE" from="1" to="1" access="RW" resetVal="" desc="A normal sample is complete (CSDv1 compatible interrupt)" hidden="false" />
+      <field name="INIT" from="2" to="2" access="RW" resetVal="" desc="Coarse initialization complete or Sample initialization complete (the latter is typically ignored)" hidden="false" />
+      <field name="ADC_RES" from="8" to="8" access="RW" resetVal="" desc="ADC Result ready" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_INTR_SET" address="0x400B00F4" bitWidth="32" desc="CSD Interrupt set register" hidden="false">
+      <field name="SAMPLE" from="1" to="1" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="INIT" from="2" to="2" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="ADC_RES" from="8" to="8" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_INTR_MASK" address="0x400B00F8" bitWidth="32" desc="CSD Interrupt mask register" hidden="false">
+      <field name="SAMPLE" from="1" to="1" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="INIT" from="2" to="2" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="ADC_RES" from="8" to="8" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_INTR_MASKED" address="0x400B00FC" bitWidth="32" desc="CSD Interrupt masked register" hidden="false">
+      <field name="SAMPLE" from="1" to="1" access="R" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="INIT" from="2" to="2" access="R" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="ADC_RES" from="8" to="8" access="R" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_HSCMP" address="0x400B0180" bitWidth="32" desc="High Speed Comparator configuration" hidden="false">
+      <field name="HSCMP_EN" from="0" to="0" access="RW" resetVal="" desc="High Speed Comparator enable" hidden="false">
+        <value name="OFF" value="0" desc="Disable comparator, output is zero" />
+        <value name="ON" value="1" desc="On, regular operation. Note that CONFIG.LP_MODE determines the power mode level" />
+      </field>
+      <field name="HSCMP_INVERT" from="4" to="4" access="RW" resetVal="" desc="Invert the HSCMP output before it is used to control switches and the CSD sequencer. This bit does not affect the ADC sequencer or the STATUS.HSCMP_OUT" hidden="false" />
+      <field name="AZ_EN" from="31" to="31" access="RW" resetVal="" desc="Auto-Zero enable, allow the Sequencer to Auto-Zero this component" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_AMBUF" address="0x400B0184" bitWidth="32" desc="Reference Generator configuration" hidden="false">
+      <field name="PWR_MODE" from="1" to="0" access="RW" resetVal="" desc="Amux buffer power level" hidden="false">
+        <value name="OFF" value="0" desc="Disable buffer" />
+        <value name="NORM" value="1" desc="On, normal or low power level depending on CONFIG.LP_MODE." />
+        <value name="HI" value="10" desc="On, high or low power level depending on CONFIG.LP_MODE." />
+      </field>
+    </register>
+    <register name="GROUP_CSDV2_REFGEN" address="0x400B0188" bitWidth="32" desc="Reference Generator configuration" hidden="false">
+      <field name="REFGEN_EN" from="0" to="0" access="RW" resetVal="" desc="Reference Generator Enable" hidden="false">
+        <value name="OFF" value="0" desc="Disable Reference Generator" />
+        <value name="ON" value="1" desc="On, regular operation. Note that CONFIG.LP_MODE determines the power mode level" />
+      </field>
+      <field name="BYPASS" from="4" to="4" access="RW" resetVal="" desc="Bypass selected input reference unbuffered to Vrefhi" hidden="false" />
+      <field name="VDDA_EN" from="5" to="5" access="RW" resetVal="" desc="Close Vdda switch to top of resistor string (or Vrefhi?)" hidden="false" />
+      <field name="RES_EN" from="6" to="6" access="RW" resetVal="" desc="Resistor string enable; 0= open switch on top of the resistor string (Vreflo=Vssa)" hidden="false" />
+      <field name="GAIN" from="12" to="8" access="RW" resetVal="" desc="Select resistor string tap for feedback, 0= minimum vout, 31= maximum vout = vrefhi -&gt; gain=1  (only works if the resistor string is enabled; RES_EN=1)" hidden="false" />
+      <field name="VREFLO_SEL" from="20" to="16" access="RW" resetVal="" desc="Select resistor string tap for Vreflo/Vreflo_int, 0= minimum vout, 31= maximum vout = vrefhi (only works if the resistor string is enabled; RES_EN=1)" hidden="false" />
+      <field name="VREFLO_INT" from="23" to="23" access="RW" resetVal="" desc="Ouput the resistor string tap either to Vreflo (0) or Vreflo_int (1)." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_CSDCMP" address="0x400B018C" bitWidth="32" desc="CSD Comparator configuration" hidden="false">
+      <field name="CSDCMP_EN" from="0" to="0" access="RW" resetVal="" desc="CSD Comparator Enable" hidden="false">
+        <value name="OFF" value="0" desc="Disable comparator, output is zero" />
+        <value name="ON" value="1" desc="On, regular operation. Note that CONFIG.LP_MODE determines the power mode level" />
+      </field>
+      <field name="POLARITY_SEL" from="5" to="4" access="RW" resetVal="" desc="Select which IDAC polarity to use to detect CSDCMP triggering" hidden="false">
+        <value name="IDACA_POL" value="0" desc="Use idaca_pol (firmware setting with CSX and optionally DSI mixed in) to determine the direction, this is the most common use-case, used for normal CSD and normal CSX" />
+        <value name="IDACB_POL" value="1" desc="Use idacb_pol (firmware setting with optional DSI mixed in) to determine the direction, this is only used for normal CSD if IDACB is used i.s.o. IDACA (not common)" />
+        <value name="DUAL_POL" value="10" desc="Use the expression (csd_sense ? idaca_pol : idacb_pol)  to determine the direction, this is only useful for the CSX with DUAL_IDAC use-case" />
+      </field>
+      <field name="CMP_PHASE" from="9" to="8" access="RW" resetVal="" desc="Select in what phase(s) the comparator is active. Note, this also determines when a bad conversion is detected, namely at the beginning and end of the comparator active phase (also taking into account FILTER_DELAY and non-overlap)." hidden="false">
+        <value name="FULL" value="0" desc="Comparator is active from start of Phi2 and kept active into Phi1. Intended usage: legacy CSD for balancing over a full csd_sense period (non-overlap should be turned off)" />
+        <value name="PHI1" value="1" desc="Comparator is active during Phi1 only. Currently no known use-case." />
+        <value name="PHI2" value="10" desc="Comparator is active during Phi2 only. Intended usage: CSD Low EMI." />
+        <value name="PHI1_2" value="11" desc="Comparator is activated at the start of both Phi1 and Phi2 (non-overlap should be enabled). Intended usage: CSX, or Full-Wave." />
+      </field>
+      <field name="CMP_MODE" from="28" to="28" access="RW" resetVal="" desc="Select which signal to output on dsi_sample_out." hidden="false">
+        <value name="CSD" value="0" desc="CSD mode: output the filtered sample signal on dsi_sample_out" />
+        <value name="GP" value="1" desc="General Purpose mode: output the unfiltered sample unfiltered comparator output, either asynchronous or flopped." />
+      </field>
+      <field name="FEEDBACK_MODE" from="29" to="29" access="RW" resetVal="" desc="This bit controls whether the output directly from the comparator (csdcmp_out) or the flopped version (csdcmp_out_ff) is used. For CSD operation, the selected signal controls the IDAC(s), in GP mode the signal goes out on dsi_sample_out." hidden="false">
+        <value name="FLOP" value="0" desc="Use feedback from sampling flip-flop (used in most modes)." />
+        <value name="COMP" value="1" desc="Use feedback from comparator directly (used in single Cmod mutual cap sensing only)" />
+      </field>
+      <field name="AZ_EN" from="31" to="31" access="RW" resetVal="" desc="Auto-Zero enable, allow the Sequencer to Auto-Zero this component" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_IDACA" address="0x400B01C0" bitWidth="32" desc="IDACA Configuration" hidden="false">
+      <field name="VAL" from="6" to="0" access="RW" resetVal="" desc="Current value setting for this IDAC (7 bits)." hidden="false" />
+      <field name="POL_DYN" from="7" to="7" access="RW" resetVal="" desc="Polarity is dynamic, this bit does not influence the logic in the SoftIP, it only goes to the HardIP." hidden="false">
+        <value name="STATIC" value="0" desc="Static polarity. Polarity is expected to be stable, so to save power this avoids the shunting of the unused polarity, at the expense of response time." />
+        <value name="DYNAMIC" value="1" desc="Dynamic polarity. Polarity is expected to change frequently (e.g. invert after every csd_sense phase), so to improve response time this keeps the shunt of the unused polarity on at the expense of power." />
+      </field>
+      <field name="POLARITY" from="9" to="8" access="RW" resetVal="" desc="Selects the polarity of the IDAC (sensing operation). Normally the actual polarity depends on this bit, optionally mixed with DSI (see DSI_CTRL_EN) and if LEG1_MODE==CSD also mixed with the CSD configuration and operation. However in mutual cap mode with one IDAC (config.mutual_cap=1 &amp; config.csx_dual_idac=0) the polarity of the IDAC is controlled by csd_sense." hidden="false">
+        <value name="VSSA_SRC" value="0" desc="Normal: switch between Vssa and Cmod.  For non-CSD application, IDAC will source current." />
+        <value name="VDDA_SNK" value="1" desc="Inverted: switch between Vdda and Cmod. For non-CSD application, IDAC will sink current." />
+        <value name="SENSE" value="10" desc="The polarity of the IDAC will follow the csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC." />
+        <value name="SENSE_INV" value="11" desc="The polarity of the IDAC will follow the inverted csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC." />
+      </field>
+      <field name="BAL_MODE" from="11" to="10" access="RW" resetVal="" desc="Balancing mode: only applies to legs configured as CSD." hidden="false">
+        <value name="FULL" value="0" desc="enabled from start of Phi2 until disabled by CSDCMP. Intended usage: legacy CSD for balancing over a full csd_sense period (non-overlap should be turned off)" />
+        <value name="PHI1" value="1" desc="enabled from start of Phi1 and disabled by CSDCMP or at end of Phi1. Enables dual IDAC CSX or Full-Wave, one for sourcing and the other for sinking." />
+        <value name="PHI2" value="10" desc="enabled from start of Phi2 and disabled by CSDCMP or at end of Phi2. Intended usage: CSD Low EMI or  dual IDAC CSX or Full-Wave." />
+        <value name="PHI1_2" value="11" desc="enabled from start of both Phi1 and Phi2 and disabled by CSDCMP or at end of Phi1 or Phi2 (if non-overlap enabled). Intended usage: single IDAC CSX, or Full-Wave." />
+      </field>
+      <field name="LEG1_MODE" from="17" to="16" access="RW" resetVal="" desc="Controls the usage mode of LEG1 and the Polarity bit" hidden="false">
+        <value name="GP_STATIC" value="0" desc="General Purpose static mode: LEG1 and POLARITY are controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN). No shunting is used, this saves power when off but also any on/off switching will take longer." />
+        <value name="GP" value="1" desc="General Purpose dynamic mode: LEG1 and POLARITY are controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled." />
+        <value name="CSD_STATIC" value="10" desc="CSD static mode: LEG1 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In those states LEG1 is controlled by LEG1_EN, csd_sense and the CSD configuration. Polarity is controlled by the CSD configuration and operation. In addition leg1 enable and polarity can optionally be mixed with DSI (see DSI_CTRL_EN). No shunting is used, this saves power when off but also any on/off switching will take longer." />
+        <value name="CSD" value="11" desc="CSD dynamic mode: LEG1 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In thoses states LEG1 is controlled by LEG1_EN, the CSD configuration, csd_sense and the flopped CSDCMP output (CSDCMP_OUT_FF). Polarity is controlled by the CSD configuration and operation. In addition leg1 enable and polarity can optionally be mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled." />
+      </field>
+      <field name="LEG2_MODE" from="19" to="18" access="RW" resetVal="" desc="Controls the usage mode of LEG2" hidden="false">
+        <value name="GP_STATIC" value="0" desc="General Purpose static mode: LEG2 is controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN).  No shunting is used, this saves power when off but also any on/off switching will take longer." />
+        <value name="GP" value="1" desc="General Purpose dynamic mode: LEG2 is controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled." />
+        <value name="CSD_STATIC" value="10" desc="CSD static mode: LEG2 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In those states LEG2 is controlled by LEG2_EN, csd_sense and the CSD configuration. Polarity is controlled by the CSD configuration and operation. In addition leg2 enable and polarity can optionally be mixed with DSI (see DSI_CTRL_EN). No shunting is used, this saves power when off but also any on/off switching will take longer." />
+        <value name="CSD" value="11" desc="CSD dynamic mode: LEG2 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In those states LEG2 is controlled by LEG2_EN, the CSD configuration, csd_sense and the flopped CSDCMP output (CSDCMP_OUT_FF). In addition leg2 enable can optionally be mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled." />
+      </field>
+      <field name="DSI_CTRL_EN" from="21" to="21" access="RW" resetVal="" desc="Mix DSI inputs with MMIO controls or not (before getting mixed with CSD controls if enabled).&#xA;0: no DSI control &#xA;     IDACA_POLARITY = IDACA.POLARITY &#xA;     IDACA_LEG1_EN =  IDACA.LEG1_EN &#xA;     IDACA_LEG2_EN = IDACA.LEG2_EN   &#xA;1: Mix MMIO with DSI control&#xA;     IDACA_POLARITY = IDACA.POLARITY EXOR dsi_idaca_pol&#xA;     IDACA_LEG1_EN =  IDACA.LEG1_EN AND dsi_idaca_leg1_en &#xA;     IDACA_LEG2_EN = IDACA.LEG2_EN AND dsi_idaca_leg2_en" hidden="false" />
+      <field name="RANGE" from="23" to="22" access="RW" resetVal="" desc="IDAC multiplier" hidden="false">
+        <value name="IDAC_LO" value="0" desc="1 LSB =   37.5 nA" />
+        <value name="IDAC_MED" value="1" desc="1 LSB =  300 nA" />
+        <value name="IDAC_HI" value="10" desc="1 LSB = 2400 nA" />
+      </field>
+      <field name="LEG1_EN" from="24" to="24" access="RW" resetVal="" desc="output enable for leg 1 to CSDBUSA" hidden="false" />
+      <field name="LEG2_EN" from="25" to="25" access="RW" resetVal="" desc="output enable for leg 2 to CSDBUSA" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_IDACB" address="0x400B01C4" bitWidth="32" desc="IDACB Configuration" hidden="false">
+      <field name="VAL" from="6" to="0" access="RW" resetVal="" desc="Current value setting for this IDAC (7 bits)." hidden="false" />
+      <field name="POL_DYN" from="7" to="7" access="RW" resetVal="" desc="Polarity is dynamic, this bit does not influence the logic in the SoftIP, it only goes to the HardIP." hidden="false">
+        <value name="STATIC" value="0" desc="Static polarity. Polarity is expected to be stable, so to save power this avoids the shunting of the unused polarity, at the expense of response time." />
+        <value name="DYNAMIC" value="1" desc="Dynamic polarity. Polarity is expected to change frequently (e.g. invert after every csd_sense phase), so to improve response time this keeps the shunt of the unused polarity on at the expense of power." />
+      </field>
+      <field name="POLARITY" from="9" to="8" access="RW" resetVal="" desc="Selects the polarity of the IDAC (sensing operation). Normally the actual polarity depends on this bit, optionally mixed with DSI (see DSI_CTRL_EN) and if LEG1_EN==1 and LEG1_MODE==CSD also mixed with the CSD configuration and operation. In mutual cap mode however (see config.mutual_cap) the polarity of the IDAC is controlled by csd_sense. If LEG3_EN=1 (the other two legs must be off) then the ADC sequencer controls the IDACB polarity, optionally mixed with DSI." hidden="false">
+        <value name="VSSA_SRC" value="0" desc="Normal: switch between Vssa and Cmod.  For non-CSD application, IDAC will source current." />
+        <value name="VDDA_SNK" value="1" desc="Inverted: switch between Vdda and Cmod. For non-CSD application, IDAC will sink current." />
+        <value name="SENSE" value="10" desc="The polarity of the IDAC will follow the csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC." />
+        <value name="SENSE_INV" value="11" desc="The polarity of the IDAC will follow the inverted csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC." />
+      </field>
+      <field name="BAL_MODE" from="11" to="10" access="RW" resetVal="" desc="same as corresponding IDACA Balancing mode" hidden="false">
+        <value name="FULL" value="0" desc="same as corresponding IDACA Balancing mode" />
+        <value name="PHI1" value="1" desc="same as corresponding IDACA Balancing mode" />
+        <value name="PHI2" value="10" desc="same as corresponding IDACA Balancing mode" />
+        <value name="PHI1_2" value="11" desc="same as corresponding IDACA Balancing mode" />
+      </field>
+      <field name="LEG1_MODE" from="17" to="16" access="RW" resetVal="" desc="Controls the usage mode of LEG1 and the Polarity bit" hidden="false">
+        <value name="GP_STATIC" value="0" desc="same as corresponding IDACA.LEG1_MODE" />
+        <value name="GP" value="1" desc="same as corresponding IDACA.LEG1_MODE" />
+        <value name="CSD_STATIC" value="10" desc="same as corresponding IDACA.LEG1_MODE" />
+        <value name="CSD" value="11" desc="same as corresponding IDACA.LEG1_MODE" />
+      </field>
+      <field name="LEG2_MODE" from="19" to="18" access="RW" resetVal="" desc="Controls the usage mode of LEG2" hidden="false">
+        <value name="GP_STATIC" value="0" desc="same as corresponding IDACA.LEG2_MODE" />
+        <value name="GP" value="1" desc="same as corresponding IDACA.LEG2_MODE" />
+        <value name="CSD_STATIC" value="10" desc="same as corresponding IDACA.LEG2_MODE" />
+        <value name="CSD" value="11" desc="same as corresponding IDACA.LEG2_MODE" />
+      </field>
+      <field name="DSI_CTRL_EN" from="21" to="21" access="RW" resetVal="" desc="Mix DSI inputs with MMIO controls or not (before getting mixed with CSD controls if enabled)&#xA;0: no DSI control&#xA;     IDACB_POLARITY = IDACB.POLARITY &#xA;     IDACB_LEG1_EN =  IDACB.LEG1_EN &#xA;     IDACB_LEG2_EN = IDACB.LEG2_EN   &#xA;     IDACB_LEG3_EN = IDACB.LEG3_EN   &#xA;1: Mix MMIO with DSI control&#xA;     IDACB_POLARITY = IDACB.POLARITY EXOR dsi_idacb_pol&#xA;     IDACB_LEG1_EN =  IDACB.LEG1_EN AND dsi_idacb_leg1_en &#xA;     IDACB_LEG2_EN = IDACB.LEG2_EN AND dsi_idacb_leg2_en  &#xA;     IDACB_LEG3_EN = IDACB.LEG3_EN AND dsi_idacb_leg3_en" hidden="false" />
+      <field name="RANGE" from="23" to="22" access="RW" resetVal="" desc="IDAC multiplier" hidden="false">
+        <value name="IDAC_LO" value="0" desc="1 LSB =   37.5 nA" />
+        <value name="IDAC_MED" value="1" desc="1 LSB =  300 nA" />
+        <value name="IDAC_HI" value="10" desc="1 LSB = 2400 nA" />
+      </field>
+      <field name="LEG1_EN" from="24" to="24" access="RW" resetVal="" desc="output enable for leg 1 to CSDBUSB or CSDBUSA" hidden="false" />
+      <field name="LEG2_EN" from="25" to="25" access="RW" resetVal="" desc="output enable for leg 2 to CSDBUSB or CSDBUSA" hidden="false" />
+      <field name="LEG3_EN" from="26" to="26" access="RW" resetVal="" desc="output enable for leg3 to CSDBUSC, only allowed when RANGE = IDAC_LO. When this bit is set both other legs should be off.&#xA;Note that leg3 can only be used for ADC mode, not GP mode. Which means that leg3 can only be on when the ADC Sequencer is in the ADC_measure or Calib_measure state. In those states  leg3 is controlled by the ADC configuration and the HSCMP output. In addition this leg3 enable bit can optionally be mixed with DSI (see DSI_CTRL_EN).&#xA;When LEG3_EN=1 also the IDACB polarity is controlled by the ADC sequencer." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SENSE_PERIOD" address="0x400B0200" bitWidth="32" desc="Sense clock period" hidden="false">
+      <field name="SENSE_DIV" from="11" to="0" access="RW" resetVal="" desc="The length-1 of the Sense modulation 'clock' period in clk_csd cycles. For regular CSD one sense clock cycle = one conversion (=phi1+phi2) .&#xA;Note this is the base divider, clock dithering may change the actual period length.&#xA;Note that SENSE_DIV must be at least 1 and additionally also allow for one clk_hf of non overlap on both phases, i.e. if clk_csd=clk_hf then SENSE_DIV must be &gt;=3." hidden="false" />
+      <field name="LFSR_SIZE" from="18" to="16" access="RW" resetVal="" desc="Selects the number of bits to be used in the LSFR to provide the clock dithering variation on the base period (was PRS in CSDv1). Whenever the LFSR is used (non zero value in this field) the LFSR_CLEAR bit should also be set." hidden="false">
+        <value name="OFF" value="0" desc="Don't use clock dithering (=spreadspectrum) (LFSR output value is zero)" />
+        <value name="2B" value="1" desc="2-bit LFSR (G(x)=X^2+X+1, period= 3), range [-1, 1]" />
+        <value name="3B" value="10" desc="3-bit LFSR (G(x)=X^3+X+1, period= 7), range [-3, 3]" />
+        <value name="4B" value="11" desc="4-bit LFSR (G(x)=X^4+X+1, period= 15), range [-7, 7]" />
+        <value name="5B" value="100" desc="5-bit LFSR (G(x)=X^5+X^2+1, period= 31), range [-15, 15]" />
+        <value name="8B" value="101" desc="8-bit LFSR (G(x)=X^8+X^4+X^3+X^2+1, period= 255)" />
+        <value name="12B" value="110" desc="12-bit LFSR (G(x)=X^12+X^9+X^3+X^2+1, period=4095)" />
+      </field>
+      <field name="LFSR_SCALE" from="23" to="20" access="RW" resetVal="" desc="Shift the LFSR output left by LSFR_SCALE bits before adding to SENSE_DIV. This dithering is disabled when SEL_LSFR_MSB is set.&#xA;The clock divider to be used = (SENSE_DIV+1) + (SEL_LSFR_MSB ? 0 : (LFSR_OUT&lt;&lt;LFSR_SCALE)).&#xA;Note that the clock divider including the dithering term must fit in 12 bits, otherwise the result is undefined." hidden="false" />
+      <field name="LFSR_CLEAR" from="24" to="24" access="RW" resetVal="" desc="When set, forces the LFSR to it's initial state (all ones).  This bit is automatically cleared by hardware after the LFSR is cleared, which is at the next clk_csd positive edge. This bit should be set whenever this register is written and the LFSR is used.&#xA;Note that the LFSR will also get reset to all ones during the AutoZero_1/2 states." hidden="false" />
+      <field name="SEL_LFSR_MSB" from="25" to="25" access="RW" resetVal="" desc="Use the MSB of configured LSFR size as csd_sense signal. Intended to be used only with bit 8 or 12-bit LFSR size for CSDv1 backward compatibility (PRS). When this bit is set then clock divider dithering is disabled." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SENSE_DUTY" address="0x400B0204" bitWidth="32" desc="Sense clock duty cycle" hidden="false">
+      <field name="SENSE_WIDTH" from="11" to="0" access="RW" resetVal="" desc="Defines the length of the first phase of the sense clock in clk_csd cycles. &#xA;A value of 0 disables this feature and the duty cycle of csd_sense will be 50%, which is equal to SENSE_WIDTH = (SENSE_DIV+1)/2, or when clock dithering is used that becomes [(SENSE_DIV+1) + (LFSR_OUT &lt;&lt; LSFR_SCALE)]/2.  At all times it must be assured that the phases are at least 2 clk_csd cycles (1 for non overlap), if this rule is violated the result is undefined." hidden="false" />
+      <field name="SENSE_POL" from="16" to="16" access="RW" resetVal="" desc="Polarity of the sense clock&#xA;0 = start with low phase (typical for regular negative transfer CSD)&#xA;1 = start with high phase" hidden="false" />
+      <field name="OVERLAP_PHI1" from="18" to="18" access="RW" resetVal="" desc="NonOverlap or not for Phi1 (csd_sense=0).&#xA;0 = Non-overlap for Phi1, the Phi1 signal is  csd_sense inverted except that the signal goes low 1 clk_sample before csd_sense goes high. Intended usage: new low EMI CSD/CSX with static GPIO.&#xA;1 = 'Overlap' (= not non-overlap) for Phi1, the Phi1 signal is  csd_sense inverted. Intended usage: legacy CSD with GPIO switching, the GPIO internal circuit ensures that the switches are non-overlapping." hidden="false" />
+      <field name="OVERLAP_PHI2" from="19" to="19" access="RW" resetVal="" desc="Same as OVERLAP_PHI1 but for Phi2 (csd_sense=1)." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_HS_P_SEL" address="0x400B0280" bitWidth="32" desc="HSCMP Pos input switch Waveform selection" hidden="false">
+      <field name="SW_HMPM" from="0" to="0" access="RW" resetVal="" desc="Set HMPM switch&#xA;0: static open&#xA;1: static closed" hidden="false" />
+      <field name="SW_HMPT" from="4" to="4" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HMPS" from="8" to="8" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HMMA" from="12" to="12" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HMMB" from="16" to="16" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HMCA" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HMCB" from="24" to="24" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HMRH" from="28" to="28" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_HS_N_SEL" address="0x400B0284" bitWidth="32" desc="HSCMP Neg input switch Waveform selection" hidden="false">
+      <field name="SW_HCCC" from="16" to="16" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HCCD" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HCRH" from="26" to="24" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_HCRL" from="30" to="28" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_SHIELD_SEL" address="0x400B0288" bitWidth="32" desc="Shielding switches Waveform selection" hidden="false">
+      <field name="SW_HCAV" from="2" to="0" access="RW" resetVal="" desc="Select waveform for HMPM switch&#xA;0: static open&#xA;1: static closed&#xA;2: phi1&#xA;3: phi2&#xA;4: phi1 &amp; HSCMP&#xA;5: phi2 &amp; HSCMP&#xA;6: HSCMP (ignores phi1/2)&#xA;7: Reserved" hidden="false" />
+      <field name="SW_HCAG" from="6" to="4" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_HCBV" from="10" to="8" access="RW" resetVal="" desc="Select waveform for corresponding switch. Note that the waveform for this switch follows the csd_shield signal, i.e. phi1 and phi2 are always delayed by 1 clk_hf cycle w.r.t. the csd_sense phases used for all other switches." hidden="false" />
+      <field name="SW_HCBG" from="14" to="12" access="RW" resetVal="" desc="Select waveform for corresponding switch. Note that the waveform for this switch follows the csd_shield signal, i.e. phi1 and phi2 are always delayed by 1 clk_hf cycle w.r.t. the csd_sense phases used for all other switches." hidden="false" />
+      <field name="SW_HCCV" from="16" to="16" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_HCCG" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch&#xA;If the ADC is enabled then this switch is directly controlled by the ADC sequencer." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_AMUXBUF_SEL" address="0x400B0290" bitWidth="32" desc="Amuxbuffer switches Waveform selection" hidden="false">
+      <field name="SW_IRBY" from="4" to="4" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_IRLB" from="8" to="8" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_ICA" from="12" to="12" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_ICB" from="18" to="16" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_IRLI" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_IRH" from="24" to="24" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_IRL" from="28" to="28" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_BYP_SEL" address="0x400B0294" bitWidth="32" desc="AMUXBUS bypass switches Waveform selection" hidden="false">
+      <field name="SW_BYA" from="12" to="12" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_BYB" from="16" to="16" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_CBCC" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch&#xA;If the ADC is enabled then this switch is directly controlled by the ADC sequencer." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_CMP_P_SEL" address="0x400B02A0" bitWidth="32" desc="CSDCMP Pos Switch Waveform selection" hidden="false">
+      <field name="SW_SFPM" from="2" to="0" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_SFPT" from="6" to="4" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_SFPS" from="10" to="8" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_SFMA" from="12" to="12" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_SFMB" from="16" to="16" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_SFCA" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_SFCB" from="24" to="24" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_CMP_N_SEL" address="0x400B02A4" bitWidth="32" desc="CSDCMP Neg Switch Waveform selection" hidden="false">
+      <field name="SW_SCRH" from="26" to="24" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_SCRL" from="30" to="28" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_REFGEN_SEL" address="0x400B02A8" bitWidth="32" desc="Reference Generator Switch Waveform selection" hidden="false">
+      <field name="SW_IAIB" from="0" to="0" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_IBCB" from="4" to="4" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_SGMB" from="16" to="16" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_SGRE" from="24" to="24" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_SGR" from="28" to="28" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_FW_MOD_SEL" address="0x400B02B0" bitWidth="32" desc="Full Wave Cmod Switch Waveform selection" hidden="false">
+      <field name="SW_F1PM" from="0" to="0" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_F1MA" from="10" to="8" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_F1CA" from="18" to="16" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_C1CC" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_C1CD" from="24" to="24" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_C1F1" from="28" to="28" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_FW_TANK_SEL" address="0x400B02B4" bitWidth="32" desc="Full Wave Csh_tank Switch Waveform selection" hidden="false">
+      <field name="SW_F2PT" from="4" to="4" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_F2MA" from="10" to="8" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_F2CA" from="14" to="12" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_F2CB" from="18" to="16" access="RW" resetVal="" desc="Select waveform for corresponding switch" hidden="false" />
+      <field name="SW_C2CC" from="20" to="20" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_C2CD" from="24" to="24" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+      <field name="SW_C2F2" from="28" to="28" access="RW" resetVal="" desc="Set corresponding switch" hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SW_DSI_SEL" address="0x400B02C0" bitWidth="32" desc="DSI output switch control Waveform selection" hidden="false">
+      <field name="DSI_CSH_TANK" from="2" to="0" access="RW" resetVal="" desc="Select waveform for dsi_csh_tank signal (called dsi_cap_lo_en in CDSv1). For CSX when DUAL_CAP_EN is set this signal will have the special functionality to go low one clk_hf cycle ahead of the end of the corresponding csd_sense phase (just like for CSDv1), in all other use-cases the functionality is the same as for other switch controls." hidden="false" />
+      <field name="DSI_CMOD" from="6" to="4" access="RW" resetVal="" desc="Select waveform for dsi_cmod signal (called dsi_cap_hi_en in CDSv1).  For CSX when DUAL_CAP_EN is set this signal will have the special functionality to go low one clk_hf cycle ahead of the end of the corresponding csd_sense phase (just like for CSDv1), in all other use-cases the functionality is the same as for other switch controls." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SEQ_TIME" address="0x400B0300" bitWidth="32" desc="Sequencer Timing" hidden="false">
+      <field name="AZ_TIME" from="7" to="0" access="RW" resetVal="" desc="Define Auto-Zero time in csd_sense cycles -1." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SEQ_INIT_CNT" address="0x400B0310" bitWidth="32" desc="Sequencer Initial conversion and sample counts" hidden="false">
+      <field name="CONV_CNT" from="15" to="0" access="RW" resetVal="" desc="Number of conversion per sample (PERIOD in CSDv1), if set to 0 the Sample_init state will be skipped." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_SEQ_NORM_CNT" address="0x400B0314" bitWidth="32" desc="Sequencer Normal conversion and sample counts" hidden="false">
+      <field name="CONV_CNT" from="15" to="0" access="RW" resetVal="" desc="Number of conversion per sample (PERIOD in CSDv1), if set to 0 the Sample_norm state will be skipped." hidden="false" />
+    </register>
+    <register name="GROUP_CSDV2_ADC_CTL" address="0x400B0320" bitWidth="32" desc="ADC Control" hidden="false">
+      <field name="ADC_TIME" from="7" to="0" access="RW" resetVal="" desc="ADC timing -1 in csd_sense clock cycles (actual time is ADC_TIME+1 cycles), either used to discharge Cref1&amp;2, or as the aperture to capture the input voltage on Cref1&amp;2" hidden="false" />
+      <field name="ADC_MODE" from="17" to="16" access="RW" resetVal="" desc="Enable ADC measurement. When enabled the ADC sequencer will be started when the main sequencer goes to the SAMPLE_NORM state" hidden="false">
+        <value name="OFF" value="0" desc="No ADC measurement" />
+        <value name="VREF_CNT" value="1" desc="Count time A to bring Cref1 + Cref2 up from Vssa to Vrefhi with IDACB" />
+        <value name="VREF_BY2_CNT" value="10" desc="Count time B to bring Cref1 + Cref2 back up to Vrefhi with IDACB (after bringing them down for time A/2 cycles with IDACB sinking)" />
+        <value name="VIN_CNT" value="11" desc="Determine HSCMP polarity and count time C to source/sink Cref1 + Cref2 from Vin to Vrefhi." />
+      </field>
+    </register>
+    <register name="GROUP_CSDV2_SEQ_START" address="0x400B0340" bitWidth="32" desc="Sequencer start" hidden="false">
+      <field name="START" from="0" to="0" access="RW" resetVal="" desc="Start the CSD sequencer. The sequencer will clear this bit when it is done. Depending on the mode the sequencer is done when a sample has been accumulated, when the high speed comparator trips or if the sequencer is aborted. When the ADC is enabled the ADC sequencer will start when the CSD sequencer reaches the Sample_norm state (only with the regular CSD scan mode)." hidden="false" />
+      <field name="SEQ_MODE" from="1" to="1" access="RW" resetVal="" desc="0 = regular CSD scan + optional ADC &#xA;1 = coarse initialization, the Sequencer will go to the INIT_COARSE state." hidden="false" />
+      <field name="ABORT" from="3" to="3" access="RW" resetVal="" desc="When a 1 is written the CSD and ADC sequencers will be aborted (if they are running) and the START bit will be cleared. This bit always read as 0." hidden="false" />
+      <field name="DSI_START_EN" from="4" to="4" access="RW" resetVal="" desc="When this bit is set a positive edge on dsi_start will start the CSD sequencer and if enabled also the ADC sequencer." hidden="false" />
+      <field name="AZ0_SKIP" from="8" to="8" access="RW" resetVal="" desc="When set the AutoZero_0 state will be skipped" hidden="false" />
+      <field name="AZ1_SKIP" from="9" to="9" access="RW" resetVal="" desc="When set the AutoZero_1 state will be skipped" hidden="false" />
+    </register>
+  </block>
+  <block name="Clock_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="RED" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_start" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_stop" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_capture" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_m0s8_tcpwm_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="COUNTER" address="0x40060148" bitWidth="32" desc="Current counter value" hidden="false" />
+    <register name="CC" address="0x4006014C" bitWidth="32" desc="Compare / capture value" hidden="false" />
+    <register name="CC_BUF" address="0x40060150" bitWidth="32" desc="Compare / capture buffer value" hidden="false" />
+    <register name="PERIOD" address="0x40060154" bitWidth="32" desc="Period value" hidden="false" />
+    <register name="PERIOD_BUF" address="0x40060158" bitWidth="32" desc="Period buffer value" hidden="false" />
+  </block>
+  <block name="UART" BASE="0x0" SIZE="0x0" desc="Serial Communication Block" visible="true" hidden="false">
+    <block name="clock_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="sclk_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="mosi_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="rx_wake_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="SCBCLK" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="select_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="rx_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cts_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="SCB" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="Device_VM4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="rx" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="miso_m_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="ZeroTerminal_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="or_sclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="_CTRL" address="0x40080000" bitWidth="32" desc="Generic control register" hidden="false">
+      <field name="OVS" from="3" to="0" access="RW" resetVal="" desc="Serial interface bit period oversampling factor expressed in lP clock cycles. Used for SPI and UART functionality. OVS + 1 IP clock cycles constitute a single serial interface clock/bit cycle." hidden="false" />
+      <field name="EC_AM_MODE" from="8" to="8" access="RW" resetVal="" desc="Internally clocked mode ('0') or externally clocked mode ('1') address matching (I2C) or selection (SPI).In internally clocked mode, the serial interface protocols run off the peripheral clock. In externally clocked mode, the serial interface protocols run off the clock as provided by the serial interface." hidden="false" />
+      <field name="EC_OP_MODE" from="9" to="9" access="RW" resetVal="" desc="Internally clocked mode ('0') or externally clocked mode ('1') operation. In internally clocked mode, the serial interface protocols run off the peripheral clock. In externally clocked mode, the serial interface protocols run off the clock as provided by the serial interface." hidden="false" />
+      <field name="EZ_MODE" from="10" to="10" access="RW" resetVal="" desc="Non EZ mode ('0') or EZ mode ('1'). In EZ mode, a meta protocol is applied to the serial interface protocol." hidden="false" />
+      <field name="BYTE_MODE" from="11" to="11" access="RW" resetVal="" desc="Determines the number of bits per FIFO data element: '0' - 16-bit FIFO data elements (FIFO entries 8), '1' - 8-bit FIFO data elements (FIFO entries 16). Setting data elemelents to 8-bits doubles the amount of FIFO entries." hidden="false" />
+      <field name="ADDR_ACCEPT" from="16" to="16" access="RW" resetVal="" desc="Determines whether a received matching address is accepted in the RX FIFO ('1') or not ('0').his field is used in the I2C mode." hidden="false" />
+      <field name="BLOCK" from="17" to="17" access="RW" resetVal="" desc=" If the externally clocked logic and the MMIO SW accesses to EZ memory coincide/collide, this bit determines whether a SW access should block and result in bus wait states ('BLOCK is 1') or not (BLOCK is '0')" hidden="false" />
+      <field name="MODE" from="25" to="24" access="RW" resetVal="" desc="Mode of operation: I2C = 0, SPI = 1, UART = 2" hidden="false" />
+      <field name="ENABLED" from="31" to="31" access="RW" resetVal="" desc="IP enabled ('1') or not ('0')." hidden="false" />
+    </register>
+    <register name="_SPI_CTRL" address="0x40080020" bitWidth="32" desc="SPI control register" hidden="false">
+      <field name="CONTINUOUS" from="0" to="0" access="RW" resetVal="" desc="Continuous SPI data transfers enabled ('1') or not ('0')." hidden="false" />
+      <field name="SELECT_PRECEDE" from="1" to="1" access="RW" resetVal="" desc="Only used in SPI Texas Instruments' submode. When '1', the data frame start indication is a pulse on the SELECT line that precedes the transfer of the first data frame bit. When '0', the data frame start indication is a pulse on the SELECT line that coincides with the transfer of the first data frame bit." hidden="false" />
+      <field name="CPHA" from="2" to="2" access="RW" resetVal="" desc="Only applicable in SPI Motorola submode. Indicates the clock phase." hidden="false" />
+      <field name="CPOL" from="3" to="3" access="RW" resetVal="" desc="Only applicable in SPI Motorola submode. Indicates the clock polarity." hidden="false" />
+      <field name="LATE_MISO_SAMPLE" from="4" to="4" access="RW" resetVal="" desc="Only applicable in master mode. Changes the SCLK edge on which MISO is captured." hidden="false" />
+      <field name="SCLK_CONTINUOUS" from="5" to="5" access="RW" resetVal="" desc="Enables SCLK generation continuiusly by master regars data is avaiable in TX FIFO or not." hidden="false" />
+      <field name="SSEL_POLARITY0" from="8" to="8" access="RW" resetVal="" desc="Slave select polarity of SS0." hidden="false" />
+      <field name="SSEL_POLARITY1" from="9" to="9" access="RW" resetVal="" desc="Slave select polarity of SS1." hidden="false" />
+      <field name="SSEL_POLARITY2" from="10" to="10" access="RW" resetVal="" desc="Slave select polarity of SS2." hidden="false" />
+      <field name="SSEL_POLARITY3" from="11" to="11" access="RW" resetVal="" desc="Slave select polarity of SS3." hidden="false" />
+      <field name="LOOPBACK" from="16" to="16" access="RW" resetVal="" desc="Local loopback control." hidden="false" />
+      <field name="MODE" from="25" to="24" access="RW" resetVal="" desc="Submode of SPI operation: Motorola = 0, Texas Instruments = 1, National Semiconducturs = 2." hidden="false" />
+      <field name="SLAVE_SELECT" from="27" to="26" access="RW" resetVal="" desc="Selects one of the four SPI slave select signals: SS0 = 0, SS1 = 1 , SS2 = 2, SS3 = 3." hidden="false" />
+      <field name="MASTER_MODE" from="31" to="31" access="RW" resetVal="" desc="Master ('1') or slave ('0') mode." hidden="false" />
+    </register>
+    <register name="_SPI_STATUS" address="0x40080024" bitWidth="32" desc="SPI status register" hidden="false">
+      <field name="BUS_BUSY" from="0" to="0" access="R" resetVal="" desc="SPI bus is busy. The bus is considered busy ('1') during an ongoing transaction" hidden="false" />
+    </register>
+    <register name="_UART_CTRL" address="0x40080040" bitWidth="32" desc="UART control register" hidden="false">
+      <field name="LOOPBACK" from="16" to="16" access="RW" resetVal="" desc="Local loopback control." hidden="false" />
+      <field name="MODE" from="25" to="24" access="RW" resetVal="" desc="Submode of UART operation: Standard = 0, Smart Card = 1, IrDA = 2." hidden="false" />
+    </register>
+    <register name="_UART_TX_CTRL" address="0x40080044" bitWidth="32" desc="UART transmitter control register" hidden="false">
+      <field name="STOP_BTIS" from="2" to="0" access="RW" resetVal="" desc="Stop bits. STOP_BITS + 1 is the duration of the stop period in terms of halve bit periods." hidden="false" />
+      <field name="PARITY" from="4" to="4" access="RW" resetVal="" desc="Parity bit. When '0', the transmitter generates an even parity. When '1', the transmitter generates an odd parity" hidden="false" />
+      <field name="PARITY_ENABLED" from="5" to="5" access="RW" resetVal="" desc="Parity generation enabled ('1') or not ('0'). Only applicable in standard UART submodes. In SmartCard submode, parity generation is always enabled through hardware. In IrDA submode, parity generation is always disabled through hardware." hidden="false" />
+      <field name="RETRY_ON_NACK" from="8" to="8" access="RW" resetVal="" desc="When '1', a data frame is retransmitted when a negative acknowledgement is received. Only applicable to the SmartCard submode." hidden="false" />
+    </register>
+    <register name="_UART_RX_CTRL" address="0x40080048" bitWidth="32" desc="UART receiver control register" hidden="false">
+      <field name="STOP_BITS" from="2" to="0" access="RW" resetVal="" desc="Stop bits. STOP_BITS + 1 is the duration of the stop period in terms of halve bit periods." hidden="false" />
+      <field name="PARITY" from="4" to="4" access="RW" resetVal="" desc="Parity bit. When '0', the receiver expects an even parity. When '1', the receiver expects an odd parity." hidden="false" />
+      <field name="PARITY_ENABLED" from="5" to="5" access="RW" resetVal="" desc="Parity checking enabled ('1') or not ('0'). Only applicable in standard UART submode. In SmartCard submode, parity checking is always enabled through hardware. In IrDA submode, parity checking is always disabled through hardware." hidden="false" />
+      <field name="POLARITY" from="6" to="6" access="RW" resetVal="" desc="Inverts incoming RX line signal. Inversion is after local loopback. This functionality is intended for IrDA receiver functionality." hidden="false" />
+      <field name="DROP_ON_PARITY_ERR" from="8" to="8" access="RW" resetVal="" desc="Behaviour when a parity check fails. When '0', received data is send to the RX FIFO. When '1', received data is dropped and lost." hidden="false" />
+      <field name="DROP_ON_FRAME_ERR" from="9" to="9" access="RW" resetVal="" desc="Behaviour when an error is detected in a start or stop period. When '0', received data is send to the RX FIFO. When '1', received data is dropped and lost." hidden="false" />
+      <field name="MP_MODE" from="10" to="10" access="RW" resetVal="" desc="Multi-processor mode. When '1', multi-processor mode is enabled. In this mode, RX_CTRL.DATA_WIDTH should indicate a 9-bit data frame." hidden="false" />
+      <field name="LIN_MODE" from="12" to="12" access="RW" resetVal="" desc="Only applicable in standard UART submode. When '1', the receiver performs break detection and baud rate detection on the incoming data" hidden="false" />
+      <field name="SKIP_START" from="13" to="13" access="RW" resetVal="" desc="Only applicable in standard UART submode. When '1', the receiver skips start bit detection for the first received data frame. Instead, it synchronizes on the first received data frame bit, which should be a '1'." hidden="false" />
+      <field name="BREAK_WIDTH" from="19" to="16" access="RW" resetVal="" desc="Break width. BREAK_WIDTH + 1 is the minimum width in bit periods of a break." hidden="false" />
+    </register>
+    <register name="_UART_FLOW_CTRL" address="0x40080050" bitWidth="32" desc="UART flow control register" hidden="false">
+      <field name="TRIGGER_LEVEL" from="3" to="0" access="RW" resetVal="" desc="Trigger level. When the receiver FIFO has less entries than the amount of this field, a RTS signal is activated. Setting this field to 0 disables RTS generation." hidden="false" />
+      <field name="RTS_POLARITY" from="16" to="16" access="RW" resetVal="" desc="Polarity of the RTS output signal" hidden="false" />
+      <field name="CTS_POLARITY" from="24" to="24" access="RW" resetVal="" desc="Polarity of the CTS input signal" hidden="false" />
+      <field name="CTS_ENABLED" from="25" to="25" access="RW" resetVal="" desc="Enable use of CTS input signal by the UART transmitter" hidden="false" />
+    </register>
+    <register name="_I2C_CTRL" address="0x40080060" bitWidth="32" desc="I2C control register" hidden="false">
+      <field name="HIGH_PHASE_OVS" from="3" to="0" access="RW" resetVal="" desc="Serial I2C interface high phase oversampling factor. HIGH_PHASE_OVS + 1 peripheral clock periods constitute the high phase of a bit period." hidden="false" />
+      <field name="LOW_PHASE_OVS" from="7" to="4" access="RW" resetVal="" desc="Serial I2C interface low phase oversampling factor. LOW_PHASE_OVS + 1 peripheral clock periods constitute the low phase of a bit period" hidden="false" />
+      <field name="M_READY_DATA_ACK" from="8" to="8" access="RW" resetVal="" desc="When '1', a received data element by the master is immediately ACK'd when the receiver FIFO is not full." hidden="false" />
+      <field name="M_NOT_READY_DATA_NACK" from="9" to="9" access="RW" resetVal="" desc="When '1', a received data element byte the master is immediately NACK'd when the receiver FIFO is full. When '0', clock stretching is used instead (till the receiver FIFO is no longer full)." hidden="false" />
+      <field name="S_GENERAL_IGNORE" from="11" to="11" access="RW" resetVal="" desc="When '1', a received general call slave address is immediately NACK'd (no ACK or clock stretching) and treated as a non matching slave address." hidden="false" />
+      <field name="S_READY_ADDR_ACK" from="12" to="12" access="RW" resetVal="" desc="When '1', a received (matching) slave address is immediately ACK'd when the receiver FIFO is not full" hidden="false" />
+      <field name="S_READY_DATA_ACK" from="13" to="13" access="RW" resetVal="" desc="When '1', a received data element by the slave is immediately ACK'd when the receiver FIFO is not full" hidden="false" />
+      <field name="S_NOT_READY_ADDR_NACK" from="14" to="14" access="RW" resetVal="" desc="When '1', a received address by the slave is immediately ACK'd when the receiver FIFO is not full" hidden="false" />
+      <field name="S_NOT_READY_DATA_NACK" from="15" to="15" access="RW" resetVal="" desc=" When '1' a received data element byte the slave is immediately NACK'd when the receiver FIFO is full. When '1' clock stretching is performed (till the receiver FIFO is no longer full)." hidden="false" />
+      <field name="LOOPBACK" from="16" to="16" access="RW" resetVal="" desc="Local loopback control" hidden="false" />
+      <field name="SLAVE_MODE" from="30" to="30" access="RW" resetVal="" desc="Slave mode enabled ('1') or not ('0')." hidden="false" />
+      <field name="MASTER_MODE" from="31" to="31" access="RW" resetVal="" desc="Master mode enabled ('1') or not ('0'). Note that both master and slave modes can be enabled at the same time. This allows the IP to address itself." hidden="false" />
+    </register>
+    <register name="_I2C_STATUS" address="0x40080064" bitWidth="32" desc="I2C status register" hidden="false">
+      <field name="BUS_BUSY" from="0" to="0" access="R" resetVal="" desc="I2C bus is busy. The bus is considered busy ('1')." hidden="false" />
+      <field name="S_READ" from="4" to="4" access="R" resetVal="" desc="I2C slave read transfer ('1') or I2C slave write transfer ('0'). When the I2C slave is inactive/idle or receiving START, REPEATED START, STOP or an address, this field is '0'." hidden="false" />
+      <field name="M_READ" from="5" to="5" access="R" resetVal="" desc="I2C master read transfer ('1') or I2C master write transfer ('0'). When the I2C master is inactive/idle or transmitting START, REPEATED START, STOP or an address, this field is '0''." hidden="false" />
+    </register>
+    <register name="_I2C_M_CMD" address="0x40080068" bitWidth="32" desc="I2C master command register" hidden="false">
+      <field name="M_START" from="0" to="0" access="RW" resetVal="" desc="When '1', transmit a START or REPEATED START. Whether a START or REPEATED START is transmitted depends on the state of the master state machine. When this action is performed, the hardware sets this field to '0'." hidden="false" />
+      <field name="M_IDLE_START" from="1" to="1" access="RW" resetVal="" desc="When '1', transmit a START as soon as the bus is idle (I2C_STATUS.BUS_BUSY is '0', note that BUSY has a default value of '0'). When this action is performed, the hardware sets this field to '0'." hidden="false" />
+      <field name="M_ACK" from="2" to="2" access="RW" resetVal="" desc="When '1', attempt to transmit an acknowledgement (ACK). When this action is performed, the hardware sets this field to '0'." hidden="false" />
+      <field name="M_NACK" from="3" to="3" access="RW" resetVal="" desc="When '1', attempt to transmit a negative acknowledgement (NACK). When this action is performed, the hardware sets this field to '0'." hidden="false" />
+      <field name="M_STOP" from="4" to="4" access="RW" resetVal="" desc="When '1', attempt to transmit a STOP. When this action is performed, the hardware sets this field to '0'. This command has a higher priority than I2C_M_CMD.M_START: in situations where both a STOP and a REPEATED START could be transmitted, M_STOP takes precedence over M_START." hidden="false" />
+    </register>
+    <register name="_I2C_S_CMD" address="0x4008006C" bitWidth="32" desc="I2C slave command register" hidden="false">
+      <field name="S_ACK" from="0" to="0" access="RW" resetVal="" desc="When '1', attempt to transmit an acknowledgement (ACK). When this action is performed, the hardware sets this field to '0'." hidden="false" />
+      <field name="S_NACK" from="1" to="1" access="RW" resetVal="" desc="When '1', attempt to transmit a negative acknowledgement (NACK). When this action is performed, the hardware sets this field to '0'" hidden="false" />
+    </register>
+    <register name="_I2C_CFG" address="0x40080070" bitWidth="32" desc="I2C fitler trimm register" hidden="false">
+      <field name="SDA_IN_FILT_TRIM" from="1" to="0" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SDA_IN_FILT_SEL" from="4" to="4" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SCL_IN_FILT_TRIM" from="9" to="8" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SCL_IN_FILT_SEL" from="12" to="12" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SDA_OUT_FILT0_TRIM" from="17" to="16" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SDA_OUT_FILT1_TRIM" from="19" to="18" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SDA_OUT_FILT2_TRIM" from="21" to="20" access="RW" resetVal="" desc="" hidden="false" />
+      <field name="SDA_OUT_FILT_SEL" from="29" to="28" access="RW" resetVal="" desc="" hidden="false" />
+    </register>
+    <register name="_TX_CTRL" address="0x40080200" bitWidth="32" desc="Transmitter control register" hidden="false">
+      <field name="DATA_WIDTH" from="3" to="0" access="RW" resetVal="" desc="Data frame width. DATA_WIDTH + 1 is the amount of bits in a transmitted data frame." hidden="false" />
+      <field name="MSB_FIRST" from="8" to="8" access="RW" resetVal="" desc="Least significant bit first ('0') or most significant bit first ('1'). For I2C, this field should be '1'." hidden="false" />
+    </register>
+    <register name="_TX_FIFO_CTRL" address="0x40080204" bitWidth="32" desc="Transmitter FIFO control register" hidden="false">
+      <field name="TRIGGER_LEVEL" from="3" to="0" access="RW" resetVal="" desc="Trigger level. When the transmitter FIFO has less entries than the amount of this field, a transmitter trigger event is generated." hidden="false" />
+      <field name="CLEAR" from="16" to="16" access="RW" resetVal="" desc="When '1', the transmitter FIFO and transmitter shift register are cleared/invalidated. Invalidation will last for as long as this field is '1'. If a quick clear/invalidation is required, the field should be set to '1' and be followed by a set to '0'. If a clear/invalidation is required for an extended time period, the field should be set to '1' during the complete time period." hidden="false" />
+      <field name="FREEZE" from="17" to="17" access="RW" resetVal="" desc="When '1', hardware reads from the transmitter FIFO do not remove FIFO entries. Freeze will not advance the TX FIFO read pointer." hidden="false" />
+    </register>
+    <register name="_TX_FIFO_STATUS" address="0x40080208" bitWidth="32" desc="Transmitter FIFO status register" hidden="false">
+      <field name="USED" from="4" to="0" access="R" resetVal="" desc="Amount of entries in the transmitter FIFO. The value of this field ranges from 0 to 8." hidden="false" />
+      <field name="SR_VALID" from="15" to="15" access="R" resetVal="" desc="Indicates whether the TX shift registers holds a valid data frame ('1') or not ('0')" hidden="false" />
+      <field name="RD_PTR" from="20" to="16" access="R" resetVal="" desc="FIFO read pointer: FIFO location from which a data frame is read by the hardware." hidden="false" />
+      <field name="WR_PTR" from="28" to="24" access="R" resetVal="" desc="FIFO write pointer: FIFO location at which a new data frame is written." hidden="false" />
+    </register>
+    <register name="_TX_FIFO_WR" address="0x40080240" bitWidth="32" desc="Transmitter FIFO write register" hidden="false">
+      <field name="DATA" from="15" to="0" access="W" resetVal="" desc="Data frame written into the transmitter FIFO. Behavior is similar to that of a PUSH operation." hidden="false" />
+    </register>
+    <register name="_RX_CTRL" address="0x40080300" bitWidth="32" desc="Receiver control register" hidden="false">
+      <field name="DATA_WIDTH" from="3" to="0" access="RW" resetVal="" desc="Data frame width. DATA_WIDTH + 1 is the expected amount of bits in received data frame." hidden="false" />
+      <field name="MSB_FIRST" from="8" to="8" access="RW" resetVal="" desc="Least significant bit first ('0') or most significant bit first ('1')." hidden="false" />
+      <field name="MEDIAN" from="9" to="9" access="RW" resetVal="" desc="Median filter. When '1', a digital 3 taps median filter is performed on input interface lines." hidden="false" />
+    </register>
+    <register name="_RX_FIFO_CTRL" address="0x40080304" bitWidth="32" desc="Receiver FIFO control register" hidden="false">
+      <field name="TRIGGER_LEVEL" from="3" to="0" access="RW" resetVal="" desc="Trigger level. When the receiver FIFO has more entries than the amount of this field, a receiver trigger event is generated." hidden="false" />
+      <field name="CLEAR" from="16" to="16" access="RW" resetVal="" desc="When '1', the receiver FIFO and receiver shift register are cleared/invalidated. Invalidation will last for as long as this field is '1'. If a quick clear/invalidation is required, the field should be set to '1' and be followed by a set to '0'. If a clear/invalidation is required for an extended time period, the field should be set to '1' during the complete time period." hidden="false" />
+      <field name="FREEZE" from="17" to="17" access="RW" resetVal="" desc="When '1', hardware writes to the receiver FIFO have no effect. Freeze will not advance the RX FIFO write pointer." hidden="false" />
+    </register>
+    <register name="_RX_FIFO_STATUS" address="0x40080308" bitWidth="32" desc="Receiver FIFO status registerS" hidden="false">
+      <field name="USED" from="4" to="0" access="R" resetVal="" desc="Amount of entries in the receiver FIFO. The value of this field ranges from 0 to 8." hidden="false" />
+      <field name="SR_VALID" from="15" to="15" access="R" resetVal="" desc="Indicates whether the RX shift registers holds a (partial) valid data frame ('1') or not ('0')." hidden="false" />
+      <field name="RD_PTR" from="20" to="16" access="R" resetVal="" desc="FIFO read pointer: FIFO location from which a data frame is read." hidden="false" />
+      <field name="WR_PTR" from="28" to="24" access="R" resetVal="" desc="FIFO write pointer: FIFO location at which a new data frame is written by the hardware." hidden="false" />
+    </register>
+    <register name="_RX_MATCH" address="0x40080310" bitWidth="32" desc="Slave address and mask register" hidden="false">
+      <field name="ADDR" from="7" to="0" access="RW" resetVal="" desc="Slave device address. For UART multi-processor mode all eight bits a reused. For I2C, bit 0 of the register is not used." hidden="false" />
+      <field name="MASK" from="23" to="16" access="RW" resetVal="" desc="Slave device address mask. This field is a 8 bit mask that specifies which of the ADDR field bits in the SCB_RX_MATCH_ADDR register take part in the matching of the slave address." hidden="false" />
+    </register>
+    <register name="_RX_FIFO_RD" address="0x40080340" bitWidth="32" desc="Receiver FIFO read register" hidden="false">
+      <field name="DATA" from="15" to="0" access="R" resetVal="" desc="Data read from the receiver FIFO. Reading a data frame will remove the data frame from the FIFO." hidden="false" />
+    </register>
+    <register name="_INTR_CAUSE" address="0x40080E00" bitWidth="32" desc="Interrupt cause register" hidden="false">
+      <field name="MASTER" from="0" to="0" access="R" resetVal="" desc="Master interrupt active." hidden="false" />
+      <field name="SLAVE" from="1" to="1" access="R" resetVal="" desc="Slave interrupt active." hidden="false" />
+      <field name="TX" from="2" to="2" access="R" resetVal="" desc="Transmitter interrupt active." hidden="false" />
+      <field name="RX" from="3" to="3" access="R" resetVal="" desc="Receiver interrupt active." hidden="false" />
+      <field name="I2C_EC" from="4" to="4" access="R" resetVal="" desc="Externally clock I2C interrupt active." hidden="false" />
+      <field name="SPI_EC" from="5" to="5" access="R" resetVal="" desc="Externally clocked SPI interrupt active." hidden="false" />
+    </register>
+    <register name="_INTR_I2C_EC" address="0x40080E80" bitWidth="32" desc="Externally clocked I2C interrupt request register" hidden="false">
+      <field name="WAKE_UP" from="0" to="0" access="RW" resetVal="" desc="Wake up request. Active on incoming slave request (with address match). Only used when EC_AM is '1'." hidden="false" />
+    </register>
+    <register name="_INTR_I2C_EC_MASK" address="0x40080E88" bitWidth="32" desc="Externally clocked I2C interrupt mask register" hidden="false">
+      <field name="WAKE_UP" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_I2C_EC_MASKED" address="0x40080E8C" bitWidth="32" desc="Externally clocked SPI interrupt masked register" hidden="false">
+      <field name="WAKE_UP" from="0" to="0" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+    </register>
+    <register name="_INTR_INTR_SPI_EC" address="0x40080EC0" bitWidth="32" desc="Externally clocked SPI interrupt request register" hidden="false">
+      <field name="WAKE_UP" from="0" to="0" access="RW" resetVal="" desc="Wake up request. Active on incoming slave request when externally clocked selection is '1'." hidden="false" />
+    </register>
+    <register name="_INTR_INTR_SPI_EC_MASK" address="0x40080EC8" bitWidth="32" desc="Externally clocked SPI interrupt mask register" hidden="false">
+      <field name="WAKE_UP" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_INTR_SPI_EC_MASKED" address="0x40080ECC" bitWidth="32" desc="Externally clocked SPI interrupt masked register" hidden="false">
+      <field name="WAKE_UP" from="0" to="0" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+    </register>
+    <register name="_INTR_M" address="0x40080F00" bitWidth="32" desc="Master interrupt request register." hidden="false">
+      <field name="I2C_LOST_ARB" from="0" to="0" access="RW" resetVal="" desc="I2C master lost arbitration: the value driven by the master on the SDA line is not the same as the value observed on the SDA line." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="I2C master negative acknowledgement. Set to '1', when the master receives a NACK (typically after the master transmitted the slave address or TX data)." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="I2C master acknowledgement. Set to '1', when the master receives a ACK (typically after the master transmitted the slave address or TX data)." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="I2C master STOP. Set to '1', when the master has transmitted a STOP." hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="I2C master bus error (unexpected detection of START or STOP condition)." hidden="false" />
+      <field name="SPI_DONE" from="9" to="9" access="RW" resetVal="" desc="SPI master transfer done event: all data frames in the transmit FIFO are sent and the transmit FIFO is empty." hidden="false" />
+    </register>
+    <register name="_INTR_M_SET" address="0x40080F04" bitWidth="32" desc="Master interrupt set request register" hidden="false">
+      <field name="I2C_LOST_ARB" from="0" to="0" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="SPI_DONE" from="9" to="9" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_M_MASK" address="0x40080F08" bitWidth="32" desc="Master interrupt mask register" hidden="false">
+      <field name="I2C_LOST_ARB" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="SPI_DONE" from="9" to="9" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_M_MASKED" address="0x40080F0C" bitWidth="32" desc="Master interrupt masked request register" hidden="false">
+      <field name="I2C_LOST_ARB" from="0" to="0" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="SPI_DONE" from="9" to="9" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+    </register>
+    <register name="_INTR_S" address="0x40080F40" bitWidth="32" desc="Slave interrupt request register" hidden="false">
+      <field name="I2C_ARB_LOST" from="0" to="0" access="RW" resetVal="" desc="I2C slave lost arbitration: the value driven on the SDA line is not the same as the value observed on the SDA line (while the SCL line is '1')." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="I2C slave negative acknowledgement received. Set to '1', when the slave receives a NACK (typically after the slave transmitted TX data)." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="I2C slave acknowledgement received. Set to '1', when the slave receives a ACK (typically after the slave transmitted TX data)." hidden="false" />
+      <field name="I2C_WRITE_STOP" from="3" to="3" access="RW" resetVal="" desc="I2C STOP event for I2C write transfer intended for this slave (address matching is performed).Set to '1', when STOP or REPEATED START event is detected." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="I2C STOP event for I2C (read or write) transfer intended for this slave (address matching is performed). Set to '1', when STOP or REPEATED START event is detected" hidden="false" />
+      <field name="I2C_START" from="5" to="5" access="RW" resetVal="" desc="I2C slave START received. Set to '1', when START or REPEATED START event is detected." hidden="false" />
+      <field name="I2C_ADDR_MATCH" from="6" to="6" access="RW" resetVal="" desc="I2C slave matching address received. If CTRL.ADDR_ACCEPT, the received address (including the R/W bit) is available in the RX FIFO." hidden="false" />
+      <field name="I2C_GENERAL" from="7" to="7" access="RW" resetVal="" desc="I2C slave general call address received.  If CTRL.ADDR_ACCEPT, the received address 0x00 (including the R/W bit) is available in the RX FIFO" hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="I2C slave bus error (unexpected detection of START or STOP condition)." hidden="false" />
+      <field name="SPI_BUS_ERR" from="11" to="11" access="RW" resetVal="" desc="SPI slave deselected at an unexpected time in the SPI transfer. The Firmware may decide to clear the TX and RX FIFOs in case of this error." hidden="false" />
+    </register>
+    <register name="_INTR_S_SET" address="0x40080F44" bitWidth="32" desc="Slave interrupt set request register" hidden="false">
+      <field name="I2C_ARB_LOST" from="0" to="0" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_WRITE_STOP" from="3" to="3" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_START" from="5" to="5" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_ADDR_MATCH" from="6" to="6" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_GENERAL" from="7" to="7" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="SPI_BUS_ERR" from="11" to="11" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_S_MASK" address="0x40080F48" bitWidth="32" desc="Slave interrupt mask register" hidden="false">
+      <field name="I2C_ARB_LOST" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_WRITE_STOP" from="3" to="3" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_START" from="5" to="5" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_ADDR_MATCH" from="6" to="6" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_GENERAL" from="7" to="7" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="I2C_BUS_ERR" from="8" to="8" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="SPI_BUS_ERR" from="11" to="11" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_S_MASKED" address="0x40080F4C" bitWidth="32" desc="Slave interrupt masked register" hidden="false">
+      <field name="I2C_ARB_LOST" from="0" to="0" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_NACK" from="1" to="1" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_ACK" from="2" to="2" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_WRITE_STOP" from="3" to="3" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_STOP" from="4" to="4" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_START" from="5" to="5" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_ADDR_MATCH" from="6" to="6" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="I2C_GENERAL" from="7" to="7" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="SPI_BUS_ERR" from="11" to="11" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+    </register>
+    <register name="_INTR_TX" address="0x40080F80" bitWidth="32" desc="Transmitter interrupt request register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Less entries in the TX FIFO than the value specified by TRIGGER_LEVEL in SCB_TX_FIFO_CTL." hidden="false" />
+      <field name="NOT_FULL" from="1" to="1" access="RW" resetVal="" desc="TX FIFO is not full." hidden="false" />
+      <field name="EMPTY" from="4" to="4" access="RW" resetVal="" desc="TX FIFO is empty; i.e. it has 0 entries." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Attempt to write to a full TX FIFO." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Attempt to read from an empty TX FIFO." hidden="false" />
+      <field name="UART_NACK" from="8" to="8" access="RW" resetVal="" desc="UART transmitter received a negative acknowledgement in SmartCard mode. Set to '1', when event is detected." hidden="false" />
+      <field name="UART_DONE" from="9" to="9" access="RW" resetVal="" desc="UART transmitter done event. This happens when the IP is done transferring all data in the TX FIFO; i.e. EMPTY is '1'. Set to '1', when event is detected." hidden="false" />
+      <field name="UART_ARB_LOST" from="10" to="10" access="RW" resetVal="" desc="UART lost arbitration: the value driven on the TX line is not the same as the value observed on the RX line. " hidden="false" />
+    </register>
+    <register name="_INTR_TX_SET" address="0x40080F84" bitWidth="32" desc="Transmitter interrupt set request register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="NOT_FULL" from="1" to="1" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="EMPTY" from="4" to="4" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="UART_NACK" from="8" to="8" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="UART_DONE" from="9" to="9" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="UART_ARB_LOST" from="10" to="10" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_TX_MASK" address="0x40080F88" bitWidth="32" desc="Transmitter interrupt mask request register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="NOT_FULL" from="1" to="1" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="EMPTY" from="4" to="4" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="UART_NACK" from="8" to="8" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="UART_DONE" from="9" to="9" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="UART_ARB_LOST" from="10" to="10" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_TX_MASKED" address="0x40080F8C" bitWidth="32" desc="Transmitter interrupt masked request register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="NOT_FULL" from="1" to="1" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="EMPTY" from="4" to="4" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="UART_NACK" from="8" to="8" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="UART_DONE" from="9" to="9" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="UART_ARB_LOST" from="10" to="10" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+    </register>
+    <register name="_INTR_RX" address="0x40080FC0" bitWidth="32" desc="Receiver interrupt request register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="More entries in the RX FIFO than the value specified by TRIGGER_LEVEL in SCB_RX_FIFO_CTL." hidden="false" />
+      <field name="NOT_EMPTY" from="2" to="2" access="RW" resetVal="" desc="RX FIFO is not empty." hidden="false" />
+      <field name="FULL" from="3" to="3" access="RW" resetVal="" desc="RX FIFO is full. Note that received data frames are lost when the RX FIFO is full." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Attempt to write to a full RX FIFO. Note: in I2C mode, the OVERFLOW is set when a data frame is received and the RX FIFO is full, independent of whether it is ACK'd or NACK'd." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Attempt to read from an empty RX FIFO." hidden="false" />
+      <field name="FRAME_ERR" from="8" to="8" access="RW" resetVal="" desc="Frame error in received data frame. Set to '1', when event is detected." hidden="false" />
+      <field name="PARITY_ERR" from="9" to="9" access="RW" resetVal="" desc="Parity error in received data frame. Set to '1', when event is detected." hidden="false" />
+      <field name="BAUD_DETECT" from="10" to="10" access="RW" resetVal="" desc="LIN baud rate detection is completed." hidden="false" />
+      <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Break detection is successful: the line is '0' for UART_RX_CTRL.BREAK_WIDTH + 1 bit period." hidden="false" />
+    </register>
+    <register name="_INTR_RX_SET" address="0x40080FC4" bitWidth="32" desc="Receiver interrupt set request register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="NOT_EMPTY" from="2" to="2" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="FULL" from="3" to="3" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="FRAME_ERR" from="8" to="8" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="PARITY_ERR" from="9" to="9" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="BAUD_DETECT" from="10" to="10" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+      <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Write with '1' to set corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_RX_MASK" address="0x40080FC8" bitWidth="32" desc="Receiver interrupt mask register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="NOT_EMPTY" from="2" to="2" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="FULL" from="3" to="3" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="FRAME_ERR" from="8" to="8" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="PARITY_ERR" from="9" to="9" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="BAUD_DETECT" from="10" to="10" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+      <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Mask bit for corresponding bit in interrupt request register." hidden="false" />
+    </register>
+    <register name="_INTR_RX_MASKED" address="0x40080FCC" bitWidth="32" desc="Receiver interrupt masked register" hidden="false">
+      <field name="TRIGGER" from="0" to="0" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="NOT_EMPTY" from="2" to="2" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="FULL" from="3" to="3" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="OVERFLOW" from="5" to="5" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="UNDERFLOW" from="6" to="6" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits." hidden="false" />
+      <field name="FRAME_ERR" from="8" to="8" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" hidden="false" />
+      <field name="PARITY_ERR" from="9" to="9" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" hidden="false" />
+      <field name="BAUD_DETECT" from="10" to="10" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" hidden="false" />
+      <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" hidden="false" />
+    </register>
+  </block>
+  <block name="RedPin" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="GREEN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_start" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_stop" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_capture" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_m0s8_tcpwm_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="COUNTER" address="0x40060108" bitWidth="32" desc="Current counter value" hidden="false" />
+    <register name="CC" address="0x4006010C" bitWidth="32" desc="Compare / capture value" hidden="false" />
+    <register name="CC_BUF" address="0x40060110" bitWidth="32" desc="Compare / capture buffer value" hidden="false" />
+    <register name="PERIOD" address="0x40060114" bitWidth="32" desc="Period value" hidden="false" />
+    <register name="PERIOD_BUF" address="0x40060118" bitWidth="32" desc="Period buffer value" hidden="false" />
+  </block>
+  <block name="BLUE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_start" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_stop" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_capture" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_m0s8_tcpwm_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="COUNTER" address="0x40060188" bitWidth="32" desc="Current counter value" hidden="false" />
+    <register name="CC" address="0x4006018C" bitWidth="32" desc="Compare / capture value" hidden="false" />
+    <register name="CC_BUF" address="0x40060190" bitWidth="32" desc="Compare / capture buffer value" hidden="false" />
+    <register name="PERIOD" address="0x40060194" bitWidth="32" desc="Period value" hidden="false" />
+    <register name="PERIOD_BUF" address="0x40060198" bitWidth="32" desc="Period buffer value" hidden="false" />
+  </block>
+</blockRegMap>

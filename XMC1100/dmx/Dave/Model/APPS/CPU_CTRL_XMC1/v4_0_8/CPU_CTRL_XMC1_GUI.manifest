@@ -1,0 +1,27 @@
+package Model.APPS.CPU_CTRL_XMC1.v4_0_8;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class CPU_CTRL_XMC1_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_exception;
+	 public GInteger gint_preemptPriorityBits;
+	 public GCombo gcombo_debuginterface;
+	 public GCheck gcheck_bootpin;
+	 public GCheck gcheck_hardfault;
+	 public GLabel glabel_debuginterface;
+
+	 public CPU_CTRL_XMC1_GUI(DaveEnv daveEnv){
+
+	 gtab_exception = GTab(widgetName:"gtab_exception", text:"Exception Settings", enabled:true, visible:true)
+	 gint_preemptPriorityBits = GInteger(widgetName:"gint_preemptPriorityBits", value:2, minValue:0, maxValue:2, enabled:false, visible:true, isMandatoryValue:false)
+	 gcombo_debuginterface = GCombo(widgetName:"gcombo_debuginterface", options:["SWD0","SWD1","SPD0","SPD1","None"], value:"SWD0", enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_bootpin = GCheck(widgetName:"gcheck_bootpin", value:false, enabled:true, visible:true)
+	 gcheck_hardfault = GCheck(widgetName:"gcheck_hardfault", value:false, enabled:true, visible:true)
+	 glabel_debuginterface = GLabel(widgetName:"glabel_debuginterface", text:"Debug interface:", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

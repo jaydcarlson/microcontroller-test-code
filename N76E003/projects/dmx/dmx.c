@@ -11,7 +11,7 @@ xdata uint8_t buffer[512];
 void SerialPort0_ISR(void) interrupt 4 
 {
     uint8_t temp;
-    //	P00 = 1;
+    P00 = 1;
     temp = SBUF;
     RI = 0; // clear reception interrupt
     if(SM0) // frame error occured
@@ -41,7 +41,7 @@ void SerialPort0_ISR(void) interrupt 4
         TH1 = 255; // use the fastest baud rate we can (doesn't matter
         //	P03 = 0;
     }
-//	P00 = 0;
+	P00 = 0;
 }
 
 void main()
@@ -51,7 +51,7 @@ void main()
     Set_All_GPIO_Quasi_Mode;
 
     // pins for debugging
-    // P00_PushPull_Mode;
+    P00_PushPull_Mode;
     //	P01_PushPull_Mode;
     //	P03_PushPull_Mode;
 

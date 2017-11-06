@@ -1,0 +1,30 @@
+TASKING program builder:
+Compiling "main.c"
+Assembling "main.src"
+Linking to biquad.abs
+Converting to biquad.x87
+
+LC87K series IEEE695 converter Version 2.36
+Copyright (c) ON Semiconductor 2000-2014. All rights reserved.
+
+Conversion processing is started using the following files.
+    absfile : d:\git\microcontroller-test-code\lc87\biquad\biquad.abs
+    optfile : d:\git\microcontroller-test-code\lc87\biquad\biquad.OPT
+    deffile : c:\program files (x86)\tasking\dlc87 v3.2r2\etc\lc87opt.def
+    incfile : c:\program files (x86)\tasking\dlc87 v3.2r2\include\LC87F1M.INC
+    cgrfile : 
+
+Conversion is successful.
+
+Converting to biquad.hex
+X87 to Intel-HEX converter Version 2.36
+Copyright (c) ON Semiconductor 2001-2014. All rights reserved.
+
+Conversion processing is started using the following files.
+    x87file : d:\git\microcontroller-test-code\lc87\biquad\biquad.x87
+    deffile : c:\program files (x86)\tasking\dlc87 v3.2r2\etc\lc87opt.def
+
+Conversion is successful.
+     Output : d:\git\microcontroller-test-code\lc87\biquad\biquad.HEX
+     CheckSum : AF32
+

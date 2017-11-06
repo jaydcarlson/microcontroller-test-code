@@ -1,0 +1,25 @@
+package Model.APPS.GLOBAL_CCU4.v4_1_12;
+
+/* Import statements */
+import ifx.davex.app.manifest.*
+
+abstract class GLOBAL_CCU4_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_general_settings;
+	 public GCombo gcombo_mc_shadow_tx_function;
+	 public GFloat gfloat_clkFreq;
+	 public GLabel glabel_mc_shadow_tx_function;
+	 public GMessage gmessage_clock_settings;
+
+	 public GLOBAL_CCU4_GUI(DaveEnv daveEnv){
+
+	 gtab_general_settings = GTab(widgetName:"gtab_general_settings", text:"General Settings", enabled:true, visible:true)
+	 gcombo_mc_shadow_tx_function = GCombo(widgetName:"gcombo_mc_shadow_tx_function", options:["Period and Compare","Period, Compare and Prescaler","Period, Compare, Prescaler and Dither"], value:"Period and Compare", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_clkFreq = GFloat(widgetName:"gfloat_clkFreq", value:0.0, minValue:0.125, maxValue:144, enabled:false, visible:true, isMandatoryValue:false)
+	 glabel_mc_shadow_tx_function = GLabel(widgetName:"glabel_mc_shadow_tx_function", text:"Multi channel mode shadow transfer:", enabled:true, visible:true)
+	 gmessage_clock_settings = GMessage(widgetName:"gmessage_clock_settings", text:"CCU Clock is not enabled in the \"Clock Selection Settings\" tab of CLOCK_XMC4 APP. Enable the same to continue.", isError:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

@@ -27,18 +27,18 @@
 # Segment configuration - section reserved for STVD
 #<BEGIN SEGMENT_CONF>
 # Segment Code,Constants:
-+seg .const -b 0x8080 -m 0x7f80  -n .const -it 
-+seg .text -a .const  -n .text 
++seg .const -b 0x8080 -m 0x1f80 -n .const -it 
++seg .text -a .const -n .text 
 # Segment Eeprom:
-+seg .eeprom -b 0x4000 -m 0x80  -n .eeprom 
++seg .eeprom -b 0x4000 -m 0x80 -n .eeprom 
 # Segment Zero Page:
-+seg .bsct -b 0x0 -m 0x100  -n .bsct 
-+seg .ubsct -a .bsct  -n .ubsct 
-+seg .bit -a .ubsct  -n .bit -id 
-+seg .share -a .bit  -n .share -is 
++seg .bsct -b 0x0 -m 0x100 -n .bsct 
++seg .ubsct -a .bsct -n .ubsct 
++seg .bit -a .ubsct -n .bit -id 
++seg .share -a .bit -n .share -is 
 # Segment Ram:
-+seg .data -b 0x100 -m 0x500  -n .data 
-+seg .bss -a .data  -n .bss 
++seg .data -b 0x100 -m 0x100 -n .data 
++seg .bss -a .data -n .bss
 #<END SEGMENT_CONF>
 
 
@@ -50,8 +50,22 @@ crtsi0.sm8
 
 # Object files list - section reserved for STVD
 #<BEGIN OBJECT_FILES>
+Release\stm8s_adc1.o
+Release\stm8s_awu.o
+Release\stm8s_beep.o
 Release\stm8s_clk.o
+Release\stm8s_exti.o
+Release\stm8s_flash.o
 Release\stm8s_gpio.o
+Release\stm8s_i2c.o
+Release\stm8s_itc.o
+Release\stm8s_iwdg.o
+Release\stm8s_rst.o
+Release\stm8s_spi.o
+Release\stm8s_tim1.o
+Release\stm8s_tim2.o
+Release\stm8s_tim4.o
+Release\stm8s_wwdg.o
 Release\main.o
 #<END OBJECT_FILES>
 
@@ -74,6 +88,6 @@ Release\stm8_interrupt_vector.o
 +def __endzp=@.ubsct			# end of uninitialized zpage
 +def __memory=@.bss				# end of bss segment
 +def __startmem=@.bss
-+def __endmem=0x5ff
-+def __stack=0x7ff
++def __endmem=0x1ff
++def __stack=0x3ff
 #<END DEFINED_VARIABLES>

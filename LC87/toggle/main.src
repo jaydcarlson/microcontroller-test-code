@@ -1,0 +1,71 @@
+; TASKING LC87K compiler (DEMO) v3.2r2 Build 213 SN 00000000 
+; options: -CLC87K -OaBcdefhiLrsUv -g -A1 -w555 -s -Ms 
+;          -Ic:\program files (x86)\tasking\dlc87 v3.2r2\include 
+$CASE ON
+$MODEL S
+
+	NAME	"MAIN"
+	SYMB	TOOL, "TASKING LC87K compiler (DEMO) (213)", 1
+	SYMB	TYPE, 256, "bit", 'g', 0, 1
+	SYMB	FILE, "main.c"
+
+; 1    |#include "c87.h"
+ 	SYMB	FILE, "c:\\program files (x86)\\tasking\\dlc87 v3.2r2\\include\\c87.h"
+	SYMB	ENDF
+; 2    |#include "Lc87f1m.sfr"
+ 	SYMB	FILE, "c:\\program files (x86)\\tasking\\dlc87 v3.2r2\\include\\Lc87f1m.sfr"
+	SYMB	ENDF
+; 3    |
+ ; 4    |void main()
+ ; 5    |{
+ 
+	DEFSECT	".text", CODE
+	SECT	".text"
+	SYMB	LINE, 5
+	DEFSECT	".rmax0", DATA, REG, MAX AT 00H
+	SECT	".rmax0"
+	DS	2
+	GLOBAL	_main
+	SECT	".text"
+_main:
+
+	SYMB	TYPE, 257, 'X', 8, #1, 2, -1
+	SYMB	GFUN, "main", _main, #257, 0, 0, 0, 0, 0
+	SYMB	ALAB, _main, #257
+
+; 6    |   _P0DDR = 0xFF;
+ 	SYMB	LINE, 6
+
+	MOV	#0ffh,0fe41H
+
+; 7    |   _OCR = 0x90; // enable main clock and divide-by-1
+ 	SYMB	LINE, 7
+
+	MOV	#090h,0fe0eH
+
+; 8    |   while(1) {
+ 	SYMB	LINE, 8
+
+L5:
+
+; 9    |    _P0 ^= 1;
+ 	SYMB	LINE, 9
+
+	LD	0fe40H
+	PUSH	#01h
+	FXOR	
+	ST	0fe40H
+	SYMB	LINE, 8
+	BR	L5
+
+; 10   |   }	
+ ; 11   |}
+ 	SYMB	LINE, 11
+
+	RET	
+	CALLS	'main', '', 0
+	SYMB	EFUN
+	SYMB	ENDF
+
+	EXTERN	(CODE) __START
+	END

@@ -3,14 +3,14 @@
 #include <stdint.h>
 
 // let's not penalize the MCU by putting the data in XRAM
-#define BIQUAD_NUM_SAMPLES	25
-volatile int16_t in[BIQUAD_NUM_SAMPLES];
-volatile int16_t out[BIQUAD_NUM_SAMPLES];
+//#define BIQUAD_NUM_SAMPLES	25
+//volatile int16_t in[BIQUAD_NUM_SAMPLES];
+//volatile int16_t out[BIQUAD_NUM_SAMPLES];
 
 // let's process the full 64-byte chunks
-//#define BIQUAD_NUM_SAMPLES	64
-//xdata volatile int16_t in[BIQUAD_NUM_SAMPLES];
-//xdata volatile int16_t out[BIQUAD_NUM_SAMPLES];
+#define BIQUAD_NUM_SAMPLES	64
+xdata volatile int16_t in[BIQUAD_NUM_SAMPLES];
+xdata volatile int16_t out[BIQUAD_NUM_SAMPLES];
 
 const int16_t a0 = 16384;
 const int16_t a1 = -32768;

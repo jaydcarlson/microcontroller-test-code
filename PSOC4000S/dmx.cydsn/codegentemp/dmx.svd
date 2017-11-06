@@ -1,0 +1,4334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<device schemaVersion="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_0.xsd">
+  <name>CY8C4045AZI_S413</name>
+  <version>0.1</version>
+  <description>PSoC 4000S</description>
+  <addressUnitBits>8</addressUnitBits>
+  <width>32</width>
+  <peripherals>
+    <peripheral>
+      <name>ADC_1</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>GROUP_CSDV2_CONFIG</name>
+          <description>Configuration and Control</description>
+          <addressOffset>0x400B0000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>FILTER_DELAY</name>
+              <description>This value determines the number of cycles that the digital filter makes the CSDCMP output ignored while the counter counts and IDAC is on. ?When set to 0 the digital filter is off. When set to any other value the ignoring will last for FILTER_DELAY clk_csd cycles after the start of each measurement and from the first comparator trip to the end of each measurement.</description>
+              <lsb>4</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SHIELD_DELAY</name>
+              <description>Selects the delay by which csd_shield is delayed relative to csd_sense.</description>
+              <lsb>8</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>Delay line is off, csd_shield=csd_sense</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>D5NS</name>
+                  <description>Introduces a 5ns delay (typ)</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>D10NS</name>
+                  <description>Introduces a 10ns delay (typ)</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>D20NS</name>
+                  <description>Introduces a 20ns delay (typ)</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>SENSE_EN</name>
+              <description>Enables the sense modulator output. ?0: all switches, static or dynamic, are open and IDAC in CSD mode is off?1: switches and IDAC can be closed/on as per MMIO setting and CSD sequencer.</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CHARGE_MODE</name>
+              <description>Enable charging of the Cmod/Csh_tank capacitor using the GPIO digital output buffer using the csd_charge signal.  Note that using the GPIO requires proper configuraiton of the GPIO pin.</description>
+              <lsb>14</lsb>
+              <msb>14</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>CHARGE_OFF</name>
+                  <description>Use this to keep csd_charge signal low. For charging Cmod/Csh_tank capacitor CSD internal switches (HCBV) can be used but that is a separate configuration.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CHARGE_IO</name>
+                  <description>Use csd_charge to enable the GPIO Driver to charge capacitor.  The capacitor must be  sensed with HSCMP using the appropriate switches (HMPM or HMPT).</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>MUTUAL_CAP</name>
+              <description>Enables mutual cap sensing mode</description>
+              <lsb>18</lsb>
+              <msb>18</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SELFCAP</name>
+                  <description>Self-cap mode (configure sense line as CSD_SENSE)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>MUTUALCAP</name>
+                  <description>Mutual-cap mode (configure Tx line as CSD_SENSE, inverted Tx line as CSD_SHIELD and Rx Line as AMUXA). In this mode the polarity bit of the IDAC is controlled by csd_sense.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CSX_DUAL_CNT</name>
+              <description>Enable the use of two counters for MUTUAL cap sensing mode (CSX), do not use when MUTUAL_CAP=0</description>
+              <lsb>19</lsb>
+              <msb>19</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ONE</name>
+                  <description>Use one counter for both phases (source and sink).</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>TWO</name>
+                  <description>Use two counters, separate count for when csd_sense is high and when csd_sense is low.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DSI_COUNT_SEL</name>
+              <description>Select what to output  on the dsi_count bus.</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>CSD_RESULT</name>
+                  <description>depending on the dsi_count_val_sel input either output  RESULT_VAL1.VALUE (0) or RESULT_VAL2.VALUE (1) on the dsi_count bus. Note that dsi_count_val_sel is not synchronized, i.e. it controls the mux combinatorially.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ADC_RESULT</name>
+                  <description>output ADC_RES.VIN_CNT on the dsi_count bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DSI_SAMPLE_EN</name>
+              <description>Enables the use of the dsi_sample_in input instead of the comparator output to strobe COUNTER.</description>
+              <lsb>25</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SAMPLE_SYNC</name>
+              <description>Enables double synchronizing of sample input from DSI (only relevant when DSI_SAMPLE_EN=1).</description>
+              <lsb>26</lsb>
+              <msb>26</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DSI_SENSE_EN</name>
+              <description>Enables the use of the dsi_sense_in input instead of the internally generated modulation signal to drive csd_sense and csd_shield signals.</description>
+              <lsb>27</lsb>
+              <msb>27</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LP_MODE</name>
+              <description>Select the power mode for the CSD components (REFGEN, AMBUF, CSDCMP, HSCMP):?0: High Power mode?1: Low Power mode</description>
+              <lsb>30</lsb>
+              <msb>30</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ENABLE</name>
+              <description>Master enable of the CSDv2 IP.  Must be set to 1 for any CSDv2, ADC or IDAC operation to function.?When 0 all analog components will be off and all switches will be open.</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SPARE</name>
+          <description>Spare MMIO</description>
+          <addressOffset>0x400B0004</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SPARE</name>
+              <description>Spare MMIO</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_STATUS</name>
+          <description>Status Register</description>
+          <addressOffset>0x400B0080</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CSD_CHARGE</name>
+              <description>Qualified, and possible inverted value of COMP_OUT that is used to drive GPIO's charging Cmod or Csh_tank.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>CSD_SENSE</name>
+              <description>Signal used to drive the Cs switches.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>HSCMP_OUT</name>
+              <description>Output of reference buffer comparator used to charge up Cmod and/or Csh_tank (synchronized)</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>C_LT_VREF</name>
+                  <description>Vin &lt; Vref</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>C_GT_VREF</name>
+                  <description>Vin &gt; Vref</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CSDCMP_OUT</name>
+              <description>Output of main sensing comparator (synchronized)</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_STAT_SEQ</name>
+          <description>Current Sequencer status</description>
+          <addressOffset>0x400B0084</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SEQ_STATE</name>
+              <description>CSD sequencer state</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>ADC_STATE</name>
+              <description>ADC sequencer state (only relevant after SEQ_STATE has reached SAMPLE_NORM and ADC sequencer has started)</description>
+              <lsb>16</lsb>
+              <msb>18</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_STAT_CNTS</name>
+          <description>Current status counts</description>
+          <addressOffset>0x400B0088</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>NUM_CONV</name>
+              <description>Current number of conversions remaining when in Sample_* states (note that in AutoZero* states the same down counter is reused to count the cycles)</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_RESULT_VAL1</name>
+          <description>Result CSD/CSX accumulation counter value 1</description>
+          <addressOffset>0x400B00D0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>VALUE</name>
+              <description>Accumulated counter value for this result. In case of Mutual cap with two counters (CSX = config.mutual_cap &amp; config.csx_dual_cnt) this counter counts when csd_sense is high.</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>BAD_CONVS</name>
+              <description>Number of 'bad' conversion for which the CSD comparator did not trigger within the normal time window, either because Vref was not crossed at all, or if the Vref was already crossed before the window started. This counter is reset when the sequencer is started and will saturate at 255 when more than 255 conversions are bad.</description>
+              <lsb>16</lsb>
+              <msb>23</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_RESULT_VAL2</name>
+          <description>Result CSX accumulation counter value 2</description>
+          <addressOffset>0x400B00D4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>VALUE</name>
+              <description>Only used in case of Mutual cap with two counters (CSX = config.mutual_cap &amp; config.csx_dual_cnt), this counter counts when csd_sense is low.</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_ADC_RES</name>
+          <description>ADC measurement</description>
+          <addressOffset>0x400B00E0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>VIN_CNT</name>
+              <description>Count to source/sink Cref1 + Cref2 from Vin to Vrefhi. This is also the current counter value for the HSCMP counter</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>HSCMP_POL</name>
+              <description>Polarity used for IDACB for this last ADC result, 0= source, 1= sink</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>ADC_OVERFLOW</name>
+              <description>This flag is set when the ADC counter overflows. This is an indication to the firmware that the IDACB current level is too low.</description>
+              <lsb>30</lsb>
+              <msb>30</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>ADC_ABORT</name>
+              <description>This flag is set when the ADC sequencer was aborted before tripping HSCMP.</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_INTR</name>
+          <description>CSD Interrupt Request Register</description>
+          <addressOffset>0x400B00F0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SAMPLE</name>
+              <description>A normal sample is complete (CSDv1 compatible interrupt)</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>INIT</name>
+              <description>Coarse initialization complete or Sample initialization complete (the latter is typically ignored)</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ADC_RES</name>
+              <description>ADC Result ready</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_INTR_SET</name>
+          <description>CSD Interrupt set register</description>
+          <addressOffset>0x400B00F4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SAMPLE</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>INIT</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ADC_RES</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_INTR_MASK</name>
+          <description>CSD Interrupt mask register</description>
+          <addressOffset>0x400B00F8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SAMPLE</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>INIT</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ADC_RES</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_INTR_MASKED</name>
+          <description>CSD Interrupt masked register</description>
+          <addressOffset>0x400B00FC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SAMPLE</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>INIT</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>ADC_RES</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_HSCMP</name>
+          <description>High Speed Comparator configuration</description>
+          <addressOffset>0x400B0180</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HSCMP_EN</name>
+              <description>High Speed Comparator enable</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>Disable comparator, output is zero</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ON</name>
+                  <description>On, regular operation. Note that CONFIG.LP_MODE determines the power mode level</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>HSCMP_INVERT</name>
+              <description>Invert the HSCMP output before it is used to control switches and the CSD sequencer. This bit does not affect the ADC sequencer or the STATUS.HSCMP_OUT</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AZ_EN</name>
+              <description>Auto-Zero enable, allow the Sequencer to Auto-Zero this component</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_AMBUF</name>
+          <description>Reference Generator configuration</description>
+          <addressOffset>0x400B0184</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>PWR_MODE</name>
+              <description>Amux buffer power level</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>Disable buffer</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>NORM</name>
+                  <description>On, normal or low power level depending on CONFIG.LP_MODE.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HI</name>
+                  <description>On, high or low power level depending on CONFIG.LP_MODE.</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_REFGEN</name>
+          <description>Reference Generator configuration</description>
+          <addressOffset>0x400B0188</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>REFGEN_EN</name>
+              <description>Reference Generator Enable</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>Disable Reference Generator</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ON</name>
+                  <description>On, regular operation. Note that CONFIG.LP_MODE determines the power mode level</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>BYPASS</name>
+              <description>Bypass selected input reference unbuffered to Vrefhi</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>VDDA_EN</name>
+              <description>Close Vdda switch to top of resistor string (or Vrefhi?)</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RES_EN</name>
+              <description>Resistor string enable; 0= open switch on top of the resistor string (Vreflo=Vssa)</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>GAIN</name>
+              <description>Select resistor string tap for feedback, 0= minimum vout, 31= maximum vout = vrefhi -&gt; gain=1  (only works if the resistor string is enabled; RES_EN=1)</description>
+              <lsb>8</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>VREFLO_SEL</name>
+              <description>Select resistor string tap for Vreflo/Vreflo_int, 0= minimum vout, 31= maximum vout = vrefhi (only works if the resistor string is enabled; RES_EN=1)</description>
+              <lsb>16</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>VREFLO_INT</name>
+              <description>Ouput the resistor string tap either to Vreflo (0) or Vreflo_int (1).</description>
+              <lsb>23</lsb>
+              <msb>23</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_CSDCMP</name>
+          <description>CSD Comparator configuration</description>
+          <addressOffset>0x400B018C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CSDCMP_EN</name>
+              <description>CSD Comparator Enable</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>Disable comparator, output is zero</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ON</name>
+                  <description>On, regular operation. Note that CONFIG.LP_MODE determines the power mode level</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>POLARITY_SEL</name>
+              <description>Select which IDAC polarity to use to detect CSDCMP triggering</description>
+              <lsb>4</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>IDACA_POL</name>
+                  <description>Use idaca_pol (firmware setting with CSX and optionally DSI mixed in) to determine the direction, this is the most common use-case, used for normal CSD and normal CSX</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IDACB_POL</name>
+                  <description>Use idacb_pol (firmware setting with optional DSI mixed in) to determine the direction, this is only used for normal CSD if IDACB is used i.s.o. IDACA (not common)</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DUAL_POL</name>
+                  <description>Use the expression (csd_sense ? idaca_pol : idacb_pol)  to determine the direction, this is only useful for the CSX with DUAL_IDAC use-case</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CMP_PHASE</name>
+              <description>Select in what phase(s) the comparator is active. Note, this also determines when a bad conversion is detected, namely at the beginning and end of the comparator active phase (also taking into account FILTER_DELAY and non-overlap).</description>
+              <lsb>8</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>FULL</name>
+                  <description>Comparator is active from start of Phi2 and kept active into Phi1. Intended usage: legacy CSD for balancing over a full csd_sense period (non-overlap should be turned off)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI1</name>
+                  <description>Comparator is active during Phi1 only. Currently no known use-case.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI2</name>
+                  <description>Comparator is active during Phi2 only. Intended usage: CSD Low EMI.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI1_2</name>
+                  <description>Comparator is activated at the start of both Phi1 and Phi2 (non-overlap should be enabled). Intended usage: CSX, or Full-Wave.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CMP_MODE</name>
+              <description>Select which signal to output on dsi_sample_out.</description>
+              <lsb>28</lsb>
+              <msb>28</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>CSD</name>
+                  <description>CSD mode: output the filtered sample signal on dsi_sample_out</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>GP</name>
+                  <description>General Purpose mode: output the unfiltered sample unfiltered comparator output, either asynchronous or flopped.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FEEDBACK_MODE</name>
+              <description>This bit controls whether the output directly from the comparator (csdcmp_out) or the flopped version (csdcmp_out_ff) is used. For CSD operation, the selected signal controls the IDAC(s), in GP mode the signal goes out on dsi_sample_out.</description>
+              <lsb>29</lsb>
+              <msb>29</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>FLOP</name>
+                  <description>Use feedback from sampling flip-flop (used in most modes).</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>COMP</name>
+                  <description>Use feedback from comparator directly (used in single Cmod mutual cap sensing only)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>AZ_EN</name>
+              <description>Auto-Zero enable, allow the Sequencer to Auto-Zero this component</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_IDACA</name>
+          <description>IDACA Configuration</description>
+          <addressOffset>0x400B01C0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>VAL</name>
+              <description>Current value setting for this IDAC (7 bits).</description>
+              <lsb>0</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>POL_DYN</name>
+              <description>Polarity is dynamic, this bit does not influence the logic in the SoftIP, it only goes to the HardIP.</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STATIC</name>
+                  <description>Static polarity. Polarity is expected to be stable, so to save power this avoids the shunting of the unused polarity, at the expense of response time.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DYNAMIC</name>
+                  <description>Dynamic polarity. Polarity is expected to change frequently (e.g. invert after every csd_sense phase), so to improve response time this keeps the shunt of the unused polarity on at the expense of power.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>POLARITY</name>
+              <description>Selects the polarity of the IDAC (sensing operation). Normally the actual polarity depends on this bit, optionally mixed with DSI (see DSI_CTRL_EN) and if LEG1_MODE==CSD also mixed with the CSD configuration and operation. However in mutual cap mode with one IDAC (config.mutual_cap=1 &amp; config.csx_dual_idac=0) the polarity of the IDAC is controlled by csd_sense.</description>
+              <lsb>8</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>VSSA_SRC</name>
+                  <description>Normal: switch between Vssa and Cmod.  For non-CSD application, IDAC will source current.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>VDDA_SNK</name>
+                  <description>Inverted: switch between Vdda and Cmod. For non-CSD application, IDAC will sink current.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SENSE</name>
+                  <description>The polarity of the IDAC will follow the csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SENSE_INV</name>
+                  <description>The polarity of the IDAC will follow the inverted csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>BAL_MODE</name>
+              <description>Balancing mode: only applies to legs configured as CSD.</description>
+              <lsb>10</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>FULL</name>
+                  <description>enabled from start of Phi2 until disabled by CSDCMP. Intended usage: legacy CSD for balancing over a full csd_sense period (non-overlap should be turned off)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI1</name>
+                  <description>enabled from start of Phi1 and disabled by CSDCMP or at end of Phi1. Enables dual IDAC CSX or Full-Wave, one for sourcing and the other for sinking.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI2</name>
+                  <description>enabled from start of Phi2 and disabled by CSDCMP or at end of Phi2. Intended usage: CSD Low EMI or  dual IDAC CSX or Full-Wave.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI1_2</name>
+                  <description>enabled from start of both Phi1 and Phi2 and disabled by CSDCMP or at end of Phi1 or Phi2 (if non-overlap enabled). Intended usage: single IDAC CSX, or Full-Wave.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEG1_MODE</name>
+              <description>Controls the usage mode of LEG1 and the Polarity bit</description>
+              <lsb>16</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>GP_STATIC</name>
+                  <description>General Purpose static mode: LEG1 and POLARITY are controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN). No shunting is used, this saves power when off but also any on/off switching will take longer.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>GP</name>
+                  <description>General Purpose dynamic mode: LEG1 and POLARITY are controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD_STATIC</name>
+                  <description>CSD static mode: LEG1 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In those states LEG1 is controlled by LEG1_EN, csd_sense and the CSD configuration. Polarity is controlled by the CSD configuration and operation. In addition leg1 enable and polarity can optionally be mixed with DSI (see DSI_CTRL_EN). No shunting is used, this saves power when off but also any on/off switching will take longer.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD</name>
+                  <description>CSD dynamic mode: LEG1 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In thoses states LEG1 is controlled by LEG1_EN, the CSD configuration, csd_sense and the flopped CSDCMP output (CSDCMP_OUT_FF). Polarity is controlled by the CSD configuration and operation. In addition leg1 enable and polarity can optionally be mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEG2_MODE</name>
+              <description>Controls the usage mode of LEG2</description>
+              <lsb>18</lsb>
+              <msb>19</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>GP_STATIC</name>
+                  <description>General Purpose static mode: LEG2 is controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN).  No shunting is used, this saves power when off but also any on/off switching will take longer.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>GP</name>
+                  <description>General Purpose dynamic mode: LEG2 is controlled by MMIO and optionally mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD_STATIC</name>
+                  <description>CSD static mode: LEG2 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In those states LEG2 is controlled by LEG2_EN, csd_sense and the CSD configuration. Polarity is controlled by the CSD configuration and operation. In addition leg2 enable and polarity can optionally be mixed with DSI (see DSI_CTRL_EN). No shunting is used, this saves power when off but also any on/off switching will take longer.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD</name>
+                  <description>CSD dynamic mode: LEG2 can only be on when the CSD Sequencer is in the Sample_init or Sample_norm state. In those states LEG2 is controlled by LEG2_EN, the CSD configuration, csd_sense and the flopped CSDCMP output (CSDCMP_OUT_FF). In addition leg2 enable can optionally be mixed with DSI (see DSI_CTRL_EN). Shunting is used, so on/off switching is faster, but power is wasted when the leg is disabled.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DSI_CTRL_EN</name>
+              <description>Mix DSI inputs with MMIO controls or not (before getting mixed with CSD controls if enabled).?0: no DSI control ?     IDACA_POLARITY = IDACA.POLARITY ?     IDACA_LEG1_EN =  IDACA.LEG1_EN ?     IDACA_LEG2_EN = IDACA.LEG2_EN   ?1: Mix MMIO with DSI control?     IDACA_POLARITY = IDACA.POLARITY EXOR dsi_idaca_pol?     IDACA_LEG1_EN =  IDACA.LEG1_EN AND dsi_idaca_leg1_en ?     IDACA_LEG2_EN = IDACA.LEG2_EN AND dsi_idaca_leg2_en</description>
+              <lsb>21</lsb>
+              <msb>21</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RANGE</name>
+              <description>IDAC multiplier</description>
+              <lsb>22</lsb>
+              <msb>23</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>IDAC_LO</name>
+                  <description>1 LSB =   37.5 nA</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IDAC_MED</name>
+                  <description>1 LSB =  300 nA</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IDAC_HI</name>
+                  <description>1 LSB = 2400 nA</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEG1_EN</name>
+              <description>output enable for leg 1 to CSDBUSA</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LEG2_EN</name>
+              <description>output enable for leg 2 to CSDBUSA</description>
+              <lsb>25</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_IDACB</name>
+          <description>IDACB Configuration</description>
+          <addressOffset>0x400B01C4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>VAL</name>
+              <description>Current value setting for this IDAC (7 bits).</description>
+              <lsb>0</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>POL_DYN</name>
+              <description>Polarity is dynamic, this bit does not influence the logic in the SoftIP, it only goes to the HardIP.</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STATIC</name>
+                  <description>Static polarity. Polarity is expected to be stable, so to save power this avoids the shunting of the unused polarity, at the expense of response time.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DYNAMIC</name>
+                  <description>Dynamic polarity. Polarity is expected to change frequently (e.g. invert after every csd_sense phase), so to improve response time this keeps the shunt of the unused polarity on at the expense of power.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>POLARITY</name>
+              <description>Selects the polarity of the IDAC (sensing operation). Normally the actual polarity depends on this bit, optionally mixed with DSI (see DSI_CTRL_EN) and if LEG1_EN==1 and LEG1_MODE==CSD also mixed with the CSD configuration and operation. In mutual cap mode however (see config.mutual_cap) the polarity of the IDAC is controlled by csd_sense. If LEG3_EN=1 (the other two legs must be off) then the ADC sequencer controls the IDACB polarity, optionally mixed with DSI.</description>
+              <lsb>8</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>VSSA_SRC</name>
+                  <description>Normal: switch between Vssa and Cmod.  For non-CSD application, IDAC will source current.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>VDDA_SNK</name>
+                  <description>Inverted: switch between Vdda and Cmod. For non-CSD application, IDAC will sink current.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SENSE</name>
+                  <description>The polarity of the IDAC will follow the csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SENSE_INV</name>
+                  <description>The polarity of the IDAC will follow the inverted csd_sense signal (POL_DYN bit should be set too). The intended usage is for CSX using a single IDAC.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>BAL_MODE</name>
+              <description>same as corresponding IDACA Balancing mode</description>
+              <lsb>10</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>FULL</name>
+                  <description>same as corresponding IDACA Balancing mode</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI1</name>
+                  <description>same as corresponding IDACA Balancing mode</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI2</name>
+                  <description>same as corresponding IDACA Balancing mode</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>PHI1_2</name>
+                  <description>same as corresponding IDACA Balancing mode</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEG1_MODE</name>
+              <description>Controls the usage mode of LEG1 and the Polarity bit</description>
+              <lsb>16</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>GP_STATIC</name>
+                  <description>same as corresponding IDACA.LEG1_MODE</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>GP</name>
+                  <description>same as corresponding IDACA.LEG1_MODE</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD_STATIC</name>
+                  <description>same as corresponding IDACA.LEG1_MODE</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD</name>
+                  <description>same as corresponding IDACA.LEG1_MODE</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEG2_MODE</name>
+              <description>Controls the usage mode of LEG2</description>
+              <lsb>18</lsb>
+              <msb>19</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>GP_STATIC</name>
+                  <description>same as corresponding IDACA.LEG2_MODE</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>GP</name>
+                  <description>same as corresponding IDACA.LEG2_MODE</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD_STATIC</name>
+                  <description>same as corresponding IDACA.LEG2_MODE</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CSD</name>
+                  <description>same as corresponding IDACA.LEG2_MODE</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DSI_CTRL_EN</name>
+              <description>Mix DSI inputs with MMIO controls or not (before getting mixed with CSD controls if enabled)?0: no DSI control?     IDACB_POLARITY = IDACB.POLARITY ?     IDACB_LEG1_EN =  IDACB.LEG1_EN ?     IDACB_LEG2_EN = IDACB.LEG2_EN   ?     IDACB_LEG3_EN = IDACB.LEG3_EN   ?1: Mix MMIO with DSI control?     IDACB_POLARITY = IDACB.POLARITY EXOR dsi_idacb_pol?     IDACB_LEG1_EN =  IDACB.LEG1_EN AND dsi_idacb_leg1_en ?     IDACB_LEG2_EN = IDACB.LEG2_EN AND dsi_idacb_leg2_en  ?     IDACB_LEG3_EN = IDACB.LEG3_EN AND dsi_idacb_leg3_en</description>
+              <lsb>21</lsb>
+              <msb>21</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RANGE</name>
+              <description>IDAC multiplier</description>
+              <lsb>22</lsb>
+              <msb>23</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>IDAC_LO</name>
+                  <description>1 LSB =   37.5 nA</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IDAC_MED</name>
+                  <description>1 LSB =  300 nA</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>IDAC_HI</name>
+                  <description>1 LSB = 2400 nA</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LEG1_EN</name>
+              <description>output enable for leg 1 to CSDBUSB or CSDBUSA</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LEG2_EN</name>
+              <description>output enable for leg 2 to CSDBUSB or CSDBUSA</description>
+              <lsb>25</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LEG3_EN</name>
+              <description>output enable for leg3 to CSDBUSC, only allowed when RANGE = IDAC_LO. When this bit is set both other legs should be off.?Note that leg3 can only be used for ADC mode, not GP mode. Which means that leg3 can only be on when the ADC Sequencer is in the ADC_measure or Calib_measure state. In those states  leg3 is controlled by the ADC configuration and the HSCMP output. In addition this leg3 enable bit can optionally be mixed with DSI (see DSI_CTRL_EN).?When LEG3_EN=1 also the IDACB polarity is controlled by the ADC sequencer.</description>
+              <lsb>26</lsb>
+              <msb>26</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SENSE_PERIOD</name>
+          <description>Sense clock period</description>
+          <addressOffset>0x400B0200</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SENSE_DIV</name>
+              <description>The length-1 of the Sense modulation 'clock' period in clk_csd cycles. For regular CSD one sense clock cycle = one conversion (=phi1+phi2) .?Note this is the base divider, clock dithering may change the actual period length.?Note that SENSE_DIV must be at least 1 and additionally also allow for one clk_hf of non overlap on both phases, i.e. if clk_csd=clk_hf then SENSE_DIV must be &gt;=3.</description>
+              <lsb>0</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LFSR_SIZE</name>
+              <description>Selects the number of bits to be used in the LSFR to provide the clock dithering variation on the base period (was PRS in CSDv1). Whenever the LFSR is used (non zero value in this field) the LFSR_CLEAR bit should also be set.</description>
+              <lsb>16</lsb>
+              <msb>18</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>Don't use clock dithering (=spreadspectrum) (LFSR output value is zero)</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Cy2B</name>
+                  <description>2-bit LFSR (G(x)=X^2+X+1, period= 3), range [-1, 1]</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Cy3B</name>
+                  <description>3-bit LFSR (G(x)=X^3+X+1, period= 7), range [-3, 3]</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Cy4B</name>
+                  <description>4-bit LFSR (G(x)=X^4+X+1, period= 15), range [-7, 7]</description>
+                  <value>3</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Cy5B</name>
+                  <description>5-bit LFSR (G(x)=X^5+X^2+1, period= 31), range [-15, 15]</description>
+                  <value>4</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Cy8B</name>
+                  <description>8-bit LFSR (G(x)=X^8+X^4+X^3+X^2+1, period= 255)</description>
+                  <value>5</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Cy12B</name>
+                  <description>12-bit LFSR (G(x)=X^12+X^9+X^3+X^2+1, period=4095)</description>
+                  <value>6</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>LFSR_SCALE</name>
+              <description>Shift the LFSR output left by LSFR_SCALE bits before adding to SENSE_DIV. This dithering is disabled when SEL_LSFR_MSB is set.?The clock divider to be used = (SENSE_DIV+1) + (SEL_LSFR_MSB ? 0 : (LFSR_OUT&lt;&lt;LFSR_SCALE)).?Note that the clock divider including the dithering term must fit in 12 bits, otherwise the result is undefined.</description>
+              <lsb>20</lsb>
+              <msb>23</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LFSR_CLEAR</name>
+              <description>When set, forces the LFSR to it's initial state (all ones).  This bit is automatically cleared by hardware after the LFSR is cleared, which is at the next clk_csd positive edge. This bit should be set whenever this register is written and the LFSR is used.?Note that the LFSR will also get reset to all ones during the AutoZero_1/2 states.</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SEL_LFSR_MSB</name>
+              <description>Use the MSB of configured LSFR size as csd_sense signal. Intended to be used only with bit 8 or 12-bit LFSR size for CSDv1 backward compatibility (PRS). When this bit is set then clock divider dithering is disabled.</description>
+              <lsb>25</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SENSE_DUTY</name>
+          <description>Sense clock duty cycle</description>
+          <addressOffset>0x400B0204</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SENSE_WIDTH</name>
+              <description>Defines the length of the first phase of the sense clock in clk_csd cycles. ?A value of 0 disables this feature and the duty cycle of csd_sense will be 50%, which is equal to SENSE_WIDTH = (SENSE_DIV+1)/2, or when clock dithering is used that becomes [(SENSE_DIV+1) + (LFSR_OUT &lt;&lt; LSFR_SCALE)]/2.  At all times it must be assured that the phases are at least 2 clk_csd cycles (1 for non overlap), if this rule is violated the result is undefined.</description>
+              <lsb>0</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SENSE_POL</name>
+              <description>Polarity of the sense clock?0 = start with low phase (typical for regular negative transfer CSD)?1 = start with high phase</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERLAP_PHI1</name>
+              <description>NonOverlap or not for Phi1 (csd_sense=0).?0 = Non-overlap for Phi1, the Phi1 signal is  csd_sense inverted except that the signal goes low 1 clk_sample before csd_sense goes high. Intended usage: new low EMI CSD/CSX with static GPIO.?1 = 'Overlap' (= not non-overlap) for Phi1, the Phi1 signal is  csd_sense inverted. Intended usage: legacy CSD with GPIO switching, the GPIO internal circuit ensures that the switches are non-overlapping.</description>
+              <lsb>18</lsb>
+              <msb>18</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERLAP_PHI2</name>
+              <description>Same as OVERLAP_PHI1 but for Phi2 (csd_sense=1).</description>
+              <lsb>19</lsb>
+              <msb>19</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_HS_P_SEL</name>
+          <description>HSCMP Pos input switch Waveform selection</description>
+          <addressOffset>0x400B0280</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_HMPM</name>
+              <description>Set HMPM switch?0: static open?1: static closed</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMPT</name>
+              <description>Set corresponding switch</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMPS</name>
+              <description>Set corresponding switch</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMMA</name>
+              <description>Set corresponding switch</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMMB</name>
+              <description>Set corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMCA</name>
+              <description>Set corresponding switch</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMCB</name>
+              <description>Set corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HMRH</name>
+              <description>Set corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>28</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_HS_N_SEL</name>
+          <description>HSCMP Neg input switch Waveform selection</description>
+          <addressOffset>0x400B0284</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_HCCC</name>
+              <description>Set corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCCD</name>
+              <description>Set corresponding switch</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCRH</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>26</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCRL</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>30</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_SHIELD_SEL</name>
+          <description>Shielding switches Waveform selection</description>
+          <addressOffset>0x400B0288</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_HCAV</name>
+              <description>Select waveform for HMPM switch?0: static open?1: static closed?2: phi1?3: phi2?4: phi1 &amp; HSCMP?5: phi2 &amp; HSCMP?6: HSCMP (ignores phi1/2)?7: Reserved</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCAG</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>4</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCBV</name>
+              <description>Select waveform for corresponding switch. Note that the waveform for this switch follows the csd_shield signal, i.e. phi1 and phi2 are always delayed by 1 clk_hf cycle w.r.t. the csd_sense phases used for all other switches.</description>
+              <lsb>8</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCBG</name>
+              <description>Select waveform for corresponding switch. Note that the waveform for this switch follows the csd_shield signal, i.e. phi1 and phi2 are always delayed by 1 clk_hf cycle w.r.t. the csd_sense phases used for all other switches.</description>
+              <lsb>12</lsb>
+              <msb>14</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCCV</name>
+              <description>Set corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_HCCG</name>
+              <description>Set corresponding switch?If the ADC is enabled then this switch is directly controlled by the ADC sequencer.</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_AMUXBUF_SEL</name>
+          <description>Amuxbuffer switches Waveform selection</description>
+          <addressOffset>0x400B0290</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_IRBY</name>
+              <description>Set corresponding switch</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_IRLB</name>
+              <description>Set corresponding switch</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_ICA</name>
+              <description>Set corresponding switch</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_ICB</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>18</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_IRLI</name>
+              <description>Set corresponding switch</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_IRH</name>
+              <description>Set corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_IRL</name>
+              <description>Set corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>28</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_BYP_SEL</name>
+          <description>AMUXBUS bypass switches Waveform selection</description>
+          <addressOffset>0x400B0294</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_BYA</name>
+              <description>Set corresponding switch</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_BYB</name>
+              <description>Set corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_CBCC</name>
+              <description>Set corresponding switch?If the ADC is enabled then this switch is directly controlled by the ADC sequencer.</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_CMP_P_SEL</name>
+          <description>CSDCMP Pos Switch Waveform selection</description>
+          <addressOffset>0x400B02A0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_SFPM</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SFPT</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>4</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SFPS</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>8</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SFMA</name>
+              <description>Set corresponding switch</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SFMB</name>
+              <description>Set corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SFCA</name>
+              <description>Set corresponding switch</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SFCB</name>
+              <description>Set corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_CMP_N_SEL</name>
+          <description>CSDCMP Neg Switch Waveform selection</description>
+          <addressOffset>0x400B02A4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_SCRH</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>26</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SCRL</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>30</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_REFGEN_SEL</name>
+          <description>Reference Generator Switch Waveform selection</description>
+          <addressOffset>0x400B02A8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_IAIB</name>
+              <description>Set corresponding switch</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_IBCB</name>
+              <description>Set corresponding switch</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SGMB</name>
+              <description>Set corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SGRE</name>
+              <description>Set corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_SGR</name>
+              <description>Set corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>28</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_FW_MOD_SEL</name>
+          <description>Full Wave Cmod Switch Waveform selection</description>
+          <addressOffset>0x400B02B0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_F1PM</name>
+              <description>Set corresponding switch</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_F1MA</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>8</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_F1CA</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>18</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_C1CC</name>
+              <description>Set corresponding switch</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_C1CD</name>
+              <description>Set corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_C1F1</name>
+              <description>Set corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>28</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_FW_TANK_SEL</name>
+          <description>Full Wave Csh_tank Switch Waveform selection</description>
+          <addressOffset>0x400B02B4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SW_F2PT</name>
+              <description>Set corresponding switch</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_F2MA</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>8</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_F2CA</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>12</lsb>
+              <msb>14</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_F2CB</name>
+              <description>Select waveform for corresponding switch</description>
+              <lsb>16</lsb>
+              <msb>18</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_C2CC</name>
+              <description>Set corresponding switch</description>
+              <lsb>20</lsb>
+              <msb>20</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_C2CD</name>
+              <description>Set corresponding switch</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SW_C2F2</name>
+              <description>Set corresponding switch</description>
+              <lsb>28</lsb>
+              <msb>28</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SW_DSI_SEL</name>
+          <description>DSI output switch control Waveform selection</description>
+          <addressOffset>0x400B02C0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DSI_CSH_TANK</name>
+              <description>Select waveform for dsi_csh_tank signal (called dsi_cap_lo_en in CDSv1). For CSX when DUAL_CAP_EN is set this signal will have the special functionality to go low one clk_hf cycle ahead of the end of the corresponding csd_sense phase (just like for CSDv1), in all other use-cases the functionality is the same as for other switch controls.</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DSI_CMOD</name>
+              <description>Select waveform for dsi_cmod signal (called dsi_cap_hi_en in CDSv1).  For CSX when DUAL_CAP_EN is set this signal will have the special functionality to go low one clk_hf cycle ahead of the end of the corresponding csd_sense phase (just like for CSDv1), in all other use-cases the functionality is the same as for other switch controls.</description>
+              <lsb>4</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SEQ_TIME</name>
+          <description>Sequencer Timing</description>
+          <addressOffset>0x400B0300</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>AZ_TIME</name>
+              <description>Define Auto-Zero time in csd_sense cycles -1.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SEQ_INIT_CNT</name>
+          <description>Sequencer Initial conversion and sample counts</description>
+          <addressOffset>0x400B0310</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CONV_CNT</name>
+              <description>Number of conversion per sample (PERIOD in CSDv1), if set to 0 the Sample_init state will be skipped.</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SEQ_NORM_CNT</name>
+          <description>Sequencer Normal conversion and sample counts</description>
+          <addressOffset>0x400B0314</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CONV_CNT</name>
+              <description>Number of conversion per sample (PERIOD in CSDv1), if set to 0 the Sample_norm state will be skipped.</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_ADC_CTL</name>
+          <description>ADC Control</description>
+          <addressOffset>0x400B0320</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>ADC_TIME</name>
+              <description>ADC timing -1 in csd_sense clock cycles (actual time is ADC_TIME+1 cycles), either used to discharge Cref1&amp;2, or as the aperture to capture the input voltage on Cref1&amp;2</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ADC_MODE</name>
+              <description>Enable ADC measurement. When enabled the ADC sequencer will be started when the main sequencer goes to the SAMPLE_NORM state</description>
+              <lsb>16</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>OFF</name>
+                  <description>No ADC measurement</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>VREF_CNT</name>
+                  <description>Count time A to bring Cref1 + Cref2 up from Vssa to Vrefhi with IDACB</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>VREF_BY2_CNT</name>
+                  <description>Count time B to bring Cref1 + Cref2 back up to Vrefhi with IDACB (after bringing them down for time A/2 cycles with IDACB sinking)</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>VIN_CNT</name>
+                  <description>Determine HSCMP polarity and count time C to source/sink Cref1 + Cref2 from Vin to Vrefhi.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>GROUP_CSDV2_SEQ_START</name>
+          <description>Sequencer start</description>
+          <addressOffset>0x400B0340</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>START</name>
+              <description>Start the CSD sequencer. The sequencer will clear this bit when it is done. Depending on the mode the sequencer is done when a sample has been accumulated, when the high speed comparator trips or if the sequencer is aborted. When the ADC is enabled the ADC sequencer will start when the CSD sequencer reaches the Sample_norm state (only with the regular CSD scan mode).</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SEQ_MODE</name>
+              <description>0 = regular CSD scan + optional ADC ?1 = coarse initialization, the Sequencer will go to the INIT_COARSE state.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ABORT</name>
+              <description>When a 1 is written the CSD and ADC sequencers will be aborted (if they are running) and the START bit will be cleared. This bit always read as 0.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DSI_START_EN</name>
+              <description>When this bit is set a positive edge on dsi_start will start the CSD sequencer and if enabled also the ADC sequencer.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AZ0_SKIP</name>
+              <description>When set the AutoZero_0 state will be skipped</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>AZ1_SKIP</name>
+              <description>When set the AutoZero_1 state will be skipped</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>RED</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>COUNTER</name>
+          <description>Current counter value</description>
+          <addressOffset>0x40060148</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>CC</name>
+          <description>Compare / capture value</description>
+          <addressOffset>0x4006014C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>CC_BUF</name>
+          <description>Compare / capture buffer value</description>
+          <addressOffset>0x40060150</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PERIOD</name>
+          <description>Period value</description>
+          <addressOffset>0x40060154</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PERIOD_BUF</name>
+          <description>Period buffer value</description>
+          <addressOffset>0x40060158</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>UART</name>
+      <description>Serial Communication Block</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>Cy_CTRL</name>
+          <description>Generic control register</description>
+          <addressOffset>0x40080000</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>OVS</name>
+              <description>Serial interface bit period oversampling factor expressed in lP clock cycles. Used for SPI and UART functionality. OVS + 1 IP clock cycles constitute a single serial interface clock/bit cycle.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EC_AM_MODE</name>
+              <description>Internally clocked mode ('0') or externally clocked mode ('1') address matching (I2C) or selection (SPI).In internally clocked mode, the serial interface protocols run off the peripheral clock. In externally clocked mode, the serial interface protocols run off the clock as provided by the serial interface.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EC_OP_MODE</name>
+              <description>Internally clocked mode ('0') or externally clocked mode ('1') operation. In internally clocked mode, the serial interface protocols run off the peripheral clock. In externally clocked mode, the serial interface protocols run off the clock as provided by the serial interface.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EZ_MODE</name>
+              <description>Non EZ mode ('0') or EZ mode ('1'). In EZ mode, a meta protocol is applied to the serial interface protocol.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BYTE_MODE</name>
+              <description>Determines the number of bits per FIFO data element: '0' - 16-bit FIFO data elements (FIFO entries 8), '1' - 8-bit FIFO data elements (FIFO entries 16). Setting data elemelents to 8-bits doubles the amount of FIFO entries.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ADDR_ACCEPT</name>
+              <description>Determines whether a received matching address is accepted in the RX FIFO ('1') or not ('0').his field is used in the I2C mode.</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BLOCK</name>
+              <description> If the externally clocked logic and the MMIO SW accesses to EZ memory coincide/collide, this bit determines whether a SW access should block and result in bus wait states ('BLOCK is 1') or not (BLOCK is '0')</description>
+              <lsb>17</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MODE</name>
+              <description>Mode of operation: I2C = 0, SPI = 1, UART = 2</description>
+              <lsb>24</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>ENABLED</name>
+              <description>IP enabled ('1') or not ('0').</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_SPI_CTRL</name>
+          <description>SPI control register</description>
+          <addressOffset>0x40080020</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CONTINUOUS</name>
+              <description>Continuous SPI data transfers enabled ('1') or not ('0').</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SELECT_PRECEDE</name>
+              <description>Only used in SPI Texas Instruments' submode. When '1', the data frame start indication is a pulse on the SELECT line that precedes the transfer of the first data frame bit. When '0', the data frame start indication is a pulse on the SELECT line that coincides with the transfer of the first data frame bit.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CPHA</name>
+              <description>Only applicable in SPI Motorola submode. Indicates the clock phase.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CPOL</name>
+              <description>Only applicable in SPI Motorola submode. Indicates the clock polarity.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LATE_MISO_SAMPLE</name>
+              <description>Only applicable in master mode. Changes the SCLK edge on which MISO is captured.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SCLK_CONTINUOUS</name>
+              <description>Enables SCLK generation continuiusly by master regars data is avaiable in TX FIFO or not.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SSEL_POLARITY0</name>
+              <description>Slave select polarity of SS0.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SSEL_POLARITY1</name>
+              <description>Slave select polarity of SS1.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SSEL_POLARITY2</name>
+              <description>Slave select polarity of SS2.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SSEL_POLARITY3</name>
+              <description>Slave select polarity of SS3.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LOOPBACK</name>
+              <description>Local loopback control.</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MODE</name>
+              <description>Submode of SPI operation: Motorola = 0, Texas Instruments = 1, National Semiconducturs = 2.</description>
+              <lsb>24</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SLAVE_SELECT</name>
+              <description>Selects one of the four SPI slave select signals: SS0 = 0, SS1 = 1 , SS2 = 2, SS3 = 3.</description>
+              <lsb>26</lsb>
+              <msb>27</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MASTER_MODE</name>
+              <description>Master ('1') or slave ('0') mode.</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_SPI_STATUS</name>
+          <description>SPI status register</description>
+          <addressOffset>0x40080024</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>BUS_BUSY</name>
+              <description>SPI bus is busy. The bus is considered busy ('1') during an ongoing transaction</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_UART_CTRL</name>
+          <description>UART control register</description>
+          <addressOffset>0x40080040</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>LOOPBACK</name>
+              <description>Local loopback control.</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MODE</name>
+              <description>Submode of UART operation: Standard = 0, Smart Card = 1, IrDA = 2.</description>
+              <lsb>24</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_UART_TX_CTRL</name>
+          <description>UART transmitter control register</description>
+          <addressOffset>0x40080044</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STOP_BTIS</name>
+              <description>Stop bits. STOP_BITS + 1 is the duration of the stop period in terms of halve bit periods.</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY</name>
+              <description>Parity bit. When '0', the transmitter generates an even parity. When '1', the transmitter generates an odd parity</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY_ENABLED</name>
+              <description>Parity generation enabled ('1') or not ('0'). Only applicable in standard UART submodes. In SmartCard submode, parity generation is always enabled through hardware. In IrDA submode, parity generation is always disabled through hardware.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RETRY_ON_NACK</name>
+              <description>When '1', a data frame is retransmitted when a negative acknowledgement is received. Only applicable to the SmartCard submode.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_UART_RX_CTRL</name>
+          <description>UART receiver control register</description>
+          <addressOffset>0x40080048</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STOP_BITS</name>
+              <description>Stop bits. STOP_BITS + 1 is the duration of the stop period in terms of halve bit periods.</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY</name>
+              <description>Parity bit. When '0', the receiver expects an even parity. When '1', the receiver expects an odd parity.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY_ENABLED</name>
+              <description>Parity checking enabled ('1') or not ('0'). Only applicable in standard UART submode. In SmartCard submode, parity checking is always enabled through hardware. In IrDA submode, parity checking is always disabled through hardware.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>POLARITY</name>
+              <description>Inverts incoming RX line signal. Inversion is after local loopback. This functionality is intended for IrDA receiver functionality.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DROP_ON_PARITY_ERR</name>
+              <description>Behaviour when a parity check fails. When '0', received data is send to the RX FIFO. When '1', received data is dropped and lost.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>DROP_ON_FRAME_ERR</name>
+              <description>Behaviour when an error is detected in a start or stop period. When '0', received data is send to the RX FIFO. When '1', received data is dropped and lost.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MP_MODE</name>
+              <description>Multi-processor mode. When '1', multi-processor mode is enabled. In this mode, RX_CTRL.DATA_WIDTH should indicate a 9-bit data frame.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LIN_MODE</name>
+              <description>Only applicable in standard UART submode. When '1', the receiver performs break detection and baud rate detection on the incoming data</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SKIP_START</name>
+              <description>Only applicable in standard UART submode. When '1', the receiver skips start bit detection for the first received data frame. Instead, it synchronizes on the first received data frame bit, which should be a '1'.</description>
+              <lsb>13</lsb>
+              <msb>13</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BREAK_WIDTH</name>
+              <description>Break width. BREAK_WIDTH + 1 is the minimum width in bit periods of a break.</description>
+              <lsb>16</lsb>
+              <msb>19</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_UART_FLOW_CTRL</name>
+          <description>UART flow control register</description>
+          <addressOffset>0x40080050</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER_LEVEL</name>
+              <description>Trigger level. When the receiver FIFO has less entries than the amount of this field, a RTS signal is activated. Setting this field to 0 disables RTS generation.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RTS_POLARITY</name>
+              <description>Polarity of the RTS output signal</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTS_POLARITY</name>
+              <description>Polarity of the CTS input signal</description>
+              <lsb>24</lsb>
+              <msb>24</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTS_ENABLED</name>
+              <description>Enable use of CTS input signal by the UART transmitter</description>
+              <lsb>25</lsb>
+              <msb>25</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_I2C_CTRL</name>
+          <description>I2C control register</description>
+          <addressOffset>0x40080060</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HIGH_PHASE_OVS</name>
+              <description>Serial I2C interface high phase oversampling factor. HIGH_PHASE_OVS + 1 peripheral clock periods constitute the high phase of a bit period.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LOW_PHASE_OVS</name>
+              <description>Serial I2C interface low phase oversampling factor. LOW_PHASE_OVS + 1 peripheral clock periods constitute the low phase of a bit period</description>
+              <lsb>4</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>M_READY_DATA_ACK</name>
+              <description>When '1', a received data element by the master is immediately ACK'd when the receiver FIFO is not full.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>M_NOT_READY_DATA_NACK</name>
+              <description>When '1', a received data element byte the master is immediately NACK'd when the receiver FIFO is full. When '0', clock stretching is used instead (till the receiver FIFO is no longer full).</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>S_GENERAL_IGNORE</name>
+              <description>When '1', a received general call slave address is immediately NACK'd (no ACK or clock stretching) and treated as a non matching slave address.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>S_READY_ADDR_ACK</name>
+              <description>When '1', a received (matching) slave address is immediately ACK'd when the receiver FIFO is not full</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>S_READY_DATA_ACK</name>
+              <description>When '1', a received data element by the slave is immediately ACK'd when the receiver FIFO is not full</description>
+              <lsb>13</lsb>
+              <msb>13</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>S_NOT_READY_ADDR_NACK</name>
+              <description>When '1', a received address by the slave is immediately ACK'd when the receiver FIFO is not full</description>
+              <lsb>14</lsb>
+              <msb>14</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>S_NOT_READY_DATA_NACK</name>
+              <description> When '1' a received data element byte the slave is immediately NACK'd when the receiver FIFO is full. When '1' clock stretching is performed (till the receiver FIFO is no longer full).</description>
+              <lsb>15</lsb>
+              <msb>15</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>LOOPBACK</name>
+              <description>Local loopback control</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SLAVE_MODE</name>
+              <description>Slave mode enabled ('1') or not ('0').</description>
+              <lsb>30</lsb>
+              <msb>30</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MASTER_MODE</name>
+              <description>Master mode enabled ('1') or not ('0'). Note that both master and slave modes can be enabled at the same time. This allows the IP to address itself.</description>
+              <lsb>31</lsb>
+              <msb>31</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_I2C_STATUS</name>
+          <description>I2C status register</description>
+          <addressOffset>0x40080064</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>BUS_BUSY</name>
+              <description>I2C bus is busy. The bus is considered busy ('1').</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>S_READ</name>
+              <description>I2C slave read transfer ('1') or I2C slave write transfer ('0'). When the I2C slave is inactive/idle or receiving START, REPEATED START, STOP or an address, this field is '0'.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>M_READ</name>
+              <description>I2C master read transfer ('1') or I2C master write transfer ('0'). When the I2C master is inactive/idle or transmitting START, REPEATED START, STOP or an address, this field is '0''.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_I2C_M_CMD</name>
+          <description>I2C master command register</description>
+          <addressOffset>0x40080068</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>M_START</name>
+              <description>When '1', transmit a START or REPEATED START. Whether a START or REPEATED START is transmitted depends on the state of the master state machine. When this action is performed, the hardware sets this field to '0'.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>M_IDLE_START</name>
+              <description>When '1', transmit a START as soon as the bus is idle (I2C_STATUS.BUS_BUSY is '0', note that BUSY has a default value of '0'). When this action is performed, the hardware sets this field to '0'.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>M_ACK</name>
+              <description>When '1', attempt to transmit an acknowledgement (ACK). When this action is performed, the hardware sets this field to '0'.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>M_NACK</name>
+              <description>When '1', attempt to transmit a negative acknowledgement (NACK). When this action is performed, the hardware sets this field to '0'.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>M_STOP</name>
+              <description>When '1', attempt to transmit a STOP. When this action is performed, the hardware sets this field to '0'. This command has a higher priority than I2C_M_CMD.M_START: in situations where both a STOP and a REPEATED START could be transmitted, M_STOP takes precedence over M_START.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_I2C_S_CMD</name>
+          <description>I2C slave command register</description>
+          <addressOffset>0x4008006C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>S_ACK</name>
+              <description>When '1', attempt to transmit an acknowledgement (ACK). When this action is performed, the hardware sets this field to '0'.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>S_NACK</name>
+              <description>When '1', attempt to transmit a negative acknowledgement (NACK). When this action is performed, the hardware sets this field to '0'</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_I2C_CFG</name>
+          <description>I2C fitler trimm register</description>
+          <addressOffset>0x40080070</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SDA_IN_FILT_TRIM</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SDA_IN_FILT_SEL</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SCL_IN_FILT_TRIM</name>
+              <description>No description available</description>
+              <lsb>8</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SCL_IN_FILT_SEL</name>
+              <description>No description available</description>
+              <lsb>12</lsb>
+              <msb>12</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SDA_OUT_FILT0_TRIM</name>
+              <description>No description available</description>
+              <lsb>16</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SDA_OUT_FILT1_TRIM</name>
+              <description>No description available</description>
+              <lsb>18</lsb>
+              <msb>19</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SDA_OUT_FILT2_TRIM</name>
+              <description>No description available</description>
+              <lsb>20</lsb>
+              <msb>21</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SDA_OUT_FILT_SEL</name>
+              <description>No description available</description>
+              <lsb>28</lsb>
+              <msb>29</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_TX_CTRL</name>
+          <description>Transmitter control register</description>
+          <addressOffset>0x40080200</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DATA_WIDTH</name>
+              <description>Data frame width. DATA_WIDTH + 1 is the amount of bits in a transmitted data frame.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MSB_FIRST</name>
+              <description>Least significant bit first ('0') or most significant bit first ('1'). For I2C, this field should be '1'.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_TX_FIFO_CTRL</name>
+          <description>Transmitter FIFO control register</description>
+          <addressOffset>0x40080204</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER_LEVEL</name>
+              <description>Trigger level. When the transmitter FIFO has less entries than the amount of this field, a transmitter trigger event is generated.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CLEAR</name>
+              <description>When '1', the transmitter FIFO and transmitter shift register are cleared/invalidated. Invalidation will last for as long as this field is '1'. If a quick clear/invalidation is required, the field should be set to '1' and be followed by a set to '0'. If a clear/invalidation is required for an extended time period, the field should be set to '1' during the complete time period.</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FREEZE</name>
+              <description>When '1', hardware reads from the transmitter FIFO do not remove FIFO entries. Freeze will not advance the TX FIFO read pointer.</description>
+              <lsb>17</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_TX_FIFO_STATUS</name>
+          <description>Transmitter FIFO status register</description>
+          <addressOffset>0x40080208</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>USED</name>
+              <description>Amount of entries in the transmitter FIFO. The value of this field ranges from 0 to 8.</description>
+              <lsb>0</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>SR_VALID</name>
+              <description>Indicates whether the TX shift registers holds a valid data frame ('1') or not ('0')</description>
+              <lsb>15</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>RD_PTR</name>
+              <description>FIFO read pointer: FIFO location from which a data frame is read by the hardware.</description>
+              <lsb>16</lsb>
+              <msb>20</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>WR_PTR</name>
+              <description>FIFO write pointer: FIFO location at which a new data frame is written.</description>
+              <lsb>24</lsb>
+              <msb>28</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_TX_FIFO_WR</name>
+          <description>Transmitter FIFO write register</description>
+          <addressOffset>0x40080240</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Data frame written into the transmitter FIFO. Behavior is similar to that of a PUSH operation.</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>write-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_RX_CTRL</name>
+          <description>Receiver control register</description>
+          <addressOffset>0x40080300</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DATA_WIDTH</name>
+              <description>Data frame width. DATA_WIDTH + 1 is the expected amount of bits in received data frame.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MSB_FIRST</name>
+              <description>Least significant bit first ('0') or most significant bit first ('1').</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MEDIAN</name>
+              <description>Median filter. When '1', a digital 3 taps median filter is performed on input interface lines.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_RX_FIFO_CTRL</name>
+          <description>Receiver FIFO control register</description>
+          <addressOffset>0x40080304</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER_LEVEL</name>
+              <description>Trigger level. When the receiver FIFO has more entries than the amount of this field, a receiver trigger event is generated.</description>
+              <lsb>0</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CLEAR</name>
+              <description>When '1', the receiver FIFO and receiver shift register are cleared/invalidated. Invalidation will last for as long as this field is '1'. If a quick clear/invalidation is required, the field should be set to '1' and be followed by a set to '0'. If a clear/invalidation is required for an extended time period, the field should be set to '1' during the complete time period.</description>
+              <lsb>16</lsb>
+              <msb>16</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FREEZE</name>
+              <description>When '1', hardware writes to the receiver FIFO have no effect. Freeze will not advance the RX FIFO write pointer.</description>
+              <lsb>17</lsb>
+              <msb>17</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_RX_FIFO_STATUS</name>
+          <description>Receiver FIFO status registerS</description>
+          <addressOffset>0x40080308</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>USED</name>
+              <description>Amount of entries in the receiver FIFO. The value of this field ranges from 0 to 8.</description>
+              <lsb>0</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>SR_VALID</name>
+              <description>Indicates whether the RX shift registers holds a (partial) valid data frame ('1') or not ('0').</description>
+              <lsb>15</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>RD_PTR</name>
+              <description>FIFO read pointer: FIFO location from which a data frame is read.</description>
+              <lsb>16</lsb>
+              <msb>20</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>WR_PTR</name>
+              <description>FIFO write pointer: FIFO location at which a new data frame is written by the hardware.</description>
+              <lsb>24</lsb>
+              <msb>28</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_RX_MATCH</name>
+          <description>Slave address and mask register</description>
+          <addressOffset>0x40080310</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>ADDR</name>
+              <description>Slave device address. For UART multi-processor mode all eight bits a reused. For I2C, bit 0 of the register is not used.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>MASK</name>
+              <description>Slave device address mask. This field is a 8 bit mask that specifies which of the ADDR field bits in the SCB_RX_MATCH_ADDR register take part in the matching of the slave address.</description>
+              <lsb>16</lsb>
+              <msb>23</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_RX_FIFO_RD</name>
+          <description>Receiver FIFO read register</description>
+          <addressOffset>0x40080340</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DATA</name>
+              <description>Data read from the receiver FIFO. Reading a data frame will remove the data frame from the FIFO.</description>
+              <lsb>0</lsb>
+              <msb>15</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_CAUSE</name>
+          <description>Interrupt cause register</description>
+          <addressOffset>0x40080E00</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>MASTER</name>
+              <description>Master interrupt active.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>SLAVE</name>
+              <description>Slave interrupt active.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>TX</name>
+              <description>Transmitter interrupt active.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>RX</name>
+              <description>Receiver interrupt active.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>I2C_EC</name>
+              <description>Externally clock I2C interrupt active.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>SPI_EC</name>
+              <description>Externally clocked SPI interrupt active.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_I2C_EC</name>
+          <description>Externally clocked I2C interrupt request register</description>
+          <addressOffset>0x40080E80</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>WAKE_UP</name>
+              <description>Wake up request. Active on incoming slave request (with address match). Only used when EC_AM is '1'.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_I2C_EC_MASK</name>
+          <description>Externally clocked I2C interrupt mask register</description>
+          <addressOffset>0x40080E88</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>WAKE_UP</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_I2C_EC_MASKED</name>
+          <description>Externally clocked SPI interrupt masked register</description>
+          <addressOffset>0x40080E8C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>WAKE_UP</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_INTR_SPI_EC</name>
+          <description>Externally clocked SPI interrupt request register</description>
+          <addressOffset>0x40080EC0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>WAKE_UP</name>
+              <description>Wake up request. Active on incoming slave request when externally clocked selection is '1'.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_INTR_SPI_EC_MASK</name>
+          <description>Externally clocked SPI interrupt mask register</description>
+          <addressOffset>0x40080EC8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>WAKE_UP</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_INTR_SPI_EC_MASKED</name>
+          <description>Externally clocked SPI interrupt masked register</description>
+          <addressOffset>0x40080ECC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>WAKE_UP</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_M</name>
+          <description>Master interrupt request register.</description>
+          <addressOffset>0x40080F00</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_LOST_ARB</name>
+              <description>I2C master lost arbitration: the value driven by the master on the SDA line is not the same as the value observed on the SDA line.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>I2C master negative acknowledgement. Set to '1', when the master receives a NACK (typically after the master transmitted the slave address or TX data).</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>I2C master acknowledgement. Set to '1', when the master receives a ACK (typically after the master transmitted the slave address or TX data).</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>I2C master STOP. Set to '1', when the master has transmitted a STOP.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>I2C master bus error (unexpected detection of START or STOP condition).</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_DONE</name>
+              <description>SPI master transfer done event: all data frames in the transmit FIFO are sent and the transmit FIFO is empty.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_M_SET</name>
+          <description>Master interrupt set request register</description>
+          <addressOffset>0x40080F04</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_LOST_ARB</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_DONE</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_M_MASK</name>
+          <description>Master interrupt mask register</description>
+          <addressOffset>0x40080F08</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_LOST_ARB</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_DONE</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_M_MASKED</name>
+          <description>Master interrupt masked request register</description>
+          <addressOffset>0x40080F0C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_LOST_ARB</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_DONE</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_S</name>
+          <description>Slave interrupt request register</description>
+          <addressOffset>0x40080F40</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_ARB_LOST</name>
+              <description>I2C slave lost arbitration: the value driven on the SDA line is not the same as the value observed on the SDA line (while the SCL line is '1').</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>I2C slave negative acknowledgement received. Set to '1', when the slave receives a NACK (typically after the slave transmitted TX data).</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>I2C slave acknowledgement received. Set to '1', when the slave receives a ACK (typically after the slave transmitted TX data).</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_WRITE_STOP</name>
+              <description>I2C STOP event for I2C write transfer intended for this slave (address matching is performed).Set to '1', when STOP or REPEATED START event is detected.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>I2C STOP event for I2C (read or write) transfer intended for this slave (address matching is performed). Set to '1', when STOP or REPEATED START event is detected</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_START</name>
+              <description>I2C slave START received. Set to '1', when START or REPEATED START event is detected.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ADDR_MATCH</name>
+              <description>I2C slave matching address received. If CTRL.ADDR_ACCEPT, the received address (including the R/W bit) is available in the RX FIFO.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_GENERAL</name>
+              <description>I2C slave general call address received.  If CTRL.ADDR_ACCEPT, the received address 0x00 (including the R/W bit) is available in the RX FIFO</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>I2C slave bus error (unexpected detection of START or STOP condition).</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_BUS_ERR</name>
+              <description>SPI slave deselected at an unexpected time in the SPI transfer. The Firmware may decide to clear the TX and RX FIFOs in case of this error.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_S_SET</name>
+          <description>Slave interrupt set request register</description>
+          <addressOffset>0x40080F44</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_ARB_LOST</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_WRITE_STOP</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_START</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ADDR_MATCH</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_GENERAL</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_BUS_ERR</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_S_MASK</name>
+          <description>Slave interrupt mask register</description>
+          <addressOffset>0x40080F48</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_ARB_LOST</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_WRITE_STOP</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_START</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ADDR_MATCH</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_GENERAL</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_BUS_ERR</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_BUS_ERR</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_S_MASKED</name>
+          <description>Slave interrupt masked register</description>
+          <addressOffset>0x40080F4C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>I2C_ARB_LOST</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_NACK</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ACK</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_WRITE_STOP</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_STOP</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_START</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_ADDR_MATCH</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>I2C_GENERAL</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>SPI_BUS_ERR</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_TX</name>
+          <description>Transmitter interrupt request register</description>
+          <addressOffset>0x40080F80</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Less entries in the TX FIFO than the value specified by TRIGGER_LEVEL in SCB_TX_FIFO_CTL.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_FULL</name>
+              <description>TX FIFO is not full.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EMPTY</name>
+              <description>TX FIFO is empty; i.e. it has 0 entries.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Attempt to write to a full TX FIFO.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Attempt to read from an empty TX FIFO.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_NACK</name>
+              <description>UART transmitter received a negative acknowledgement in SmartCard mode. Set to '1', when event is detected.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_DONE</name>
+              <description>UART transmitter done event. This happens when the IP is done transferring all data in the TX FIFO; i.e. EMPTY is '1'. Set to '1', when event is detected.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_ARB_LOST</name>
+              <description>UART lost arbitration: the value driven on the TX line is not the same as the value observed on the RX line. </description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_TX_SET</name>
+          <description>Transmitter interrupt set request register</description>
+          <addressOffset>0x40080F84</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_FULL</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EMPTY</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_NACK</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_DONE</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_ARB_LOST</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_TX_MASK</name>
+          <description>Transmitter interrupt mask request register</description>
+          <addressOffset>0x40080F88</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_FULL</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EMPTY</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_NACK</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_DONE</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_ARB_LOST</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_TX_MASKED</name>
+          <description>Transmitter interrupt masked request register</description>
+          <addressOffset>0x40080F8C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_FULL</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>EMPTY</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_NACK</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_DONE</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UART_ARB_LOST</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_RX</name>
+          <description>Receiver interrupt request register</description>
+          <addressOffset>0x40080FC0</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>More entries in the RX FIFO than the value specified by TRIGGER_LEVEL in SCB_RX_FIFO_CTL.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_EMPTY</name>
+              <description>RX FIFO is not empty.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FULL</name>
+              <description>RX FIFO is full. Note that received data frames are lost when the RX FIFO is full.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Attempt to write to a full RX FIFO. Note: in I2C mode, the OVERFLOW is set when a data frame is received and the RX FIFO is full, independent of whether it is ACK'd or NACK'd.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Attempt to read from an empty RX FIFO.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FRAME_ERR</name>
+              <description>Frame error in received data frame. Set to '1', when event is detected.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY_ERR</name>
+              <description>Parity error in received data frame. Set to '1', when event is detected.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BAUD_DETECT</name>
+              <description>LIN baud rate detection is completed.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BREAK_DETECT</name>
+              <description>Break detection is successful: the line is '0' for UART_RX_CTRL.BREAK_WIDTH + 1 bit period.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_RX_SET</name>
+          <description>Receiver interrupt set request register</description>
+          <addressOffset>0x40080FC4</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_EMPTY</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FULL</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FRAME_ERR</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY_ERR</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BAUD_DETECT</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BREAK_DETECT</name>
+              <description>Write with '1' to set corresponding bit in interrupt request register.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_RX_MASK</name>
+          <description>Receiver interrupt mask register</description>
+          <addressOffset>0x40080FC8</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_EMPTY</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FULL</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FRAME_ERR</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY_ERR</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BAUD_DETECT</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BREAK_DETECT</name>
+              <description>Mask bit for corresponding bit in interrupt request register.</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Cy_INTR_RX_MASKED</name>
+          <description>Receiver interrupt masked register</description>
+          <addressOffset>0x40080FCC</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>TRIGGER</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>NOT_EMPTY</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FULL</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>OVERFLOW</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>UNDERFLOW</name>
+              <description>Logical and of corresponding request and mask bits.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>FRAME_ERR</name>
+              <description>Logical and of corresponding request and mask bits</description>
+              <lsb>8</lsb>
+              <msb>8</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>PARITY_ERR</name>
+              <description>Logical and of corresponding request and mask bits</description>
+              <lsb>9</lsb>
+              <msb>9</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BAUD_DETECT</name>
+              <description>Logical and of corresponding request and mask bits</description>
+              <lsb>10</lsb>
+              <msb>10</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>BREAK_DETECT</name>
+              <description>Logical and of corresponding request and mask bits</description>
+              <lsb>11</lsb>
+              <msb>11</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>GREEN</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>COUNTER</name>
+          <description>Current counter value</description>
+          <addressOffset>0x40060108</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>CC</name>
+          <description>Compare / capture value</description>
+          <addressOffset>0x4006010C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>CC_BUF</name>
+          <description>Compare / capture buffer value</description>
+          <addressOffset>0x40060110</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PERIOD</name>
+          <description>Period value</description>
+          <addressOffset>0x40060114</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PERIOD_BUF</name>
+          <description>Period buffer value</description>
+          <addressOffset>0x40060118</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>BLUE</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>COUNTER</name>
+          <description>Current counter value</description>
+          <addressOffset>0x40060188</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>CC</name>
+          <description>Compare / capture value</description>
+          <addressOffset>0x4006018C</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>CC_BUF</name>
+          <description>Compare / capture buffer value</description>
+          <addressOffset>0x40060190</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PERIOD</name>
+          <description>Period value</description>
+          <addressOffset>0x40060194</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PERIOD_BUF</name>
+          <description>Period buffer value</description>
+          <addressOffset>0x40060198</addressOffset>
+          <size>32</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+      </registers>
+    </peripheral>
+  </peripherals>
+</device>

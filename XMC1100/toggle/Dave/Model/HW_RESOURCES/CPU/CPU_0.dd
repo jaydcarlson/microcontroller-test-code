@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:Peripheral xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/1.0.2/peripheral/cpu/0" description="Central Processing Unit" baseAddress="0xE000E000">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="HARDFAULT" URI="http://resources/1.0.2/peripheral/cpu/0/exception/hardfault">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/CPU_CTRL_XMC1/v4_0_8/CPU_CTRL_XMC1_0.app#//@hwResources.6"/>
+  </provided>
+  <addressBlock offset="0x0" size="0x1000" usage="registers"/>
+</ResourceModel:Peripheral>

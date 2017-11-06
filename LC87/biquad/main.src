@@ -1,0 +1,272 @@
+; TASKING LC87K compiler (DEMO) v3.2r2 Build 213 SN 00000000 
+; options: -CLC87F1M -OaBcdefhilrsuv -g -A1 -w555 -s -Ms 
+;          -Ic:\program files (x86)\tasking\dlc87 v3.2r2\include 
+$CASE ON
+$MODEL S
+
+	NAME	"MAIN"
+	SYMB	TOOL, "TASKING LC87K compiler (DEMO) (213)", 1
+	SYMB	TYPE, 256, "bit", 'g', 0, 1
+	SYMB	FILE, "main.c"
+
+; 1    |#include "c87.h"
+ 	SYMB	FILE, "c:\\program files (x86)\\tasking\\dlc87 v3.2r2\\include\\c87.h"
+	SYMB	ENDF
+; 2    |#include "Lc87f1m.sfr"
+ 	SYMB	FILE, "c:\\program files (x86)\\tasking\\dlc87 v3.2r2\\include\\Lc87f1m.sfr"
+	SYMB	ENDF
+; 3    |
+ ; 4    |
+ ; 5    |typedef unsigned char uint8_t;
+ ; 6    |typedef char int8_t;
+ ; 7    |typedef unsigned int uint16_t ;
+ ; 8    |typedef int int16_t;
+ 	SYMB	TYPE, 257, "int16_t", 'T', #16
+; 9    |
+ ; 10   |volatile int16_t in[64];
+ ; 11   |volatile int16_t out[64];
+ ; 12   |
+ ; 13   |const int16_t a0 = 16384;
+ 
+	DEFSECT	".fdata", DATA, INIT
+	SECT	".fdata"
+	SYMB	IDEN, "a0", _a0, #257, 134, 0
+	SYMB	ALAB, _a0, #257
+	GLOBAL	_a0
+_a0:
+	DW	04000H
+
+; 14   |const int16_t a1 = -32768;
+ 	SYMB	IDEN, "a1", _a1, #257, 134, 0
+	SYMB	ALAB, _a1, #257
+
+	GLOBAL	_a1
+_a1:
+	DW	08000H
+
+; 15   |const int16_t a2 = 16384;
+ 	SYMB	IDEN, "a2", _a2, #257, 134, 0
+	SYMB	ALAB, _a2, #257
+
+	GLOBAL	_a2
+_a2:
+	DW	04000H
+
+; 16   |const int16_t b1 = -25576;
+ 	SYMB	IDEN, "b1", _b1, #257, 134, 0
+	SYMB	ALAB, _b1, #257
+
+	GLOBAL	_b1
+_b1:
+	DW	09C18H
+
+; 17   |const int16_t b2 = 10508;
+ 	SYMB	IDEN, "b2", _b2, #257, 134, 0
+	SYMB	ALAB, _b2, #257
+
+	GLOBAL	_b2
+_b2:
+	DW	0290CH
+
+; 18   |
+ ; 19   |int16_t z1, z2;
+ ; 20   |int16_t outTemp;
+ ; 21   |int16_t inTemp;
+ ; 22   |
+ ; 23   |void main()
+ ; 24   |{
+ 
+	DEFSECT	".text", CODE
+	SECT	".text"
+	SYMB	LINE, 24
+	DEFSECT	".rmax0", DATA, REG, MAX AT 00H
+	SECT	".rmax0"
+	DS	14
+	GLOBAL	_main
+	SECT	".text"
+_main:
+
+	SYMB	TYPE, 258, 'X', 8, #1, 2, -1
+	SYMB	GFUN, "main", _main, #258, 0, 0, 0, 0, 0
+	SYMB	ALAB, _main, #258
+	SYMB	IDEN, "i", -1, #16, 134, 5
+	SYMB	LTIM, "i", -1, 0, 69
+
+; 25   |   int i;
+ ; 26   |    _P0DDR = 0x01;
+ 	SYMB	LINE, 26
+
+	MOV	#01h,0fe41H
+
+; 27   |   _OCR = 0x90; // enable main clock and divide-by-1
+ 	SYMB	LINE, 27
+
+	MOV	#090h,0fe0eH
+
+; 28   |   while(1) {
+ 	SYMB	LINE, 28
+
+L5:
+
+; 29   |	_P0 = 1;
+ 	SYMB	LINE, 29
+
+	MOV	#01h,0fe40H
+
+; 30   |	for(i=0;i<64;i++)
+ 	SYMB	LINE, 30
+
+	LDW	#00h
+	STW	AR4
+	SYMB	LTIM, "i", 11, 0, 205
+L6:
+
+; 31   |	{
+ ; 32   |		inTemp = in[i];
+ 	SYMB	LINE, 32
+
+	LDW	AR4
+	PUSH_BA	
+	FADDW	
+	STW	AR6
+	PUSH	#((_in >> 00h) & 0ffh)
+	PUSH	#((_in >> 08h) & 0ffh)
+	FADDW	
+	STW	AR1
+	LDW	[R1]
+	STW	_inTemp
+
+; 33   |		outTemp = inTemp * a0 + z1;
+ 	SYMB	LINE, 33
+
+	PUSHW	_inTemp
+	PUSH	#00h
+	PUSH	#00h
+	PUSH	#040h
+	MUL24	
+	STW	AR1
+	POP_BA	
+	LDW	_z1
+	PUSHW	AR1
+	FADDW	
+	STW	AR3
+	STW	_outTemp
+
+; 34   |		z1 = inTemp * a1 + z2 - b1 * outTemp;
+ 	SYMB	LINE, 34
+
+	PUSHW	_inTemp
+	PUSH	#00h
+	PUSH	#00h
+	PUSH	#080h
+	MUL24	
+	STW	AR2
+	POP_BA	
+	PUSHW	AR2
+	LDW	_z2
+	FADDW	
+	STW	AR5
+	PUSHW	AR3
+	PUSH	#00h
+	PUSH	#018h
+	PUSH	#09ch
+	MUL24	
+	STW	AR2
+	POP_BA	
+	LDW	AR5
+	PUSHW	AR2
+	FSUBW	
+	STW	_z1
+
+; 35   |		z2 = inTemp * a2 - b2 * outTemp;
+ 	SYMB	LINE, 35
+
+	PUSHW	AR3
+	PUSH	#00h
+	PUSH	#0ch
+	PUSH	#029h
+	MUL24	
+	STW	AR2
+	POP_BA	
+	LDW	AR1
+	PUSHW	AR2
+	FSUBW	
+	STW	_z2
+
+; 36   |		out[i] = outTemp;
+ 	SYMB	LINE, 36
+
+	PUSHW	AR6
+	LDW	#_out
+	FADDW	
+	STW	AR1
+	LDW	AR3
+	STW	[R1]
+	SYMB	LINE, 30
+	INCW	AR4
+	SYMB	LTIM, "i", 11, 0, 77
+	SYMB	LTIM, "i", 11, 0, 205
+	LDW	AR4
+	PUSH	#040h
+	PUSH	#00h
+	FSUBW	
+	BN	B,07h,L8
+	BN	PSW,OV,L6
+	BR	L7
+L8:
+	BP	PSW,OV,L6
+L7:
+
+; 37   |	}
+ ; 38   |	_P0 = 0;
+ 	SYMB	LINE, 38
+
+	MOV	#00h,0fe40H
+	SYMB	LINE, 28
+	BR	L5
+
+; 39   |   }	
+ ; 40   |}
+ 	SYMB	LINE, 40
+
+	RET	
+	SYMB	LTIM, "i", 11, 0, 77
+	CALLS	'main', '', 0
+	SYMB	EFUN
+	SYMB	ENDF
+
+	SYMB	IDEN, "outTemp", _outTemp, #257, 134, 0
+	SYMB	ALAB, _outTemp, #257
+	DEFSECT	".fbss", DATA, CLEAR
+	SECT	".fbss"
+	GLOBAL	_outTemp
+_outTemp:
+	DS	2
+	SYMB	TYPE, 259, 'Z', #257, 63
+	SYMB	IDEN, "out", _out, #259, 134, 0
+	SYMB	ALAB, _out, #259
+	GLOBAL	_out
+_out:
+	DS	128
+	SYMB	IDEN, "in", _in, #259, 134, 0
+	SYMB	ALAB, _in, #259
+	GLOBAL	_in
+_in:
+	DS	128
+	SYMB	IDEN, "z1", _z1, #257, 134, 0
+	SYMB	ALAB, _z1, #257
+	GLOBAL	_z1
+_z1:
+	DS	2
+	SYMB	IDEN, "z2", _z2, #257, 134, 0
+	SYMB	ALAB, _z2, #257
+	GLOBAL	_z2
+_z2:
+	DS	2
+	SYMB	IDEN, "inTemp", _inTemp, #257, 134, 0
+	SYMB	ALAB, _inTemp, #257
+	GLOBAL	_inTemp
+_inTemp:
+	DS	2
+	EXTERN	(CODE) __START
+	END

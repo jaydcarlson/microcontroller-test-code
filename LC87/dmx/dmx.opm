@@ -1,0 +1,4 @@
+-G "d:\git\microcontroller-test-code\lc87\dmx"
+-err "dmx.err"
+-r
+-f "dmx.mak"

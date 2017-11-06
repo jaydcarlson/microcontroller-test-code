@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="us-ascii"?>
+
+<fileSet version="1" anchorPath="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp" xsi:schemaLocation="http://cypress.com/xsd/cypathdictionary cypathdictionary.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cypathdictionary">
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyfitter_cfg.h" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyfitter_cfg.c" value="SOURCE_C;CortexM0p;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cymetadata.c" value="SOURCE_C;CortexM0p;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cydevice_trm.h" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cydevicegnu_trm.inc" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cydevicerv_trm.inc" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cydeviceiar_trm.inc" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyfittergnu.inc" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyfitterrv.inc" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyfitteriar.inc" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyfitter.h" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cydisabledsheets.h" value="HEADER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cm0plusgcc.ld" value="LINKER_SCRIPT;;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\Cm0plusRealView.scat" value="LINKER_SCRIPT;;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\Cm0plusStart.c" value="SOURCE_C;CortexM0p;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyBootAsmRv.s" value="SOURCE_ASM;CortexM0,CortexM0p,CortexM3,CortexM4,CortexM7;;fdb8e1ae-f83a-46cf-9446-1d703716f38a;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyFlash.c" value="SOURCE_C;CortexM0p;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyFlash.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyLib.c" value="SOURCE_C;CortexM0p;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyLib.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyPm.c" value="SOURCE_C;CortexM0p;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyPm.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cytypes.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cyutils.c" value="SOURCE_C;CortexM0p;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cypins.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\core_cmFunc.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\core_cmInstr.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\Cm0plusIar.icf" value="LINKER_SCRIPT;;;e9305a93-d091-4da5-bdc7-2813049dcdbf;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyBootAsmIar.s" value="SOURCE_ASM;CortexM0,CortexM0p,CortexM3,CortexM4,CortexM7;;e9305a93-d091-4da5-bdc7-2813049dcdbf;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cmsis_armcc.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cmsis_gcc.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\core_cm0plus.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\core_cm0plus_psoc4.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cmsis_compiler.h" value="HEADER;;;;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyBootAsmGnu.s" value="SOURCE_ASM;CortexM0,CortexM0p,CortexM3,CortexM4,CortexM7;;b98f980c-3bd1-4fc7-a887-c56a20a46fdd;;cy_boot" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyLFClk.c" value="SOURCE_C;CortexM0p;;;;cy_lfclk" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\CyLFClk.h" value="HEADER;;;;;cy_lfclk" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\project.h" value="OTHER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cycodeshareimport.ld" value="OTHER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cycodeshareexport.ld" value="OTHER;;;;;" />
+  <file name="D:\Git\microcontroller-test-code\PSOC4000S\debugTest.cydsn\codegentemp\cycodeshareimport.scat" value="OTHER;;;;;" />
+</fileSet>

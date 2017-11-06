@@ -1,0 +1,74 @@
+<p1:Tab  xmlns="http://www.eclipse.org/xwt/presentation" xmlns:x="http://www.eclipse.org/xwt" xmlns:p1="clr-namespace:com.ifx.davex.ui.controls.app" x:Class="e" layout="{x:Null}">
+	<p1:TabFolder bounds="5, 5, 491, 396">
+		<p1:GTab text="General Settings" widgetName="gtab_general" visible="true" enabled="true">
+			<p1:GTab.control>
+				<p1:Tab>
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GGroup text="Slot Configuration" widgetName="ggroup_slot_config">
+						<p1:GGroup.layoutData>
+							<GridData heightHint="122" widthHint="460" horizontalAlignment="FILL"/>
+						</p1:GGroup.layoutData>
+						<p1:GGroup.layout>
+							<GridLayout numColumns="3"/>
+						</p1:GGroup.layout>
+						<p1:GLabel text="First relevant slot:" visible="true" widgetName="glabel_relevant_slot"/>
+						<p1:GInteger x:Style="NONE" minValue="1" maxValue="512" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="ginteger_relevant_slot" value="1" toolTipText="The Receiving Device ignores the preceding &#13;&#10;slots in the packet." description="First slot number when the multiple slots are connected back to back.">
+							<p1:GInteger.layoutData>
+								<GridData widthHint="148"/>
+							</p1:GInteger.layoutData>
+						</p1:GInteger>
+						<Label/>
+						<p1:GLabel text="Number of relevant slots:" visible="true" widgetName="glabel_no_of_slots"/>
+						<p1:GInteger x:Style="NONE" minValue="1" maxValue="512" mandatory="(com.ifx.davex.ui.controls.util.AppUiConstants).FALSE" format="(com.ifx.davex.ui.controls.util.AppUiConstants).DEC" manifestObj="true" widgetName="ginteger_no_of_slots" value="3" toolTipText="The Receiving Device updates its LEDs based on &#13;&#10;these slots (starting with the first Relevant Slot)." description="The number of slots to be received by the receiving device starting from &quot;First relevant slot&quot;.">
+							<p1:GInteger.layoutData>
+								<GridData widthHint="148"/>
+							</p1:GInteger.layoutData>
+						</p1:GInteger>
+						<Label/>
+						<p1:GLabel text="User defined CallBack:" visible="true" widgetName="glabel_user_callback"/>
+						<p1:GString x:Style="BORDER" manifestObj="true" widgetName="gstring_user_callback" value="DMX512_RD_UserCallBack" description="A user defined callback function is called after successful relevant&#13;&#10;slots reception." toolTipText="To define a function as void DMX512_RD_UserCallBack(void), &#13;&#10;enter DMX512_RD_UserCallBack in this field. &#13;&#10;This function call back will execute during/ before the BREAK state.">
+							<p1:GString.layoutData>
+								<GridData grabExcessHorizontalSpace="true" widthHint="136"/>
+							</p1:GString.layoutData>
+						</p1:GString>
+						<p1:GMessage text="Invalid function name" visible="true" manifestObj="true" widgetName="gmessage_valid_callback_name">
+							<p1:GMessage.layoutData>
+								<GridData grabExcessHorizontalSpace="true" horizontalAlignment="FILL"/>
+							</p1:GMessage.layoutData>
+						</p1:GMessage>
+						<p1:GCheck text="Enable accurate break detection" manifestObj="true" widgetName="gcheck_acc_brk_det" description="By default, USIC Synchronization break is used to detect a break. &#13;&#10;Note: This method of detection not accurate.  &#13;&#10;On enable a CCU4 Slice is being used for &quot;Accurate Break Detection&quot;." toolTipText="Use CCU4 Slice to detect accurate break (min 88us)">
+							<p1:GCheck.layoutData>
+								<GridData horizontalSpan="2"/>
+							</p1:GCheck.layoutData>
+						</p1:GCheck>
+						<Label/>
+						<Label/>
+						<Label/>
+						<Label/>
+					</p1:GGroup>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+		<p1:GTab text="Interrupt Settings" visible="true" enabled="true" widgetName="gtab_interrupt">
+			<p1:GTab.control>
+				<p1:Tab widgetName="composite_1">
+					<p1:Tab.layout>
+						<GridLayout/>
+					</p1:Tab.layout>
+					<p1:GInterruptPrio manifestObj="true" maxPriority="3" maxSubPriority="0" minPriority="0" minSubPriority="0" priorityValue="0" subPriorityValue="0" text="Slot Reception" widgetName="ginterruptprio_slot_rx" subPriorityVisible="false" description="This widget permits the configuration of the pre-emption priority and sub-priority.&#13;&#10;&#13;&#10;Note: The  pre-emption priority and sub-priority indicated in the range field will be dynamically assigned based on the number of bits configured in the CPU_CTRL_XMC1 APP" toolTipText="This widget permits the configuration of the preemption priority.">
+						<p1:GInterruptPrio.layoutData>
+							<GridData horizontalAlignment="FILL" widthHint="471"/>
+						</p1:GInterruptPrio.layoutData>
+					</p1:GInterruptPrio>
+					<p1:GInterruptPrio manifestObj="true" maxPriority="3" maxSubPriority="0" minPriority="0" minSubPriority="0" priorityMandatory="false" priorityValue="0" subPriorityMandatory="false" subPriorityValue="0" text="Accurate Break Detection" widgetName="ginterruptprio_acc_brk_det" subPriorityVisible="false" description="This widget permits the configuration of the pre-emption priority and sub-priority.&#13;&#10;&#13;&#10;Note: The  pre-emption priority and sub-priority indicated in the range field will be dynamically assigned based on the number of bits configured in the CPU_CTRL_XMC1 APP" toolTipText="This widget permits the configuration of the preemption priority.">
+						<p1:GInterruptPrio.layoutData>
+							<GridData horizontalAlignment="FILL"/>
+						</p1:GInterruptPrio.layoutData>
+					</p1:GInterruptPrio>
+				</p1:Tab>
+			</p1:GTab.control>
+		</p1:GTab>
+	</p1:TabFolder>
+</p1:Tab>

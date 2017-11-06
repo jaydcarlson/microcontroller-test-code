@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ResourceModel:DevicePackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore" URI="http://resources/TSSOP16.0.0/devicepackage/0">
+  <provided xsi:type="ResourceModel:ResourceGroup" name="16" URI="http://resources/tssop16.0.0/devicepackage/0/16">
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin16"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="7" URI="http://resources/tssop16.0.0/devicepackage/0/7">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@hwResources.1"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin7"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="10" URI="http://resources/tssop16.0.0/devicepackage/0/10">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_CCU4/v4_1_22/PWM_CCU4_1.app#//@hwResources.2"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin10"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="11" URI="http://resources/tssop16.0.0/devicepackage/0/11">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_CCU4/v4_1_22/PWM_CCU4_2.app#//@hwResources.2"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin11"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="9" URI="http://resources/tssop16.0.0/devicepackage/0/9">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/PWM_CCU4/v4_1_22/PWM_CCU4_0.app#//@hwResources.2"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin9"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="15" URI="http://resources/tssop16.0.0/devicepackage/0/15">
+    <upwardMapList xsi:type="ResourceModel:HWResource" href="../../APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_0.app#//@hwResources.1"/>
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin15"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="3" URI="http://resources/tssop16.0.0/devicepackage/0/3">
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin3"/>
+  </provided>
+  <provided xsi:type="ResourceModel:ResourceGroup" name="4" URI="http://resources/tssop16.0.0/devicepackage/0/4">
+    <resourcesList name="pin" requiredResourceUri="http://resources/TSSOP16.0.0/devicepackage/0/pin4"/>
+  </provided>
+</ResourceModel:DevicePackage>

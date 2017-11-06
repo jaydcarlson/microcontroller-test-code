@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ProjectConfig>
+    <ResourceReserve/>
+    <Solver>
+        <SolverBndMap>
+            <BindMap MUri="port/p/0/pad/6" Proxy="app/PWM_CCU4/0/hwres_port_channel_out"/>
+            <BindMap MUri="port/p/0/pad/15" Proxy="app/CPU_CTRL_XMC1/0/hwres_swd0_1"/>
+            <BindMap MUri="peripheral/cpu/0/nvic/interrupt/10" Proxy="app/DMX512_RD/0/hwres_usic_nvic"/>
+            <BindMap MUri="peripheral/cpu/0/exception/hardfault" Proxy="app/CPU_CTRL_XMC1/0/hwres_exception_hardfault"/>
+            <BindMap MUri="port/p/0/pad/7" Proxy="app/PWM_CCU4/1/hwres_port_channel_out"/>
+            <BindMap MUri="devicepackage/0/11" Proxy="app/PWM_CCU4/2/__pin_hwres_port_channel_out"/>
+            <BindMap MUri="port/p/0/pad/14" Proxy="app/CPU_CTRL_XMC1/0/hwres_swd0_0"/>
+            <BindMap MUri="peripheral/scu/0/dco/2" Proxy="app/CLOCK_XMC1/0/hwres_dco"/>
+            <BindMap MUri="port/p/0/pad/8" Proxy="app/PWM_CCU4/2/hwres_port_channel_out"/>
+            <BindMap MUri="devicepackage/0/9" Proxy="app/PWM_CCU4/0/__pin_hwres_port_channel_out"/>
+            <BindMap MUri="port/p/2/pad/0" Proxy="app/DIGITAL_IO/0/hwres_port_pin"/>
+            <BindMap MUri="peripheral/ccu4/0/cc4/1" Proxy="app/PWM_CCU4/1/hwres_ccu4_cc4_slice"/>
+            <BindMap MUri="peripheral/ccu4/0/cc4/2" Proxy="app/PWM_CCU4/2/hwres_ccu4_cc4_slice"/>
+            <BindMap MUri="peripheral/scu/0/ccu/config" Proxy="app/CLOCK_XMC1/0/hwres_clkcntrlunit"/>
+            <BindMap MUri="port/p/0/pad/0" Proxy="app/DIGITAL_IO/1/hwres_port_pin"/>
+            <BindMap MUri="devicepackage/0/15" Proxy="app/DIGITAL_IO/0/__pin_hwres_port_pin"/>
+            <BindMap MUri="peripheral/ccu4/0/cc4/0" Proxy="app/PWM_CCU4/0/hwres_ccu4_cc4_slice"/>
+            <BindMap MUri="devicepackage/0/10" Proxy="app/PWM_CCU4/1/__pin_hwres_port_channel_out"/>
+            <BindMap MUri="devicepackage/0/7" Proxy="app/DIGITAL_IO/1/__pin_hwres_port_pin"/>
+            <BindMap MUri="peripheral/ccu4/0/global" Proxy="app/GLOBAL_CCU4/0/hwres_peripheral_ccu4_global"/>
+            <BindMap MUri="peripheral/scu/0/gcu/ccu4_global_enable/0" Proxy="app/GLOBAL_CCU4/0/hwres_peripheral_scu_gcu_ccu4_global_enable"/>
+            <BindMap MUri="peripheral/usic/0/channel/0" Proxy="app/DMX512_RD/0/hwres_usic_slice"/>
+        </SolverBndMap>
+    </Solver>
+</ProjectConfig>

@@ -2,14 +2,15 @@
 <device:XMLDevice xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:device="http://www.silabs.com/ss/hwconfig/document/device.ecore" name="EFM8LB12F64E-B-QFP32" partId="mcu.8051.efm8.lb1.efm8lb12f64e-b-qfp32" version="4.0.1">
   <mode name="DefaultMode">
     <property object="CLOCK_0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="CLOCK_0" propertyId="clock.clockselect.clocksourcedivider" value="SYSCLK / 16"/>
     <property object="CROSSBAR0" propertyId="xbar0.pca0.cex" value="CEX0 to CEX2"/>
     <property object="CROSSBAR0" propertyId="xbar0.uart1.data" value="Enabled"/>
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="100, 100"/>
     <property object="INTERRUPT_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="INTERRUPT_0" propertyId="interrupt.extendedinterruptenable2.enableuart1interrupt" value="Enabled"/>
     <property object="INTERRUPT_0" propertyId="interrupt.interruptenable.enableallinterrupts" value="Enabled"/>
-    <property object="P0.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
-    <property object="P0.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P0.0" propertyId="ports.settings.inputmode" value="Analog"/>
+    <property object="P0.0" propertyId="ports.settings.iomode" value="Analog I/O"/>
     <property object="P0.0" propertyId="ports.settings.skip" value="Skipped"/>
     <property object="P0.1" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
     <property object="P0.1" propertyId="ports.settings.outputmode" value="Push-pull"/>
@@ -19,7 +20,58 @@
     <property object="P0.3" propertyId="ports.settings.outputmode" value="Push-pull"/>
     <property object="P0.4" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
     <property object="P0.4" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P0.6" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P0.6" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P0.6" propertyId="ports.settings.skip" value="Skipped"/>
+    <property object="P0.7" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P0.7" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P0.7" propertyId="ports.settings.skip" value="Skipped"/>
+    <property object="P1.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.1" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.1" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.2" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.2" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.3" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.3" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.4" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.4" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.5" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.5" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.6" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.6" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P1.7" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P1.7" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.1" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.1" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.2" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.2" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.3" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.3" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.4" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.4" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.5" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.5" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P2.6" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P2.6" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P3.0" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P3.0" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P3.1" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P3.1" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P3.2" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P3.2" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P3.3" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P3.3" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="P3.7" propertyId="ports.settings.iomode" value="Digital Push-Pull Output"/>
+    <property object="P3.7" propertyId="ports.settings.outputmode" value="Push-pull"/>
+    <property object="PBCFG_0" propertyId="pbcfg.settings.disableportioweakpullup" value="Pull-ups disabled"/>
     <property object="PBCFG_0" propertyId="pbcfg.settings.enablecrossbar" value="Enabled"/>
+    <property object="PBCFG_0" propertyId="pbcfg.settings.port0drivestrength" value="Low drive"/>
+    <property object="PBCFG_0" propertyId="pbcfg.settings.port1drivestrength" value="Low drive"/>
+    <property object="PBCFG_0" propertyId="pbcfg.settings.port2drivestrength" value="Low drive"/>
+    <property object="PBCFG_0" propertyId="pbcfg.settings.port3drivestrength" value="Low drive"/>
     <property object="PCACH_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="PCACH_0" propertyId="pcach.pcachannel.capturecomparehighbyte" value="19"/>
     <property object="PCACH_0" propertyId="pcach.pcachannel.capturecomparelowbyte" value="136"/>
@@ -43,18 +95,18 @@
     <property object="PCACH_4" propertyId="ABPeripheral.included" value="true"/>
     <property object="PCACH_5" propertyId="ABPeripheral.included" value="true"/>
     <property object="PCA_0" propertyId="ABPeripheral.included" value="true"/>
-    <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.pcaclockfrequency" value="3.062 MHz"/>
-    <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.pcaclockfrequencyintegervalue" value="3062500"/>
-    <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.pcaclockperiod" value="326.000 nS"/>
+    <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.pcaclockfrequency" value="1.531 MHz"/>
+    <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.pcaclockfrequencyintegervalue" value="1531250"/>
+    <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.pcaclockperiod" value="653.000 nS"/>
     <property object="PCA_0" propertyId="pca.pcacountertimerconfiguration.selectpcacountertimerpulse" value="SYSCLK"/>
     <property object="PCA_0" propertyId="pca.pcacountertimerruncontrol.pcarun" value="Start"/>
     <property object="TIMER01_0" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER01_0" propertyId="timer01.timer0highbyte.timer0highbyte" value="7"/>
     <property object="TIMER01_0" propertyId="timer01.timer0lowbyte.timer0lowbyte" value="31"/>
     <property object="TIMER01_0" propertyId="timer01.timer0mode0:13bitcountertimer.timerinitvalue" value="255"/>
-    <property object="TIMER01_0" propertyId="timer01.timer1highbyte.timer1highbyte" value="250"/>
+    <property object="TIMER01_0" propertyId="timer01.timer1highbyte.timer1highbyte" value="253"/>
     <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.targetoverflowfrequency" value="500000"/>
-    <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.timerreloadvalue" value="250"/>
+    <property object="TIMER01_0" propertyId="timer01.timer1mode2:8bitcountertimerwithautoreload.timerreloadvalue" value="253"/>
     <property object="TIMER16_2" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER16_3" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER16_4" propertyId="ABPeripheral.included" value="true"/>
@@ -64,13 +116,13 @@
     <property object="TIMER_SETUP_0" propertyId="timer_setup.timer1.clocksource" value="Use SYSCLK"/>
     <property object="TIMER_SETUP_0" propertyId="timer_setup.timer1.mode" value="Mode 2, 8-bit Counter/Timer with Auto-Reload"/>
     <property object="UARTE_1" propertyId="ABPeripheral.included" value="true"/>
+    <property object="UARTE_1" propertyId="fifo.fifointerruptcontrol.enabletransmitinterrupt" value="Disabled"/>
     <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.actualbaudrate" value="255208"/>
     <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.baudrateprescaler" value="Divide by 1"/>
     <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.baudratereloadhigh" value="255"/>
-    <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.baudratereloadlow" value="250"/>
+    <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.baudratereloadlow" value="253"/>
     <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.enablebaudrategenerator" value="Enabled"/>
     <property object="UARTE_1" propertyId="uarte.baudrategeneratorcontrol.expectedbaudrate" value="250000"/>
-    <property object="UARTE_1" propertyId="uarte.serialportcontrol.enableextrabit" value="Enabled"/>
     <property object="UARTE_1" propertyId="uarte.serialportcontrol.enablereceive" value="Enabled"/>
     <property object="UART_0" propertyId="uart.serialportcontrol.actualbaudrate" value="255208 Baud"/>
     <property object="UART_0" propertyId="uart.serialportcontrol.timer1overflowfrequency" value="510.416 kHz"/>

@@ -1,0 +1,239 @@
+package Model.APPS.CLOCK_XMC1.v4_0_18;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class CLOCK_XMC1_GUI extends AppManifest {
+	/* Begin : UI variable section */
+	 public GTab gtab_external_clock_settings;
+	 public GTab gtab_clktree_xmc1;
+	 public GTab gtab_dummy;
+	 public GImage gimage_XMC1403_DCO1_DCO2_direct_input;
+	 public GImage gimage_XMC14_DCO1_DCO2_direct_input;
+	 public GImage gimage_XMC14_DCO1_DCO2;
+	 public GImage gimage_XMC14_DCO1_External_APP;
+	 public GImage gimage_XMC14_DCO1_OSC_LP;
+	 public GImage gimage_XMC14_EXT_CLOCK_DC02;
+	 public GImage gimage_XMC14_EXT_CLOCK_External_APP;
+	 public GImage gimage_XMC14_EXT_CLOCK_OSC_LP;
+	 public GImage gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC14_EXT_OSC_HP_MODE_External_APP;
+	 public GImage gimage_XMC14_EXT_OSC_HP_MODE_OSC_LP;
+	 public GImage gimage_XMC1403_DCO1_DCO2;
+	 public GImage gimage_XMC1403_DCO1_External_APP;
+	 public GImage gimage_XMC1403_DCO1_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_DC02;
+	 public GImage gimage_XMC1403_EXT_CLOCK_External_APP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP;
+	 public GImage gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_MODE_External_APP;
+	 public GImage gimage_XMC1403_EXT_OSC_HP_MODE_OSC_LP;
+	 public GImage gimage_XMC11_1201_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC11_1201_EXT_OSC_HP_MODE_External_APP;
+	 public GImage gimage_XMC1202_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC1202_EXT_OSC_HP_MODE_External_APP;
+	 public GImage gimage_XMC1203_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC1203_EXT_OSC_HP_MODE_External_APP;
+	 public GImage gimage_XMC1301_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC1301_EXT_OSC_HP_MODE_External_APP;
+	 public GImage gimage_XMC1302_EXT_OSC_HP_MODE_DCO2;
+	 public GImage gimage_XMC1302_EXT_OSC_HP_MODE_External_APP;
+	 public GCombo gcombo_osc_hp_source;
+	 public GCombo gcombo_ccuclksrc;
+	 public GCombo gcombo_pclkdesfrq;
+	 public GCombo gcombo_rtcclksrc;
+	 public GCombo gcombo_dco1calibsel;
+	 public GFloat gfloat_dia_wdtclkfreq;
+	 public GFloat gfloat_dia_rtcclkfreq;
+	 public GFloat gfloat_dia_mclkactfrq;
+	 public GFloat gfloat_dia_pclkactfrq;
+	 public GFloat gfloat_dia_osc_lp;
+	 public GFloat gfloat_dia_osc_hp;
+	 public GFloat gfloat_dia_dco1;
+	 public GFloat gfloat_extclkfreq;
+	 public GFloat gfloat_mclkdesfrq;
+	 public GFloat gfloat_mclkactfrq;
+	 public GFloat gfloat_pclkactfrq;
+	 public GString gstring_dco1_clock_loss_event;
+	 public GString gstring_standby_clock_failure_event;
+	 public GString gstring_ext_osc_clock_loss_event;
+	 public GString gstring_dco1_out_sync_evnt;
+	 public GCheck gcheck_enable_osc_hp;
+	 public GCheck gcheck_enable_osc_lp;
+	 public GCheck gcheck_dco1calibsel;
+	 public GCheck gcheck_dco1_clock_loss_event;
+	 public GCheck gcheck_standby_clock_failure_event;
+	 public GCheck gcheck_ext_osc_clock_loss_event;
+	 public GCheck gcheck_dco1_out_sync_evnt;
+	 public GLabel glabel_osc_hp_source;
+	 public GLabel glabel_extclkfreq;
+	 public GLabel glabel_rtcclksrc;
+	 public GLabel glabel_dco1calibsel;
+	 public GLabel glabel_ext_osc_clock_loss_event;
+	 public GLabel glabel_dco1_out_sync_evnt;
+	 public GLabel glabel_dia_wdtclkfreq;
+	 public GLabel glabel_dia_dco2;
+	 public GLabel glabel_dia_rtcclkfreq;
+	 public GLabel glabel_dia_osc_lp;
+	 public GLabel glabel_dia_mclkactfrq;
+	 public GLabel glabel_dia_osc_hp;
+	 public GLabel glabel_dia_pclkactfrq;
+	 public GLabel glabel_dia_dco1;
+	 public GMessage gmessage_calibration;
+	 public GMessage gmessage_valid_isr_name;
+
+	 public CLOCK_XMC1_GUI(DaveEnv daveEnv){
+
+	 gtab_external_clock_settings = GTab(widgetName:"gtab_external_clock_settings", text:"External Clock Settings", enabled:true, visible:true)
+	 gtab_clktree_xmc1 = GTab(widgetName:"gtab_clktree_xmc1", text:"General Settings", enabled:true, visible:true)
+	 gtab_dummy = GTab(widgetName:"gtab_dummy", text:"New Tab", enabled:true, visible:true)
+	 gimage_XMC1403_DCO1_DCO2_direct_input = GImage(widgetName:"gimage_XMC1403_DCO1_DCO2_direct_input", path: "doc/XMC1403_DCO1_DCO2_direct_input.png", enabled:true, visible:true)
+	 gimage_XMC14_DCO1_DCO2_direct_input = GImage(widgetName:"gimage_XMC14_DCO1_DCO2_direct_input", path: "doc/XMC14_DCO1_DCO2_direct_input.png", enabled:true, visible:true)
+	 gimage_XMC14_DCO1_DCO2 = GImage(widgetName:"gimage_XMC14_DCO1_DCO2", path: "doc/XMC14_DCO1_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC14_DCO1_External_APP = GImage(widgetName:"gimage_XMC14_DCO1_External_APP", path: "doc/XMC14_DCO1_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC14_DCO1_OSC_LP = GImage(widgetName:"gimage_XMC14_DCO1_OSC_LP", path: "doc/XMC14_DCO1_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_DC02 = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_DC02", path: "doc/XMC14_EXT_CLOCK_DC02.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_External_APP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_External_APP", path: "doc/XMC14_EXT_CLOCK_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_OSC_LP", path: "doc/XMC14_EXT_CLOCK_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP", path: "doc/XMC14_EXT_DCO1_DCO2_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP", path: "doc/XMC14_EXT_DCO1_DCO2_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP", path: "doc/XMC14_EXT_DCO1_External_APP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP", path: "doc/XMC14_EXT_DCO1_External_APP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP", path: "doc/XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP", path: "doc/XMC14_EXT_DCO1_OSC_LP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP", path: "doc/XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP", path: "doc/XMC14_EXT_OSC_HP_DCO2_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP", path: "doc/XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP", path: "doc/XMC14_EXT_OSC_HP_External_APP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP", path: "doc/XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP", path: "doc/XMC14_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP", path: "doc/XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP", path: "doc/XMC14_EXT_CLOCK_DCO2_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP", path: "doc/XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP", path: "doc/XMC14_EXT_CLOCK_External_APP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP", path: "doc/XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP", path: "doc/XMC14_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC14_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC14_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC14_EXT_OSC_HP_MODE_OSC_LP = GImage(widgetName:"gimage_XMC14_EXT_OSC_HP_MODE_OSC_LP", path: "doc/XMC14_EXT_OSC_HP_MODE_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_DCO1_DCO2 = GImage(widgetName:"gimage_XMC1403_DCO1_DCO2", path: "doc/XMC1403_DCO1_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC1403_DCO1_External_APP = GImage(widgetName:"gimage_XMC1403_DCO1_External_APP", path: "doc/XMC1403_DCO1_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1403_DCO1_OSC_LP = GImage(widgetName:"gimage_XMC1403_DCO1_OSC_LP", path: "doc/XMC1403_DCO1_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_DC02 = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_DC02", path: "doc/XMC1403_EXT_CLOCK_DC02.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_External_APP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_External_APP", path: "doc/XMC1403_EXT_CLOCK_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_OSC_LP", path: "doc/XMC1403_EXT_CLOCK_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_DCO1_DCO2_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_DCO1_External_APP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_DCO1_OSC_LP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_OSC_HP_DCO2_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_OSC_HP_External_APP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_OSC_HP_OSC_LP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_CLOCK_DCO2_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_CLOCK_External_APP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP", path: "doc/XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_HP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP", path: "doc/XMC1403_EXT_CLOCK_OSC_LP_calibration_using_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC1403_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC1403_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1403_EXT_OSC_HP_MODE_OSC_LP = GImage(widgetName:"gimage_XMC1403_EXT_OSC_HP_MODE_OSC_LP", path: "doc/XMC1403_EXT_OSC_HP_MODE_OSC_LP.png", enabled:true, visible:true)
+	 gimage_XMC11_1201_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC11_1201_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC11_1201_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC11_1201_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC11_1201_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC11_1201_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1202_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC1202_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC1202_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC1202_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC1202_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC1202_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1203_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC1203_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC1203_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC1203_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC1203_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC1203_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1301_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC1301_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC1301_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC1301_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC1301_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC1301_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gimage_XMC1302_EXT_OSC_HP_MODE_DCO2 = GImage(widgetName:"gimage_XMC1302_EXT_OSC_HP_MODE_DCO2", path: "doc/XMC1302_EXT_OSC_HP_MODE_DCO2.png", enabled:true, visible:true)
+	 gimage_XMC1302_EXT_OSC_HP_MODE_External_APP = GImage(widgetName:"gimage_XMC1302_EXT_OSC_HP_MODE_External_APP", path: "doc/XMC1302_EXT_OSC_HP_MODE_External_APP.png", enabled:true, visible:true)
+	 gcombo_osc_hp_source = GCombo(widgetName:"gcombo_osc_hp_source", options:["External Crystal","External Direct Input"], value:"External Crystal", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_ccuclksrc = GCombo(widgetName:"gcombo_ccuclksrc", options:["DCO1","OSC_HP"], value:"DCO1", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_pclkdesfrq = GCombo(widgetName:"gcombo_pclkdesfrq", options:["MCLK","2 x MCLK"], value:"2 x MCLK", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_rtcclksrc = GCombo(widgetName:"gcombo_rtcclksrc", options:["DCO2","External Clock","OSC_LP"], value:"DCO2", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_dco1calibsel = GCombo(widgetName:"gcombo_dco1calibsel", options:["OSC_HP","OSC_LP"], value:"OSC_HP", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_dia_wdtclkfreq = GFloat(widgetName:"gfloat_dia_wdtclkfreq", value:32.768, minValue:32.768, maxValue:32.768, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_dia_rtcclkfreq = GFloat(widgetName:"gfloat_dia_rtcclkfreq", value:32.768, minValue:32.768, maxValue:32.768, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_dia_mclkactfrq = GFloat(widgetName:"gfloat_dia_mclkactfrq", value:32, minValue:0, maxValue:32, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_dia_pclkactfrq = GFloat(widgetName:"gfloat_dia_pclkactfrq", value:64, minValue:0, maxValue:64, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_dia_osc_lp = GFloat(widgetName:"gfloat_dia_osc_lp", value:32.768, minValue:32.768, maxValue:32.768, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_dia_osc_hp = GFloat(widgetName:"gfloat_dia_osc_hp", value:64, minValue:0, maxValue:64, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_dia_dco1 = GFloat(widgetName:"gfloat_dia_dco1", value:64, minValue:0, maxValue:64, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_extclkfreq = GFloat(widgetName:"gfloat_extclkfreq", value:20.0, minValue:4.0, maxValue:20.0, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_mclkdesfrq = GFloat(widgetName:"gfloat_mclkdesfrq", value:32.0, minValue:0.125, maxValue:32.0, enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_mclkactfrq = GFloat(widgetName:"gfloat_mclkactfrq", value:32, minValue:0.125, maxValue:32.00, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_pclkactfrq = GFloat(widgetName:"gfloat_pclkactfrq", value:32, minValue:0.125, maxValue:64.00, enabled:false, visible:true, isMandatoryValue:false)
+	 gstring_dco1_clock_loss_event = GString(widgetName:"gstring_dco1_clock_loss_event", value:"UserCallback1", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_standby_clock_failure_event = GString(widgetName:"gstring_standby_clock_failure_event", value:"UserCallback2", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_ext_osc_clock_loss_event = GString(widgetName:"gstring_ext_osc_clock_loss_event", value:"UserCallback3", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_dco1_out_sync_evnt = GString(widgetName:"gstring_dco1_out_sync_evnt", value:"UserCallback4", enabled:true, visible:true, isMandatoryValue:false)
+	 gcheck_enable_osc_hp = GCheck(widgetName:"gcheck_enable_osc_hp", value:false, enabled:true, visible:true)
+	 gcheck_enable_osc_lp = GCheck(widgetName:"gcheck_enable_osc_lp", value:false, enabled:true, visible:true)
+	 gcheck_dco1calibsel = GCheck(widgetName:"gcheck_dco1calibsel", value:false, enabled:true, visible:true)
+	 gcheck_dco1_clock_loss_event = GCheck(widgetName:"gcheck_dco1_clock_loss_event", value:false, enabled:true, visible:true)
+	 gcheck_standby_clock_failure_event = GCheck(widgetName:"gcheck_standby_clock_failure_event", value:false, enabled:true, visible:true)
+	 gcheck_ext_osc_clock_loss_event = GCheck(widgetName:"gcheck_ext_osc_clock_loss_event", value:false, enabled:true, visible:true)
+	 gcheck_dco1_out_sync_evnt = GCheck(widgetName:"gcheck_dco1_out_sync_evnt", value:false, enabled:true, visible:true)
+	 glabel_osc_hp_source = GLabel(widgetName:"glabel_osc_hp_source", text:"   OSC_HP clock source:", enabled:true, visible:true)
+	 glabel_extclkfreq = GLabel(widgetName:"glabel_extclkfreq", text:"   OSC_HP clock frequency [MHz]:", enabled:true, visible:true)
+	 glabel_rtcclksrc = GLabel(widgetName:"glabel_rtcclksrc", text:"RTC clock source:", enabled:true, visible:true)
+	 glabel_dco1calibsel = GLabel(widgetName:"glabel_dco1calibsel", text:"DCO1 calibration source:", enabled:true, visible:true)
+	 glabel_ext_osc_clock_loss_event = GLabel(widgetName:"glabel_ext_osc_clock_loss_event", text:"Event handler:", enabled:true, visible:true)
+	 glabel_dco1_out_sync_evnt = GLabel(widgetName:"glabel_dco1_out_sync_evnt", text:"Event handler:", enabled:true, visible:true)
+	 glabel_dia_wdtclkfreq = GLabel(widgetName:"glabel_dia_wdtclkfreq", text:"WDT clock frequency", enabled:true, visible:true)
+	 glabel_dia_dco2 = GLabel(widgetName:"glabel_dia_dco2", text:"DCO2 clock frequency", enabled:true, visible:true)
+	 glabel_dia_rtcclkfreq = GLabel(widgetName:"glabel_dia_rtcclkfreq", text:"RTC clock frequency", enabled:true, visible:true)
+	 glabel_dia_osc_lp = GLabel(widgetName:"glabel_dia_osc_lp", text:"OSC_LP clock frequency", enabled:true, visible:true)
+	 glabel_dia_mclkactfrq = GLabel(widgetName:"glabel_dia_mclkactfrq", text:"MCLK clock frequency", enabled:true, visible:true)
+	 glabel_dia_osc_hp = GLabel(widgetName:"glabel_dia_osc_hp", text:"OSC_HP clock frequency", enabled:true, visible:true)
+	 glabel_dia_pclkactfrq = GLabel(widgetName:"glabel_dia_pclkactfrq", text:"PCLK clock frequency", enabled:true, visible:true)
+	 glabel_dia_dco1 = GLabel(widgetName:"glabel_dia_dco1", text:"DCO1 clock frequency", enabled:true, visible:true)
+	 gmessage_calibration = GMessage(widgetName:"gmessage_calibration", text:"New Message", isError:false, visible:true)
+	 gmessage_valid_isr_name = GMessage(widgetName:"gmessage_valid_isr_name", text:"Not valid user callback name.", isError:false, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

@@ -1,0 +1,5 @@
+com.renesas.cdt.ccrl.common.option.cpu=s2
+com.renesas.cdt.ccrl.common.option.device=R5F102A8
+com.renesas.cdt.ccrl.common.option.family=RL78 - G12
+com.renesas.cdt.ccrl.compiler.option.I="${TCINSTALL}\\inc";
+eclipse.preferences.version=1

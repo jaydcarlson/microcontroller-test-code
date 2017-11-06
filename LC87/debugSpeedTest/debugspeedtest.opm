@@ -1,0 +1,4 @@
+-G "d:\git\microcontroller-test-code\lc87\debugspeedtest"
+-err "debugspeedtest.err"
+-r
+-f "debugspeedtest.mak"

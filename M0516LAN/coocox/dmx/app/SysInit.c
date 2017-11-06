@@ -70,7 +70,7 @@ void UART0_Init()
 
     CLK_EnableModuleClock(UART0_MODULE);
 
-    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_HIRC, CLK_CLKDIV_UART(12));
+    CLK_SetModuleClock(UART0_MODULE, CLK_CLKSEL1_UART_S_HIRC, CLK_CLKDIV_UART(14));
 
     UART_Open(UART0, 250000);
 
@@ -84,7 +84,7 @@ void UART0_Init()
 void SYS_Init()
 {
     SYS_UnlockReg();
-    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HIRC, CLK_CLKDIV_HCLK(16));
+    CLK_SetHCLK(CLK_CLKSEL0_HCLK_S_HIRC, CLK_CLKDIV_HCLK(8));
 //    CLK_SetCoreClock(5000000);
     // power down stuff when core is in wait mode
     CLK->PWRCON |= CLK_PWRCON_PWR_DOWN_EN_Msk | CLK_PWRCON_PD_WAIT_CPU_Msk;

@@ -1,0 +1,4 @@
+-G "d:\git\microcontroller-test-code\lc87\toggle"
+-err "toggle.err"
+-r
+-f "toggle.mak"

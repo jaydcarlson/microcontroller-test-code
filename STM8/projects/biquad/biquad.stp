@@ -70,11 +70,11 @@ String.107.0=biquad.elf
 Int.108=0
 
 [Root.Config.0.Settings.1]
-String.6.0=2017,8,1,20,45,54
+String.6.0=2017,11,3,22,58,14
 String.100.0=$(TargetFName)
 String.101.0=
 String.102.0=
-String.103.0=.\;..\fwlib;..\..\fwlib\src;
+String.103.0=.\;..\..\fwlib\src;
 
 [Root.Config.0.Settings.2]
 String.2.0=
@@ -454,6 +454,7 @@ PathName=stm8_interrupt_vector.c
 [Root.Include Files]
 ElemType=Folder
 PathName=Include Files
+Child=Root.Include Files.stm8s_conf.h
 Config.0=Root.Include Files.Config.0
 Config.1=Root.Include Files.Config.1
 
@@ -522,3 +523,7 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2017,8,1,20,42,5
+
+[Root.Include Files.stm8s_conf.h]
+ElemType=File
+PathName=stm8s_conf.h
